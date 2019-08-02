@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Scraper;
+
+use App\Entity\PropertyAd;
+use App\Exception\ParseException;
+use App\Parser\AbstractParser;
+use App\UrlBuilder\AbstractUrlBuilder;
+use Symfony\Component\Panther\Client;
+
+abstract class AbstractScraper
+{
+    /**
+     * @var AbstractUrlBuilder
+     */
+    private $urlBuilder;
+
+    /**
+     * @var AbstractParser
+     */
+    private $parser;
+
+    /**
+     * @param AbstractUrlBuilder $urlBuilder
+     * @param AbstractParser     $parser
+     */
+    public function __construct(AbstractUrlBuilder $urlBuilder, AbstractParser $parser)
+    {
+        $this->urlBuilder = $urlBuilder;
+        $this->parser = $parser;
+    }
+
+    /**
+     * @param string   $city
+     * @param int      $propertyType
+     * @param int|null $minPrice
+     * @param int      $maxPrice
+     * @param int      $minArea
+     * @param int|null $maxArea
+     * @param int      $minRoomsCount
+     * @param int|null $maxRoomsCount
+     *
+     * @return PropertyAd[]
+     *
+     * @throws ParseException
+     */
+    public function scrap(
+        string $city,
+        int $propertyType,
+        ?int $minPrice,
+        int $maxPrice,
+        int $minArea,
+        ?int $maxArea,
+        int $minRoomsCount,
+        ?int $maxRoomsCount
+    ): array
+    {
+        $url = $this->urlBuilder->buildUrl(...func_get_args());
+
+        $client = Client::createChromeClient();
+        $client->request('GET', $url);
+
+        $html = $client->getPageSource();
+
+        // Kill the client in order to avoid "The port is already in use" error when the client is needed again
+        unset($client);
+
+        return $this->parser->parse($html);
+    }
+}

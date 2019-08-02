@@ -77,6 +77,11 @@ class PropertyAd
     private $realEstateAgent;
 
     /**
+     * @var PropertyType
+     */
+    private $propertyType;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -340,6 +345,26 @@ class PropertyAd
     public function setRealEstateAgent(?string $realEstateAgent): PropertyAd
     {
         $this->realEstateAgent = $realEstateAgent;
+
+        return $this;
+    }
+
+    /**
+     * @return PropertyType
+     */
+    public function getPropertyType(): PropertyType
+    {
+        return $this->propertyType;
+    }
+
+    /**
+     * @param PropertyType $propertyType
+     *
+     * @return PropertyAd
+     */
+    public function setPropertyType(PropertyType $propertyType): PropertyAd
+    {
+        $this->propertyType = $propertyType;
 
         return $this;
     }

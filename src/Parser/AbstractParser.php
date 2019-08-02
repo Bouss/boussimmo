@@ -9,10 +9,13 @@ use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\Panther\Client;
 
 abstract class AbstractParser
 {
     // Redefined in the child classes
+    protected const SITE = '';
+    protected const SELECTOR_NEXT_PAGE_URL = '';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_AD_WRAPPER = '';
     protected const SELECTOR_TITLE = '';
@@ -49,46 +52,59 @@ abstract class AbstractParser
      */
     public function parse(string $html): array
     {
+        $client = Client::createChromeClient();
         $crawler = new Crawler($html);
 
-        try {
-            $crawler->filter(static::SELECTOR_AD_WRAPPER);
-        } catch (Exception $e) {
-            throw new ParseException('No property ads found: ' . $e->getMessage());
-        }
-
         /** @var PropertyAd[] $ads */
-        $ads = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) {
+        do {
             try {
-                $ad = (new PropertyAd())
-                    ->setSite($this->getSite())
-                    ->setExternalId($this->getExternalId($adCrawler))
-                    ->setUrl($this->getUrl($adCrawler))
-                    ->setPrice($this->getPrice($adCrawler))
-                    ->setArea($this->getArea($adCrawler))
-                    ->setRoomsCount($this->getRoomsCount($adCrawler))
-                    ->setLocation($this->getLocation($adCrawler))
-                    ->setPublishedAt($this->getPublishedAt($adCrawler))
-                    ->setTitle($this->getTitle($adCrawler))
-                    ->setDescription($this->getDescription($adCrawler))
-                    ->setPhoto($this->getPhoto($adCrawler))
-                    ->setRealEstateAgent($this->getRealEstateAgent($adCrawler));
-
-                return $ad;
+                $crawler->filter(static::SELECTOR_AD_WRAPPER);
             } catch (Exception $e) {
-                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), ['site' => $this->getSite()]);
+                throw new ParseException('No property ads found: ' . $e->getMessage());
             }
 
-            return null;
-        });
+            // Iterate over all DOM elements wrapping a property ad on the current page
+            $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) {
+                try {
+                    return $this->buildPropertyAd($adCrawler);
+                } catch (Exception $e) {
+                    $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), ['site' => static::SITE]);
+                }
 
-        return $ads;
+                return null;
+            });
+
+            // Fetch the next page
+            $nextPage = $this->getNextPageUrl($crawler);
+            if (null !== $nextPage) {
+                $client->request('GET', $nextPage);
+                $crawler = new Crawler($client->getPageSource());
+            }
+
+        } while (null !== $nextPage);
+
+        unset($client);
+
+        return array_merge(...$ads);
     }
 
     /**
-     * @return string
+     * @param Crawler $crawler
+     *
+     * @return string|null
      */
-    abstract protected function getSite(): string;
+    protected function getNextPageUrl(Crawler $crawler): ?string
+    {
+        if (empty(static::SELECTOR_NEXT_PAGE_URL)) {
+            return null;
+        }
+
+        try {
+            return trim($crawler->filter(static::SELECTOR_NEXT_PAGE_URL)->text());
+        } catch (Exception $e) {
+            return null;
+        }
+    }
 
     /**
      * @param Crawler $crawler
@@ -293,5 +309,32 @@ abstract class AbstractParser
         } catch (Exception $e) {
             return null;
         }
+    }
+
+    /**
+     * @param Crawler $crawler
+     *
+     * @return PropertyAd
+     *
+     * @throws ParseException
+     * @throws Exception
+     */
+    private function buildPropertyAd(Crawler $crawler): PropertyAd
+    {
+        $ad = (new PropertyAd())
+            ->setSite(static::SITE)
+            ->setExternalId($this->getExternalId($crawler))
+            ->setUrl($this->getUrl($crawler))
+            ->setPrice($this->getPrice($crawler))
+            ->setArea($this->getArea($crawler))
+            ->setRoomsCount($this->getRoomsCount($crawler))
+            ->setLocation($this->getLocation($crawler))
+            ->setPublishedAt($this->getPublishedAt($crawler))
+            ->setTitle($this->getTitle($crawler))
+            ->setDescription($this->getDescription($crawler))
+            ->setPhoto($this->getPhoto($crawler))
+            ->setRealEstateAgent($this->getRealEstateAgent($crawler));
+
+        return $ad;
     }
 }

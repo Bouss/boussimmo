@@ -57,7 +57,7 @@ HTML;
         $ad = $ads[0];
         $this->assertEquals('ouestfrance-immo', $ad->getSite());
         $this->assertEquals('13162857', $ad->getExternalId());
-        $this->assertEquals('/immobilier/vente/appartement/nantes-44-44109/3-pieces-13162857.htm', $ad->getUrl());
+        $this->assertEquals('https://www.ouestfrance-immo.com/immobilier/vente/appartement/nantes-44-44109/3-pieces-13162857.htm', $ad->getUrl());
         $this->assertEquals(118490, $ad->getPrice());
         $this->assertEquals(62, $ad->getArea());
         $this->assertEquals(3, $ad->getRoomsCount());
