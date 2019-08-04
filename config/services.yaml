@@ -32,3 +32,8 @@ services:
         arguments:
             $urlBuilder: '@App\UrlBuilder\OuestFranceImmoUrlBuilder'
             $parser: '@App\Parser\OuestFranceImmoParser'
+
+    App\Scraper\LogicImmoScraper:
+        arguments:
+            $urlBuilder: '@App\UrlBuilder\LogicImmoUrlBuilder'
+            $parser: '@App\Parser\LogicImmoParser'

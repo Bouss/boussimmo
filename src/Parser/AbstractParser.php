@@ -4,7 +4,8 @@ namespace App\Parser;
 
 use App\Entity\PropertyAd;
 use App\Exception\ParseException;
-use App\Util\NumberUtil;
+use App\Util\NumericUtil;
+use App\Util\StringUtil;
 use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -16,8 +17,8 @@ abstract class AbstractParser
     // Redefined in the child classes
     protected const SITE = '';
     protected const SELECTOR_NEXT_PAGE_URL = '';
-    protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_AD_WRAPPER = '';
+    protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '';
     protected const SELECTOR_LOCATION = '';
@@ -28,7 +29,10 @@ abstract class AbstractParser
     protected const SELECTOR_ROOMS_COUNT = '';
     protected const SELECTOR_PHOTO = '';
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
+    protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';
+
+    private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme'];
 
     /**
      * @var LoggerInterface
@@ -100,7 +104,27 @@ abstract class AbstractParser
         }
 
         try {
-            return trim($crawler->filter(static::SELECTOR_NEXT_PAGE_URL)->text());
+            return $crawler->filter(static::SELECTOR_NEXT_PAGE_URL)->attr('href');
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * @param Crawler $crawler
+     *
+     * @return string|null
+     */
+    protected function getExternalId(Crawler $crawler): ?string
+    {
+        if (empty(static::SELECTOR_EXTERNAL_ID)) {
+            return null;
+        }
+
+        try {
+            preg_match('/.*\[(.+)].*/', static::SELECTOR_EXTERNAL_ID, $matches);
+
+            return $crawler->filter(static::SELECTOR_EXTERNAL_ID)->attr($matches[1]);
         } catch (Exception $e) {
             return null;
         }
@@ -137,7 +161,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the price: ' . $e->getMessage());
         }
 
-        return NumberUtil::extractFloat($priceStr);
+        return NumericUtil::extractFloat($priceStr);
     }
 
     /**
@@ -155,7 +179,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the area: ' . $e->getMessage());
         }
 
-        return NumberUtil::extractFloat($areaStr);
+        return NumericUtil::extractFloat($areaStr);
     }
 
     /**
@@ -173,25 +197,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the number of rooms: ' . $e->getMessage());
         }
 
-        return NumberUtil::extractInt($roomsCountStr);
-    }
-
-    /**
-     * @param Crawler $crawler
-     *
-     * @return string|null
-     */
-    protected function getExternalId(Crawler $crawler): ?string
-    {
-        if (empty(static::SELECTOR_EXTERNAL_ID)) {
-            return null;
-        }
-
-        try {
-            return trim($crawler->filter(static::SELECTOR_EXTERNAL_ID)->text());
-        } catch (Exception $e) {
-            return null;
-        }
+        return NumericUtil::extractInt($roomsCountStr);
     }
 
     /**
@@ -314,6 +320,24 @@ abstract class AbstractParser
     /**
      * @param Crawler $crawler
      *
+     * @return bool
+     */
+    protected function isNewBuild(Crawler $crawler): bool
+    {
+        if (!empty(static::SELECTOR_NEW_BUILD)) {
+            try {
+                return 1 === $crawler->filter(static::SELECTOR_NEW_BUILD)->count();
+            } catch (Exception $e) {
+                return false;
+            }
+        }
+
+        return StringUtil::contains($this->getTitle($crawler) . $this->getDescription($crawler), self::NEW_BUILD_WORDS);
+    }
+
+    /**
+     * @param Crawler $crawler
+     *
      * @return PropertyAd
      *
      * @throws ParseException
@@ -333,7 +357,8 @@ abstract class AbstractParser
             ->setTitle($this->getTitle($crawler))
             ->setDescription($this->getDescription($crawler))
             ->setPhoto($this->getPhoto($crawler))
-            ->setRealEstateAgent($this->getRealEstateAgent($crawler));
+            ->setRealEstateAgent($this->getRealEstateAgent($crawler))
+            ->setNewBuild($this->isNewBuild($crawler));
 
         return $ad;
     }

@@ -77,6 +77,11 @@ class PropertyAd
     private $realEstateAgent;
 
     /**
+     * @var bool
+     */
+    private $newBuild = false;
+
+    /**
      * @var PropertyType
      */
     private $propertyType;
@@ -345,6 +350,26 @@ class PropertyAd
     public function setRealEstateAgent(?string $realEstateAgent): PropertyAd
     {
         $this->realEstateAgent = $realEstateAgent;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNewBuild(): bool
+    {
+        return $this->newBuild;
+    }
+
+    /**
+     * @param bool $newBuild
+     *
+     * @return PropertyAd
+     */
+    public function setNewBuild(bool $newBuild): PropertyAd
+    {
+        $this->newBuild = $newBuild;
 
         return $this;
     }

@@ -5,6 +5,7 @@ namespace App;
 use App\Definition\SiteEnum;
 use App\Exception\ScraperLocatorException;
 use App\Scraper\AbstractScraper;
+use App\Scraper\LogicImmoScraper;
 use App\Scraper\OuestFranceImmoScraper;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
@@ -31,6 +32,7 @@ class ScraperContainer implements ServiceSubscriberInterface
     {
         return [
             SiteEnum::OUESTFRANCE_IMMO => OuestFranceImmoScraper::class,
+            SiteEnum::LOGIC_IMMO => LogicImmoScraper::class
         ];
     }
 

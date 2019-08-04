@@ -125,21 +125,19 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
     private function buildRoomsCountParamForApartment(int $minRoomsCount, ?int $maxRoomsCount): array
     {
         $maxRoomsCount = $maxRoomsCount ?: $minRoomsCount;
-        $value = '';
+        $values = [];
 
         for ($i = $minRoomsCount; $i <= $maxRoomsCount; ++$i) {
             if (1 === $i) {
-                $value .= 'studio,t1';
+                $values[] = 'studio,t1';
             } elseif ($i < 6) {
-                $value .= $i . '-pieces';
+                $values[] = $i . '-pieces';
             } else {
-                $value .= '6-pieces-et-plus';
+                $values[] = '6-pieces-et-plus';
             }
-            $value .= ',';
         }
 
-        // Remove last ',' value separator
-        return ['classifs' => rtrim($value, ',')];
+        return ['classifs' => implode(',', $values)];
     }
 
     /**

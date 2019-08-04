@@ -30,7 +30,7 @@ class OuestFranceImmoUrlBuilderTest extends TestCase
         $this->locationService->getLocation('ouestfrance-immo', 'nantes')->willReturn('nantes-44-44000');
     }
 
-    public function testBuildUrlForApartment(): void
+    public function testBuildUrlForApartmentWithAllCriteriaFilled(): void
     {
         $url = 'https://www.ouestfrance-immo.com/acheter/nantes-44-44000/?types=appartement&classifs=2-pieces,3-pieces&prix=150000_200000&surface=50_80&tri=DATE_DECROISSANT';
         $url = str_replace(',', '%2C', $url);
@@ -49,16 +49,16 @@ class OuestFranceImmoUrlBuilderTest extends TestCase
         $this->assertEquals($url, $this->urlBuilder->buildUrl(...$criteria));
     }
 
-    public function testBuildUrlForOneRoomApartment(): void
+    public function testBuildUrlForOneRoomApartmentWithMinimumCriteriaFilled(): void
     {
-        $url = 'https://www.ouestfrance-immo.com/acheter/nantes-44-44000/?types=appartement&classifs=studio,t1&prix=0_150000&surface=20_0&tri=DATE_DECROISSANT';
+        $url = 'https://www.ouestfrance-immo.com/acheter/nantes-44-44000/?types=appartement&classifs=studio,t1&prix=0_100000&surface=20_0&tri=DATE_DECROISSANT';
         $url = str_replace(',', '%2C', $url);
 
         $criteria = [
             'nantes', // $city
             PropertyType::APARTMENT, // $propertyType
             null, // $minPrice
-            150000, // $maxPrice
+            100000, // $maxPrice
             20, // $minArea
             null, // $maxArea
             1, // $minRoomsCount
@@ -68,7 +68,26 @@ class OuestFranceImmoUrlBuilderTest extends TestCase
         $this->assertEquals($url, $this->urlBuilder->buildUrl(...$criteria));
     }
 
-    public function testBuildUrlForHouse(): void
+    public function testBuildUrlForMoreThan6RoomsApartment(): void
+    {
+        $url = 'https://www.ouestfrance-immo.com/acheter/nantes-44-44000/?types=appartement&classifs=6-pieces-et-plus&prix=0_800000&surface=300_0&tri=DATE_DECROISSANT';
+        $url = str_replace(',', '%2C', $url);
+
+        $criteria = [
+            'nantes', // $city
+            PropertyType::APARTMENT, // $propertyType
+            null, // $minPrice
+            800000, // $maxPrice
+            300, // $minArea
+            null, // $maxArea
+            9, // $minRoomsCount
+            null // $maxRoomsCount
+        ];
+
+        $this->assertEquals($url, $this->urlBuilder->buildUrl(...$criteria));
+    }
+
+    public function testBuildUrlForHouseIgnoreMaxRoomsCount(): void
     {
         $url = 'https://www.ouestfrance-immo.com/acheter/nantes-44-44000/?types=maison&chambres=3_0&prix=0_300000&surface=150_0&tri=DATE_DECROISSANT';
         $url = str_replace(',', '%2C', $url);

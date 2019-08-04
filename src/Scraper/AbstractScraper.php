@@ -3,13 +3,18 @@
 namespace App\Scraper;
 
 use App\Entity\PropertyAd;
+use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;
 use App\Parser\AbstractParser;
 use App\UrlBuilder\AbstractUrlBuilder;
+use App\Util\StringUtil;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Panther\Client;
 
 abstract class AbstractScraper
 {
+    private const ACCESS_DENIED_WORDS = ['access denied', 'permission to access'];
+
     /**
      * @var AbstractUrlBuilder
      */
@@ -42,6 +47,7 @@ abstract class AbstractScraper
      *
      * @return PropertyAd[]
      *
+     * @throws AccessDeniedException
      * @throws ParseException
      */
     public function scrap(
@@ -59,6 +65,15 @@ abstract class AbstractScraper
 
         $client = Client::createChromeClient();
         $client->request('GET', $url);
+
+        // Manage a "403 Access Denied" response or equivalent
+        $response = $client->getInternalResponse();
+        if (
+            Response::HTTP_FORBIDDEN === $response->getStatusCode() ||
+            StringUtil::contains($response->getContent(), self::ACCESS_DENIED_WORDS)
+        ) {
+            throw new AccessDeniedException(sprintf('Access denied for site: "%s" with URL: "%s"', $this->urlBuilder->getSite(), $url));
+        }
 
         $html = $client->getPageSource();
 

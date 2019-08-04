@@ -57,6 +57,14 @@ abstract class AbstractUrlBuilder
     }
 
     /**
+     * @return string
+     */
+    public function getSite(): string
+    {
+        return static::SITE;
+    }
+
+    /**
      * @param string   $city
      * @param int      $propertyType
      * @param int|null $minPrice

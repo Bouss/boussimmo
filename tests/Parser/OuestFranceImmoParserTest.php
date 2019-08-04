@@ -32,7 +32,7 @@ class OuestFranceImmoParserTest extends TestCase
                     <span class="annTitre">Appartement 3 pièces</span>
                 </h3>
                 <span class="annVille">Nantes</span>
-                <span class="annTexte hidden-phone">À deux pas d'Atlantis, près de la rocade ouest à vendre appartement de type 3 traversant, situé au RDC IDEAL POUR UNE PERSONNE...</span>
+                <span class="annTexte hidden-phone">À deux pas d'Atlantis, près de la rocade ouest à programme de 20 types 3, situé au RDC IDEAL POUR UNE PERSONNE...</span>
                 <span class="annCriteres">62m² | 2 chb | 2 sdb</span>
                 <span class="annDebAff">27/07/19</span>
                 <div class="annInteractions hidden-phone">
@@ -63,9 +63,10 @@ HTML;
         $this->assertEquals(3, $ad->getRoomsCount());
         $this->assertEquals('Nantes', $ad->getLocation());
         $this->assertEquals('2019-07-27 12:00:00', $ad->getPublishedAt()->format('Y-m-d H:i:s'));
-        $this->assertEquals('Appartement 3 pièces', $ad->getTitle());
-        $this->assertEquals('À deux pas d\'Atlantis, près de la rocade ouest à vendre appartement de type 3 traversant, situé au RDC IDEAL POUR UNE PERSONNE...<br>62m² | 2 chb | 2 sdb', $ad->getDescription());
+        $this->assertEquals(null, $ad->getTitle());
+        $this->assertEquals('À deux pas d\'Atlantis, près de la rocade ouest à programme de 20 types 3, situé au RDC IDEAL POUR UNE PERSONNE...<br>62m² | 2 chb | 2 sdb', $ad->getDescription());
         $this->assertEquals('https://www.ouestfrance-immo.com/photo-vente-appartement-nantes-44/201/appartement-a-vendre-nantes-13162857_1_1553218506_1bce07ea0af1ba78fc5ce4aff473b525_crop_295-222_.jpg', $ad->getPhoto());
         $this->assertEquals(null, $ad->getRealEstateAgent());
+        $this->assertTrue($ad->isNewBuild());
     }
 }

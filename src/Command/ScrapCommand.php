@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Definition\CityEnum;
 use App\Definition\SiteEnum;
 use App\Entity\PropertyType;
+use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;
 use App\Exception\ScraperLocatorException;
 use App\ScraperContainer;
@@ -58,6 +59,7 @@ class ScrapCommand extends Command
      * {@inheritDoc}
      *
      * @throws ScraperLocatorException
+     * @throws AccessDeniedException
      * @throws ParseException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -93,12 +95,13 @@ class ScrapCommand extends Command
                 $ad->getRoomsCount(),
                 $ad->getLocation(),
                 (null !== $publishedAt = $ad->getPublishedAt()) ? $publishedAt->format('Y-m-d H:i:s') : null,
-                $ad->getTitle()
+                $ad->getTitle(),
+                $ad->isNewBuild() ? 'New-build' : ''
             ];
         }
 
         $io->table(
-            ['Site', 'External ID', 'Price', 'Area', 'Number of rooms', 'Location', 'Publication date', 'Title'],
+            ['Site', 'External ID', 'Price', 'Area', 'Number of rooms', 'Location', 'Publication date', 'Title', 'New-build'],
             $rows
         );
     }

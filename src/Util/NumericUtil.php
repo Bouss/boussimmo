@@ -2,7 +2,7 @@
 
 namespace App\Util;
 
-class NumberUtil
+class NumericUtil
 {
     private const REGEX_INT_CAPTURE = '/([0-9]+)/';
     private const REGEX_FLOAT_CAPTURE = '/([0-9]+(?:\.[0-9]+)*)/';
