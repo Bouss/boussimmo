@@ -4,3 +4,6 @@
 !php/const App\Definition\SiteEnum::OUESTFRANCE_IMMO:
     !php/const App\Definition\CityEnum::NANTES: nantes-44-44000
     !php/const App\Definition\CityEnum::RENNES: rennes-35-35000
+!php/const App\Definition\SiteEnum::SELOGER:
+    !php/const App\Definition\CityEnum::NANTES: 440109
+    !php/const App\Definition\CityEnum::RENNES: 350238

@@ -73,9 +73,9 @@ abstract class AbstractParser
                     return $this->buildPropertyAd($adCrawler);
                 } catch (Exception $e) {
                     $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), ['site' => static::SITE]);
-                }
 
-                return null;
+                    return null;
+                }
             });
 
             // Fetch the next page
@@ -89,7 +89,12 @@ abstract class AbstractParser
 
         unset($client);
 
-        return array_merge(...$ads);
+        // Merge all the ad arrays in one and clean the ads (remove null values)
+        $ads = array_filter(array_merge(...$ads), static function (?PropertyAd $ad) {
+            return null !== $ad;
+        });
+
+        return $ads;
     }
 
     /**

@@ -76,12 +76,11 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
      *
      * @return array
      */
-    private function buildPriceParam(?int $minPrice, int $maxPrice = null): array
+    private function buildPriceParam(?int $minPrice, int $maxPrice): array
     {
-        $value = $minPrice ?: '0';
-        $value .= '_' . $maxPrice;
+        $minPrice = $minPrice ?: 0;
 
-        return ['prix' => $value];
+        return ['prix' => sprintf('%d_%d', $minPrice, $maxPrice)];
     }
 
     /**
@@ -92,10 +91,9 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
      */
     private function buildAreaParam(int $minArea, int $maxArea = null): array
     {
-        $value = $minArea . '_';
-        $value .= $maxArea ?: '0';
+        $maxArea = $maxArea ?: 0;
 
-        return ['surface' => $value];
+        return ['surface' => sprintf('%d_%d', $minArea, $maxArea)];
     }
 
     /**

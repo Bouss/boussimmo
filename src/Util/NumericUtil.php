@@ -14,7 +14,7 @@ class NumericUtil
      */
     public static function extractInt(string $val): int
     {
-        $val = preg_replace('/\s+/', '', $val);
+        $val = preg_replace('/\s+/u', '', $val);
         preg_match(self::REGEX_INT_CAPTURE, $val, $matches);
 
         return (int) $matches[0];
@@ -27,7 +27,7 @@ class NumericUtil
      */
     public static function extractFloat(string $val): float
     {
-        $val = preg_replace('/\s+/', '', $val);
+        $val = preg_replace('/\s+/u', '', $val);
         $val = str_replace(',', '.', $val);
         preg_match(self::REGEX_FLOAT_CAPTURE, $val, $matches);
 

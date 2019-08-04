@@ -22,7 +22,7 @@ class LogicImmoParser extends AbstractParser
     protected const SELECTOR_ROOMS_COUNT = '.offer-rooms-number';
     protected const SELECTOR_PHOTO = '.thumb-link img';
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
-    protected const SELECTOR_NEW_BUILD = '.availability .bold';
+    protected const SELECTOR_NEW_BUILD = '.availability.bold:contains(\'neuf\')';
     protected const PUBLISHED_AT_FORMAT = '';
 
     /**
@@ -45,15 +45,5 @@ class LogicImmoParser extends AbstractParser
                 return null;
             }
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function isNewBuild(Crawler $crawler): bool
-    {
-        $tag = parent::isNewBuild($crawler);
-
-        return 'neuf' === $tag;
     }
 }

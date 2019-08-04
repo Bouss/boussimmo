@@ -27,7 +27,7 @@ class OuestFranceImmoParser extends AbstractParser
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = 'd/m/y';
 
-    private const URL_START = 'https://www.ouestfrance-immo.com';
+    private const BASE_URL = 'https://www.ouestfrance-immo.com';
     private const REGEX_ROOMS_COUNT = '/([0-9]+)\spièces/';
 
     /**
@@ -41,7 +41,7 @@ class OuestFranceImmoParser extends AbstractParser
             return null;
         }
 
-        return self::URL_START . $nextPage;
+        return self::BASE_URL . $nextPage;
     }
 
     /**
@@ -49,7 +49,7 @@ class OuestFranceImmoParser extends AbstractParser
      */
     protected function getUrl(Crawler $crawler): string
     {
-        return self::URL_START . parent::getUrl($crawler);
+        return self::BASE_URL . parent::getUrl($crawler);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Definition\CityEnum;
 use App\Definition\SiteEnum;
+use App\Entity\PropertyAd;
 use App\Entity\PropertyType;
 use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;
@@ -81,7 +82,7 @@ class ScrapCommand extends Command
             '<info>Maximum number of rooms</info>: ' . $maxRoomsCount,
         ]);
 
-        $io->text('<comment>Scraping in progress...</comment>');
+        $io->writeln('<comment>Scraping in progress...</comment>');
         $ads = $scraper->scrap($city, $propertyType, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount, $maxRoomsCount);
 
         $io->section('Results');
@@ -95,15 +96,17 @@ class ScrapCommand extends Command
                 $ad->getRoomsCount(),
                 $ad->getLocation(),
                 (null !== $publishedAt = $ad->getPublishedAt()) ? $publishedAt->format('Y-m-d H:i:s') : null,
-                $ad->getTitle(),
-                $ad->isNewBuild() ? 'New-build' : ''
+                $ad->isNewBuild() ? 'New-build' : '',
+                substr($ad->getUrl(), 0, 50) . '...',
             ];
         }
 
         $io->table(
-            ['Site', 'External ID', 'Price', 'Area', 'Number of rooms', 'Location', 'Publication date', 'Title', 'New-build'],
+            ['Site', 'External ID', 'Price', 'Area', 'Number of rooms', 'Location', 'Publication date', 'New-build', 'URL'],
             $rows
         );
+
+        $io->success('Results found: ' . count($ads));
     }
 
     /**
