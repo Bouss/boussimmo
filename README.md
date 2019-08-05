@@ -15,19 +15,20 @@ Working sites
 - OuestFrance-Immo
 - SeLoger
 
+Requirements
+------------
+
+- PHP 7.2 or higher
+- Composer
+- Chromium
+- ext-zip PHP extension
+
 Tests
 -----
 
 ```
 $ ./bin/phpunit
 ```
-
-Requirements
-------------
-
-- PHP 7.2 or higher
-- Composer
-- MySQL database
 
 Installation
 -------------
