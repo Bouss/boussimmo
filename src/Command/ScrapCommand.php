@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Definition\CityEnum;
 use App\Definition\SiteEnum;
-use App\Entity\PropertyAd;
 use App\Entity\PropertyType;
 use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;

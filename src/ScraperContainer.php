@@ -5,6 +5,7 @@ namespace App;
 use App\Definition\SiteEnum;
 use App\Exception\ScraperLocatorException;
 use App\Scraper\AbstractScraper;
+use App\Scraper\LeBoinCoinScraper;
 use App\Scraper\LogicImmoScraper;
 use App\Scraper\OuestFranceImmoScraper;
 use App\Scraper\SeLogerScraper;
@@ -32,6 +33,7 @@ class ScraperContainer implements ServiceSubscriberInterface
     public static function getSubscribedServices(): array
     {
         return [
+            SiteEnum::LEBONCOIN => LeBoinCoinScraper::class,
             SiteEnum::LOGIC_IMMO => LogicImmoScraper::class,
             SiteEnum::OUESTFRANCE_IMMO => OuestFranceImmoScraper::class,
             SiteEnum::SELOGER => SeLogerScraper::class,

@@ -28,6 +28,12 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # scraper
+    App\Scraper\LeBoinCoinScraper:
+        arguments:
+            $urlBuilder: '@App\UrlBuilder\LeBonCoinUrlBuilder'
+            $parser: '@App\Parser\LeBonCoinParser'
+
     App\Scraper\LogicImmoScraper:
         arguments:
             $urlBuilder: '@App\UrlBuilder\LogicImmoUrlBuilder'

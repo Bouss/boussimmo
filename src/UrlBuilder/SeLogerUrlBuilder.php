@@ -9,7 +9,7 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
 {
     protected const SITE = SiteEnum::SELOGER;
 
-    private const URL_START = 'https://www.seloger.com/list.htm';
+        private const URL_START = 'https://www.seloger.com/list.htm';
 
     /**
      * @param string $city
@@ -86,15 +86,15 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
 
     /**
      * @param int|null $minPrice
-     * @param int|null $maxPrice
+     * @param int      $maxPrice
      *
      * @return array
      */
     private function buildPriceParam(?int $minPrice, int $maxPrice): array
     {
-        $minPrice = $minPrice ?: 0;
+        $minPrice = $minPrice ?: 'NaN';
 
-        return ['price' => sprintf('%d/%d', $minPrice, $maxPrice)];
+        return ['price' => sprintf('%s/%d', $minPrice, $maxPrice)];
     }
 
     /**
@@ -105,9 +105,9 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
      */
     private function buildAreaParam(int $minArea, int $maxArea = null): array
     {
-        $maxArea = $maxArea ?: 0;
+        $maxArea = $maxArea ?: 'NaN';
 
-        return ['surface' => sprintf('%d/%d', $minArea, $maxArea)];
+        return ['surface' => sprintf('%d/%s', $minArea, $maxArea)];
     }
 
     /**

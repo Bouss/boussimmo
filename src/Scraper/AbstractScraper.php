@@ -62,11 +62,10 @@ abstract class AbstractScraper
     ): array
     {
         $url = $this->urlBuilder->buildUrl(...func_get_args());
-        $url = "https://www.seloger.com/list.htm?types=1&projects=2&enterprise=0&natures=1%2C2%2C4&price=0%2F190000&surface=50%2FNaN&rooms=3&places=%5B%7Bci%3A440109%7D%5D&qsVersion=1.0";
 
         $client = Client::createChromeClient();
         $client->request('GET', $url);
-
+        
         // Manage a "403 Access Denied" response or equivalent
         $response = $client->getInternalResponse();
         if (
