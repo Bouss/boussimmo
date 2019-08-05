@@ -6,14 +6,24 @@ Usage
 -----
 
 ```
-bin/console app:scrap <site> <"nantes"|"rennes"> < 0 (House) | 1 (Apartment)> -p<max-price> -a<min-area> -r<min-rooms-count>
+bin/console app:scrap <site> <city> <property-type> -p<max-price> -a<min-area> -r<min-rooms-count>
 ```
 
-Working sites
--------------
+## Sites
 
-- OuestFrance-Immo
-- SeLoger
+- OuestFrance-Immo (`ouestfrance-immo`)
+- SeLoger (`seloger`)
+- Logic-Immo (actually not working because of bot detection) (`logic-immo`)
+
+## Cities
+
+- Nantes (`nantes`)
+- Rennes (`rennes`)
+
+## Property types
+
+- Apartment (`1`)
+- House (`2`)
 
 Requirements
 ------------
@@ -23,18 +33,18 @@ Requirements
 - Chromium
 - ext-zip PHP extension
 
-Tests
------
-
-```
-$ ./bin/phpunit
-```
-
 Installation
 -------------
 
 ```
 $ composer install
+```
+
+Tests
+-----
+
+```
+$ ./bin/phpunit
 ```
 
 Technologies
