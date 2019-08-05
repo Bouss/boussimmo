@@ -6,7 +6,7 @@ Usage
 -----
 
 ```
-bin/console app:scrap <site> <"nantes"|"rennes"> < 0 (House) | 1 (Apartment)> -p<max-price> -a<min-area> -r<min-rooms-count>
+bin/console site:scrap <site> <"nantes"|"rennes"> < 0 (House) | 1 (Apartment)> -p<max-price> -a<min-area> -r<min-rooms-count>
 ```
 
 Working sites

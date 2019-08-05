@@ -19,7 +19,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ScrapCommand extends Command
 {
-    protected static $defaultName = 'app:scrap';
+    protected static $defaultName = 'site:scrap';
 
     /**
      * @var ScraperContainer
