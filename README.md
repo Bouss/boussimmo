@@ -5,40 +5,38 @@ Find the property adds that fit your needs from a lot of sources, real estate we
 Usage
 -----
 
-```
-bin/console app:scrap <site> <city> <property-type> -p<max-price> -a<min-area> -r<min-rooms-count>
-```
+Compare all the property ads extracted from your mails on one page.
 
 ## Sites
 
-- OuestFrance-Immo (`ouestfrance-immo`)
-- SeLoger (`seloger`)
-- Logic-Immo (actually not working because of bot detection) (`logic-immo`)
+- Bien'ici
+- FNAIM
+- Logic-Immo
+- OuestFrance-Immo
+- SeLoger
 
-## Cities
-
-- Nantes (`nantes`)
-- Rennes (`rennes`)
-
-## Property types
-
-- Apartment (`1`)
-- House (`2`)
 
 Requirements
 ------------
 
-- PHP 7.2 or higher
+- PHP 7.3.9 or higher
+- Node.js 10 or higher
 - Composer
-- Chromium
-- ext-zip PHP extension
+- Yarn
 
 Installation
 -------------
 
 ```
 $ composer install
+$ yarn install
 ```
+
+Configuration
+-------------
+
+Fill the env variables `WEBMAIL_LOGIN`, `WEBMAIL_PASSWORD` and `WEBMAIL_FOLDER` in your `.env.local` file with your Gmail credentials.   
+You may enable "no-certificate applications" in your Gmail account configuration in order to access your mails from this project.
 
 Tests
 -----
@@ -51,4 +49,5 @@ Technologies
 ------------
 
 - Symfony 4.3
-- Symfony Panther
+- Webpack Encore
+- CSS3 with BEM methodology
