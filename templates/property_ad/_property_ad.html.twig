@@ -1,0 +1,13 @@
+<article class="property-ad">
+    <a class="property-ad__link" href="{{ ad.url }}">
+        <img class="property-ad__photo" src="{{ ad.photo }}" alt="Illustration du bien immobilier">
+        <div class="property-ad__fields-wrapper">
+            <h3 class="property-ad__price">{{ ad.price }} &euro;</h3>
+            <p class="property-ad__field property-ad__area{% if ad.area is null %} property-ad__field--unknown{% endif %}">{{ ad.area|default('N/A') }} m&sup2;</p>
+            <p class="property-ad__field property-ad__rooms-count{% if ad.roomsCount is null %} property-ad__field--unknown{% endif %}">{{ ad.roomsCount|default('N/A') }} pièces</p>
+            <p class="property-ad__field property-ad__location">{{ ad.location }}</p>
+            <p class="property-ad__field property-ad__published-at">{{ ad.publishedAt|date('d/m/Y H:i:s') }}</p>
+            <img class="property-ad__provider-logo" src="{{ asset("build/providers/#{ad.site|replace({'-': '_'})}.png") }}" alt="{{ ad.site }}">
+        </div>
+    </a>
+</article>

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('property_ad') }}
+{% endblock %}
+
+{% block main %}
+    <div class="property-ad-container">
+        {% for ad in property_ads %}
+            {{ include('property_ad/_property_ad.html.twig', { 'ad': ad }) }}
+        {% else %}
+            <div>Aucune annonce trouvée</div>
+        {% endfor %}
+    </div>
+{% endblock %}

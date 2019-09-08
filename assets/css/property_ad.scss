@@ -1,0 +1,29 @@
+.property-ad {
+    background-color: white;
+
+    &__link {
+        display: flex;
+        text-decoration: none;
+        color: black;
+    }
+
+    &__photo {
+        width: 300px;
+    }
+
+    &__fields-wrapper {
+        padding: 10px;
+    }
+
+    &__field {
+        line-height: 15px;
+
+        &--unknown {
+            color: grey;
+        }
+    }
+
+    &__price {
+        margin: 0 auto;
+    }
+}

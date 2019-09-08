@@ -1,0 +1,16 @@
+@import 'colors';
+
+body {
+    background-color: lightgray;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.property-ad-container {
+    .property-ad {
+        margin: 5px 0;
+    }
+}
