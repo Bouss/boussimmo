@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\Parser;
+namespace App\Tests\Parser\WebParser;
 
-use App\Parser\OuestFranceImmoParser;
+use App\Parser\WebParser\OuestFranceImmoParser;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 

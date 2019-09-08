@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Parser;
+namespace App\Parser\WebParser;
 
 use App\Definition\SiteEnum;
+use App\Parser\AbstractParser;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
-class LogicImmoParser extends AbstractParser
+class LogicImmoParser extends AbstractWebParser
 {
     protected const SITE = SiteEnum::LOGIC_IMMO;
     protected const SELECTOR_NEXT_PAGE_URL = '.btn-maincolor > .btn-lightgrey';

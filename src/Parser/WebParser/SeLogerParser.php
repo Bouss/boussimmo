@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Parser;
+namespace App\Parser\WebParser;
 
 use App\Definition\SiteEnum;
-use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
-class SeLogerParser extends AbstractParser
+class SeLogerParser extends AbstractWebParser
 {
     protected const SITE = SiteEnum::SELOGER;
     protected const SELECTOR_NEXT_PAGE_URL = '.pagination-next';

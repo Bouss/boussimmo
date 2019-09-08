@@ -5,8 +5,8 @@ namespace App\Util;
 class StringUtil
 {
     /**
-     * @param string $str
-     * @param array  $words
+     * @param string   $str
+     * @param string[] $words
      *
      * @return bool
      */
@@ -19,5 +19,15 @@ class StringUtil
         }
 
         return false;
+    }
+
+    /**
+     * @param string $str
+     *
+     * @return string
+     */
+    public static function removeNewLines(string $str): string
+    {
+        return trim(preg_replace('/\s+/u', '', $str));
     }
 }

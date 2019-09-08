@@ -37,12 +37,12 @@ class PropertyAd
     private $price;
 
     /**
-     * @var float
+     * @var float|null
      */
     private $area;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $roomsCount;
 
@@ -195,19 +195,19 @@ class PropertyAd
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getArea(): float
+    public function getArea(): ?float
     {
         return $this->area;
     }
 
     /**
-     * @param float $area
+     * @param float|null $area
      *
      * @return PropertyAd
      */
-    public function setArea(float $area): PropertyAd
+    public function setArea(?float $area): PropertyAd
     {
         $this->area = $area;
 
@@ -215,19 +215,19 @@ class PropertyAd
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getRoomsCount(): int
+    public function getRoomsCount(): ?int
     {
         return $this->roomsCount;
     }
 
     /**
-     * @param int $roomsCount
+     * @param int|null $roomsCount
      *
      * @return PropertyAd
      */
-    public function setRoomsCount(int $roomsCount): PropertyAd
+    public function setRoomsCount(?int $roomsCount): PropertyAd
     {
         $this->roomsCount = $roomsCount;
 

@@ -10,13 +10,11 @@ use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\Panther\Client;
 
 abstract class AbstractParser
 {
     // Redefined in the child classes
     protected const SITE = '';
-    protected const SELECTOR_NEXT_PAGE_URL = '';
     protected const SELECTOR_AD_WRAPPER = '';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';
@@ -37,7 +35,7 @@ abstract class AbstractParser
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    protected $logger;
 
     /**
      * @param LoggerInterface $logger
@@ -56,38 +54,25 @@ abstract class AbstractParser
      */
     public function parse(string $html): array
     {
-        $client = Client::createChromeClient();
         $crawler = new Crawler($html);
 
+        try {
+            $crawler->filter(static::SELECTOR_AD_WRAPPER);
+        } catch (Exception $e) {
+            throw new ParseException('No property ads found: ' . $e->getMessage());
+        }
+
+        // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        do {
+        $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) {
             try {
-                $crawler->filter(static::SELECTOR_AD_WRAPPER);
+                return $this->buildPropertyAd($adCrawler);
             } catch (Exception $e) {
-                throw new ParseException('No property ads found: ' . $e->getMessage());
+                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), ['site' => static::SITE]);
+
+                return null;
             }
-
-            // Iterate over all DOM elements wrapping a property ad on the current page
-            $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) {
-                try {
-                    return $this->buildPropertyAd($adCrawler);
-                } catch (Exception $e) {
-                    $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), ['site' => static::SITE]);
-
-                    return null;
-                }
-            });
-
-            // Fetch the next page
-            $nextPage = $this->getNextPageUrl($crawler);
-            if (null !== $nextPage) {
-                $client->request('GET', $nextPage);
-                $crawler = new Crawler($client->getPageSource());
-            }
-
-        } while (null !== $nextPage);
-
-        unset($client);
+        });
 
         // Merge all the ad arrays in one and clean the ads (remove null values)
         $ads = array_filter(array_merge(...$ads), static function (?PropertyAd $ad) {
@@ -95,24 +80,6 @@ abstract class AbstractParser
         });
 
         return $ads;
-    }
-
-    /**
-     * @param Crawler $crawler
-     *
-     * @return string|null
-     */
-    protected function getNextPageUrl(Crawler $crawler): ?string
-    {
-        if (empty(static::SELECTOR_NEXT_PAGE_URL)) {
-            return null;
-        }
-
-        try {
-            return $crawler->filter(static::SELECTOR_NEXT_PAGE_URL)->attr('href');
-        } catch (Exception $e) {
-            return null;
-        }
     }
 
     /**
@@ -172,11 +139,11 @@ abstract class AbstractParser
     /**
      * @param Crawler $crawler
      *
-     * @return float
+     * @return float|null
      *
      * @throws ParseException
      */
-    protected function getArea(Crawler $crawler): float
+    protected function getArea(Crawler $crawler): ?float
     {
         try {
             $areaStr = trim($crawler->filter(static::SELECTOR_AREA)->text());
@@ -190,11 +157,11 @@ abstract class AbstractParser
     /**
      * @param Crawler $crawler
      *
-     * @return int
+     * @return int|null
      *
      * @throws ParseException
      */
-    protected function getRoomsCount(Crawler $crawler): int
+    protected function getRoomsCount(Crawler $crawler): ?int
     {
         try {
             $roomsCountStr = trim($crawler->filter(static::SELECTOR_ROOMS_COUNT)->text());
@@ -348,7 +315,7 @@ abstract class AbstractParser
      * @throws ParseException
      * @throws Exception
      */
-    private function buildPropertyAd(Crawler $crawler): PropertyAd
+    protected function buildPropertyAd(Crawler $crawler): PropertyAd
     {
         $ad = (new PropertyAd())
             ->setSite(static::SITE)

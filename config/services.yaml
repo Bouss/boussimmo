@@ -32,19 +32,19 @@ services:
     App\Scraper\LeBoinCoinScraper:
         arguments:
             $urlBuilder: '@App\UrlBuilder\LeBonCoinUrlBuilder'
-            $parser: '@App\Parser\LeBonCoinParser'
+            $parser: '@App\Parser\WebParser\LeBonCoinParser'
 
     App\Scraper\LogicImmoScraper:
         arguments:
             $urlBuilder: '@App\UrlBuilder\LogicImmoUrlBuilder'
-            $parser: '@App\Parser\LogicImmoParser'
+            $parser: '@App\Parser\WebParser\LogicImmoParser'
 
     App\Scraper\OuestFranceImmoScraper:
         arguments:
             $urlBuilder: '@App\UrlBuilder\OuestFranceImmoUrlBuilder'
-            $parser: '@App\Parser\OuestFranceImmoParser'
+            $parser: '@App\Parser\WebParser\OuestFranceImmoParser'
 
     App\Scraper\SeLogerScraper:
         arguments:
             $urlBuilder: '@App\UrlBuilder\SeLogerUrlBuilder'
-            $parser: '@App\Parser\SeLogerParser'
+            $parser: '@App\Parser\WebParser\SeLogerParser'

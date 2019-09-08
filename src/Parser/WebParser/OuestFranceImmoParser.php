@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Parser;
+namespace App\Parser\WebParser;
 
 use App\Definition\SiteEnum;
-use App\Exception\ParseException;
 use App\Util\NumericUtil;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
-class OuestFranceImmoParser extends AbstractParser
+class OuestFranceImmoParser extends AbstractWebParser
 {
     protected const SITE = SiteEnum::OUESTFRANCE_IMMO;
     protected const SELECTOR_NEXT_PAGE_URL = '.currentPage + * > a[data-page]';
@@ -28,7 +27,7 @@ class OuestFranceImmoParser extends AbstractParser
     protected const PUBLISHED_AT_FORMAT = 'd/m/y';
 
     private const BASE_URL = 'https://www.ouestfrance-immo.com';
-    private const REGEX_ROOMS_COUNT = '/([0-9]+)\spièces/';
+    private const REGEX_ROOMS_COUNT = '/([0-9]+)\spièces/u';
 
     /**
      * {@inheritDoc}

@@ -6,6 +6,7 @@ use App\Entity\PropertyAd;
 use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;
 use App\Parser\AbstractParser;
+use App\Parser\WebParser\AbstractWebParser;
 use App\UrlBuilder\AbstractUrlBuilder;
 use App\Util\StringUtil;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,9 +28,9 @@ abstract class AbstractScraper
 
     /**
      * @param AbstractUrlBuilder $urlBuilder
-     * @param AbstractParser     $parser
+     * @param AbstractWebParser  $parser
      */
-    public function __construct(AbstractUrlBuilder $urlBuilder, AbstractParser $parser)
+    public function __construct(AbstractUrlBuilder $urlBuilder, AbstractWebParser $parser)
     {
         $this->urlBuilder = $urlBuilder;
         $this->parser = $parser;

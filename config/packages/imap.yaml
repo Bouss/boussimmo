@@ -1,0 +1,6 @@
+imap:
+    connections:
+        gmail:
+            mailbox: "{imap.gmail.com:993/imap/ssl/novalidate-cert}%env(WEBMAIL_FOLDER)%"
+            username: '%env(WEBMAIL_LOGIN)%'
+            password: '%env(WEBMAIL_PASSWORD)%'

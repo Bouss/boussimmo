@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Definition\SiteEnum;
-use App\Exception\ScraperLocatorException;
+use App\Exception\ScraperNotFoundException;
 use App\Scraper\AbstractScraper;
 use App\Scraper\LeBoinCoinScraper;
 use App\Scraper\LogicImmoScraper;
@@ -45,12 +45,12 @@ class ScraperContainer implements ServiceSubscriberInterface
      *
      * @return AbstractScraper
      *
-     * @throws ScraperLocatorException
+     * @throws ScraperNotFoundException
      */
     public function get(string $id): AbstractScraper
     {
         if (!$this->locator->has($id)) {
-            throw new ScraperLocatorException(sprintf('No scraper found with the id: "%s"', $id));
+            throw new ScraperNotFoundException(sprintf('No scraper found with the id: "%s"', $id));
         }
 
         return $this->locator->get($id);

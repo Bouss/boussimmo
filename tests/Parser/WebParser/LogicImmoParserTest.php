@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Tests\Parser;
+namespace App\Tests\Parser\WebParser;
 
-use App\Parser\LogicImmoParser;
-use App\Parser\OuestFranceImmoParser;
+use App\Parser\WebParser\LogicImmoParser;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class LogicImmoParserTest extends TestCase
 {
     /**
-     * @var OuestFranceImmoParser
+     * @var LogicImmoParser
      */
     private $parser;
 
