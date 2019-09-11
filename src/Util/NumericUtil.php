@@ -14,7 +14,7 @@ class NumericUtil
      */
     public static function extractInt(string $val): int
     {
-        $val = StringUtil::removeNewLines($val);
+        $val = StringUtil::removeWhitespaces($val);
         preg_match(self::REGEX_INT_CAPTURE, $val, $matches);
 
         return (int) $matches[0];
@@ -27,7 +27,7 @@ class NumericUtil
      */
     public static function extractFloat(string $val): float
     {
-        $val = StringUtil::removeNewLines($val);
+        $val = StringUtil::removeWhitespaces($val);
         $val = str_replace(',', '.', $val);
         preg_match(self::REGEX_FLOAT_CAPTURE, $val, $matches);
 

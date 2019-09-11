@@ -26,7 +26,7 @@ class StringUtil
      *
      * @return string
      */
-    public static function removeNewLines(string $str): string
+    public static function removeWhitespaces(string $str): string
     {
         return trim(preg_replace('/\s+/u', '', $str));
     }
