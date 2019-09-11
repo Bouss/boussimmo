@@ -18,10 +18,10 @@ class BienIciParser extends AbstractParser
     protected const SELECTOR_LOCATION = '[class$="realEstateAdAddress"] > a';
     protected const SELECTOR_PUBLISHED_AT = '';
     protected const SELECTOR_URL = 'a:first-child';
-    protected const SELECTOR_PRICE = '[class$="realEstateAdPrice"] > strong';
-    protected const SELECTOR_AREA = '[class$="realEstateAdTitle"] > strong';
-    protected const SELECTOR_ROOMS_COUNT = '[class$="realEstateAdTitle"] > strong';
-    protected const SELECTOR_PHOTO = '[class$=realEstateAdPhoto] > img';
+    protected const SELECTOR_PRICE = '[class$="realEstateAdPrice"] strong';
+    protected const SELECTOR_AREA = '[class$="realEstateAdTitle"] strong';
+    protected const SELECTOR_ROOMS_COUNT = '[class$="realEstateAdTitle"] strong';
+    protected const SELECTOR_PHOTO = '[class$=realEstateAdPhoto] img';
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';

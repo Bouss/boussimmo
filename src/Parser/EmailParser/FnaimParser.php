@@ -19,13 +19,29 @@ class FnaimParser extends AbstractParser
     protected const SELECTOR_LOCATION = 'h3 + p';
     protected const SELECTOR_PUBLISHED_AT = '';
     protected const SELECTOR_URL = 'a:first-child';
-    protected const SELECTOR_PRICE = 'h3 > a';
+    protected const SELECTOR_PRICE = 'h3';
     protected const SELECTOR_AREA = 'h3 > a';
     protected const SELECTOR_ROOMS_COUNT = 'h3 > a';
     protected const SELECTOR_PHOTO = 'img';
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getPrice(Crawler $crawler): float
+    {
+        try {
+            $title = trim($crawler->filter(static::SELECTOR_PRICE)->text());
+        } catch (Exception $e) {
+            throw new ParseException('Error while parsing the price: ' . $e->getMessage());
+        }
+
+        $priceStr = explode('-', $title)[2];
+
+        return NumericUtil::extractFloat($priceStr);
+    }
 
     /**
      * {@inheritDoc}
