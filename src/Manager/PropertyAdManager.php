@@ -3,7 +3,7 @@
 namespace App\Manager;
 
 use App\Client\EmailClient;
-use App\Definition\SiteEnum;
+use App\Definition\MailProviderEnum;
 use App\EmailParserContainer;
 use App\Entity\PropertyAd;
 use App\Exception\MailboxConnectionException;
@@ -56,7 +56,7 @@ class PropertyAdManager
     {
         $ads = [];
 
-        foreach (SiteEnum::getAvailableValues() as $p) {
+        foreach (MailProviderEnum::getAvailableValues() as $p) {
             if (null !== $provider && $provider !== $p) {
                 continue;
             }

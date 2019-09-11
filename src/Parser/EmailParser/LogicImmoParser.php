@@ -15,7 +15,7 @@ class LogicImmoParser extends AbstractParser
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '';
-    protected const SELECTOR_LOCATION = 'td[style$="font-size:10px; color:#000000; padding-bottom:10px;"] > a';
+    protected const SELECTOR_LOCATION = 'a[href*="description_ville"]';
     protected const SELECTOR_PUBLISHED_AT = '';
     protected const SELECTOR_URL = 'a:first-child';
     protected const SELECTOR_PRICE = 'b > a';

@@ -2,6 +2,7 @@
 
 namespace App\Client;
 
+use App\Definition\MailProviderEnum;
 use App\Definition\SiteEnum;
 use App\Exception\MailboxConnectionException;
 use DateTime;
@@ -14,17 +15,19 @@ class EmailClient
     private const FROM_BIENICI = 'no_reply@bienici.com';
     private const FROM_FNAIM = 'no-reply@fnaim.fr';
     private const FROM_LEBONCOIN = 'no.reply@leboncoin.fr';
-    private const FROM_LOGIC_IMMO = 'news@logicimmo.nmp1.com';
+    private const FROM_LOGIC_IMMO = 'Logic-immo.com';
+    private const FROM_LOGIC_IMMO_NEUF = 'Logic-ImmoNeuf.com';
     private const FROM_OUESTFRANCE_IMMO = 'alerte@news.ouestfrance-immo.com';
     private const FROM_SELOGER = 'seloger@al.alerteimmo.com';
 
     private const FROM_ADDRESS_BY_PROVIDER = [
-        SiteEnum::BIENICI => self::FROM_BIENICI,
-        SiteEnum::FNAIM => self::FROM_FNAIM,
-        SiteEnum::LEBONCOIN => self::FROM_LEBONCOIN,
-        SiteEnum::LOGIC_IMMO => self::FROM_LOGIC_IMMO,
-        SiteEnum::OUESTFRANCE_IMMO => self::FROM_OUESTFRANCE_IMMO,
-        SiteEnum::SELOGER => self::FROM_SELOGER
+        MailProviderEnum::BIENICI => self::FROM_BIENICI,
+        MailProviderEnum::FNAIM => self::FROM_FNAIM,
+        MailProviderEnum::LEBONCOIN => self::FROM_LEBONCOIN,
+        MailProviderEnum::LOGIC_IMMO => self::FROM_LOGIC_IMMO,
+        MailProviderEnum::LOGIC_IMMO_NEUF => self::FROM_LOGIC_IMMO_NEUF,
+        MailProviderEnum::OUESTFRANCE_IMMO => self::FROM_OUESTFRANCE_IMMO,
+        MailProviderEnum::SELOGER => self::FROM_SELOGER
     ];
 
     private const DEFAULT_CONNECTION = 'gmail';
