@@ -2,3 +2,6 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        google_client_id: '%env(GOOGLE_CLIENT_ID)%'
+        google_api_key: '%env(GOOGLE_API_KEY)%'

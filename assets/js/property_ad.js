@@ -1,1 +1,0 @@
-require('../css/property_ad.scss');

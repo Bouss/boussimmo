@@ -1,0 +1,21 @@
+!php/const App\Definition\MailProviderEnum::BIENICI:
+    email: no_reply@bienici.com
+    from: "\"Bien'ici\" <no_reply@bienici.com>"
+!php/const App\Definition\MailProviderEnum::FNAIM:
+    email: no-reply@fnaim.fr
+    from: FNAIM <no-reply@fnaim.fr>
+!php/const App\Definition\MailProviderEnum::LEBONCOIN:
+    email: no.reply@leboncoin.fr
+    from: "leboncoin <no.reply@leboncoin.fr>"
+!php/const App\Definition\MailProviderEnum::LOGIC_IMMO:
+    email: news@logicimmo.nmp1.com
+    from: "\"Logic-immo.com\" <news@logicimmo.nmp1.com>"
+!php/const App\Definition\MailProviderEnum::LOGIC_IMMO_NEUF:
+    email: news@logicimmo.nmp1.com
+    from: "\"Logic-ImmoNeuf.com\" <news@logicimmo.nmp1.com>"
+!php/const App\Definition\MailProviderEnum::OUESTFRANCE_IMMO:
+    email: alerte@news.ouestfrance-immo.com
+    from: "\"Ouestfrance-immo.com\" <alerte@news.ouestfrance-immo.com>"
+!php/const App\Definition\MailProviderEnum::SELOGER:
+    email: seloger@al.alerteimmo.com
+    from: SeLoger <seloger@al.alerteimmo.com>

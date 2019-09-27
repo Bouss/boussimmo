@@ -30,6 +30,8 @@ Installation
 ```
 $ composer install
 $ yarn install
+$ bin/console fos:js-routing:dump --format=json --target=public/js/fos_js_routes.json
+$ yarn encore
 ```
 
 Configuration

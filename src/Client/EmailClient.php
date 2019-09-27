@@ -3,7 +3,6 @@
 namespace App\Client;
 
 use App\Definition\MailProviderEnum;
-use App\Definition\SiteEnum;
 use App\Exception\MailboxConnectionException;
 use DateTime;
 use Exception;

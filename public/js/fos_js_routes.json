@@ -1,0 +1,1 @@
+{"base_url":"","routes":{"property_ads_list":{"tokens":[["text","\/property-ads\/list"]],"defaults":[],"requirements":[],"hosttokens":[],"methods":["POST"],"schemes":[]}},"prefix":"","host":"localhost","port":"","scheme":"http","locale":[]}

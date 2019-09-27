@@ -30,4 +30,15 @@ class StringUtil
     {
         return trim(preg_replace('/\s+/u', '', $str));
     }
+
+    /**
+     * @param string $data
+     * @param bool   $strict
+     *
+     * @return string
+     */
+    public static function base64UrlDecode(string $data, bool $strict = false): string
+    {
+        return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '='), $strict);
+    }
 }
