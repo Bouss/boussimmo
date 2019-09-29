@@ -40,19 +40,19 @@ class GmailClient
     }
 
     /**
-     * @param string      $userToken
-     * @param string|null $labelId
-     * @param int         $newerThan
+     * @param string   $userToken
+     * @param string[] $labelIds
+     * @param int      $newerThan
      *
      * @return Google_Service_Gmail_Message[]
      */
-    public function getMessages(string $userToken, string $labelId = null, int $newerThan = self::DEFAULT_NEWER_THAN): array
+    public function getMessages(string $userToken, array $labelIds = [], int $newerThan = self::DEFAULT_NEWER_THAN): array
     {
         $this->gmailService->getClient()->setAccessToken($userToken);
 
         $messages = [];
         $pageToken = null;
-        $optParams['labelIds'] = [$labelId];
+        $optParams['labelIds'] = $labelIds;
         $optParams['q'] = $this->buildMessagesQuery($newerThan);
 
         do {

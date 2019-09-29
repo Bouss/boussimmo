@@ -61,7 +61,15 @@ function updateSigninStatus(isSignedIn) {
  *  Sign in the user upon button click.
  */
 function handleAuthClick(event) {
-    gapi.auth2.getAuthInstance().signIn();
+    gapi.auth2.getAuthInstance().signIn().then(function (response) {
+        if (response.getAuthResponse()) {
+            getLabels(function (labels) {
+                if (labels && labels.length > 0) {
+                    showSelectGmailLabelsModal(labels);
+                }
+            });
+        }
+    });
 }
 
 /**
@@ -84,38 +92,29 @@ function appendPre(message) {
 }
 
 /**
- * Print all Labels in the authorized user's inbox. If no labels
- * are found an appropriate message is printed.
+ * Get all Labels in the authorized user's inbox.
  */
-function listLabels() {
-
+function getLabels(callback) {
     gapi.client.gmail.users.labels.list({
         'userId': 'me'
     }).then(function(response) {
-        let labels = response.result.labels;
-        appendPre('Labels:');
-
-        if (labels && labels.length > 0) {
-            for (i = 0; i < labels.length; i++) {
-                let label = labels[i];
-                appendPre(label.name)
-            }
-        } else {
-            appendPre('No Labels found.');
-        }
+        callback(response.result.labels);
     });
 }
 
 function fillPropertyAdContainer() {
     let propertyAdContainer = document.getElementById('property-ad-container');
 
+    let labels = getCookie('labels');
+
     $.ajax({
         type: 'POST',
         url: Routing.generate('property_ads_list'),
         headers: {'X-Requested-With': 'XMLHttpRequest'},
-        contentType: 'application/octet-stream; charset=utf-8',
-        processData: false,
-        data: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token
+        data: {
+            'access_token': gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
+            'labels': getCookie('labels') ? getCookie('labels') : []
+        }
     }).done(function (data) {
         propertyAdContainer.innerHTML = data;
     });

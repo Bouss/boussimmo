@@ -17,9 +17,10 @@
 {% block main %}
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
-    <div id="btn-google-container">
+    <div id="google-container">
         <button id="btn-google-authorize" class="btn-google">Authorize</button>
         <button id="btn-google-signout" class="btn-google">Sign Out</button>
+        {{ include('gmail/_select_labels.html.twig') }}
     </div>
     <div id="property-ad-container"></div>
 {% endblock %}

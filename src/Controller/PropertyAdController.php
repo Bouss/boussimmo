@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Manager\PropertyAdManager;
+use App\Exception\ParserNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,6 +32,8 @@ class PropertyAdController extends AbstractController
      * @param PropertyAdManager $propertyAdManager
      *
      * @return Response
+     *
+     * @throws ParserNotFoundException
      */
     public function list(Request $request, PropertyAdManager $propertyAdManager): Response
     {
@@ -39,9 +42,10 @@ class PropertyAdController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
-        $userToken = $request->getContent();
-
-        $propertyAds = $propertyAdManager->find($userToken);
+        $propertyAds = $propertyAdManager->find(
+            $request->request->get('access_token'),
+            $request->request->get('labels', [])
+        );
 
         return $this->render('property_ad/_property_ad_container.html.twig', [
             'property_ads' => $propertyAds
