@@ -12,19 +12,6 @@ use Google_Service_Gmail_MessagePartHeader;
 class GmailService
 {
     /**
-     * @var ProviderService
-     */
-    private $providerService;
-
-    /**
-     * @param ProviderService $providerService
-     */
-    public function __construct(ProviderService $providerService)
-    {
-        $this->providerService = $providerService;
-    }
-
-    /**
      * @param Google_Service_Gmail_Message $message
      *
      * @return string

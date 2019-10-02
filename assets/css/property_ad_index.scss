@@ -3,8 +3,8 @@
 @import '~bootstrap/scss/variables';
 @import '~bootstrap/scss/modal';
 
-.property-ad-container {
-  .property-ad {
+#property-ad-container {
+  .property-ad:not(:first-child):not(:last-child){
     margin: 5px 0;
   }
 }

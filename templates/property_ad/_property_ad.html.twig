@@ -7,10 +7,25 @@
             <p class="property-ad__field property-ad__rooms-count{% if ad.roomsCount is null %} property-ad__field--unknown{% endif %}">{{ ad.roomsCount|default('N/A') }} pièces</p>
             <p class="property-ad__field property-ad__location">{{ ad.location }}</p>
             <p class="property-ad__field property-ad__published-at">{{ ad.publishedAt|date('d/m/Y H:i:s') }}</p>
-            <img class="property-ad__provider-logo" src="{{ asset("build/providers/#{ad.site|replace({'-': '_'})}.png") }}" alt="{{ ad.site }}">
+            <img class="property-ad__provider-logo" src="{{ asset('build/providers/' ~ ad.site|providerLogo) }}" alt="{{ ad.site }}">
             {% if ad.newBuild %}
                 <div class="property-ad__new-build-tag">NEUF</div>
             {% endif %}
         </div>
+        {% if ad.duplicates is not empty %}
+            <div class="property-ad__duplicate-container">
+                {% for duplicate in ad.duplicates %}
+                    <div class="property-ad-duplicate">
+                        <a class="property-ad-duplicate__link" href="{{ duplicate.url }}">
+                            <img class="property-ad-duplicate__photo" src="{{ duplicate.photo }}" alt="Illustration du bien immobilier">
+                            <span class="property-ad-duplicate__label">
+                                Aussi présent sur
+                                <img class="property-ad-duplicate__provider-logo" src="{{ asset('build/providers/' ~ duplicate.site|providerLogo) }}" alt="{{ duplicate.site }}">
+                            </span>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
     </a>
 </article>

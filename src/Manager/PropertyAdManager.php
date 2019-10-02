@@ -116,7 +116,7 @@ class PropertyAdManager
             $ads = array_merge(...$ads);
         }
 
-        $this->sort($ads);
+        $this->filterDuplicates($ads);
 
         return $ads;
     }
@@ -168,6 +168,21 @@ class PropertyAdManager
     }
 
     /**
+     * @param PropertyAd[] $propertyAds
+     */
+    private function filterDuplicates(array &$propertyAds): void
+    {
+        foreach ($propertyAds as &$ad) {
+            foreach ($propertyAds as $key => $comparedAd) {
+                if ($ad !== $comparedAd && $ad->equals($comparedAd)) {
+                    $ad->addDuplicate($comparedAd);
+                    unset($propertyAds[$key]);
+                }
+            }
+        }
+    }
+
+    /**
      * @param array    $propertyAds
      * @param DateTime $date
      */
@@ -177,7 +192,6 @@ class PropertyAdManager
             $ad->setPublishedAt($date);
         });
     }
-
 
     /**
      * @param PropertyAd[] $propertyAds

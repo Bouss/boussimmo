@@ -82,6 +82,11 @@ class PropertyAd
     private $newBuild = false;
 
     /**
+     * @var PropertyAd[]
+     */
+    private $duplicates = [];
+
+    /**
      * @var PropertyType
      */
     private $propertyType;
@@ -375,6 +380,34 @@ class PropertyAd
     }
 
     /**
+     * @return PropertyAd[]
+     */
+    public function getDuplicates(): array
+    {
+        return $this->duplicates;
+    }
+
+    /**
+     * @param PropertyAd[] $duplicates
+     *
+     * @return PropertyAd
+     */
+    public function setDuplicates(array $duplicates): PropertyAd
+    {
+        $this->duplicates = $duplicates;
+
+        return $this;
+    }
+
+    /**
+     * @param PropertyAd $propertyAd
+     */
+    public function addDuplicate(PropertyAd $propertyAd): void
+    {
+        $this->duplicates[] = $propertyAd;
+    }
+
+    /**
      * @return PropertyType
      */
     public function getPropertyType(): PropertyType
@@ -392,5 +425,19 @@ class PropertyAd
         $this->propertyType = $propertyType;
 
         return $this;
+    }
+
+    /**
+     * @param PropertyAd $propertyAd
+     *
+     * @return bool
+     */
+    public function equals(PropertyAd $propertyAd): bool
+    {
+        return
+            $this->roomsCount === $propertyAd->getRoomsCount() &&
+            $this->price === $propertyAd->getPrice() &&
+            $this->area === $propertyAd->getArea() &&
+            $this->publishedAt->diff($propertyAd->getPublishedAt())->h <= 48;
     }
 }

@@ -4,8 +4,6 @@
 
     &__link {
         display: flex;
-        text-decoration: none;
-        color: black;
     }
 
     &__photo {
@@ -29,12 +27,37 @@
     }
 
     &__provider-logo {
-        height: 30px;
+        height: 20px;
     }
 
     &__new-build-tag {
         position: absolute;
         top: 10px;
         right: 10px;
+    }
+
+    &__duplicate-container {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+.property-ad-duplicate {
+    &__link {
+        display: flex;
+    }
+
+    &__photo {
+        height: 30px;
+    }
+
+    &__label {
+        margin-left: 10px;
+        align-self: center;
+    }
+
+    &__provider-logo {
+        height: 12px;
     }
 }

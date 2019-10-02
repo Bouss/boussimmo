@@ -45,6 +45,16 @@ class ProviderService
         return $this->providersByFrom[$from];
     }
 
+    /**
+     * @param string $provider
+     *
+     * @return string
+     */
+    public function getLogo(string $provider): string
+    {
+        return $this->providers[$provider]['logo'];
+    }
+
     private function initProvidersByFrom(): void
     {
         foreach ($this->providers as $provider => $val) {
