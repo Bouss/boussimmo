@@ -13,7 +13,10 @@ abstract class AbstractWebParser extends AbstractParser
 {
     protected const SELECTOR_NEXT_PAGE_URL = '';
 
-    public function parse(string $html): array
+    /**
+     * {@inheritDoc}
+     */
+    public function parse(string $html, array $options = []): array
     {
         $client = Client::createChromeClient();
         $crawler = new Crawler($html);

@@ -102,13 +102,12 @@ class PropertyAdManager
             $provider = $this->providerService->getProviderByFrom($from);
 
             try {
-                $parsedAds = $this->parserContainer->get($provider)->parse($html);
+                $parsedAds = $this->parserContainer->get($provider)->parse($html, ['date' => $date]);
             } catch (ParseException $e) {
                 $this->logger->error($e->getMessage());
                 continue;
             }
 
-            $this->setPublishedAt($parsedAds, $date);
             $ads[] = $parsedAds;
         }
 
@@ -145,8 +144,7 @@ class PropertyAdManager
 
             foreach ($mails as $mail) {
                 try {
-                    $parsedAds = $parser->parse($mail->textHtml);
-                    $this->setPublishedAt($parsedAds, new DateTime($mail->date));
+                    $parsedAds = $parser->parse($mail->textHtml, ['date' => new DateTime($mail->date)]);
                     $ads[] = $parsedAds;
                 } catch (ParseException $e) {
                     $this->logger->error($e->getMessage());
@@ -180,17 +178,6 @@ class PropertyAdManager
                 }
             }
         }
-    }
-
-    /**
-     * @param array    $propertyAds
-     * @param DateTime $date
-     */
-    private function setPublishedAt(array $propertyAds, DateTime $date): void
-    {
-        array_walk($propertyAds, static function (PropertyAd $ad) use ($date) {
-            $ad->setPublishedAt($date);
-        });
     }
 
     /**

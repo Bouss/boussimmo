@@ -47,28 +47,29 @@ abstract class AbstractParser
 
     /**
      * @param string $html
+     * @param array $options
      *
      * @return PropertyAd[]
      *
      * @throws ParseException
      */
-    public function parse(string $html): array
+    public function parse(string $html, array $options = []): array
     {
         $crawler = new Crawler($html);
 
         try {
             $crawler->filter(static::SELECTOR_AD_WRAPPER);
         } catch (Exception $e) {
-            throw new ParseException('No property ads found: ' . $e->getMessage());
+            throw new ParseException('No property ads found: ' . $e->getMessage(), $this->getContext($options));
         }
 
         // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) {
+        $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) use ($options) {
             try {
-                return $this->buildPropertyAd($adCrawler);
+                return $this->buildPropertyAd($adCrawler, $options);
             } catch (Exception $e) {
-                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), ['site' => static::SITE]);
+                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), $this->getContext($options));
 
                 return null;
             }
@@ -309,13 +310,14 @@ abstract class AbstractParser
 
     /**
      * @param Crawler $crawler
+     * @param array $options
      *
      * @return PropertyAd
      *
      * @throws ParseException
      * @throws Exception
      */
-    protected function buildPropertyAd(Crawler $crawler): PropertyAd
+    protected function buildPropertyAd(Crawler $crawler, array $options = []): PropertyAd
     {
         $ad = (new PropertyAd())
             ->setSite(static::SITE)
@@ -325,7 +327,7 @@ abstract class AbstractParser
             ->setArea($this->getArea($crawler))
             ->setRoomsCount($this->getRoomsCount($crawler))
             ->setLocation($this->getLocation($crawler))
-            ->setPublishedAt($this->getPublishedAt($crawler))
+            ->setPublishedAt($options['date'] ?? $this->getPublishedAt($crawler))
             ->setTitle($this->getTitle($crawler))
             ->setDescription($this->getDescription($crawler))
             ->setPhoto($this->getPhoto($crawler))
@@ -333,5 +335,25 @@ abstract class AbstractParser
             ->setNewBuild($this->isNewBuild($crawler));
 
         return $ad;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return array
+     */
+    private function getContext(array $options = []): array
+    {
+        $context = [
+            'site' => static::SITE,
+        ];
+
+        if (isset($options['date'])) {
+            /** @var DateTime $date */
+            $date = $options['date'];
+            $context += ['date' => $date->format('Y-m-d H:i:s')];
+        }
+
+        return $context;
     }
 }
