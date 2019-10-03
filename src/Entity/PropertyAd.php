@@ -429,15 +429,17 @@ class PropertyAd
 
     /**
      * @param PropertyAd $propertyAd
+     * @param bool       $strict
      *
      * @return bool
      */
-    public function equals(PropertyAd $propertyAd): bool
+    public function equals(PropertyAd $propertyAd, bool $strict = false): bool
     {
         return
             $this->roomsCount === $propertyAd->getRoomsCount() &&
             $this->price === $propertyAd->getPrice() &&
             $this->area === $propertyAd->getArea() &&
+            ($strict ? ($this->site === $propertyAd->getSite()) : true) &&
             $this->publishedAt->diff($propertyAd->getPublishedAt())->h <= 48;
     }
 }

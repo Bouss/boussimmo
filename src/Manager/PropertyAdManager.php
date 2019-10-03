@@ -115,6 +115,9 @@ class PropertyAdManager
             $ads = array_merge(...$ads);
         }
 
+        // Remove duplicates from same provider
+        $this->removeRealDuplicates($ads);
+        // Attach duplicates from different providers to unique property ad
         $this->filterDuplicates($ads);
 
         return $ads;
@@ -163,6 +166,20 @@ class PropertyAdManager
         $this->sort($ads);
 
         return $ads;
+    }
+
+    /**
+     * @param PropertyAd[] $propertyAds
+     */
+    private function removeRealDuplicates(array &$propertyAds): void
+    {
+        foreach ($propertyAds as &$ad) {
+            foreach ($propertyAds as $key => $comparedAd) {
+                if ($ad !== $comparedAd && $ad->equals($comparedAd, true)) {
+                    unset($propertyAds[$key]);
+                }
+            }
+        }
     }
 
     /**
