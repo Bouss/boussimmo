@@ -60,4 +60,18 @@ class BienIciParser extends AbstractParser
 
         return (int) $matches[1];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getPhoto(Crawler $crawler): ?string
+    {
+        $photo = parent::getPhoto($crawler);
+
+        return str_replace(
+               ['200x160', 'width=200&height=160'],
+               ['600x370', 'width=600&height=370'],
+               $photo
+        );
+    }
 }

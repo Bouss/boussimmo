@@ -327,7 +327,7 @@ abstract class AbstractParser
             ->setArea($this->getArea($crawler))
             ->setRoomsCount($this->getRoomsCount($crawler))
             ->setLocation($this->getLocation($crawler))
-            ->setPublishedAt($options['date'] ?? $this->getPublishedAt($crawler))
+            ->setPublishedAt($this->getPublishedAt($crawler) ?: $options['date'] ?? null)
             ->setTitle($this->getTitle($crawler))
             ->setDescription($this->getDescription($crawler))
             ->setPhoto($this->getPhoto($crawler))

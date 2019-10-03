@@ -4,6 +4,7 @@ namespace App\Parser\EmailParser;
 
 use App\Definition\SiteEnum;
 use App\Parser\AbstractParser;
+use Symfony\Component\DomCrawler\Crawler;
 
 class OuestFranceImmoParser extends AbstractParser
 {
@@ -22,4 +23,11 @@ class OuestFranceImmoParser extends AbstractParser
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';
+
+    protected function getPhoto(Crawler $crawler): ?string
+    {
+        $photo = parent::getPhoto($crawler);
+
+        return str_replace('276-207', '686-515', $photo);
+    }
 }

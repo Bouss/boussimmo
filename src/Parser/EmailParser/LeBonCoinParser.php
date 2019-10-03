@@ -60,4 +60,14 @@ class LeBonCoinParser extends AbstractParser
 
         return null;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getPhoto(Crawler $crawler): ?string
+    {
+        $photo = parent::getPhoto($crawler);
+
+        return str_replace('thumb', 'image', $photo);
+    }
 }
