@@ -1,6 +1,11 @@
 .property-ad {
     position: relative;
     background-color: white;
+    box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
+
+    &:hover {
+        box-shadow: 0 0 24px 0 rgba(38, 38, 38, 0.2);
+    }
 
     &__link {
         display: flex;
