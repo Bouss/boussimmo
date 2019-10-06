@@ -95,14 +95,13 @@ class PropertyAdManager
                 continue;
             }
 
-            $from = $this->gmailService->getFrom($message);
-            $date = $this->gmailService->getDate($message);
+            $headers = $this->gmailService->getHeaders($message);
             $html = $this->gmailService->getHtml($message);
 
-            $provider = $this->providerService->getProviderByFrom($from);
+            $provider = $this->providerService->getProviderByFromAndSubject($headers['from'], $headers['subject']);
 
             try {
-                $parsedAds = $this->parserContainer->get($provider)->parse($html, ['date' => $date]);
+                $parsedAds = $this->parserContainer->get($provider)->parse($html, ['date' => $headers['date']]);
             } catch (ParseException $e) {
                 $this->logger->error($e->getMessage());
                 continue;

@@ -14,37 +14,34 @@ class GmailService
     /**
      * @param Google_Service_Gmail_Message $message
      *
-     * @return string
-     */
-    public function getFrom(Google_Service_Gmail_Message $message): string
-    {
-        /** @var  Google_Service_Gmail_MessagePartHeader $header */
-        foreach ($message->getPayload()->getHeaders() as $header) {
-            if ('From' === $header->name) {
-                return $header->value;
-            }
-        }
-
-        return '';
-    }
-
-    /**
-     * @param Google_Service_Gmail_Message $message
-     *
-     * @return DateTime
+     * @return array ['from', 'date', 'subject']
      *
      * @throws Exception
      */
-    public function getDate(Google_Service_Gmail_Message $message): DateTime
+    public function getHeaders(Google_Service_Gmail_Message $message): array
     {
+        $headers = [];
+
         /** @var  Google_Service_Gmail_MessagePartHeader $header */
         foreach ($message->getPayload()->getHeaders() as $header) {
+            if ('From' === $header->name) {
+                $headers['from'] = $header->value;
+            }
+
             if ('Date' === $header->name) {
-                return new DateTime($header->value);
+                $headers['date'] = new DateTime($header->value);
+            }
+
+            if ('Subject' === $header->name) {
+                $headers['subject'] = $header->value;
+            }
+
+            if (3 === count($headers)) {
+                break;
             }
         }
 
-        return new DateTime();
+        return $headers;
     }
 
     /**

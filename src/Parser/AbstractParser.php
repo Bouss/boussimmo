@@ -146,6 +146,10 @@ abstract class AbstractParser
      */
     protected function getArea(Crawler $crawler): ?float
     {
+        if (empty(static::SELECTOR_AREA)) {
+            return null;
+        }
+
         try {
             $areaStr = trim($crawler->filter(static::SELECTOR_AREA)->text());
         } catch (Exception $e) {
@@ -164,6 +168,10 @@ abstract class AbstractParser
      */
     protected function getRoomsCount(Crawler $crawler): ?int
     {
+        if (empty(static::SELECTOR_ROOMS_COUNT)) {
+            return null;
+        }
+
         try {
             $roomsCountStr = trim($crawler->filter(static::SELECTOR_ROOMS_COUNT)->text());
         } catch (Exception $e) {

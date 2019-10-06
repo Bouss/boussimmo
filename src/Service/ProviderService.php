@@ -16,7 +16,12 @@ class ProviderService
     /**
      * @var array
      */
-    private $providersByFrom;
+    private $providersWithSubject;
+
+    /**
+     * @var array
+     */
+    private $providersWithoutSubject;
 
     /**
      * @param string $projectDir
@@ -24,7 +29,7 @@ class ProviderService
     public function __construct(string $projectDir)
     {
         $this->providers = Yaml::parseFile($projectDir . self::PROVIDERS_FILE_PATH, Yaml::PARSE_CONSTANT);
-        $this->initProvidersByFrom();
+        $this->initProviders();
     }
 
     /**
@@ -37,12 +42,25 @@ class ProviderService
 
     /**
      * @param string $from
+     * @param string $subject
      *
      * @return string
      */
-    public function getProviderByFrom(string $from): string
+    public function getProviderByFromAndSubject(string $from, string $subject): string
     {
-        return $this->providersByFrom[$from];
+        foreach ($this->providersWithSubject as $provider => $fields) {
+            if ($fields['from'] === $from && stripos($subject, $fields['subject'])) {
+                return $provider;
+            }
+        }
+
+        foreach ($this->providersWithoutSubject as $provider => $fields) {
+            if ($fields['from'] === $from) {
+                return $provider;
+            }
+        }
+
+        return '';
     }
 
     /**
@@ -55,10 +73,12 @@ class ProviderService
         return $this->providers[$provider]['logo'];
     }
 
-    private function initProvidersByFrom(): void
+    private function initProviders(): void
     {
-        foreach ($this->providers as $provider => $val) {
-            $this->providersByFrom[$val['from']] = $provider;
-        }
+        $this->providersWithSubject = array_filter($this->providers, static function (array $provider) {
+            return isset($provider['subject']);
+        });
+
+        $this->providersWithoutSubject = array_diff_key($this->providers, $this->providersWithSubject);
     }
 }
