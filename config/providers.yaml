@@ -26,8 +26,13 @@
     logo: ouestfrance_immo.svg
     email: alerte@news.ouestfrance-immo.com
     from: "\"Ouestfrance-immo.com\" <alerte@news.ouestfrance-immo.com>"
-    subject: 'neuf'
+    subject: neuf
 !php/const App\Definition\MailProviderEnum::SELOGER:
     logo: seloger.svg
     email: seloger@al.alerteimmo.com
     from: SeLoger <seloger@al.alerteimmo.com>
+!php/const App\Definition\MailProviderEnum::SELOGER_2:
+    logo: seloger.svg
+    email: seloger@al.alerteimmo.com
+    from: SeLoger <seloger@al.alerteimmo.com>
+    subject: exclusivités
