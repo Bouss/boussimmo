@@ -8,6 +8,7 @@ use App\Parser\AbstractParser;
 use App\Parser\EmailParser\BienIciParser;
 use App\Parser\EmailParser\FnaimParser;
 use App\Parser\EmailParser\LeBonCoinParser;
+use App\Parser\EmailParser\LogicImmo2Parser;
 use App\Parser\EmailParser\LogicImmoNeufParser;
 use App\Parser\EmailParser\LogicImmoParser;
 use App\Parser\EmailParser\OuestFranceImmoNeufParser;
@@ -42,6 +43,7 @@ class EmailParserContainer implements ServiceSubscriberInterface
             MailProviderEnum::LEBONCOIN => LeBonCoinParser::class,
             MailProviderEnum::FNAIM => FnaimParser::class,
             MailProviderEnum::LOGIC_IMMO => LogicImmoParser::class,
+            MailProviderEnum::LOGIC_IMMO_2 => LogicImmo2Parser::class,
             MailProviderEnum::LOGIC_IMMO_NEUF => LogicImmoNeufParser::class,
             MailProviderEnum::OUESTFRANCE_IMMO => OuestFranceImmoParser::class,
             MailProviderEnum::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,

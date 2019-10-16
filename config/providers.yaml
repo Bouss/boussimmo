@@ -14,6 +14,10 @@
     logo: logic_immo.png
     email: news@logicimmo.nmp1.com
     from: "\"Logic-immo.com\" <news@logicimmo.nmp1.com>"
+!php/const App\Definition\MailProviderEnum::LOGIC_IMMO_2:
+    logo: logic_immo.png
+    email: news@logicimmo.nmp1.com
+    from: "\"Logic-Immo.com\" <news@logicimmo.nmp1.com>"
 !php/const App\Definition\MailProviderEnum::LOGIC_IMMO_NEUF:
     logo: logic_immo.png
     email: news@logicimmo.nmp1.com

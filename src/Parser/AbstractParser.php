@@ -353,7 +353,7 @@ abstract class AbstractParser
     private function getContext(array $options = []): array
     {
         $context = [
-            'site' => static::SITE,
+            'provider' => $options['provider']
         ];
 
         if (isset($options['date'])) {

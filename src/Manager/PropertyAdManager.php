@@ -101,7 +101,10 @@ class PropertyAdManager
             $provider = $this->providerService->getProviderByFromAndSubject($headers['from'], $headers['subject']);
 
             try {
-                $parsedAds = $this->parserContainer->get($provider)->parse($html, ['date' => $headers['date']]);
+                $parsedAds = $this->parserContainer->get($provider)->parse($html, [
+                    'date' => $headers['date'],
+                    'provider' => $provider
+                ]);
             } catch (ParseException $e) {
                 $this->logger->error($e->getMessage());
                 continue;
