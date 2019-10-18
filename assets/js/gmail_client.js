@@ -11,6 +11,7 @@ const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
 
 let authorizeButton = document.getElementById('btn-google-authorize');
 let signoutButton = document.getElementById('btn-google-signout');
+let profileImage = document.getElementsByClassName('google-profile__image')[0];
 
 /**
  *  On load, called to load the auth2 library and API client library.
@@ -42,6 +43,16 @@ function initClient() {
     });
 }
 
+window.renderButton = function () {
+    gapi.signin2.render('btn-google-authorize', {
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+    });
+};
+
+
 /**
  *  Called when the signed in status changes, to update the UI
  *  appropriately. After a sign-in, the API is called.
@@ -50,10 +61,12 @@ function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         authorizeButton.style.display = 'none';
         signoutButton.style.display = 'block';
+        loadProfileImage();
         fillPropertyAdContainer();
     } else {
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
+        profileImage.style.display = 'none';
     }
 }
 
@@ -100,6 +113,11 @@ function getLabels(callback) {
     }).then(function(response) {
         callback(response.result.labels);
     });
+}
+
+function loadProfileImage() {
+    profileImage.src = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl();
+    profileImage.style.display = 'block';
 }
 
 function fillPropertyAdContainer() {

@@ -4,8 +4,37 @@
 @import '~bootstrap/scss/modal';
 
 #property-ad-container {
-  .property-ad:not(:first-child):not(:last-child){
-    margin: 5px 0;
+  .property-ad {
+    margin: 15px 0;
+  }
+}
+
+.google-profile {
+  display: flex;
+
+  &__image {
+    display: none;
+    height: 32px;
+    width: 32px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+
+  &__btn-signout {
+    padding: 0 12px;
+    line-height: 28px;
+    border: 1px solid #c6c6c6;
+    border-radius: 2px;
+    background: #f8f8f8;
+    color: #666;
+    font: 13px/27px Roboto,RobotoDraft,Arial,sans-serif;
+
+    &:hover {
+      border-color: #c6c6c6;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      background-image: linear-gradient(top, #fff, #f8f8f8);
+      background-color: #fff;
+    }
   }
 }
 
