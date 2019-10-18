@@ -11,7 +11,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class LogicImmoParser extends AbstractParser
 {
     protected const SITE = SiteEnum::LOGIC_IMMO;
-    protected const SELECTOR_AD_WRAPPER = 'td[class$="full"][width="270"] > table[bgcolor="#fcfcfc"]';
+    protected const SELECTOR_AD_WRAPPER = 'td[class$="full"][width="270"] > table[bgcolor="#fcfcfc"]:not(:last-child)';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '';
