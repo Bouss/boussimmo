@@ -21,3 +21,9 @@ Routing.setRoutingData(routes);
 
 global.routes = routes;
 global.Routing = Routing;
+
+require('./cookies');
+require('./gmail_client');
+require('./gmail_labels');
+require('./homepage');
+require('./property_ad_index');

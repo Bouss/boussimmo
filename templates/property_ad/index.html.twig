@@ -1,27 +1,5 @@
-{% extends 'base.html.twig' %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('property_ad_index') }}
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('property_ad_index') }}
-    <script async defer src="https://apis.google.com/js/api.js"
-            onload="window.handleClientLoad();"
-            onreadystatechange="if (this.readyState === 'complete') this.onload()">
-    </script>
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-{% endblock %}
-
-{% block main %}
-    <div id="btn-google-authorize" class="btn-google g-signin2" data-width="240" data-height="50" data-longtitle="true" data-theme="dark"></div>
-
-    <div class="google-profile">
-        <img class="google-profile__image" />
-        <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
-        {{ include('gmail/_select_labels.html.twig') }}
-    </div>
-    <div id="property-ad-container"></div>
-{% endblock %}
+<div class="google-profile">
+    <img class="google-profile__image" src="{{ profile_image }}" alt="Image de profil Google" data-toggle="tooltip" data-placement="left" title="{{ email }}"/>
+    <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
+</div>
+<div id="property-ad-container"></div>

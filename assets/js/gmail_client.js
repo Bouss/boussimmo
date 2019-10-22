@@ -9,9 +9,7 @@ const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/r
 // included, separated by spaces.
 const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
 
-let authorizeButton = document.getElementById('btn-google-authorize');
-let signoutButton = document.getElementById('btn-google-signout');
-let profileImage = document.getElementsByClassName('google-profile__image')[0];
+let container = document.getElementsByClassName('container')[0];
 
 /**
  *  On load, called to load the auth2 library and API client library.
@@ -36,22 +34,19 @@ function initClient() {
 
         // Handle the initial sign-in state.
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-        authorizeButton.onclick = handleAuthClick;
-        signoutButton.onclick = handleSignoutClick;
     }, function(error) {
         appendPre(JSON.stringify(error, null, 2));
     });
 }
 
-window.renderButton = function () {
+window.renderSigninButton = function () {
     gapi.signin2.render('btn-google-authorize', {
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
+        width: 240,
+        height: 50,
+        longtitle: true,
+        theme: 'dark',
     });
 };
-
 
 /**
  *  Called when the signed in status changes, to update the UI
@@ -59,14 +54,9 @@ window.renderButton = function () {
  */
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
-        authorizeButton.style.display = 'none';
-        signoutButton.style.display = 'block';
-        loadProfileImage();
-        fillPropertyAdContainer();
+        loadPropertyAdIndex();
     } else {
-        authorizeButton.style.display = 'block';
-        signoutButton.style.display = 'none';
-        profileImage.style.display = 'none';
+        loadHomepage();
     }
 }
 
@@ -115,14 +105,33 @@ function getLabels(callback) {
     });
 }
 
-function loadProfileImage() {
-    profileImage.src = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl();
-    profileImage.style.display = 'block';
+function loadHomepage() {
+    $.ajax({
+        type: 'GET',
+        url: Routing.generate('homepage'),
+    }).done(function (html) {
+        container.innerHTML = html;
+        document.getElementById('btn-google-authorize').onclick = handleAuthClick;
+        renderSigninButton();
+    });
+}
+
+function loadPropertyAdIndex() {
+    $.ajax({
+        type: 'GET',
+        url: Routing.generate('property_ad_index'),
+        data: {
+            profile_image: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl(),
+            email: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail()
+        }
+    }).done(function (html) {
+        container.innerHTML = html;
+        document.getElementById('btn-google-signout').onclick = handleSignoutClick;
+        fillPropertyAdContainer();
+    });
 }
 
 function fillPropertyAdContainer() {
-    let propertyAdContainer = document.getElementById('property-ad-container');
-
     let labels = getCookie('labels');
 
     $.ajax({
@@ -130,10 +139,10 @@ function fillPropertyAdContainer() {
         url: Routing.generate('property_ads_list'),
         headers: {'X-Requested-With': 'XMLHttpRequest'},
         data: {
-            'access_token': gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
-            'labels': getCookie('labels') ? getCookie('labels') : []
+            access_token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
+            labels: getCookie('labels') ? getCookie('labels') : []
         }
     }).done(function (data) {
-        propertyAdContainer.innerHTML = data;
+        document.getElementById('property-ad-container').innerHTML = data;
     });
 }

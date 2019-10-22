@@ -14,6 +14,11 @@
         </div>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script async defer src="https://apis.google.com/js/api.js"
+                    onload="window.handleClientLoad();"
+                    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+            </script>
+            <script src="https://apis.google.com/js/platform.js?hl=fr&onload=renderSigninButton" async defer></script>
         {% endblock %}
     </body>
 </html>

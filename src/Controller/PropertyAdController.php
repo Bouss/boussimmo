@@ -16,13 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class PropertyAdController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="property_ad_index")
+     * @Route("/", methods={"GET"}, options={"expose"=true}, name="property_ad_index")
+     *
+     * @param Request $request
      *
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return $this->render('property_ad/index.html.twig');
+        return $this->render('property_ad/index.html.twig', [
+            'profile_image' => $request->query->get('profile_image'),
+            'email' => $request->query->get('email')
+        ]);
     }
 
     /**
@@ -41,12 +46,10 @@ class PropertyAdController extends AbstractController
         if (null === $request->headers->get('X-Requested-With')) {
             throw new AccessDeniedHttpException();
         }
-
         $propertyAds = $propertyAdManager->find(
             $request->request->get('access_token'),
             $request->request->get('labels', [])
         );
-
         return $this->render('property_ad/_property_ad_container.html.twig', [
             'property_ads' => $propertyAds
         ]);
