@@ -1,7 +1,17 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/badge';
+@import 'colors';
+
+$padding: 15px;
+$border-radius: 5px;
+
 .property-ad {
     position: relative;
     background-color: white;
     box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
+    border-radius: $border-radius;
 
     &:hover {
         box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.6);
@@ -13,10 +23,13 @@
 
     &__photo {
         width: 300px;
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+        background-color: $grey-light-2;
     }
 
     &__fields-wrapper {
-        padding: 10px;
+        padding: $padding;
     }
 
     &__field {
@@ -31,20 +44,34 @@
         margin: 0 auto;
     }
 
+    &__publication-date {
+        position: absolute;
+        top: $padding;
+        right: $padding;
+        font-size: 12px;
+        font-style: italic;
+        color: grey;
+    }
+
     &__provider-logo {
         height: 20px;
     }
 
     &__new-build-tag {
+        @extend .badge;
+        @extend .badge-primary;
         position: absolute;
         top: 10px;
-        right: 10px;
+        left: 10px;
     }
 
     &__duplicate-container {
         position: absolute;
-        bottom: 10px;
-        right: 10px;
+        bottom: $padding;
+        right: $padding;
+        padding: 5px;
+        border: 1px solid #f2f2f2;
+        border-radius: 5px;
     }
 }
 
@@ -60,6 +87,7 @@
     &__label {
         margin-left: 10px;
         align-self: center;
+        font-size: 14px;
     }
 
     &__provider-logo {

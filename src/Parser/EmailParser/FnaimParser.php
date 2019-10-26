@@ -74,4 +74,14 @@ class FnaimParser extends AbstractParser
 
         return NumericUtil::extractInt($roomsCountStr);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getPhoto(Crawler $crawler): ?string
+    {
+        $photo = parent::getPhoto($crawler);
+
+        return str_replace('images2', 'images1', $photo);
+    }
 }

@@ -1,23 +1,26 @@
 <article class="property-ad">
     <a class="property-ad__link" href="{{ ad.url }}">
-        <img class="property-ad__photo" src="{{ ad.photo }}" alt="Illustration du bien immobilier">
+        <img class="property-ad__photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+        {% if ad.newBuild %}
+            <div class="property-ad__new-build-tag">NEUF</div>
+        {% endif %}
         <div class="property-ad__fields-wrapper">
             <h3 class="property-ad__price">{{ ad.price|number_format(null, ',', ' ') }} &euro;</h3>
-            <p class="property-ad__field property-ad__area{% if ad.area is null %} property-ad__field--unknown{% endif %}">{{ ad.area|default('N/A') }} m&sup2;</p>
-            <p class="property-ad__field property-ad__rooms-count{% if ad.roomsCount is null %} property-ad__field--unknown{% endif %}">{{ ad.roomsCount|default('N/A') }} pièces</p>
-            <p class="property-ad__field property-ad__location">{{ ad.location }}</p>
-            <p class="property-ad__field property-ad__published-at">{{ ad.publishedAt|date('d/m/Y H:i:s') }}</p>
+            <p class="property-ad__field">
+                <span class="property-ad__area{% if ad.area is null %} property-ad__field--unknown{% endif %}">{{ ad.area|default('N/A') }} m&sup2;</span>
+                &nbsp;•&nbsp;
+                <span class="property-ad__rooms-count{% if ad.roomsCount is null %} property-ad__field--unknown{% endif %}">{{ ad.roomsCount|default('N/A') }} pièces</span>
+            </p>
+            <p class="property-ad__field property-ad__location"><i class="fas fa-map-marker-alt"></i>&nbsp;{{ ad.location }}</p>
             <img class="property-ad__provider-logo" src="{{ asset('build/providers/' ~ ad.site|providerLogo) }}" alt="{{ ad.site }}">
-            {% if ad.newBuild %}
-                <div class="property-ad__new-build-tag">NEUF</div>
-            {% endif %}
         </div>
+        <div class="property-ad__publication-date"><i class="far fa-clock"></i>&nbsp;{{ ad.publishedAt|date('d/m/Y H:i:s') }}</div>
         {% if ad.duplicates is not empty %}
             <div class="property-ad__duplicate-container">
                 {% for duplicate in ad.duplicates %}
                     <div class="property-ad-duplicate">
                         <a class="property-ad-duplicate__link" href="{{ duplicate.url }}">
-                            <img class="property-ad-duplicate__photo" src="{{ duplicate.photo }}" alt="Illustration du bien immobilier">
+                            <img class="property-ad-duplicate__photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                             <span class="property-ad-duplicate__label">
                                 Aussi présent sur
                                 <img class="property-ad-duplicate__provider-logo" src="{{ asset('build/providers/' ~ duplicate.site|providerLogo) }}" alt="{{ duplicate.site }}">
