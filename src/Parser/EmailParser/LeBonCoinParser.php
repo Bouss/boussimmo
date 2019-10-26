@@ -4,6 +4,7 @@ namespace App\Parser\EmailParser;
 
 use App\Definition\SiteEnum;
 use App\Parser\AbstractParser;
+use App\Util\NumericUtil;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LeBonCoinParser extends AbstractParser
@@ -24,7 +25,6 @@ class LeBonCoinParser extends AbstractParser
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';
 
-    private const REGEX_AREA = '/([0-9]+)\s?(?:m²|m2)/u';
     private const REGEX_ROOMS_COUNT_1 = '/([0-9]+)\spièces/u';
     private const REGEX_ROOMS_COUNT_2 = '/T([0-9])+/';
 
@@ -34,13 +34,8 @@ class LeBonCoinParser extends AbstractParser
     protected function getArea(Crawler $crawler): ?float
     {
         $title = trim($crawler->filter(static::SELECTOR_AREA)->text());
-        preg_match(self::REGEX_AREA, $title, $matches);
 
-        if (!isset($matches[1])) {
-            return null;
-        }
-
-        return (float) $matches[1];
+        return NumericUtil::extractArea($title);
     }
 
     /**

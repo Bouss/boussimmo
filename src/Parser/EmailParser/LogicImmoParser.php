@@ -5,6 +5,7 @@ namespace App\Parser\EmailParser;
 use App\Definition\SiteEnum;
 use App\Exception\ParseException;
 use App\Parser\AbstractParser;
+use App\Util\NumericUtil;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -26,9 +27,6 @@ class LogicImmoParser extends AbstractParser
     protected const SELECTOR_NEW_BUILD = 'a:first-child[href*="neuf"]';
     protected const PUBLISHED_AT_FORMAT = '';
 
-    private const REGEX_ROOMS_COUNT = '/([0-9]+)\spièces/u';
-    private const REGEX_AREA = '/([0-9]+)\sm²/u';
-
     /**
      * {@inheritDoc}
      */
@@ -36,16 +34,13 @@ class LogicImmoParser extends AbstractParser
     {
         try {
             $criteria = $crawler->filter(self::SELECTOR_ROOMS_COUNT)->text();
-
         } catch (Exception $e) {
             throw new ParseException('Error while parsing the area: '.$e->getMessage());
         }
 
         $areaStr = explode('|', $criteria)[2];
 
-        preg_match(self::REGEX_AREA, $areaStr, $matches);
-
-        return (float) $matches[1];
+        return NumericUtil::extractArea($areaStr);
     }
 
     /**
@@ -61,9 +56,7 @@ class LogicImmoParser extends AbstractParser
 
         $roomsCountStr = explode('|', $criteria)[1];
 
-        preg_match(self::REGEX_ROOMS_COUNT, $roomsCountStr, $matches);
-
-        return (int) $matches[1];
+        return NumericUtil::extractRoomsCount($roomsCountStr);
     }
 
     /**

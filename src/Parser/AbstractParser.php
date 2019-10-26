@@ -60,7 +60,7 @@ abstract class AbstractParser
         try {
             $crawler->filter(static::SELECTOR_AD_WRAPPER);
         } catch (Exception $e) {
-            throw new ParseException('No property ads found: ' . $e->getMessage(), $this->getContext($options));
+            throw new ParseException('No property ads found: ' . $e->getMessage());
         }
 
         // Iterate over all DOM elements wrapping a property ad
@@ -69,7 +69,7 @@ abstract class AbstractParser
             try {
                 return $this->buildPropertyAd($adCrawler, $options);
             } catch (Exception $e) {
-                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), $this->getContext($options));
+                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), $options);
 
                 return null;
             }
@@ -327,7 +327,7 @@ abstract class AbstractParser
      */
     protected function buildPropertyAd(Crawler $crawler, array $options = []): PropertyAd
     {
-        $ad = (new PropertyAd())
+        $ad = (new PropertyAd)
             ->setSite(static::SITE)
             ->setExternalId($this->getExternalId($crawler))
             ->setUrl($this->getUrl($crawler))
@@ -343,25 +343,5 @@ abstract class AbstractParser
             ->setNewBuild($this->isNewBuild($crawler));
 
         return $ad;
-    }
-
-    /**
-     * @param array $options
-     *
-     * @return array
-     */
-    private function getContext(array $options = []): array
-    {
-        $context = [
-            'provider' => $options['provider']
-        ];
-
-        if (isset($options['date'])) {
-            /** @var DateTime $date */
-            $date = $options['date'];
-            $context += ['date' => $date->format('Y-m-d H:i:s')];
-        }
-
-        return $context;
     }
 }
