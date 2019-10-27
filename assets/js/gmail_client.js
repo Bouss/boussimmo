@@ -1,3 +1,5 @@
+import { fillPropertyAdContainer } from './property_ad_index';
+
 // Client ID and API key from the Developer Console
 const API_KEY = 'AIzaSyCh6j2cA9t__fPfuVz46uXjt5sr527J2hE';
 const CLIENT_ID = '671957420201-v4cld6vadigi64cpo25hcssv53sptvtl.apps.googleusercontent.com';
@@ -128,28 +130,5 @@ function loadPropertyAdIndex() {
         container.innerHTML = html;
         document.getElementById('btn-google-signout').onclick = handleSignoutClick;
         fillPropertyAdContainer();
-    });
-}
-
-function fillPropertyAdContainer() {
-    let propertyAdContainer = document.getElementById('property-ad-container');
-    let labels = getCookie('labels');
-    let $loader = $('.loader');
-    $loader.attr('data-text', 'Chargement de vos annonces');
-
-    $.ajax({
-        type: 'POST',
-        url: Routing.generate('property_ads_list'),
-        headers: {'X-Requested-With': 'XMLHttpRequest'},
-        data: {
-            access_token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
-            labels: getCookie('labels') ? getCookie('labels') : []
-        },
-        beforeSend: function() {
-            $loader.show();
-        },
-    }).done(function (data) {
-        $loader.hide();
-        propertyAdContainer.innerHTML = data;
     });
 }

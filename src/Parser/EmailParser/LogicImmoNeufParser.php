@@ -3,9 +3,7 @@
 namespace App\Parser\EmailParser;
 
 use App\Definition\SiteEnum;
-use App\Exception\ParseException;
 use App\Parser\AbstractParser;
-use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmoNeufParser extends AbstractParser

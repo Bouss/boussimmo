@@ -1,1 +1,1 @@
-require('../css/homepage.css');
+import '../css/homepage.css';
