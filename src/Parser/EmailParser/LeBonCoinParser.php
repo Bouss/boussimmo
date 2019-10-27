@@ -20,7 +20,7 @@ class LeBonCoinParser extends AbstractParser
     protected const SELECTOR_PRICE = '[class$="classified-price"]';
     protected const SELECTOR_AREA = '[class$="classified-title"]';
     protected const SELECTOR_ROOMS_COUNT = '[class$="classified-title"]';
-    protected const SELECTOR_PHOTO = '[class$="classified-image-img"]';
+    protected const SELECTOR_PHOTO = 'img';
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';

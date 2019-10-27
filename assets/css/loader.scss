@@ -1,0 +1,31 @@
+.loader {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  border: 8px solid #A9A9A9;
+  border-top: 8px solid #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  &[data-text] {
+    &:before {
+      content: attr(data-text);
+      position: fixed;
+      left: 0;
+      top: 50%;
+      text-align: center;
+      width: 100%;
+      animation: none;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

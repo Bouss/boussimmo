@@ -132,7 +132,10 @@ function loadPropertyAdIndex() {
 }
 
 function fillPropertyAdContainer() {
+    let propertyAdContainer = document.getElementById('property-ad-container');
     let labels = getCookie('labels');
+    let $loader = $('.loader');
+    $loader.attr('data-text', 'Chargement de vos annonces');
 
     $.ajax({
         type: 'POST',
@@ -141,8 +144,12 @@ function fillPropertyAdContainer() {
         data: {
             access_token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
             labels: getCookie('labels') ? getCookie('labels') : []
-        }
+        },
+        beforeSend: function() {
+            $loader.show();
+        },
     }).done(function (data) {
-        document.getElementById('property-ad-container').innerHTML = data;
+        $loader.hide();
+        propertyAdContainer.innerHTML = data;
     });
 }
