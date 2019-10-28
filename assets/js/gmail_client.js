@@ -1,4 +1,5 @@
-import { fillPropertyAdContainer } from './property_ad_index';
+import { homepageCallback } from './homepage';
+import { propertyAdIndexCallback } from './property_ad_index';
 
 // Client ID and API key from the Developer Console
 const API_KEY = 'AIzaSyCh6j2cA9t__fPfuVz46uXjt5sr527J2hE';
@@ -11,14 +12,12 @@ const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/r
 // included, separated by spaces.
 const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
 
-let container = document.getElementsByClassName('container')[0];
-
 /**
  *  On load, called to load the auth2 library and API client library.
  */
 window.handleClientLoad = function () {
     gapi.load('client:auth2', initClient);
-};
+}
 
 /**
  *  Initializes the API client library and sets up sign-in state
@@ -41,14 +40,14 @@ function initClient() {
     });
 }
 
-window.renderSigninButton = function () {
+function renderSigninButton() {
     gapi.signin2.render('btn-google-authorize', {
         width: 240,
         height: 50,
         longtitle: true,
         theme: 'dark',
     });
-};
+}
 
 /**
  *  Called when the signed in status changes, to update the UI
@@ -68,11 +67,7 @@ function updateSigninStatus(isSignedIn) {
 function handleAuthClick(event) {
     gapi.auth2.getAuthInstance().signIn().then(function (response) {
         if (response.getAuthResponse()) {
-            getLabels(function (labels) {
-                if (labels && labels.length > 0) {
-                    showSelectGmailLabelsModal(labels);
-                }
-            });
+            console.log('Authenticated');
         }
     });
 }
@@ -112,9 +107,7 @@ function loadHomepage() {
         type: 'GET',
         url: Routing.generate('homepage'),
     }).done(function (html) {
-        container.innerHTML = html;
-        document.getElementById('btn-google-authorize').onclick = handleAuthClick;
-        renderSigninButton();
+        homepageCallback(html);
     });
 }
 
@@ -127,8 +120,8 @@ function loadPropertyAdIndex() {
             email: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail()
         }
     }).done(function (html) {
-        container.innerHTML = html;
-        document.getElementById('btn-google-signout').onclick = handleSignoutClick;
-        fillPropertyAdContainer();
+        propertyAdIndexCallback(html);
     });
 }
+
+export { renderSigninButton, handleAuthClick, handleSignoutClick, getLabels }

@@ -2,4 +2,20 @@
     <img class="google-profile__image" src="{{ profile_image }}" alt="Image de profil Google" data-toggle="tooltip" data-placement="left" title="{{ email }}"/>
     <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
 </div>
+<div>
+    <form method="post">
+        <label for="newer-than-select">Annonces datant de moins de</label>
+        <select id="newer-than-select" name="newer-than">
+            <option value="1">24 heures</option>
+            <option value="2">3 jours</option>
+            <option value="5">5 jours</option>
+            <option value="7">1 semaine</option>
+            <option value="14">2 semaines</option>
+            <option value="28">4 semaines</option>
+        </select>
+        <label for="label-select">Label Gmail</label>
+        <select id="label-select" name="labels"></select>
+        <button id="btn-apply-filters" type="submit">Appliquer</button>
+    </form>
+</div>
 <div id="property-ad-container"></div>

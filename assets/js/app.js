@@ -14,7 +14,7 @@ const $ = require('jquery');
 // create global $ and jQuery variables
 global.$ = global.jQuery = $;
 
-import routes from '../../public/js/fos_js_routes.json';
+const routes = require('../../public/js/fos_js_routes.json');
 import Routing from '../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 
 Routing.setRoutingData(routes);
@@ -25,4 +25,4 @@ global.Routing = Routing;
 import './cookies';
 import './gmail_client';
 import './homepage';
-import './gmail_client';
+import './property_ad_index';

@@ -49,6 +49,7 @@ class PropertyAdController extends AbstractController
 
         $propertyAds = $propertyAdManager->find(
             $request->request->get('access_token'),
+            $request->request->get('newer_than'),
             $request->request->get('labels', [])
         );
 

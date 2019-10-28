@@ -74,18 +74,18 @@ class PropertyAdManager
 
     /**
      * @param string      $userToken
+     * @param int|null    $newerThan
      * @param string[]    $labelIds
      * @param string|null $provider
-     * @param string|null $since
      *
      * @return PropertyAd[]
      *
      * @throws ParserNotFoundException
      */
-    public function find(string $userToken, array $labelIds = [], string $provider = null, string $since = null): array
+    public function find(string $userToken, int $newerThan = null, array $labelIds = [], string $provider = null): array
     {
         $ads = [];
-        $messages = $this->gmailClient->getMessages($userToken, $labelIds);
+        $messages = $this->gmailClient->getMessages($userToken, $newerThan, $labelIds);
 
         foreach ($messages as $message) {
             try {
