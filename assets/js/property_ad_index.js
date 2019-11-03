@@ -1,32 +1,39 @@
 import '../css/property_ad_index.scss';
 import '../css/property_ad.scss';
 import { handleSignoutClick } from './gmail_client';
-import CookieManager from './cookie_manager';
+import Cookies from './cookies';
+
+let newerThanSelect;
+let labelSelect;
+let sortSelect;
 
 function propertyAdIndexCallback(html) {
     document.getElementsByClassName('container')[0].innerHTML = html;
 
-    let newerThan = CookieManager.getCookie('newer_than') ? CookieManager.getCookie('newer_than') : 7;
-    let label = CookieManager.getCookie('label') ? CookieManager.getCookie('label') : [];
+    newerThanSelect = document.getElementById('newer-than-select');
+    labelSelect = document.getElementById('label-select');
+    sortSelect = document.getElementById('sort-select');
+
+    let newerThan = Cookies.get('newer_than') || newerThanSelect.value;
+    let label = Cookies.get('label') || labelSelect.value;
+    let sort = Cookies.get('sort') || sortSelect.value;
 
     initListeners();
-    loadPropertyAds(newerThan, label);
+    loadPropertyAds(newerThan, label, sort);
 }
 
-function loadPropertyAds(newerThan, label) {
+function loadPropertyAds(newerThan, label, sort) {
     let $loader = $('.loader');
     // TODO: Fix the loader label
     $loader.attr('data-text', 'Chargement de vos annonces');
 
     $.ajax({
         type: 'POST',
-        url: Routing.generate('property_ads_list'),
+        url: Routing.generate('property_ads_list', { newer_than: newerThan, label: label, sort: sort }),
         headers: {'X-Requested-With': 'XMLHttpRequest'},
-        data: {
-            access_token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
-            newer_than: newerThan,
-            label: label
-        },
+        contentType: 'application/octet-stream; charset=utf-8',
+        processData: false,
+        data: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
         beforeSend: function () {
             $loader.show();
         },
@@ -38,17 +45,27 @@ function loadPropertyAds(newerThan, label) {
 
 function handleApplyFiltersClick(e) {
     e.preventDefault();
-    let newerThan = document.getElementById('newer-than-select').value;
-    let label = document.getElementById('label-select').value;
 
-    CookieManager.setCookie('newer_than', newerThan);
-    CookieManager.setCookie('label', label);
-    loadPropertyAds(newerThan, label);
+    Cookies.set('newer_than', newerThanSelect.value);
+    Cookies.set('label', labelSelect.value);
+    let sort = Cookies.get('sort') || sortSelect.value;
+
+    loadPropertyAds(newerThanSelect.value, labelSelect.value, sort);
+}
+
+function handleSortOnChange() {
+    Cookies.set('sort', sortSelect.value);
+
+    let newerThan = Cookies.get('newer_than') || newerThanSelect.value;
+    let label = Cookies.get('label') || labelSelect.value;
+
+    loadPropertyAds(newerThan, label, sortSelect.value);
 }
 
 function initListeners() {
     document.getElementById('btn-google-signout').onclick = handleSignoutClick;
     document.getElementById('btn-apply-filters').onclick = handleApplyFiltersClick;
+    document.getElementById('sort-select').onchange = handleSortOnChange;
 }
 
 export { propertyAdIndexCallback };

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\Type\FilterPropertyAdsType;
+use App\Form\Type\SortPropertyAdsType;
 use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,17 +30,20 @@ class PropertyAdController extends AbstractController
     {
         $data = [
             'newerThan' => json_decode($request->cookies->get('newer_than'), true),
-            'label' => json_decode($request->cookies->get('label'), true)
+            'label' => json_decode($request->cookies->get('label'), true),
         ];
 
-        $form = $this->createForm(FilterPropertyAdsType::class, $data, [
+        $filterForm = $this->createForm(FilterPropertyAdsType::class, $data, [
             'labels' => $serializer->denormalize($request->get('labels'), 'App\Model\GmailLabel[]')
         ]);
+        
+        $sortForm = $this->createForm(SortPropertyAdsType::class, ['sort' => json_decode($request->cookies->get('sort'), true)]);
 
         return $this->render('property_ad/_index.html.twig', [
             'profile_image' => $request->query->get('profile_image'),
             'email' => $request->query->get('email'),
-            'form' => $form->createView()
+            'filter_form' => $filterForm->createView(),
+            'sort_form' => $sortForm->createView()
         ]);
     }
 
@@ -61,13 +65,14 @@ class PropertyAdController extends AbstractController
         }
 
         $propertyAds = $propertyAdManager->find(
-            $request->request->get('access_token'),
-            $request->request->get('newer_than'),
-            $request->request->get('label') ? [$request->request->get('label')] : []
+            $request->getContent(),
+            $request->query->get('newer_than'),
+            $request->query->get('label') ? [$request->query->get('label')] : [],
         );
 
         return $this->render('property_ad/_property_ad_container.html.twig', [
-            'property_ads' => $propertyAds
+            'property_ads' => $propertyAds,
+            'sort' => json_decode($request->query->get('sort'), true)
         ]);
     }
 }

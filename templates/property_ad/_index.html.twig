@@ -3,8 +3,9 @@
     <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
 </div>
 <div>
-    {{ form_row(form.newerThan, { 'id': 'newer-than-select' }) }}
-    {{ form_row(form.label, { 'id': 'label-select' }) }}
-    {{ form_row(form.submit, { 'id': 'btn-apply-filters' }) }}
+    {{ form_row(filter_form.newerThan, { id: 'newer-than-select' }) }}
+    {{ form_row(filter_form.label, { id: 'label-select' }) }}
+    {{ form_row(filter_form.submit, { id: 'btn-apply-filters' }) }}
+    {{ form_widget(sort_form.sort, { id: 'sort-select' }) }}
 </div>
 <div id="property-ad-container"></div>
