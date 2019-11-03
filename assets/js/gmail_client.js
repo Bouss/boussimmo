@@ -17,7 +17,7 @@ const SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
  */
 window.handleClientLoad = function () {
     gapi.load('client:auth2', initClient);
-}
+};
 
 /**
  *  Initializes the API client library and sets up sign-in state
@@ -112,16 +112,19 @@ function loadHomepage() {
 }
 
 function loadPropertyAdIndex() {
-    $.ajax({
-        type: 'GET',
-        url: Routing.generate('property_ad_index'),
-        data: {
-            profile_image: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl(),
-            email: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail()
-        }
-    }).done(function (html) {
-        propertyAdIndexCallback(html);
+    getLabels(function (labels) {
+        $.ajax({
+            type: 'GET',
+            url: Routing.generate('property_ad_index'),
+            data: {
+                profile_image: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl(),
+                email: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail(),
+                labels: labels
+            }
+        }).done(function (html) {
+            propertyAdIndexCallback(html);
+        });
     });
 }
 
-export { renderSigninButton, handleAuthClick, handleSignoutClick, getLabels }
+export { renderSigninButton, handleAuthClick, handleSignoutClick }

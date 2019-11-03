@@ -22,7 +22,6 @@ Routing.setRoutingData(routes);
 global.routes = routes;
 global.Routing = Routing;
 
-import './cookies';
 import './gmail_client';
 import './homepage';
 import './property_ad_index';
