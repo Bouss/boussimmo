@@ -1,12 +1,17 @@
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/modal';
 @import '~bootstrap/scss/tooltip';
+@import 'colors';
+@import 'dropdown';
+
+$margin: 10px;
 
 #property-ad-container {
-  .property-ad {
-    margin: 15px 0;
+  margin-top: 10px;
+
+  & > *:not(:first-child) {
+    margin-top: 15px;
   }
 }
 
@@ -29,12 +34,53 @@
     background: #f8f8f8;
     color: #666;
     font: 13px/27px Roboto,RobotoDraft,Arial,sans-serif;
+    cursor: pointer;
 
     &:hover {
       border-color: #c6c6c6;
       box-shadow: 0 1px 1px rgba(0,0,0,0.1);
       background-image: linear-gradient(top, #fff, #f8f8f8);
       background-color: #fff;
+    }
+  }
+}
+
+.filter-form {
+  display: flex;
+  justify-content: center;
+  padding: $margin;
+  background-color: $primary-color;
+
+  & > *:not(:first-child) {
+    margin-left: $margin
+  }
+
+  button[type=submit] {
+    border: none;
+    border-radius: $border-radius;
+    background-color: $vivid-tangello;
+    color: #ffffff;
+    cursor: pointer;
+  }
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  margin-top: $margin;
+
+  & > *:not(:first-child) {
+    margin-left: $margin
+  }
+
+  &__count {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  &__sort-select {
+    select {
+      border: solid 1px grey;
     }
   }
 }

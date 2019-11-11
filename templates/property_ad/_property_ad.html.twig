@@ -1,4 +1,4 @@
-<article class="property-ad">
+<div class="property-ad">
     <a class="property-ad__link" href="{{ ad.url }}">
         <img class="property-ad__photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
         {% if ad.newBuild %}
@@ -15,20 +15,20 @@
             <img class="property-ad__provider-logo" src="{{ asset('build/providers/' ~ ad.site|providerLogo) }}" alt="{{ ad.site }}">
         </div>
         <div class="property-ad__publication-date"><i class="far fa-clock"></i>&nbsp;{{ ad.publishedAt|date('d/m/Y H:i:s') }}</div>
-        {% if ad.duplicates is not empty %}
-            <div class="property-ad__duplicate-container">
-                {% for duplicate in ad.duplicates %}
-                    <div class="property-ad-duplicate">
-                        <a class="property-ad-duplicate__link" href="{{ duplicate.url }}">
-                            <img class="property-ad-duplicate__photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
-                            <span class="property-ad-duplicate__label">
-                                Aussi présent sur
-                                <img class="property-ad-duplicate__provider-logo" src="{{ asset('build/providers/' ~ duplicate.site|providerLogo) }}" alt="{{ duplicate.site }}">
-                            </span>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
     </a>
-</article>
+    {% if ad.duplicates is not empty %}
+        <div class="property-ad__duplicate-container">
+            {% for duplicate in ad.duplicates %}
+                <div class="property-ad-duplicate">
+                    <a class="property-ad-duplicate__link" href="{{ duplicate.url }}">
+                        <img class="property-ad-duplicate__photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+                        <span class="property-ad-duplicate__label">
+                            Aussi présent sur&nbsp;
+                            <img class="property-ad-duplicate__provider-logo" src="{{ asset('build/providers/' ~ duplicate.site|providerLogo) }}" alt="{{ duplicate.site }}">
+                        </span>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

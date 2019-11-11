@@ -1,11 +1,28 @@
-<div class="google-profile">
-    <img class="google-profile__image" src="{{ profile_image }}" alt="Image de profil Google" data-toggle="tooltip" data-placement="left" title="{{ email }}"/>
-    <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
+<div class="header">
+    <div class="google-profile">
+        <img class="google-profile__image" src="{{ profile_image }}" alt="Image de profil Google" data-toggle="tooltip" data-placement="left" title="{{ email }}"/>
+        <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
+    </div>
+    <div class="filter-form">
+        <div class="dropdown">
+            {{ form_label(filter_form.newerThan) }}
+            {{ form_widget(filter_form.newerThan) }}
+        </div>
+        <div class="dropdown">
+            {{ form_label(filter_form.label) }}
+            {{ form_widget(filter_form.label) }}
+        </div>
+        <button id="btn-apply-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
+    </div>
 </div>
-<div>
-    {{ form_row(filter_form.newerThan, { id: 'newer-than-select' }) }}
-    {{ form_row(filter_form.label, { id: 'label-select' }) }}
-    {{ form_row(filter_form.submit, { id: 'btn-apply-filters' }) }}
-    {{ form_widget(sort_form.sort, { id: 'sort-select' }) }}
+
+<div class="body">
+    <div class="result">
+        <div class="result__label"><span class="result__count"></span>&nbsp;annonces trouvées</div>
+        <div class="result__sort-select dropdown dropdown--without-label">
+            {{ form_widget(sort_form.sort) }}
+        </div>
+    </div>
+
+    <div id="property-ad-container"></div>
 </div>
-<div id="property-ad-container"></div>

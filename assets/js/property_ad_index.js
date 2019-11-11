@@ -10,9 +10,9 @@ let sortSelect;
 function propertyAdIndexCallback(html) {
     document.getElementsByClassName('container')[0].innerHTML = html;
 
-    newerThanSelect = document.getElementById('newer-than-select');
-    labelSelect = document.getElementById('label-select');
-    sortSelect = document.getElementById('sort-select');
+    newerThanSelect = document.getElementById('filter_property_ads_newerThan');
+    labelSelect = document.getElementById('filter_property_ads_label');
+    sortSelect = document.getElementById('sort_property_ads_sort');
 
     let newerThan = Cookies.get('newer_than') || newerThanSelect.value;
     let label = Cookies.get('label') || labelSelect.value;
@@ -37,9 +37,10 @@ function loadPropertyAds(newerThan, label, sort) {
         beforeSend: function () {
             $loader.show();
         },
-    }).done(function (html) {
+    }).done(function (data) {
         $loader.hide();
-        document.getElementById('property-ad-container').innerHTML = html;
+        document.getElementById('property-ad-container').innerHTML = data.html;
+        document.getElementsByClassName('result__count')[0].innerHTML = data.property_ad_count;
     });
 }
 
@@ -64,8 +65,8 @@ function handleSortOnChange() {
 
 function initListeners() {
     document.getElementById('btn-google-signout').onclick = handleSignoutClick;
-    document.getElementById('btn-apply-filters').onclick = handleApplyFiltersClick;
-    document.getElementById('sort-select').onchange = handleSortOnChange;
+    document.getElementById('btn-apply-filter').onclick = handleApplyFiltersClick;
+    sortSelect.onchange = handleSortOnChange;
 }
 
 export { propertyAdIndexCallback };

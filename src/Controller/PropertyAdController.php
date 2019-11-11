@@ -7,6 +7,7 @@ use App\Form\Type\SortPropertyAdsType;
 use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -53,11 +54,11 @@ class PropertyAdController extends AbstractController
      * @param Request           $request
      * @param PropertyAdManager $propertyAdManager
      *
-     * @return Response
+     * @return JsonResponse
      *
      * @throws ParserNotFoundException
      */
-    public function list(Request $request, PropertyAdManager $propertyAdManager): Response
+    public function list(Request $request, PropertyAdManager $propertyAdManager): JsonResponse
     {
         // Without the "X-Requested-With" header, this request could be forged: could be a CSRF attack. Abort.
         if (null === $request->headers->get('X-Requested-With')) {
@@ -70,9 +71,12 @@ class PropertyAdController extends AbstractController
             $request->query->get('label') ? [$request->query->get('label')] : [],
         );
 
-        return $this->render('property_ad/_property_ad_container.html.twig', [
-            'property_ads' => $propertyAds,
-            'sort' => json_decode($request->query->get('sort'), true)
+        return new JsonResponse([
+            'html' => $this->renderView('property_ad/_property_ad_container.html.twig', [
+                'property_ads' => $propertyAds,
+                'sort' => json_decode($request->query->get('sort'), true)
+            ]),
+            'property_ad_count' => count($propertyAds)
         ]);
     }
 }

@@ -2,6 +2,7 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>{% block title %}Immo' Scrap{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -10,9 +11,7 @@
     <body>
         <div class="loader" data-text></div>
         {% block header %}{% endblock %}
-        <div class="container">
-            {% block main %}{% endblock %}
-        </div>
+        <div class="container"></div>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             <script async defer src="https://apis.google.com/js/api.js"
