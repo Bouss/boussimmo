@@ -61,10 +61,11 @@ $margin-duplicates: 5px;
 
     &__new-build-tag {
         @extend .badge;
-        @extend .badge-primary;
         position: absolute;
         top: 10px;
         left: 10px;
+        background-color: $maximum-blue;
+        color: #fff;
     }
 
     &__duplicate-container {

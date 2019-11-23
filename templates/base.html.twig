@@ -9,9 +9,11 @@
         {% endblock %}
     </head>
     <body>
-        <div class="loader" data-text></div>
-        {% block header %}{% endblock %}
         <div class="container"></div>
+        <footer>
+            <h1>Immo'Scrap</h1>
+        </footer>
+
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             <script async defer src="https://apis.google.com/js/api.js"

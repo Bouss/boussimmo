@@ -3,11 +3,14 @@ import '../css/property_ad.scss';
 import { handleSignoutClick } from './gmail_client';
 import Cookies from './cookies';
 
+let loader = document.createElement('div');
+loader.className = 'loader';
 let newerThanSelect;
 let labelSelect;
 let sortSelect;
 
 function propertyAdIndexCallback(html) {
+    document.body.classList.remove('homepage-body');
     document.getElementsByClassName('container')[0].innerHTML = html;
 
     newerThanSelect = document.getElementById('filter_property_ads_newerThan');
@@ -23,10 +26,6 @@ function propertyAdIndexCallback(html) {
 }
 
 function loadPropertyAds(newerThan, label, sort) {
-    let $loader = $('.loader');
-    // TODO: Fix the loader label
-    $loader.attr('data-text', 'Chargement de vos annonces');
-
     $.ajax({
         type: 'POST',
         url: Routing.generate('property_ads_list', { newer_than: newerThan, label: label, sort: sort }),
@@ -35,10 +34,10 @@ function loadPropertyAds(newerThan, label, sort) {
         processData: false,
         data: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
         beforeSend: function () {
-            $loader.show();
+            document.getElementsByTagName('body')[0].append(loader);
         },
     }).done(function (data) {
-        $loader.hide();
+        loader.remove();
         document.getElementById('property-ad-container').innerHTML = data.html;
         document.getElementsByClassName('result__count')[0].innerHTML = data.property_ad_count;
     });
