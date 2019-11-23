@@ -438,7 +438,7 @@ class PropertyAd
         return
             $this->roomsCount === $propertyAd->getRoomsCount() &&
             $this->price === $propertyAd->getPrice() &&
-            $this->area === $propertyAd->getArea() &&
+            abs($this->area - $propertyAd->getArea()) <= 1 &&
             ($strict ? ($this->site === $propertyAd->getSite()) : true) &&
             $this->publishedAt->diff($propertyAd->getPublishedAt())->h <= 48;
     }
