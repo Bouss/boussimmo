@@ -12,6 +12,10 @@
             {{ form_label(filter_form.label) }}
             {{ form_widget(filter_form.label) }}
         </div>
+        <div class="checkbox">
+            {{ form_widget(filter_form.newBuild) }}
+            {{ form_label(filter_form.newBuild) }}
+        </div>
         <button id="btn-apply-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
     </div>
 </div>

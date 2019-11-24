@@ -7,6 +7,7 @@ let loader = document.createElement('div');
 loader.className = 'loader';
 let newerThanSelect;
 let labelSelect;
+let newBuildCheckbox;
 let sortSelect;
 
 function propertyAdIndexCallback(html) {
@@ -15,20 +16,17 @@ function propertyAdIndexCallback(html) {
 
     newerThanSelect = document.getElementById('filter_property_ads_newerThan');
     labelSelect = document.getElementById('filter_property_ads_label');
+    newBuildCheckbox = document.getElementById('filter_property_ads_newBuild');
     sortSelect = document.getElementById('sort_property_ads_sort');
 
-    let newerThan = Cookies.get('newer_than') || newerThanSelect.value;
-    let label = Cookies.get('label') || labelSelect.value;
-    let sort = Cookies.get('sort') || sortSelect.value;
-
     initListeners();
-    loadPropertyAds(newerThan, label, sort);
+    loadPropertyAds(Cookies.get('filters') || getFilters(), Cookies.get('sort') || sortSelect.value);
 }
 
-function loadPropertyAds(newerThan, label, sort) {
+function loadPropertyAds(filters, sort) {
     $.ajax({
         type: 'POST',
-        url: Routing.generate('property_ads_list', { newer_than: newerThan, label: label, sort: sort }),
+        url: Routing.generate('property_ads_list', { filters: filters, sort: sort }),
         headers: {'X-Requested-With': 'XMLHttpRequest'},
         contentType: 'application/octet-stream; charset=utf-8',
         processData: false,
@@ -46,26 +44,27 @@ function loadPropertyAds(newerThan, label, sort) {
 function handleApplyFiltersClick(e) {
     e.preventDefault();
 
-    Cookies.set('newer_than', newerThanSelect.value);
-    Cookies.set('label', labelSelect.value);
-    let sort = Cookies.get('sort') || sortSelect.value;
-
-    loadPropertyAds(newerThanSelect.value, labelSelect.value, sort);
+    Cookies.set('filters', getFilters());
+    loadPropertyAds(getFilters(), Cookies.get('sort') || sortSelect.value);
 }
 
 function handleSortOnChange() {
     Cookies.set('sort', sortSelect.value);
-
-    let newerThan = Cookies.get('newer_than') || newerThanSelect.value;
-    let label = Cookies.get('label') || labelSelect.value;
-
-    loadPropertyAds(newerThan, label, sortSelect.value);
+    loadPropertyAds(Cookies.get('filters') || getFilters(), sortSelect.value);
 }
 
 function initListeners() {
     document.getElementById('btn-google-signout').onclick = handleSignoutClick;
     document.getElementById('btn-apply-filter').onclick = handleApplyFiltersClick;
     sortSelect.onchange = handleSortOnChange;
+}
+
+function getFilters() {
+    return {
+        'newer_than': newerThanSelect.value,
+        'label': labelSelect.value,
+        'new_build': newBuildCheckbox.checked
+    };
 }
 
 export { propertyAdIndexCallback };

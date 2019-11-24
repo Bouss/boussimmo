@@ -29,16 +29,20 @@ class PropertyAdController extends AbstractController
      */
     public function index(Request $request, SerializerInterface $serializer): Response
     {
+        $filters = json_decode($request->cookies->get('filters'), true);
+        $sort = json_decode($request->cookies->get('sort'), true);
+
         $data = [
-            'newerThan' => json_decode($request->cookies->get('newer_than'), true),
-            'label' => json_decode($request->cookies->get('label'), true),
+            'newerThan' => $filters['newer_than'],
+            'label' => $filters['label'],
+            'newBuild' => $filters['new_build']
         ];
 
         $filterForm = $this->createForm(FilterPropertyAdsType::class, $data, [
             'labels' => $serializer->denormalize($request->get('labels'), 'App\Model\GmailLabel[]')
         ]);
         
-        $sortForm = $this->createForm(SortPropertyAdsType::class, ['sort' => json_decode($request->cookies->get('sort'), true)]);
+        $sortForm = $this->createForm(SortPropertyAdsType::class, ['sort' => $sort]);
 
         return $this->render('property_ad/_index.html.twig', [
             'profile_image' => $request->query->get('profile_image'),
@@ -65,11 +69,10 @@ class PropertyAdController extends AbstractController
             throw new AccessDeniedHttpException();
         }
 
-        $propertyAds = $propertyAdManager->find(
-            $request->getContent(),
-            $request->query->get('newer_than'),
-            $request->query->get('label') ? [$request->query->get('label')] : [],
-        );
+        $filters = $request->query->get('filters');
+        $filters['new_build'] = filter_var($filters['new_build'], FILTER_VALIDATE_BOOLEAN);
+
+        $propertyAds = $propertyAdManager->find($request->getContent(), $filters);
 
         return new JsonResponse([
             'html' => $this->renderView('property_ad/_property_ad_container.html.twig', [

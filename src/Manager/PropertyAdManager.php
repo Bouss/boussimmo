@@ -73,19 +73,17 @@ class PropertyAdManager
     }
 
     /**
-     * @param string      $userToken
-     * @param int|null    $newerThan
-     * @param string[]    $labelIds
-     * @param string|null $provider
+     * @param string $userToken
+     * @param array  $filters
      *
      * @return PropertyAd[]
      *
      * @throws ParserNotFoundException
      */
-    public function find(string $userToken, int $newerThan = null, array $labelIds = [], string $provider = null): array
+        public function find(string $userToken, array $filters): array
     {
         $ads = [];
-        $messages = $this->gmailClient->getMessages($userToken, $newerThan, $labelIds);
+        $messages = $this->gmailClient->getMessages($userToken, $filters['newer_than'], $filters['label'] ? [$filters['label']] : []);
 
         foreach ($messages as $message) {
             try {
@@ -120,7 +118,7 @@ class PropertyAdManager
         // Remove duplicates from same provider
         $this->removeRealDuplicates($ads);
         // Attach duplicates from different providers to unique property ad
-        $this->filterDuplicates($ads);
+        $this->filterAds($ads, $filters['new_build']);
 
         return $ads;
     }
@@ -186,14 +184,20 @@ class PropertyAdManager
 
     /**
      * @param PropertyAd[] $propertyAds
+     * @param bool         $newBuild
      */
-    private function filterDuplicates(array &$propertyAds): void
+    private function filterAds(array &$propertyAds, bool $newBuild): void
     {
-        foreach ($propertyAds as &$ad) {
-            foreach ($propertyAds as $key => $comparedAd) {
+        foreach ($propertyAds as $key => &$ad) {
+            if ($newBuild && !$ad->isNewBuild()) {
+                unset($propertyAds[$key]);
+                continue;
+            }
+
+            foreach ($propertyAds as $keyDuplicate => $comparedAd) {
                 if ($ad !== $comparedAd && $ad->equals($comparedAd)) {
                     $ad->addDuplicate($comparedAd);
-                    unset($propertyAds[$key]);
+                    unset($propertyAds[$keyDuplicate]);
                 }
             }
         }

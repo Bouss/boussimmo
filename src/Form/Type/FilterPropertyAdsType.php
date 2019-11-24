@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use App\Model\GmailLabel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +34,9 @@ class FilterPropertyAdsType extends AbstractType
                 'choices' => $this->formatLabelChoices($options['labels']),
                 'required'   => false,
                 'empty_data' => null
+            ])
+            ->add('newBuild', CheckboxType::class, [
+                'label' => 'Neuf'
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Appliquer'
