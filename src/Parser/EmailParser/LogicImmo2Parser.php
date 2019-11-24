@@ -4,7 +4,6 @@ namespace App\Parser\EmailParser;
 
 use App\Definition\SiteEnum;
 use App\Parser\AbstractParser;
-use App\Util\NumericUtil;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmo2Parser extends AbstractParser
@@ -33,15 +32,5 @@ class LogicImmo2Parser extends AbstractParser
         $data = parent::getLocation($crawler);
 
         return explode('|', $data)[0];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getArea(Crawler $crawler): ?float
-    {
-        $data = parent::getLocation($crawler);
-
-        return NumericUtil::extractFloat(explode('|', $data)[1]);
     }
 }

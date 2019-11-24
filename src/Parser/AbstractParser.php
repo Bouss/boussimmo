@@ -134,7 +134,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the price: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractFloat($priceStr);
+        return NumericUtil::extractPrice($priceStr) ?: NumericUtil::extractFloat($priceStr);
     }
 
     /**
@@ -156,7 +156,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the area: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractFloat($areaStr);
+        return NumericUtil::extractArea($areaStr) ?: NumericUtil::extractFloat($areaStr);
     }
 
     /**
@@ -178,7 +178,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the number of rooms: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractInt($roomsCountStr);
+        return NumericUtil::extractRoomsCount($roomsCountStr) ?: NumericUtil::extractInt($roomsCountStr);
     }
 
     /**
@@ -327,7 +327,7 @@ abstract class AbstractParser
      */
     protected function buildPropertyAd(Crawler $crawler, array $options = []): PropertyAd
     {
-        $ad = (new PropertyAd)
+        return (new PropertyAd)
             ->setSite(static::SITE)
             ->setExternalId($this->getExternalId($crawler))
             ->setUrl($this->getUrl($crawler))
@@ -341,7 +341,5 @@ abstract class AbstractParser
             ->setPhoto($this->getPhoto($crawler))
             ->setRealEstateAgent($this->getRealEstateAgent($crawler))
             ->setNewBuild($this->isNewBuild($crawler));
-
-        return $ad;
     }
 }

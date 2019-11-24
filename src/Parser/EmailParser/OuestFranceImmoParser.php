@@ -24,6 +24,9 @@ class OuestFranceImmoParser extends AbstractParser
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';
 
+    /**
+     * {@inheritDoc}
+     */
     protected function getPhoto(Crawler $crawler): ?string
     {
         $photo = parent::getPhoto($crawler);
