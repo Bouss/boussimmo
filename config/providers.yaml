@@ -31,6 +31,10 @@
     email: alerte@news.ouestfrance-immo.com
     from: "\"Ouestfrance-immo.com\" <alerte@news.ouestfrance-immo.com>"
     subject: neuf
+!php/const App\Definition\MailProviderEnum::PAP:
+    logo: pap.png
+    email: users-alertes@pap.fr
+    from: "\"PAP.fr\" <users-alertes@pap.fr>"
 !php/const App\Definition\MailProviderEnum::SELOGER:
     logo: seloger.svg
     email: seloger@al.alerteimmo.com

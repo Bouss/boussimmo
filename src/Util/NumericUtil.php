@@ -45,7 +45,7 @@ class NumericUtil
     public static function extractPrice(string $val): ?float
     {
         $val = StringUtil::removeWhitespaces($val);
-        $val = str_replace(',', '.', $val);
+        $val = str_replace([',', '.'], ['.', ''], $val);
         preg_match(sprintf('/%s/ui', self::REGEX_PRICE), $val, $matches);
 
         return isset($matches[1]) ? (float) $matches[1] : null;
