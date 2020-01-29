@@ -1,4 +1,11 @@
-<div class="header">
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('property_ads') }}
+{% endblock %}
+
+{% block header %}
     <div class="google-profile">
         <img class="google-profile__image" src="{{ profile_image }}" alt="Image de profil Google" data-toggle="tooltip" data-placement="left" title="{{ email }}"/>
         <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
@@ -18,9 +25,9 @@
         </div>
         <button id="btn-apply-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
     </div>
-</div>
+{% endblock %}
 
-<div class="content">
+{% block body %}
     <div class="result">
         <div class="result__label"><span class="result__count"></span>&nbsp;annonces trouvées</div>
         <div class="result__sort-select dropdown dropdown--without-label">
@@ -29,4 +36,4 @@
     </div>
 
     <div id="property-ad-container"></div>
-</div>
+{% endblock %}

@@ -1,14 +1,14 @@
 @import 'colors';
 
-.homepage-body {
+body {
     background-color: $primary-color;
 }
 
-.homepage-header {
+header {
     margin-top: 10em;
 }
 
-.homepage-content {
+.content {
     margin-top: 5em;
     padding: 20px;
     background-color: $grey-light;

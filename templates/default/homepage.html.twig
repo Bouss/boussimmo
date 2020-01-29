@@ -1,11 +1,18 @@
-<div class="homepage-header">
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('homepage') }}
+{% endblock %}
+
+{% block header %}
     <div class="cta-wrapper">
         <h1>Facilitez votre recherche d'appartements maintenant</h1>
-        <div id="btn-google-authorize" class="g-signin2" data-width="240" data-height="50" data-longtitle="true" data-theme="dark"></div>
+        <a href="{{ path('connect_google_start') }}">Google</a>
     </div>
-</div>
+{% endblock %}
 
-<div class="homepage-content">
+{% block body %}
     <h2>Qu'est-ce que Immo'Scrap ?</h2>
     <p>
         Immo'Scrap est un site développé par un particulier indépendant dont l'objectif est de centraliser les annonces immobilières qui vous intéressent.<br>
@@ -39,4 +46,4 @@
         <li>alerte@news.ouestfrance-immo.com</li>
         <li>seloger@al.alerteimmo.com</li>
     </ul>
-</div>
+{% endblock %}

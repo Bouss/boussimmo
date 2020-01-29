@@ -28,16 +28,6 @@ a {
     color: black;
 }
 
-.container {
-    & > * {
-        margin: 0 auto;
-    }
-}
-
-.content, .homepage-content {
-    max-width: $page-width;
-}
-
 footer {
     position: absolute;
     width: 100%;
@@ -47,4 +37,14 @@ footer {
     background-color: $primary-color;
     text-align: center;
     color: #ffffff;
+}
+
+.container {
+    & > * {
+        margin: 0 auto;
+    }
+}
+
+.content {
+    max-width: $page-width;
 }

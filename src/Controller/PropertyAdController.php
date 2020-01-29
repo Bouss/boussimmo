@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\Type\FilterPropertyAdsType;
 use App\Form\Type\SortPropertyAdsType;
 use App\Manager\PropertyAdManager;
@@ -20,7 +21,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class PropertyAdController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, options={"expose"=true}, name="property_ad_index")
+     * @Route("/", methods={"GET"}, name="property_ad_index")
      *
      * @param Request             $request
      * @param SerializerInterface $serializer
@@ -44,9 +45,7 @@ class PropertyAdController extends AbstractController
         
         $sortForm = $this->createForm(SortPropertyAdsType::class, ['sort' => $sort]);
 
-        return $this->render('property_ad/_index.html.twig', [
-            'profile_image' => $request->query->get('profile_image'),
-            'email' => $request->query->get('email'),
+        return $this->render('property_ad/index.html.twig', [
             'filter_form' => $filterForm->createView(),
             'sort_form' => $sortForm->createView()
         ]);

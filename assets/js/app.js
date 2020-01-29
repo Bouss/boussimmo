@@ -6,7 +6,7 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-import '../css/app.scss';
+import '../scss/app.scss';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
@@ -21,7 +21,3 @@ Routing.setRoutingData(routes);
 
 global.routes = routes;
 global.Routing = Routing;
-
-import './gmail_client';
-import './homepage';
-import './property_ad_index';

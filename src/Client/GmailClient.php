@@ -6,6 +6,7 @@ use App\Service\ProviderService;
 use Exception;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Message;
+use Google_Service_Gmail_Label;
 use Psr\Log\LoggerInterface;
 
 class GmailClient
@@ -88,6 +89,21 @@ class GmailClient
     public function getMessage(string $messageId, string $userId = 'me'): Google_Service_Gmail_Message
     {
         return $this->gmailService->users_messages->get($userId, $messageId);
+    }
+
+    /**
+     * @param string $accessToken
+     * @param string $userId
+     *
+     * @return Google_Service_Gmail_Label
+     */
+    public function getLabels(string $accessToken, string $userId = 'me'): Google_Service_Gmail_Label
+    {
+        $labels = [];
+
+        $this->gmailService->getClient()->setAccessToken($accessToken);
+
+        return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();
     }
 
     /**

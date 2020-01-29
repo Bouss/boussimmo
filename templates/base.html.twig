@@ -9,18 +9,20 @@
         {% endblock %}
     </head>
     <body>
-        <div class="container"></div>
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+        <div class="container">
+            <div class="content">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
         <footer>
             <h1>Immo'Scrap</h1>
         </footer>
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            <script async defer src="https://apis.google.com/js/api.js"
-                    onload="window.handleClientLoad();"
-                    onreadystatechange="if (this.readyState === 'complete') this.onload()">
-            </script>
-            <script src="https://apis.google.com/js/platform.js?hl=fr&onload=renderSigninButton" async defer></script>
         {% endblock %}
     </body>
 </html>

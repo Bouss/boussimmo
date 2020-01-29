@@ -55,7 +55,7 @@ function renderSigninButton() {
  */
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
-        loadPropertyAdIndex();
+        signIn();
     } else {
         loadHomepage();
     }
@@ -108,6 +108,21 @@ function loadHomepage() {
         url: Routing.generate('homepage'),
     }).done(function (html) {
         homepageCallback(html);
+    });
+}
+
+function signIn() {
+    $.ajax({
+        type: 'POST',
+        url: Routing.generate('log_in'),
+        data: {
+            access_token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
+            email: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail(),
+            profile_image: gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl(),
+        }
+    }).done(function (data) {
+        console.log(data);
+        loadPropertyAdIndex();
     });
 }
 

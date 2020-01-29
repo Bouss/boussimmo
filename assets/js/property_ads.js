@@ -1,6 +1,5 @@
-import '../css/property_ad_index.scss';
-import '../css/property_ad.scss';
-import { handleSignoutClick } from './gmail_client';
+import '../scss/property_ad_index.scss';
+import '../scss/property_ad.scss';
 import Cookies from './cookies';
 
 let loader = document.createElement('div');

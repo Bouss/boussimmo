@@ -3,8 +3,8 @@ services:
         class: Google_Client
         calls:
             - [setDeveloperKey, ['%env(GOOGLE_API_KEY)%']]
-            - [setClientId, ['%env(GOOGLE_CLIENT_ID)%']]
-            - [setClientSecret, ['%env(GOOGLE_CLIENT_SECRET)%']]
+            - [setClientId, ['%env(OAUTH_GOOGLE_ID)%']]
+            - [setClientSecret, ['%env(OAUTH_GOOGLE_SECRET)%']]
 
     Google_Service_Gmail:
         class: Google_Service_Gmail
