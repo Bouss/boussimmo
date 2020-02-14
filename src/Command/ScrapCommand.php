@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Definition\CityEnum;
-use App\Definition\SiteEnum;
+use App\Enum\City;
+use App\Enum\Site;
 use App\Entity\PropertyType;
 use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;
@@ -43,8 +43,8 @@ class ScrapCommand extends Command
     {
         $this
             ->setDescription('Extract property ads from a web page')
-            ->addArgument('site', InputArgument::REQUIRED, 'Site: ' . implode(', ', SiteEnum::getAvailableValues()))
-            ->addArgument('city', InputArgument::REQUIRED, 'City: ' . implode(', ', CityEnum::getAvailableValues()))
+            ->addArgument('site', InputArgument::REQUIRED, 'Site: ' . implode(', ', Site::getAvailableValues()))
+            ->addArgument('city', InputArgument::REQUIRED, 'City: ' . implode(', ', City::getAvailableValues()))
             ->addArgument('property-type', InputArgument::REQUIRED, 'Property type: ' . implode(', ', PropertyType::AVAILABLE_TYPES))
             ->addOption('min-price', null, InputOption::VALUE_OPTIONAL, 'Minimum price')
             ->addOption('max-price', 'p', InputOption::VALUE_REQUIRED, 'Maximum price')
@@ -125,8 +125,8 @@ class ScrapCommand extends Command
         $minRoomsCount = $input->getOption('min-rooms-count');
         $maxRoomsCount = $input->getOption('max-rooms-count');
 
-        SiteEnum::check($site);
-        CityEnum::check($city);
+        Site::check($site);
+        City::check($city);
 
         if (!in_array($propertyType, PropertyType::AVAILABLE_TYPES)) {
             throw new InvalidArgumentException(sprintf('Invalid property type: "%s". Available property types are: %s', $propertyType, PropertyType::AVAILABLE_TYPES));

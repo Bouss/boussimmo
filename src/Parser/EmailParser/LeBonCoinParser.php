@@ -2,14 +2,14 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Parser\AbstractParser;
 use App\Util\NumericUtil;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LeBonCoinParser extends AbstractParser
 {
-    protected const SITE = SiteEnum::LEBONCOIN;
+    protected const SITE = Site::LEBONCOIN;
     protected const SELECTOR_AD_WRAPPER = '[class*="bc-classified"]';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '[class$="classified-title"]';

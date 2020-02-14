@@ -2,13 +2,13 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class SeLogerParser extends AbstractParser
 {
-    protected const SITE = SiteEnum::SELOGER;
+    protected const SITE = Site::SELOGER;
     protected const SELECTOR_AD_WRAPPER = 'td[class$="two-column"]';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

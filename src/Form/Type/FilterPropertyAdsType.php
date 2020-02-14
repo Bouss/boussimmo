@@ -2,7 +2,7 @@
 
 namespace App\Form\Type;
 
-use App\Model\GmailLabel;
+use Google_Service_Gmail_Label;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,11 +32,12 @@ class FilterPropertyAdsType extends AbstractType
             ->add('label', ChoiceType::class, [
                 'label' => 'Label Gmail',
                 'choices' => $this->formatLabelChoices($options['labels']),
-                'required'   => false,
+                'required' => false,
                 'empty_data' => null
             ])
             ->add('newBuild', CheckboxType::class, [
-                'label' => 'Neuf'
+                'label' => 'Neuf',
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Appliquer'
@@ -57,7 +58,7 @@ class FilterPropertyAdsType extends AbstractType
     }
 
     /**
-     * @param GmailLabel[] $labels
+     * @param Google_Service_Gmail_Label[] $labels
      *
      * @return array
      */

@@ -2,14 +2,14 @@
 
 namespace App\Parser\WebParser;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Util\NumericUtil;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class OuestFranceImmoParser extends AbstractWebParser
 {
-    protected const SITE = SiteEnum::OUESTFRANCE_IMMO;
+    protected const SITE = Site::OUESTFRANCE_IMMO;
     protected const SELECTOR_NEXT_PAGE_URL = '.currentPage + * > a[data-page]';
     protected const SELECTOR_AD_WRAPPER = '.annLink';
     protected const SELECTOR_EXTERNAL_ID = 'div[data-id]';

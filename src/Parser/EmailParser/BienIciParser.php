@@ -2,13 +2,13 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class BienIciParser extends AbstractParser
 {
-    protected const SITE = SiteEnum::BIENICI;
+    protected const SITE = Site::BIENICI;
     protected const SELECTOR_AD_WRAPPER = '[class$="realEstateAd"]';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

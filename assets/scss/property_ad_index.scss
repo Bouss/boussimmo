@@ -9,7 +9,7 @@
 
 $margin: 10px;
 
-#property-ad-container {
+.property-ad-container {
   margin-top: 10px;
 
   & > *:not(:first-child) {
@@ -50,7 +50,7 @@ $margin: 10px;
   }
 }
 
-.filter-form {
+#filter-form {
   display: flex;
   justify-content: center;
   padding: $margin;

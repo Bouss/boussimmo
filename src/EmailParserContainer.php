@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Definition\MailProviderEnum;
+use App\Enum\MailProvider;
 use App\Exception\ParserNotFoundException;
 use App\Parser\AbstractParser;
 use App\Parser\EmailParser\BienIciParser;
@@ -40,17 +40,17 @@ class EmailParserContainer implements ServiceSubscriberInterface
     public static function getSubscribedServices(): array
     {
         return [
-            MailProviderEnum::BIENICI => BienIciParser::class,
-            MailProviderEnum::LEBONCOIN => LeBonCoinParser::class,
-            MailProviderEnum::FNAIM => FnaimParser::class,
-            MailProviderEnum::LOGIC_IMMO => LogicImmoParser::class,
-            MailProviderEnum::LOGIC_IMMO_2 => LogicImmo2Parser::class,
-            MailProviderEnum::LOGIC_IMMO_NEUF => LogicImmoNeufParser::class,
-            MailProviderEnum::OUESTFRANCE_IMMO => OuestFranceImmoParser::class,
-            MailProviderEnum::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,
-            MailProviderEnum::PAP => PapParser::class,
-            MailProviderEnum::SELOGER => SeLogerParser::class,
-            MailProviderEnum::SELOGER_2 => SeLoger2Parser::class
+            MailProvider::BIENICI               => BienIciParser::class,
+            MailProvider::LEBONCOIN             => LeBonCoinParser::class,
+            MailProvider::FNAIM                 => FnaimParser::class,
+            MailProvider::LOGIC_IMMO            => LogicImmoParser::class,
+            MailProvider::LOGIC_IMMO_2          => LogicImmo2Parser::class,
+            MailProvider::LOGIC_IMMO_NEUF       => LogicImmoNeufParser::class,
+            MailProvider::OUESTFRANCE_IMMO      => OuestFranceImmoParser::class,
+            MailProvider::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,
+            MailProvider::PAP                   => PapParser::class,
+            MailProvider::SELOGER               => SeLogerParser::class,
+            MailProvider::SELOGER_2             => SeLoger2Parser::class
         ];
     }
 

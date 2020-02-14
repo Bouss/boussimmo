@@ -1,45 +1,45 @@
-!php/const App\Definition\MailProviderEnum::BIENICI:
+!php/const App\Enum\MailProvider::BIENICI:
     logo: bienici.svg
     email: no_reply@bienici.com
     from: "\"Bien'ici\" <no_reply@bienici.com>"
-!php/const App\Definition\MailProviderEnum::FNAIM:
+!php/const App\Enum\MailProvider::FNAIM:
     logo: fnaim.png
     email: no-reply@fnaim.fr
     from: FNAIM <no-reply@fnaim.fr>
-!php/const App\Definition\MailProviderEnum::LEBONCOIN:
+!php/const App\Enum\MailProvider::LEBONCOIN:
     logo: leboncoin.svg
     email: no.reply@leboncoin.fr
     from: "leboncoin <no.reply@leboncoin.fr>"
-!php/const App\Definition\MailProviderEnum::LOGIC_IMMO:
+!php/const App\Enum\MailProvider::LOGIC_IMMO:
     logo: logic_immo.png
     email: news@logicimmo.nmp1.com
     from: "\"Logic-immo.com\" <news@logicimmo.nmp1.com>"
-!php/const App\Definition\MailProviderEnum::LOGIC_IMMO_2:
+!php/const App\Enum\MailProvider::LOGIC_IMMO_2:
     logo: logic_immo.png
     email: news@logicimmo.nmp1.com
     from: "\"Logic-Immo.com\" <news@logicimmo.nmp1.com>"
-!php/const App\Definition\MailProviderEnum::LOGIC_IMMO_NEUF:
+!php/const App\Enum\MailProvider::LOGIC_IMMO_NEUF:
     logo: logic_immo.png
     email: news@logicimmo.nmp1.com
     from: "\"Logic-ImmoNeuf.com\" <news@logicimmo.nmp1.com>"
-!php/const App\Definition\MailProviderEnum::OUESTFRANCE_IMMO:
+!php/const App\Enum\MailProvider::OUESTFRANCE_IMMO:
     logo: ouestfrance_immo.svg
     email: alerte@news.ouestfrance-immo.com
     from: "\"Ouestfrance-immo.com\" <alerte@news.ouestfrance-immo.com>"
-!php/const App\Definition\MailProviderEnum::OUESTFRANCE_IMMO_NEUF:
+!php/const App\Enum\MailProvider::OUESTFRANCE_IMMO_NEUF:
     logo: ouestfrance_immo.svg
     email: alerte@news.ouestfrance-immo.com
     from: "\"Ouestfrance-immo.com\" <alerte@news.ouestfrance-immo.com>"
     subject: neuf
-!php/const App\Definition\MailProviderEnum::PAP:
+!php/const App\Enum\MailProvider::PAP:
     logo: pap.png
     email: users-alertes@pap.fr
     from: "\"PAP.fr\" <users-alertes@pap.fr>"
-!php/const App\Definition\MailProviderEnum::SELOGER:
+!php/const App\Enum\MailProvider::SELOGER:
     logo: seloger.svg
     email: seloger@al.alerteimmo.com
     from: SeLoger <seloger@al.alerteimmo.com>
-!php/const App\Definition\MailProviderEnum::SELOGER_2:
+!php/const App\Enum\MailProvider::SELOGER_2:
     logo: seloger.svg
     email: seloger@al.alerteimmo.com
     from: SeLoger <seloger@al.alerteimmo.com>

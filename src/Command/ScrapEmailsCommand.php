@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Client\EmailClient;
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\EmailParserContainer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -41,9 +41,9 @@ class ScrapEmailsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $ads = [];
-        $mails = $this->emailClient->getMails(SiteEnum::LOGIC_IMMO, '-14 days');
+        $mails = $this->emailClient->getMails(Site::LOGIC_IMMO, '-14 days');
 
-        $parser = $this->parserContainer->get(SiteEnum::LOGIC_IMMO);
+        $parser = $this->parserContainer->get(Site::LOGIC_IMMO);
 
         foreach ($mails as $mail) {
             $ads[] = $parser->parse($mail->textHtml);

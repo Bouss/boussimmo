@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Definition;
+namespace App\Enum;
 
 use InvalidArgumentException;
 use ReflectionClass;

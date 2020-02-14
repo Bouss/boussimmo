@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Definition;
+namespace App\Enum;
 
-class SiteEnum extends AbstractEnum
+class Site extends AbstractEnum
 {
     public const BIENICI = 'bienici';
     public const FNAIM = 'fnaim';

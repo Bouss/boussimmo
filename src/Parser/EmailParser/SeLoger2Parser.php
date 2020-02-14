@@ -2,12 +2,12 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Parser\AbstractParser;
 
 class SeLoger2Parser extends AbstractParser
 {
-    protected const SITE = SiteEnum::SELOGER;
+    protected const SITE = Site::SELOGER;
     protected const SELECTOR_AD_WRAPPER = 'table[class="outer"] > tr:nth-child(5) > td';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

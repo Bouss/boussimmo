@@ -7,3 +7,4 @@ knpu_oauth2_client:
             client_secret: '%env(OAUTH_GOOGLE_SECRET)%'
             redirect_route: connect_google_check
             redirect_params: {}
+            access_type: 'offline'

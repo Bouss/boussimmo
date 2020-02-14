@@ -2,12 +2,12 @@
 
 namespace App\Parser\WebParser;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use Symfony\Component\DomCrawler\Crawler;
 
 class SeLogerParser extends AbstractWebParser
 {
-    protected const SITE = SiteEnum::SELOGER;
+    protected const SITE = Site::SELOGER;
     protected const SELECTOR_NEXT_PAGE_URL = '.pagination-next';
     protected const SELECTOR_AD_WRAPPER = '.c-pa-list';
     protected const SELECTOR_EXTERNAL_ID = '.c-pa-list[id]';

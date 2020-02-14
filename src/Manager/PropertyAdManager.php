@@ -4,7 +4,7 @@ namespace App\Manager;
 
 use App\Client\EmailClient;
 use App\Client\GmailClient;
-use App\Definition\MailProviderEnum;
+use App\Enum\MailProvider;
 use App\EmailParserContainer;
 use App\Entity\PropertyAd;
 use App\Exception\MailboxConnectionException;
@@ -73,17 +73,18 @@ class PropertyAdManager
     }
 
     /**
-     * @param string $userToken
-     * @param array  $filters
+     * @param string $accessToken
+     * @param int    $newerThan
+     * @param string $labelId
      *
      * @return PropertyAd[]
      *
      * @throws ParserNotFoundException
      */
-        public function find(string $userToken, array $filters): array
+    public function find(string $accessToken, int $newerThan, string $labelId, bool $newBuild): array
     {
         $ads = [];
-        $messages = $this->gmailClient->getMessages($userToken, $filters['newer_than'], $filters['label'] ? [$filters['label']] : []);
+        $messages = $this->gmailClient->getMessages($accessToken, $newerThan, $labelId);
 
         foreach ($messages as $message) {
             try {
@@ -118,7 +119,7 @@ class PropertyAdManager
         // Remove duplicates from same provider
         $this->removeRealDuplicates($ads);
         // Attach duplicates from different providers to unique property ad
-        $this->filterAds($ads, $filters['new_build']);
+        $this->filterAds($ads, $newBuild);
 
         return $ads;
     }
@@ -137,7 +138,7 @@ class PropertyAdManager
     {
         $ads = [];
 
-        foreach (MailProviderEnum::getAvailableValues() as $p) {
+        foreach (MailProvider::getAvailableValues() as $p) {
             if (null !== $provider && $provider !== $p) {
                 continue;
             }

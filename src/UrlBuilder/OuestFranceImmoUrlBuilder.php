@@ -2,12 +2,12 @@
 
 namespace App\UrlBuilder;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Entity\PropertyType;
 
 class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
 {
-    protected const SITE = SiteEnum::OUESTFRANCE_IMMO;
+    protected const SITE = Site::OUESTFRANCE_IMMO;
 
     private const URL_START = 'https://www.ouestfrance-immo.com/acheter/';
 

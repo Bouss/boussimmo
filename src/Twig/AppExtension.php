@@ -28,8 +28,8 @@ class AppExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('providerLogo', [$this, 'getProviderLogo']),
-            new TwigFilter('sortBy', [$this, 'sortBy'])
+            new TwigFilter('provider_logo', [$this, 'getProviderLogo']),
+            new TwigFilter('sort_by', [$this, 'sortBy'])
         ];
     }
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Definition;
+namespace App\Enum;
 
-class MailProviderEnum extends SiteEnum
+class MailProvider extends Site
 {
     public const LOGIC_IMMO_2 = 'logic-immo-2';
     public const LOGIC_IMMO_NEUF = 'logic-immo-neuf';

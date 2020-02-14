@@ -33,8 +33,7 @@ class GoogleController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry, SessionInterface $session): RedirectResponse
+    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry, SessionInterface $session)
     {
-        return $this->redirectToRoute('property_ad_index');
     }
 }

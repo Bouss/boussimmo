@@ -2,12 +2,12 @@
 
 namespace App\UrlBuilder;
 
-use App\Definition\SiteEnum;
+use App\Enum\Site;
 use App\Entity\PropertyType;
 
 class SeLogerUrlBuilder extends AbstractUrlBuilder
 {
-    protected const SITE = SiteEnum::SELOGER;
+    protected const SITE = Site::SELOGER;
 
         private const URL_START = 'https://www.seloger.com/list.htm';
 

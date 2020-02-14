@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Definition;
+namespace App\Enum;
 
-class CityEnum extends AbstractEnum
+class City extends AbstractEnum
 {
     public const NANTES = 'nantes';
     public const RENNES = 'rennes';

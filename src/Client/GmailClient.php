@@ -41,20 +41,22 @@ class GmailClient
     }
 
     /**
-     * @param string   $userToken
-     * @param int      $newerThan
-     * @param string[] $labelIds
+     * @param string $accessToken
+     * @param int    $newerThan
+     * @param string $labelId
      *
      * @return array
      */
-    public function getMessages(string $userToken, int $newerThan = self::DEFAULT_NEWER_THAN, array $labelIds = []): array
+    public function getMessages(string $accessToken, int $newerThan = self::DEFAULT_NEWER_THAN, string $labelId = ''): array
     {
-        $this->gmailService->getClient()->setAccessToken($userToken);
+        $this->gmailService->getClient()->setAccessToken($accessToken);
 
         $messages = [];
         $pageToken = null;
-        $optParams['labelIds'] = $labelIds;
         $optParams['q'] = $this->buildMessagesQuery($newerThan);
+        if (!empty($labelId)) {
+            $optParams['labelIds'] = [$labelId];
+        }
 
         do {
             try {
@@ -95,12 +97,10 @@ class GmailClient
      * @param string $accessToken
      * @param string $userId
      *
-     * @return Google_Service_Gmail_Label
+     * @return Google_Service_Gmail_Label[]
      */
-    public function getLabels(string $accessToken, string $userId = 'me'): Google_Service_Gmail_Label
+    public function getLabels(string $accessToken, string $userId = 'me'): array
     {
-        $labels = [];
-
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
         return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();

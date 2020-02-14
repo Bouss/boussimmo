@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Client\GmailClient;
 use App\Entity\User;
 use App\Form\Type\FilterPropertyAdsType;
 use App\Form\Type\SortPropertyAdsType;
 use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
+use App\Service\PropertyAdSortResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -28,19 +29,21 @@ class PropertyAdController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request, SerializerInterface $serializer): Response
+    public function index(Request $request, SerializerInterface $serializer, GmailClient $gmail): Response
     {
-        $filters = json_decode($request->cookies->get('filters'), true);
-        $sort = json_decode($request->cookies->get('sort'), true);
+        /** @var User $user */
+        $user = $this->getUser();
+        $labels = $gmail->getLabels($user->getAccessToken());
 
         $data = [
-            'newerThan' => $filters['newer_than'],
-            'label' => $filters['label'],
-            'newBuild' => $filters['new_build']
+//            'newerThan' => $filters['newer_than'],
+//            'label' => $filters['label'],
+//            'newBuild' => $filters['new_build']
         ];
+        $sort = '';
 
         $filterForm = $this->createForm(FilterPropertyAdsType::class, $data, [
-            'labels' => $serializer->denormalize($request->get('labels'), 'App\Model\GmailLabel[]')
+            'labels' => $labels
         ]);
         
         $sortForm = $this->createForm(SortPropertyAdsType::class, ['sort' => $sort]);
@@ -52,31 +55,33 @@ class PropertyAdController extends AbstractController
     }
 
     /**
-     * @Route("/list", methods={"POST"}, options={"expose"=true}, name="property_ads_list")
+     * @Route("/list", methods={"GET"}, options={"expose"=true}, name="property_ads_list")
      *
-     * @param Request           $request
-     * @param PropertyAdManager $propertyAdManager
+     * @param Request                $request
+     * @param PropertyAdManager      $propertyAdManager
+     * @param PropertyAdSortResolver $sortResolver
      *
      * @return JsonResponse
      *
      * @throws ParserNotFoundException
      */
-    public function list(Request $request, PropertyAdManager $propertyAdManager): JsonResponse
+    public function list(Request $request, PropertyAdManager $propertyAdManager, PropertyAdSortResolver $sortResolver): JsonResponse
     {
-        // Without the "X-Requested-With" header, this request could be forged: could be a CSRF attack. Abort.
-        if (null === $request->headers->get('X-Requested-With')) {
-            throw new AccessDeniedHttpException();
-        }
+        /** @var User $user */
+        $user = $this->getUser();
 
-        $filters = $request->query->get('filters');
-        $filters['new_build'] = filter_var($filters['new_build'], FILTER_VALIDATE_BOOLEAN);
+        parse_str($request->query->get('filters'), $filters);
+        $newerThan = $filters['filter_property_ads']['newerThan'];
+        $label = $filters['filter_property_ads']['label'];
+        $isNewBuild = isset($filters['filter_property_ads']['newBuild']);
 
-        $propertyAds = $propertyAdManager->find($request->getContent(), $filters);
+
+        $propertyAds = $propertyAdManager->find($user->getAccessToken(), $newerThan, $label, $isNewBuild);
 
         return new JsonResponse([
             'html' => $this->renderView('property_ad/_property_ad_container.html.twig', [
                 'property_ads' => $propertyAds,
-                'sort' => json_decode($request->query->get('sort'), true)
+                'sort' => $sortResolver->resolve($request->query->get('sort'))
             ]),
             'property_ad_count' => count($propertyAds)
         ]);
