@@ -9,12 +9,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="homepage")
+     * @Route("/", methods={"GET"}, name="default")
      *
      * @return Response
      */
-    public function homepage(): Response
+    public function default(): Response
     {
-        return $this->render('default/homepage.html.twig');
+        return null !== $this->getUser() ?
+            $this->forward('App\Controller\PropertyAdController::index') :
+            $this->render('default/homepage.html.twig');
     }
 }

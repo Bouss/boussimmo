@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Google_Service_Gmail;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,9 +21,7 @@ class GoogleController extends AbstractController
      */
     public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
-        return $clientRegistry->getClient('google')->redirect([
-            'https://www.googleapis.com/auth/gmail.readonly'
-        ]);
+        return $clientRegistry->getClient('google')->redirect([Google_Service_Gmail::GMAIL_READONLY], []);
     }
 
     /**

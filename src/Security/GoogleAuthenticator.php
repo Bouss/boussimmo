@@ -3,11 +3,12 @@
 namespace App\Security;
 
 use App\Entity\User;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
-use League\OAuth2\Client\Provider\GoogleUser;
 use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,25 +70,25 @@ class GoogleAuthenticator extends SocialAuthenticator
     {
         /** @var AccessToken $accessToken */
         $accessToken = $credentials;
-        /** @var GoogleUser $googleUser */
         $googleUser = $this->getGoogleClient()->fetchUserFromToken($accessToken);
 
         $user = $this->em->getRepository(User::class)->findOneBy(['googleId' => $googleUser->getId()]);
 
-        if (null !== $user) {
-            $user->setAccessToken($accessToken);
-        } else {
-            $user = $this->em->getRepository(User::class)->findOneBy(['email' => $googleUser->getEmail()]);
-
-            if (null === $user) {
-                $user = (new User())->setEmail($googleUser->getEmail());
-                $this->em->persist($user);
-            }
-
-            $user->setGoogleId($googleUser->getId());
-            $user->setAccessToken($accessToken);
-            $user->setProfileImage($googleUser->getAvatar());
+        if (null === $user) {
+            $user = (new User())
+                ->setGoogleId($googleUser->getId())
+                ->setEmail($googleUser->getEmail())
+                ->setFirstname($googleUser->getFirstName())
+                ->setLastname($googleUser->getLastName())
+                ->setAvatar($googleUser->getAvatar())
+                ->setRefreshToken($accessToken->getRefreshToken());
+            $this->em->persist($user);
+        } elseif (null !== $refreshToken = $accessToken->getRefreshToken()) {
+            $user->setRefreshToken($refreshToken);
         }
+
+        $user->setAccessToken($accessToken);
+        $user->setAccessTokenExpiresAt(new DateTime('@' . $accessToken->getExpires()));
 
         $this->em->flush();
 
@@ -99,7 +100,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
-        return new RedirectResponse($this->router->generate('property_ad_index'));
+        return new RedirectResponse($this->router->generate('default'));
     }
 
     /**
@@ -123,7 +124,7 @@ class GoogleAuthenticator extends SocialAuthenticator
     /**
      * @return GoogleClient
      */
-    private function getGoogleClient(): GoogleClient
+    private function getGoogleClient(): OAuth2ClientInterface
     {
         return $this->clientRegistry->getClient('google');
     }

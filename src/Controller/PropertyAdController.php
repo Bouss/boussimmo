@@ -8,6 +8,7 @@ use App\Form\Type\FilterPropertyAdsType;
 use App\Form\Type\SortPropertyAdsType;
 use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
+use App\Service\GoogleService;
 use App\Service\PropertyAdSortResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,18 +23,26 @@ use Symfony\Component\Serializer\SerializerInterface;
 class PropertyAdController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="property_ad_index")
-     *
      * @param Request             $request
      * @param SerializerInterface $serializer
+     * @param GmailClient         $gmailClient
+     * @param GoogleService       $googleService
      *
      * @return Response
      */
-    public function index(Request $request, SerializerInterface $serializer, GmailClient $gmail): Response
+    public function index(
+        Request $request,
+        SerializerInterface $serializer,
+        GmailClient $gmailClient,
+        GoogleService $googleService
+    ): Response
     {
         /** @var User $user */
         $user = $this->getUser();
-        $labels = $gmail->getLabels($user->getAccessToken());
+
+        $googleService->setUserAccessTokenIfExpired($user);
+
+        $labels = $gmailClient->getLabels($user->getAccessToken());
 
         $data = [
 //            'newerThan' => $filters['newer_than'],
@@ -60,15 +69,23 @@ class PropertyAdController extends AbstractController
      * @param Request                $request
      * @param PropertyAdManager      $propertyAdManager
      * @param PropertyAdSortResolver $sortResolver
+     * @param GoogleService          $googleService
      *
      * @return JsonResponse
      *
      * @throws ParserNotFoundException
      */
-    public function list(Request $request, PropertyAdManager $propertyAdManager, PropertyAdSortResolver $sortResolver): JsonResponse
+    public function list(
+        Request $request,
+        PropertyAdManager $propertyAdManager,
+        PropertyAdSortResolver $sortResolver,
+        GoogleService $googleService
+    ): JsonResponse
     {
         /** @var User $user */
         $user = $this->getUser();
+
+        $googleService->setUserAccessTokenIfExpired($user);
 
         parse_str($request->query->get('filters'), $filters);
         $newerThan = $filters['filter_property_ads']['newerThan'];

@@ -13,8 +13,10 @@
 {% block header %}
     <div class="cta-wrapper">
         <h1>Facilitez votre recherche d'appartements maintenant</h1>
-        <a href="{{ path('connect_google_start') }}">Google</a>
-    </div>
+        <a class="btn-signin" href="{{ path('connect_google_start') }}">
+            <img src="{{ asset('build/logo_google_signin.svg') }}" />
+            Sign in with Google
+        </a>
 {% endblock %}
 
 {% block body %}

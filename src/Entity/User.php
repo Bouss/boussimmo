@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -38,14 +39,42 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string")
      */
+    private $refreshToken;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
     private $accessToken;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $accessTokenExpiresAt;
 
     /**
      * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $profileImage;
+    private $firstname;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lastname;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $avatar;
 
     /**
      * @ORM\Column(type="json")
@@ -103,6 +132,26 @@ class User implements UserInterface
     /**
      * @return string
      */
+    public function getRefreshToken(): string
+    {
+        return $this->refreshToken;
+    }
+
+    /**
+     * @param string $refreshToken
+     *
+     * @return User
+     */
+    public function setRefreshToken(string $refreshToken): User
+    {
+        $this->refreshToken = $refreshToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getAccessToken(): string
     {
         return $this->accessToken;
@@ -121,39 +170,95 @@ class User implements UserInterface
     }
 
     /**
-     * @return string|null
+     * @return DateTime
      */
-    public function getProfileImage(): ?string
+    public function getAccessTokenExpiresAt(): DateTime
     {
-        return $this->profileImage;
+        return $this->accessTokenExpiresAt;
     }
 
     /**
-     * @param string|null $profileImage
+     * @param DateTime $accessTokenExpiresAt
      *
      * @return User
      */
-    public function setProfileImage(?string $profileImage): User
+    public function setAccessTokenExpiresAt(DateTime $accessTokenExpiresAt): User
     {
-        $this->profileImage = $profileImage;
+        $this->accessTokenExpiresAt = $accessTokenExpiresAt;
 
         return $this;
     }
 
     /**
-     * @see UserInterface
-     *
-     * @return string
+     * @return string|null
      */
-    public function getUsername(): string
+    public function getFirstname(): ?string
     {
-        return (string) $this->email;
+        return $this->firstname;
     }
 
     /**
-     * @see UserInterface
+     * @param string|null $firstname
      *
-     * @return string[]
+     * @return User
+     */
+    public function setFirstname(?string $firstname): User
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string|null $lastname
+     *
+     * @return User
+     */
+    public function setLastname(?string $lastname): User
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     *
+     * @return User
+     */
+    public function setAvatar(?string $avatar): User
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUsername(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function getRoles(): array
     {
@@ -177,23 +282,39 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * {@inheritDoc}
      */
     public function getPassword()
     {
     }
 
     /**
-     * @see UserInterface
+     * {@inheritDoc}
      */
     public function getSalt()
     {
     }
 
     /**
-     * @see UserInterface
+     * {@inheritDoc}
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasAccessTokenExpired(): bool
+    {
+        return $this->accessTokenExpiresAt <= new DateTime();
     }
 }
