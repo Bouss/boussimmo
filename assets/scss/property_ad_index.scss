@@ -17,13 +17,13 @@ $margin: 10px;
   }
 }
 
-.google-profile {
+.user-section {
   display: flex;
   width: $page-width;
   margin: 0 auto;
   padding: 10px 0;
 
-  &__image {
+  .avatar {
     margin-left: auto;
     height: 32px;
     width: 32px;
@@ -31,7 +31,7 @@ $margin: 10px;
     border-radius: 50%;
   }
 
-  &__btn-signout {
+  .btn-signout {
     padding: 0 12px;
     line-height: 28px;
     border: 1px solid #c6c6c6;

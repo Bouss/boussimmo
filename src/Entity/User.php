@@ -56,6 +56,13 @@ class User implements UserInterface
     private $accessTokenExpiresAt;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", options={"default": 0})
+     */
+    private $revoked = false;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(type="string", nullable=true)
@@ -185,6 +192,26 @@ class User implements UserInterface
     public function setAccessTokenExpiresAt(DateTime $accessTokenExpiresAt): User
     {
         $this->accessTokenExpiresAt = $accessTokenExpiresAt;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRevoked(): bool
+    {
+        return $this->revoked;
+    }
+
+    /**
+     * @param bool $revoked
+     *
+     * @return User
+     */
+    public function setRevoked(bool $revoked): User
+    {
+        $this->revoked = $revoked;
 
         return $this;
     }

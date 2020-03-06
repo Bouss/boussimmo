@@ -12,6 +12,10 @@ $('#sort_property_ads_sort').on('change', function () {
     loadPropertyAds();
 });
 
+$('.btn-signout').on('click', function () {
+    document.location.href = 'https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=https://www.immoscrap.de';
+});
+
 function loadPropertyAds() {
     $.ajax({
         type: 'GET',

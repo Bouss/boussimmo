@@ -24,6 +24,9 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 path: /
                 always_remember_me: true
+            logout:
+                path: logout
+                handler: App\Security\LogoutHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

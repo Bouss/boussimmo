@@ -40,7 +40,7 @@ class PropertyAdController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        $googleService->setUserAccessTokenIfExpired($user);
+        $googleService->refreshAccessTokenIfExpired($user);
 
         $labels = $gmailClient->getLabels($user->getAccessToken());
 
@@ -85,7 +85,7 @@ class PropertyAdController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        $googleService->setUserAccessTokenIfExpired($user);
+        $googleService->refreshAccessTokenIfExpired($user);
 
         parse_str($request->query->get('filters'), $filters);
         $newerThan = $filters['filter_property_ads']['newerThan'];

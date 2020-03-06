@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block header %}
-    <div class="google-profile">
-        <img class="google-profile__image" src="{{ app.user.avatar }}" alt="Avatar" data-toggle="tooltip" data-placement="left" title="{{ app.user.email }}"/>
-        <button id="btn-google-signout" class="btn-google google-profile__btn-signout">Déconnexion</button>
+    <div class="user-section">
+        <img class="avatar" src="{{ app.user.avatar }}" alt="Avatar" data-toggle="tooltip" data-placement="left" title="{{ app.user.email }}"/>
+        <a class="btn-signout" href="{{ path('logout') }}">Déconnexion</a>
     </div>
     <form id="filter-form">
         <div class="dropdown">

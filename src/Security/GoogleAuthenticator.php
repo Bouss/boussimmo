@@ -87,8 +87,10 @@ class GoogleAuthenticator extends SocialAuthenticator
             $user->setRefreshToken($refreshToken);
         }
 
-        $user->setAccessToken($accessToken);
-        $user->setAccessTokenExpiresAt(new DateTime('@' . $accessToken->getExpires()));
+        $user
+            ->setRevoked(false)
+            ->setAccessToken($accessToken)
+            ->setAccessTokenExpiresAt(new DateTime('@' . $accessToken->getExpires()));
 
         $this->em->flush();
 
