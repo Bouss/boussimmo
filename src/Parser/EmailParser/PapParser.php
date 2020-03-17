@@ -2,12 +2,12 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Parser\AbstractParser;
 
 class PapParser extends AbstractParser
 {
-    protected const SITE = Site::PAP;
+    protected const SITE = Provider::PAP;
     protected const SELECTOR_AD_WRAPPER = 'table[width="550"] tr:nth-child(n+3):not(:last-child)';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

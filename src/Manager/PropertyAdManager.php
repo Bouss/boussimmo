@@ -2,19 +2,16 @@
 
 namespace App\Manager;
 
-use App\Client\EmailClient;
 use App\Client\GmailClient;
-use App\Enum\MailProvider;
 use App\EmailParserContainer;
-use App\Entity\PropertyAd;
-use App\Exception\MailboxConnectionException;
+use App\DTO\PropertyAd;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
 use App\Service\GmailService;
-use App\Service\ProviderService;
-use DateTime;
+use App\Service\EmailTemplateService;
 use Exception;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 
 class PropertyAdManager
 {
@@ -22,11 +19,6 @@ class PropertyAdManager
      * @var GmailClient
      */
     private $gmailClient;
-
-    /**
-     * @var EmailClient
-     */
-    private $emailClient;
 
     /**
      * @var EmailParserContainer
@@ -39,7 +31,7 @@ class PropertyAdManager
     private $gmailService;
 
     /**
-     * @var ProviderService
+     * @var EmailTemplateService
      */
     private $providerService;
 
@@ -50,22 +42,19 @@ class PropertyAdManager
 
     /**
      * @param GmailClient          $gmailClient
-     * @param EmailClient          $emailClient
      * @param EmailParserContainer $parserContainer
      * @param GmailService         $gmailService
-     * @param ProviderService      $providerService
+     * @param EmailTemplateService $providerService
      * @param LoggerInterface      $logger
      */
     public function __construct(
         GmailClient $gmailClient,
-        EmailClient $emailClient,
         EmailParserContainer $parserContainer,
         GmailService $gmailService,
-        ProviderService $providerService,
+        EmailTemplateService $providerService,
         LoggerInterface $logger
     ) {
         $this->gmailClient = $gmailClient;
-        $this->emailClient = $emailClient;
         $this->parserContainer = $parserContainer;
         $this->gmailService = $gmailService;
         $this->providerService = $providerService;
@@ -73,132 +62,69 @@ class PropertyAdManager
     }
 
     /**
-     * @param string $accessToken
-     * @param int    $newerThan
-     * @param string $labelId
+     * @param string      $accessToken
+     * @param string|null $labelId
+     * @param string|null $provider
+     * @param int         $newerThan
+     * @param bool        $newBuild
      *
      * @return PropertyAd[]
      *
      * @throws ParserNotFoundException
      */
-    public function find(string $accessToken, int $newerThan, string $labelId, bool $newBuild): array
+    public function find(string $accessToken, ?string $labelId, ?string $provider, int $newerThan, bool $newBuild): array
     {
-        $ads = [];
-        $messages = $this->gmailClient->getMessages($accessToken, $newerThan, $labelId);
+        $propertyAds = [];
+        $messageIds = $this->gmailClient->getMessageIds($accessToken, $labelId, $provider, $newerThan);
 
-        foreach ($messages as $message) {
+        foreach ($messageIds as $id) {
             try {
-                $message = $this->gmailClient->getMessage($message['id']);
+                $message = $this->gmailClient->getMessage($id);
             } catch (Exception $e) {
-                $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), ['id' => $message['id']]);
+                $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), ['id' => $id]);
                 continue;
             }
 
             $headers = $this->gmailService->getHeaders($message);
             $html = $this->gmailService->getHtml($message);
-
-            $provider = $this->providerService->getProviderByFromAndSubject($headers['from'], $headers['subject']);
+            $filters = [
+                'new_build' => $newBuild,
+            ];
 
             try {
-                $parsedAds = $this->parserContainer->get($provider)->parse($html, [
-                    'date' => $headers['date'],
-                    'provider' => $provider
+                $emailTemplate = $this->providerService->getEmailTemplate($headers['from'], $headers['subject']);
+                $propertyAds[] = $this->parserContainer->get($emailTemplate)->parse($html, $filters, [
+                    'email_template' => $emailTemplate,
+                    'date' => $headers['date']
                 ]);
-            } catch (ParseException $e) {
-                $this->logger->error($e->getMessage());
+            } catch (RuntimeException | ParseException $e) {
+                $this->logger->error($e->getMessage(), $headers);
                 continue;
             }
-
-            $ads[] = $parsedAds;
         }
 
-        if (!empty($ads)) {
-            $ads = array_merge(...$ads);
+        if (!empty($propertyAds)) {
+            $propertyAds = array_merge(...$propertyAds);
         }
 
         // Remove duplicates from same provider
-        $this->removeRealDuplicates($ads);
-        // Attach duplicates from different providers to unique property ad
-        $this->filterAds($ads, $newBuild);
+        $this->removeDuplicates($propertyAds);
 
-        return $ads;
-    }
+        // Group same property ads from different providers
+        $this->groupPropertyAds($propertyAds);
 
-    /**
-     * @param string|null $provider
-     * @param string|null $since
-     *
-     * @return PropertyAd[]
-     *
-     * @throws Exception
-     * @throws MailboxConnectionException
-     * @throws ParserNotFoundException
-     */
-    public function oldFind(string $provider = null, string $since = null): array
-    {
-        $ads = [];
-
-        foreach (MailProvider::getAvailableValues() as $p) {
-            if (null !== $provider && $provider !== $p) {
-                continue;
-            }
-
-            $parser = $this->parserContainer->get($p);
-            $mails = $this->emailClient->getMails($p);
-
-            foreach ($mails as $mail) {
-                try {
-                    $parsedAds = $parser->parse($mail->textHtml, ['date' => new DateTime($mail->date)]);
-                    $ads[] = $parsedAds;
-                } catch (ParseException $e) {
-                    $this->logger->error($e->getMessage());
-                }
-            }
-
-            if (null !== $provider && $provider === $p) {
-                break;
-            }
-        }
-
-        if (!empty($ads)) {
-            $ads = array_merge(...$ads);
-        }
-
-        $this->sort($ads);
-
-        return $ads;
+        return $propertyAds;
     }
 
     /**
      * @param PropertyAd[] $propertyAds
      */
-    private function removeRealDuplicates(array &$propertyAds): void
+    private function removeDuplicates(array &$propertyAds): void
     {
-        foreach ($propertyAds as &$ad) {
-            foreach ($propertyAds as $key => $comparedAd) {
-                if ($ad !== $comparedAd && $ad->equals($comparedAd, true)) {
-                    unset($propertyAds[$key]);
-                }
-            }
-        }
-    }
-
-    /**
-     * @param PropertyAd[] $propertyAds
-     * @param bool         $newBuild
-     */
-    private function filterAds(array &$propertyAds, bool $newBuild): void
-    {
-        foreach ($propertyAds as $key => &$ad) {
-            if ($newBuild && !$ad->isNewBuild()) {
-                unset($propertyAds[$key]);
-                continue;
-            }
-
-            foreach ($propertyAds as $keyDuplicate => $comparedAd) {
-                if ($ad !== $comparedAd && $ad->equals($comparedAd)) {
-                    $ad->addDuplicate($comparedAd);
-                    unset($propertyAds[$keyDuplicate]);
+        foreach ($propertyAds as &$comparedAd) {
+            foreach ($propertyAds as $i => $ad) {
+                if ($comparedAd !== $ad && $comparedAd->equals($ad, true)) {
+                    unset($propertyAds[$i]);
                 }
             }
         }
@@ -207,10 +133,15 @@ class PropertyAdManager
     /**
      * @param PropertyAd[] $propertyAds
      */
-    private function sort(array &$propertyAds): void
+    private function groupPropertyAds(array &$propertyAds): void
     {
-        usort($propertyAds, static function (PropertyAd $ad1, PropertyAd $ad2) {
-            return $ad2->getPublishedAt() <=> $ad1->getPublishedAt();
-        });
+        foreach ($propertyAds as $comparedAd) {
+            foreach ($propertyAds as $i => $ad) {
+                if ($comparedAd !== $ad && $comparedAd->equals($ad)) {
+                    $comparedAd->addDuplicate($ad);
+                    unset($propertyAds[$i]);
+                }
+            }
+        }
     }
 }

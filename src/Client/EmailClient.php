@@ -2,7 +2,7 @@
 
 namespace App\Client;
 
-use App\Enum\MailProvider;
+use App\Enum\EmailTemplate;
 use App\Exception\MailboxConnectionException;
 use DateTime;
 use Exception;
@@ -20,13 +20,13 @@ class EmailClient
     private const FROM_SELOGER = 'seloger@al.alerteimmo.com';
 
     private const FROM_ADDRESS_BY_PROVIDER = [
-        MailProvider::BIENICI          => self::FROM_BIENICI,
-        MailProvider::FNAIM            => self::FROM_FNAIM,
-        MailProvider::LEBONCOIN        => self::FROM_LEBONCOIN,
-        MailProvider::LOGIC_IMMO       => self::FROM_LOGIC_IMMO,
-        MailProvider::LOGIC_IMMO_NEUF  => self::FROM_LOGIC_IMMO_NEUF,
-        MailProvider::OUESTFRANCE_IMMO => self::FROM_OUESTFRANCE_IMMO,
-        MailProvider::SELOGER          => self::FROM_SELOGER
+        EmailTemplate::BIENICI          => self::FROM_BIENICI,
+        EmailTemplate::FNAIM            => self::FROM_FNAIM,
+        EmailTemplate::LEBONCOIN        => self::FROM_LEBONCOIN,
+        EmailTemplate::LOGIC_IMMO       => self::FROM_LOGIC_IMMO,
+        EmailTemplate::LOGIC_IMMO_NEUF  => self::FROM_LOGIC_IMMO_NEUF,
+        EmailTemplate::OUESTFRANCE_IMMO => self::FROM_OUESTFRANCE_IMMO,
+        EmailTemplate::SELOGER          => self::FROM_SELOGER
     ];
 
     private const DEFAULT_CONNECTION = 'gmail';

@@ -2,12 +2,12 @@
 
 namespace App\UrlBuilder;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Entity\PropertyType;
 
 class LeBonCoinUrlBuilder extends AbstractUrlBuilder
 {
-    protected const SITE = Site::LEBONCOIN;
+    protected const SITE = Provider::LEBONCOIN;
 
     private const URL_START = 'https://www.leboncoin.fr/recherche/';
 

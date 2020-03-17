@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Enum\MailProvider;
+use App\Enum\EmailTemplate;
 use App\Exception\ParserNotFoundException;
 use App\Parser\AbstractParser;
 use App\Parser\EmailParser\BienIciParser;
@@ -40,17 +40,17 @@ class EmailParserContainer implements ServiceSubscriberInterface
     public static function getSubscribedServices(): array
     {
         return [
-            MailProvider::BIENICI               => BienIciParser::class,
-            MailProvider::LEBONCOIN             => LeBonCoinParser::class,
-            MailProvider::FNAIM                 => FnaimParser::class,
-            MailProvider::LOGIC_IMMO            => LogicImmoParser::class,
-            MailProvider::LOGIC_IMMO_2          => LogicImmo2Parser::class,
-            MailProvider::LOGIC_IMMO_NEUF       => LogicImmoNeufParser::class,
-            MailProvider::OUESTFRANCE_IMMO      => OuestFranceImmoParser::class,
-            MailProvider::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,
-            MailProvider::PAP                   => PapParser::class,
-            MailProvider::SELOGER               => SeLogerParser::class,
-            MailProvider::SELOGER_2             => SeLoger2Parser::class
+            EmailTemplate::BIENICI               => BienIciParser::class,
+            EmailTemplate::LEBONCOIN             => LeBonCoinParser::class,
+            EmailTemplate::FNAIM                 => FnaimParser::class,
+            EmailTemplate::LOGIC_IMMO            => LogicImmoParser::class,
+            EmailTemplate::LOGIC_IMMO_2          => LogicImmo2Parser::class,
+            EmailTemplate::LOGIC_IMMO_NEUF       => LogicImmoNeufParser::class,
+            EmailTemplate::OUESTFRANCE_IMMO      => OuestFranceImmoParser::class,
+            EmailTemplate::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,
+            EmailTemplate::PAP                   => PapParser::class,
+            EmailTemplate::SELOGER               => SeLogerParser::class,
+            EmailTemplate::SELOGER_2             => SeLoger2Parser::class
         ];
     }
 

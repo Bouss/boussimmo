@@ -61,7 +61,9 @@ class GmailService
 
         /** @var Google_Service_Gmail_MessagePart $part */
         foreach ($message->getPayload()->getParts() as $part) {
-            $html .= StringUtil::base64UrlDecode($part->getBody()->data);
+            if (null !== $body = $part->getBody()->data) {
+                $html .= StringUtil::base64UrlDecode($body);
+            }
         }
 
         return $html;

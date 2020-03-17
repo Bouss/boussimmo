@@ -2,13 +2,13 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class OuestFranceImmoNeufParser extends AbstractParser
 {
-    protected const SITE = Site::OUESTFRANCE_IMMO;
+    protected const SITE = Provider::OUESTFRANCE_IMMO;
     protected const SELECTOR_AD_WRAPPER = 'table[style*="border: 1px solid #e6e6e6; float: left;"]';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

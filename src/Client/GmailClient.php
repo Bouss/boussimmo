@@ -2,7 +2,7 @@
 
 namespace App\Client;
 
-use App\Service\ProviderService;
+use App\Service\EmailTemplateService;
 use Exception;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Message;
@@ -11,17 +11,15 @@ use Psr\Log\LoggerInterface;
 
 class GmailClient
 {
-    private const DEFAULT_NEWER_THAN = 7; // Days
-
     /**
      * @var Google_Service_Gmail
      */
     private $gmailService;
 
     /**
-     * @var ProviderService
+     * @var EmailTemplateService
      */
-    private $providerService;
+    private $emailTemplateService;
 
     /**
      * @var LoggerInterface
@@ -30,54 +28,56 @@ class GmailClient
 
     /**
      * @param Google_Service_Gmail $gmailService
-     * @param ProviderService      $providerService
+     * @param EmailTemplateService $emailTemplateService
      * @param LoggerInterface      $logger
      */
-    public function __construct(Google_Service_Gmail $gmailService, ProviderService $providerService, LoggerInterface $logger)
+    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateService $emailTemplateService, LoggerInterface $logger)
     {
         $this->gmailService = $gmailService;
-        $this->providerService = $providerService;
+        $this->emailTemplateService = $emailTemplateService;
         $this->logger = $logger;
     }
 
     /**
-     * @param string $accessToken
-     * @param int    $newerThan
-     * @param string $labelId
+     * @param string      $accessToken
+     * @param string|null $labelId
+     * @param string|null $provider
+     * @param int         $newerThan
      *
-     * @return array
+     * @return int[]
      */
-    public function getMessages(string $accessToken, int $newerThan = self::DEFAULT_NEWER_THAN, string $labelId = ''): array
+    public function getMessageIds(string $accessToken, ?string $labelId, ?string $provider, int $newerThan): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
+        $ids = [];
         $messages = [];
         $pageToken = null;
-        $optParams['q'] = $this->buildMessagesQuery($newerThan);
+        $params['q'] = $this->buildMessagesQuery($provider, $newerThan);
         if (!empty($labelId)) {
-            $optParams['labelIds'] = [$labelId];
+            $params['labelIds'] = [$labelId];
         }
 
         do {
             try {
-                $optParams['pageToken'] = $pageToken ?: null;
+                $params['pageToken'] = $pageToken ?: null;
 
-                $messagesResponse = $this->gmailService->users_messages->listUsersMessages('me', $optParams);
+                $messagesResponse = $this->gmailService->users_messages->listUsersMessages('me', $params);
 
                 if ($messagesResponse->getMessages()) {
                     $messages[] = $messagesResponse->getMessages();
                     $pageToken = $messagesResponse->getNextPageToken();
                 }
             } catch (Exception $e) {
-                $this->logger->error('Error while retrieving messages: ' . $e->getMessage(), $optParams);
+                $this->logger->error('Error while retrieving messages: ' . $e->getMessage(), $params);
             }
         } while (null !== $pageToken);
 
         if (!empty($messages)) {
-            $messages = array_merge(...$messages);
+            $ids = array_column(array_merge(...$messages), 'id');
         }
 
-        return $messages;
+        return $ids;
     }
 
     /**
@@ -107,13 +107,14 @@ class GmailClient
     }
 
     /**
-     * @param int $newerThan days
+     * @param string|null $provider
+     * @param int|null    $newerThan
      *
      * @return string
      */
-    private function buildMessagesQuery(int $newerThan): string
+    private function buildMessagesQuery(string $provider = null, int $newerThan = null): string
     {
-        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->providerService->getAllEmails()));
+        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->emailTemplateService->getProviderEmails($provider)));
         $dateFilter = sprintf('newer_than:%dd', $newerThan);
 
         return implode(' ', [$fromFilter, $dateFilter]);

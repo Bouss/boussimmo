@@ -2,7 +2,7 @@
 
 namespace App\Parser\WebParser;
 
-use App\Entity\PropertyAd;
+use App\DTO\PropertyAd;
 use App\Exception\ParseException;
 use App\Parser\AbstractParser;
 use Exception;
@@ -16,7 +16,7 @@ abstract class AbstractWebParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    public function parse(string $html, array $options = []): array
+    public function parse(string $html, array $filters = [], array $params = []): array
     {
         $client = Client::createChromeClient();
         $crawler = new Crawler($html);

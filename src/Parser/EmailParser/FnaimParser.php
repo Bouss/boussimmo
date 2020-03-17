@@ -2,13 +2,13 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FnaimParser extends AbstractParser
 {
-    protected const SITE = Site::FNAIM;
+    protected const SITE = Provider::FNAIM;
     protected const SELECTOR_AD_WRAPPER = '[class*=item]';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

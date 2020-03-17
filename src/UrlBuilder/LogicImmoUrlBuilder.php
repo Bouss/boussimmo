@@ -2,12 +2,12 @@
 
 namespace App\UrlBuilder;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Entity\PropertyType;
 
 class LogicImmoUrlBuilder extends AbstractUrlBuilder
 {
-    protected const SITE = Site::LOGIC_IMMO;
+    protected const SITE = Provider::LOGIC_IMMO;
 
     private const URL_START = 'https://www.logic-immo.com/vente-immobilier-';
 

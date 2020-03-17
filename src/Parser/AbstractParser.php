@@ -2,7 +2,7 @@
 
 namespace App\Parser;
 
-use App\Entity\PropertyAd;
+use App\DTO\PropertyAd;
 use App\Exception\ParseException;
 use App\Util\NumericUtil;
 use App\Util\StringUtil;
@@ -47,13 +47,14 @@ abstract class AbstractParser
 
     /**
      * @param string $html
-     * @param array $options
+     * @param array  $filters
+     * @param array  $params
      *
      * @return PropertyAd[]
      *
      * @throws ParseException
      */
-    public function parse(string $html, array $options = []): array
+    public function parse(string $html, array $filters = [], array $params = []): array
     {
         $crawler = new Crawler($html);
 
@@ -65,19 +66,21 @@ abstract class AbstractParser
 
         // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) use ($options) {
+        $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) use ($params) {
             try {
-                return $this->buildPropertyAd($adCrawler, $options);
+                return $this->buildPropertyAd($adCrawler, $params);
             } catch (Exception $e) {
-                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), $options);
+                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), $params);
 
                 return null;
             }
         });
 
-        // Merge all the ad arrays in one and clean the ads (remove null values)
-        $ads = array_filter(array_merge(...$ads), static function (?PropertyAd $ad) {
-            return null !== $ad;
+        // Merge all the ad arrays in one, clean (remove null values) and filter the ads
+        $ads = array_filter(array_merge(...$ads), static function (?PropertyAd $ad) use ($filters) {
+            return
+                null !== $ad &&
+                (isset($filters['new_build']) && $filters['new_build']) ? $ad->isNewBuild() : true;
         });
 
         return $ads;
@@ -318,14 +321,14 @@ abstract class AbstractParser
 
     /**
      * @param Crawler $crawler
-     * @param array $options
+     * @param array   $params
      *
      * @return PropertyAd
      *
      * @throws ParseException
      * @throws Exception
      */
-    protected function buildPropertyAd(Crawler $crawler, array $options = []): PropertyAd
+    protected function buildPropertyAd(Crawler $crawler, array $params = []): PropertyAd
     {
         return (new PropertyAd)
             ->setSite(static::SITE)
@@ -335,7 +338,7 @@ abstract class AbstractParser
             ->setArea($this->getArea($crawler))
             ->setRoomsCount($this->getRoomsCount($crawler))
             ->setLocation($this->getLocation($crawler))
-            ->setPublishedAt($this->getPublishedAt($crawler) ?: $options['date'] ?? null)
+            ->setPublishedAt($this->getPublishedAt($crawler) ?: $params['date'] ?? null)
             ->setTitle($this->getTitle($crawler))
             ->setDescription($this->getDescription($crawler))
             ->setPhoto($this->getPhoto($crawler))

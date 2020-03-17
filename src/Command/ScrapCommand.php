@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Enum\City;
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Entity\PropertyType;
 use App\Exception\AccessDeniedException;
 use App\Exception\ParseException;
@@ -43,7 +43,7 @@ class ScrapCommand extends Command
     {
         $this
             ->setDescription('Extract property ads from a web page')
-            ->addArgument('site', InputArgument::REQUIRED, 'Site: ' . implode(', ', Site::getAvailableValues()))
+            ->addArgument('site', InputArgument::REQUIRED, 'Site: ' . implode(', ', Provider::getAvailableValues()))
             ->addArgument('city', InputArgument::REQUIRED, 'City: ' . implode(', ', City::getAvailableValues()))
             ->addArgument('property-type', InputArgument::REQUIRED, 'Property type: ' . implode(', ', PropertyType::AVAILABLE_TYPES))
             ->addOption('min-price', null, InputOption::VALUE_OPTIONAL, 'Minimum price')
@@ -125,7 +125,7 @@ class ScrapCommand extends Command
         $minRoomsCount = $input->getOption('min-rooms-count');
         $maxRoomsCount = $input->getOption('max-rooms-count');
 
-        Site::check($site);
+        Provider::check($site);
         City::check($city);
 
         if (!in_array($propertyType, PropertyType::AVAILABLE_TYPES)) {

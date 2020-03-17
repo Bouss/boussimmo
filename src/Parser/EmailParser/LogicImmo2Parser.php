@@ -2,13 +2,13 @@
 
 namespace App\Parser\EmailParser;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmo2Parser extends AbstractParser
 {
-    protected const SITE = Site::LOGIC_IMMO;
+    protected const SITE = Provider::LOGIC_IMMO;
     protected const SELECTOR_AD_WRAPPER = 'table[bgcolor="#f1f1f1"] > tr:nth-child(6)';
     protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';

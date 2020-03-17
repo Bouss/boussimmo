@@ -2,11 +2,11 @@
 
 namespace App\Form\Type;
 
+use App\Enum\Provider;
 use Google_Service_Gmail_Label;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -32,15 +32,26 @@ class FilterPropertyAdsType extends AbstractType
             ->add('label', ChoiceType::class, [
                 'label' => 'Label Gmail',
                 'choices' => $this->formatLabelChoices($options['labels']),
+                'placeholder' => 'Tous',
                 'required' => false,
-                'empty_data' => null
+            ])
+            ->add('source', ChoiceType::class, [
+                'label' => 'Source',
+                'choices' => [
+                    'Bien\'ici' => Provider::BIENICI,
+                    'FNAIM' => Provider::FNAIM,
+                    'Leboncoin' => Provider::LEBONCOIN,
+                    'Logic-Immo' => Provider::LOGIC_IMMO,
+                    'Ouestfrance-immo' => Provider::OUESTFRANCE_IMMO,
+                    'PAP' => Provider::PAP,
+                    'SeLoger' => Provider::SELOGER
+                ],
+                'placeholder' => 'Toutes',
+                'required' => false,
             ])
             ->add('newBuild', CheckboxType::class, [
                 'label' => 'Neuf',
                 'required' => false
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Appliquer'
             ])
         ;
     }

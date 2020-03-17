@@ -2,7 +2,7 @@
 
 namespace App\Twig;
 
-use App\Entity\PropertyAd;
+use App\DTO\PropertyAd;
 use App\Service\ProviderService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;

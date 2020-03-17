@@ -31,8 +31,6 @@ class PropertyAdController extends AbstractController
      * @return Response
      */
     public function index(
-        Request $request,
-        SerializerInterface $serializer,
         GmailClient $gmailClient,
         GoogleService $googleService
     ): Response
@@ -44,18 +42,8 @@ class PropertyAdController extends AbstractController
 
         $labels = $gmailClient->getLabels($user->getAccessToken());
 
-        $data = [
-//            'newerThan' => $filters['newer_than'],
-//            'label' => $filters['label'],
-//            'newBuild' => $filters['new_build']
-        ];
-        $sort = '';
-
-        $filterForm = $this->createForm(FilterPropertyAdsType::class, $data, [
-            'labels' => $labels
-        ]);
-        
-        $sortForm = $this->createForm(SortPropertyAdsType::class, ['sort' => $sort]);
+        $filterForm = $this->createForm(FilterPropertyAdsType::class, null, ['labels' => $labels]);
+        $sortForm = $this->createForm(SortPropertyAdsType::class);
 
         return $this->render('property_ad/index.html.twig', [
             'filter_form' => $filterForm->createView(),
@@ -89,11 +77,11 @@ class PropertyAdController extends AbstractController
 
         parse_str($request->query->get('filters'), $filters);
         $newerThan = $filters['filter_property_ads']['newerThan'];
-        $label = $filters['filter_property_ads']['label'];
+        $label = !empty($filters['filter_property_ads']['label']) ? $filters['filter_property_ads']['label'] : null;
+        $provider = !empty($filters['filter_property_ads']['source']) ? $filters['filter_property_ads']['source'] : null;
         $isNewBuild = isset($filters['filter_property_ads']['newBuild']);
 
-
-        $propertyAds = $propertyAdManager->find($user->getAccessToken(), $newerThan, $label, $isNewBuild);
+        $propertyAds = $propertyAdManager->find($user->getAccessToken(), $label, $provider, $newerThan, $isNewBuild);
 
         return new JsonResponse([
             'html' => $this->renderView('property_ad/_property_ad_container.html.twig', [

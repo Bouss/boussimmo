@@ -2,14 +2,14 @@
 
 namespace App\Parser\WebParser;
 
-use App\Enum\Site;
+use App\Enum\Provider;
 use App\Parser\AbstractParser;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmoParser extends AbstractWebParser
 {
-    protected const SITE = Site::LOGIC_IMMO;
+    protected const SITE = Provider::LOGIC_IMMO;
     protected const SELECTOR_NEXT_PAGE_URL = '.btn-maincolor > .btn-lightgrey';
     protected const SELECTOR_AD_WRAPPER = '.offer-list-item';
     protected const SELECTOR_EXTERNAL_ID = 'div[id]';
