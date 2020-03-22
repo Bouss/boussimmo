@@ -1,0 +1,51 @@
+{% set newer_than_choices = {
+    '24 heures': '1',
+    '3 jours': '3',
+    '5 jours': '5',
+    '1 semaine': '7',
+    '2 semaines': '14',
+    '4 semaines': '28'
+} %}
+{% set provider_choices = {
+    'Tous': '',
+    'Bien\'ici': constant('App\\Enum\\Provider::BIENICI'),
+    'FNAIM': constant('App\\Enum\\Provider::FNAIM'),
+    'Leboncoin': constant('App\\Enum\\Provider::LEBONCOIN'),
+    'Logic-Immo': constant('App\\Enum\\Provider::LOGIC_IMMO'),
+    'Ouestfrance-immo': constant('App\\Enum\\Provider::OUESTFRANCE_IMMO'),
+    'PAP': constant('App\\Enum\\Provider::PAP'),
+    'SeLoger': constant('App\\Enum\\Provider::SELOGER')
+} %}
+{% set gmail_label_choices = {'Tous': ''}|merge(gmail_label_choices) %}
+
+<form id="filter-form">
+    <div class="dropdown">
+        <label for="newer-than-select">Annonces datant de moins de</label>
+        <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}">
+            {% for label, value in newer_than_choices %}
+                <option value={{ value }}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="dropdown">
+        <label for="gmail-label-select">Label Gmail</label>
+        <select id="gmail-label-select" name="{{ constant('App\\Enum\\PropertyAdFilter::GMAIL_LABEL') }}">
+            {% for label, value in gmail_label_choices %}
+                <option value={{ value }}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="dropdown">
+        <label for="provider-select">Source</label>
+        <select id="provider-select" name="{{ constant('App\\Enum\\PropertyAdFilter::PROVIDER') }}">
+            {% for label, value in provider_choices %}
+                <option value={{ value }}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="checkbox">
+        <input id="new-build-checkbox" name="{{ constant('App\\Enum\\PropertyAdFilter::NEW_BUILD') }}" type="checkbox" value="1">
+        <label for="new-build-checkbox">Neuf</label>
+    </div>
+    <button class="btn-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
+</form>

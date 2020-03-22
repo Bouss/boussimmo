@@ -62,20 +62,17 @@ class PropertyAdManager
     }
 
     /**
-     * @param string      $accessToken
-     * @param string|null $labelId
-     * @param string|null $provider
-     * @param int         $newerThan
-     * @param bool        $newBuild
+     * @param string $accessToken
+     * @param array  $filters
      *
      * @return PropertyAd[]
      *
      * @throws ParserNotFoundException
      */
-    public function find(string $accessToken, ?string $labelId, ?string $provider, int $newerThan, bool $newBuild): array
+    public function find(string $accessToken, array $filters): array
     {
         $propertyAds = [];
-        $messageIds = $this->gmailClient->getMessageIds($accessToken, $labelId, $provider, $newerThan);
+        $messageIds = $this->gmailClient->getMessageIds($accessToken, $filters);
 
         foreach ($messageIds as $id) {
             try {
@@ -87,9 +84,6 @@ class PropertyAdManager
 
             $headers = $this->gmailService->getHeaders($message);
             $html = $this->gmailService->getHtml($message);
-            $filters = [
-                'new_build' => $newBuild,
-            ];
 
             try {
                 $emailTemplate = $this->providerService->getEmailTemplate($headers['from'], $headers['subject']);

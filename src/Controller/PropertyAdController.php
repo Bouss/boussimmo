@@ -4,18 +4,15 @@ namespace App\Controller;
 
 use App\Client\GmailClient;
 use App\Entity\User;
-use App\Form\Type\FilterPropertyAdsType;
-use App\Form\Type\SortPropertyAdsType;
 use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
 use App\Service\GoogleService;
 use App\Service\PropertyAdSortResolver;
+use Google_Service_Gmail_Label;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/property-ads")
@@ -23,8 +20,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 class PropertyAdController extends AbstractController
 {
     /**
-     * @param Request             $request
-     * @param SerializerInterface $serializer
      * @param GmailClient         $gmailClient
      * @param GoogleService       $googleService
      *
@@ -42,12 +37,8 @@ class PropertyAdController extends AbstractController
 
         $labels = $gmailClient->getLabels($user->getAccessToken());
 
-        $filterForm = $this->createForm(FilterPropertyAdsType::class, null, ['labels' => $labels]);
-        $sortForm = $this->createForm(SortPropertyAdsType::class);
-
         return $this->render('property_ad/index.html.twig', [
-            'filter_form' => $filterForm->createView(),
-            'sort_form' => $sortForm->createView()
+            'gmail_label_choices' => $this->getGmailLabelChoices($labels)
         ]);
     }
 
@@ -59,7 +50,7 @@ class PropertyAdController extends AbstractController
      * @param PropertyAdSortResolver $sortResolver
      * @param GoogleService          $googleService
      *
-     * @return JsonResponse
+     * @return Response
      *
      * @throws ParserNotFoundException
      */
@@ -68,7 +59,7 @@ class PropertyAdController extends AbstractController
         PropertyAdManager $propertyAdManager,
         PropertyAdSortResolver $sortResolver,
         GoogleService $googleService
-    ): JsonResponse
+    ): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -76,19 +67,28 @@ class PropertyAdController extends AbstractController
         $googleService->refreshAccessTokenIfExpired($user);
 
         parse_str($request->query->get('filters'), $filters);
-        $newerThan = $filters['filter_property_ads']['newerThan'];
-        $label = !empty($filters['filter_property_ads']['label']) ? $filters['filter_property_ads']['label'] : null;
-        $provider = !empty($filters['filter_property_ads']['source']) ? $filters['filter_property_ads']['source'] : null;
-        $isNewBuild = isset($filters['filter_property_ads']['newBuild']);
 
-        $propertyAds = $propertyAdManager->find($user->getAccessToken(), $label, $provider, $newerThan, $isNewBuild);
+        $propertyAds = $propertyAdManager->find($user->getAccessToken(), $filters);
 
-        return new JsonResponse([
-            'html' => $this->renderView('property_ad/_property_ad_container.html.twig', [
-                'property_ads' => $propertyAds,
-                'sort' => $sortResolver->resolve($request->query->get('sort'))
-            ]),
-            'property_ad_count' => count($propertyAds)
+        return $this->render('property_ad/list.html.twig', [
+            'property_ads' => $propertyAds,
+            'sort' => $sortResolver->resolve($request->query->get('sort'))
         ]);
+    }
+
+    /**
+     * @param Google_Service_Gmail_Label[] $labels
+     *
+     * @return array
+     */
+    private function getGmailLabelChoices(array $labels): array
+    {
+        $choices = [];
+
+        foreach ($labels as $label) {
+            $choices[$label->getName()] = $label->getId();
+        }
+
+        return $choices;
     }
 }

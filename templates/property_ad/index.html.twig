@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% set sort_choices = {
+    'Date décroissante': constant('App\\Service\\PropertyAdSortResolver::PUBLISHED_AT_DESC'),
+    'Date croissante': constant('App\\Service\\PropertyAdSortResolver::PUBLISHED_AT_ASC'),
+    'Prix décroissant': constant('App\\Service\\PropertyAdSortResolver::PRICE_DESC'),
+    'Prix croissant': constant('App\\Service\\PropertyAdSortResolver::PRICE_ASC'),
+    'Surface décroissante': constant('App\\Service\\PropertyAdSortResolver::AREA_DESC'),
+    'Surface croissante': constant('App\\Service\\PropertyAdSortResolver::AREA_ASC')
+} %}
+
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('property_ads') }}
@@ -15,32 +24,19 @@
         <img class="avatar" src="{{ app.user.avatar }}" alt="Avatar" data-toggle="tooltip" data-placement="left" title="{{ app.user.email }}"/>
         <a class="btn-signout" href="{{ path('logout') }}">Déconnexion</a>
     </div>
-    <form id="filter-form">
-        <div class="dropdown">
-            {{ form_label(filter_form.newerThan) }}
-            {{ form_widget(filter_form.newerThan) }}
-        </div>
-        <div class="dropdown">
-            {{ form_label(filter_form.label) }}
-            {{ form_widget(filter_form.label) }}
-        </div>
-        <div class="dropdown">
-            {{ form_label(filter_form.source) }}
-            {{ form_widget(filter_form.source) }}
-        </div>
-        <div class="checkbox">
-            {{ form_widget(filter_form.newBuild) }}
-            {{ form_label(filter_form.newBuild) }}
-        </div>
-        <button class="btn-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
-    </form>
+
+    {{ include('property_ad/_filter_form.twig') }}
 {% endblock %}
 
 {% block body %}
     <div class="result">
         <div class="result__label"><span class="result__count"></span>&nbsp;annonces trouvées</div>
         <div class="result__sort-select dropdown dropdown--without-label">
-            {{ form_widget(sort_form.sort) }}
+            <select id="sort-select" name="sort">
+                {% for label, value in sort_choices %}
+                    <option value={{ value }}>{{ label }}</option>
+                {% endfor %}
+            </select>
         </div>
     </div>
 

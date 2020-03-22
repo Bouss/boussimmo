@@ -102,7 +102,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
-        return new RedirectResponse($this->router->generate('default'));
+        return new RedirectResponse($this->router->generate('index'));
     }
 
     /**

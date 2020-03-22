@@ -3,6 +3,7 @@
 namespace App\Parser;
 
 use App\DTO\PropertyAd;
+use App\Enum\PropertyAdFilter;
 use App\Exception\ParseException;
 use App\Util\NumericUtil;
 use App\Util\StringUtil;
@@ -79,7 +80,7 @@ abstract class AbstractParser
         $ads = array_filter($ads, static function (?PropertyAd $ad) use ($filters) {
             return
                 null !== $ad &&
-                (isset($filters['new_build']) && $filters['new_build'] ? $ad->isNewBuild() : true);
+                (isset($filters[PropertyAdFilter::NEW_BUILD]) && $filters[PropertyAdFilter::NEW_BUILD] ? $ad->isNewBuild() : true);
         });
 
         return $ads;

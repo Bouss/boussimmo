@@ -2,6 +2,7 @@
 
 namespace App\Client;
 
+use App\Enum\PropertyAdFilter;
 use App\Service\EmailTemplateService;
 use Exception;
 use Google_Service_Gmail;
@@ -39,39 +40,40 @@ class GmailClient
     }
 
     /**
-     * @param string      $accessToken
-     * @param string|null $labelId
-     * @param string|null $provider
-     * @param int         $newerThan
+     * @param string $accessToken
+     * @param array  $filters
      *
      * @return int[]
      */
-    public function getMessageIds(string $accessToken, ?string $labelId, ?string $provider, int $newerThan): array
+    public function getMessageIds(string $accessToken, array $filters): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
+        $labelId = $filters[PropertyAdFilter::GMAIL_LABEL] ?? null;
+        $provider = $filters[PropertyAdFilter::PROVIDER] ?? null;
+        $newerThan = $filters[PropertyAdFilter::NEWER_THAN];
         $ids = [];
         $messages = [];
         $pageToken = null;
+
+        // Prepare the Gmail messages query
         $params['q'] = $this->buildMessagesQuery($provider, $newerThan);
         if (!empty($labelId)) {
             $params['labelIds'] = [$labelId];
         }
 
         do {
+            $params['pageToken'] = $pageToken;
+
             try {
-                $params['pageToken'] = $pageToken ?: null;
-
-                $messagesResponse = $this->gmailService->users_messages->listUsersMessages('me', $params);
-
-                if ($messagesResponse->getMessages()) {
-                    $messages[] = $messagesResponse->getMessages();
-                    $pageToken = $messagesResponse->getNextPageToken();
-                }
+                $response = $this->gmailService->users_messages->listUsersMessages('me', $params);
             } catch (Exception $e) {
                 $this->logger->error('Error while retrieving messages: ' . $e->getMessage(), $params);
+                break;
             }
-        } while (null !== $pageToken);
+
+            $messages[] = $response->getMessages();
+        } while (null !== $pageToken = $response->getNextPageToken());
 
         if (!empty($messages)) {
             $ids = array_column(array_merge(...$messages), 'id');

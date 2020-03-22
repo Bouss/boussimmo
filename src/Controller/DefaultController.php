@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", methods={"GET"}, name="default")
+     * @Route("/", methods={"GET"}, name="index")
      *
      * @return Response
      */
-    public function default(): Response
+    public function index(): Response
     {
         return null !== $this->getUser() ?
             $this->forward('App\Controller\PropertyAdController::index') :
