@@ -4,6 +4,7 @@ namespace App\Parser\EmailParser;
 
 use App\Enum\Provider;
 use App\Parser\AbstractParser;
+use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class BienIciParser extends AbstractParser
@@ -21,7 +22,7 @@ class BienIciParser extends AbstractParser
     protected const SELECTOR_ROOMS_COUNT = '[class$="realEstateAdTitle"] strong';
     protected const SELECTOR_PHOTO = '[class$=realEstateAdPhoto] img';
     protected const SELECTOR_REAL_AGENT_ESTATE = '';
-    protected const SELECTOR_NEW_BUILD = '';
+    protected const SELECTOR_NEW_BUILD = 'span[style*="background: #ffb82f"]';
     protected const PUBLISHED_AT_FORMAT = '';
 
     /**
@@ -36,5 +37,13 @@ class BienIciParser extends AbstractParser
                ['600x370', 'width=600&height=370'],
                $photo
         );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function isNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
+    {
+        return parent::isNewBuild($crawler, false);
     }
 }

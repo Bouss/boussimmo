@@ -5,7 +5,7 @@
             <div class="property-ad__new-build-tag">NEUF</div>
         {% endif %}
         <div class="property-ad__fields-wrapper">
-            <h3 class="property-ad__price">{{ ad.price|number_format(null, ',', ' ') }} &euro;</h3>
+            <h3 class="property-ad__price">{{ ad.price ? ad.price|number_format(null, ',', ' ') : 'N/A' }} &euro;</h3>
             <p class="property-ad__field">
                 <span class="property-ad__area{% if ad.area is null %} property-ad__field--unknown{% endif %}">{{ ad.area|default('N/A') }} m&sup2;</span>
                 &nbsp;•&nbsp;

@@ -5,27 +5,21 @@ namespace App\Service;
 use App\DTO\EmailTemplate;
 use RuntimeException;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Yaml\Yaml;
 
 class EmailTemplateService
 {
-    private const EMAIL_TEMPLATES_FILE_PATH = '/config/email_templates.yaml';
-
     /**
      * @var EmailTemplate[]
      */
     private $emailTemplates;
 
     /**
-     * @param string              $projectDir
      * @param SerializerInterface $serializer
+     * @param array               $emailTemplates
      */
-    public function __construct(string $projectDir, SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer, array $emailTemplates)
     {
-        $this->emailTemplates = $serializer->denormalize(
-            Yaml::parseFile($projectDir . self::EMAIL_TEMPLATES_FILE_PATH, Yaml::PARSE_CONSTANT),
-            'App\DTO\EmailTemplate[]'
-        );
+        $this->emailTemplates = $serializer->denormalize($emailTemplates,'App\DTO\EmailTemplate[]');
     }
 
     /**

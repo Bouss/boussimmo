@@ -56,31 +56,30 @@ abstract class AbstractParser
      */
     public function parse(string $html, array $filters = [], array $params = []): array
     {
-        $crawler = new Crawler($html);
-
-        try {
-            $crawler->filter(static::SELECTOR_AD_WRAPPER);
-        } catch (Exception $e) {
-            throw new ParseException('No property ads found: ' . $e->getMessage());
-        }
-
         // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        $ads[] = $crawler->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) use ($params) {
+        $ads[] = (new Crawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) use ($params) {
             try {
                 return $this->buildPropertyAd($adCrawler, $params);
             } catch (Exception $e) {
-                $this->logger->error('Error while parsing a property ad: ' . $e->getMessage(), $params);
+                $this->logger->warning('Error while parsing a property ad: ' . $e->getMessage(), $params);
 
                 return null;
             }
         });
 
-        // Merge all the ad arrays in one, clean (remove null values) and filter the ads
-        $ads = array_filter(array_merge(...$ads), static function (?PropertyAd $ad) use ($filters) {
+        // Merge all arrays in one
+        $ads = array_merge(...$ads);
+
+        if (empty($ads)) {
+            throw new ParseException('No property ads parsed');
+        }
+
+        // Clean (remove null values) and filter the ads
+        $ads = array_filter($ads, static function (?PropertyAd $ad) use ($filters) {
             return
                 null !== $ad &&
-                (isset($filters['new_build']) && $filters['new_build']) ? $ad->isNewBuild() : true;
+                (isset($filters['new_build']) && $filters['new_build'] ? $ad->isNewBuild() : true);
         });
 
         return $ads;
@@ -125,11 +124,11 @@ abstract class AbstractParser
     /**
      * @param Crawler $crawler
      *
-     * @return float
+     * @return float|null
      *
      * @throws ParseException
      */
-    protected function getPrice(Crawler $crawler): float
+    protected function getPrice(Crawler $crawler): ?float
     {
         try {
             $priceStr = trim($crawler->filter(static::SELECTOR_PRICE)->text());
@@ -303,20 +302,31 @@ abstract class AbstractParser
 
     /**
      * @param Crawler $crawler
+     * @param bool    $nodeExistenceOnly
      *
      * @return bool
      */
-    protected function isNewBuild(Crawler $crawler): bool
+    protected function isNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
     {
-        if (!empty(static::SELECTOR_NEW_BUILD)) {
-            try {
-                return 1 === $crawler->filter(static::SELECTOR_NEW_BUILD)->count();
-            } catch (Exception $e) {
-                return false;
-            }
+        if (empty(static::SELECTOR_NEW_BUILD)) {
+            return StringUtil::contains(
+                $this->getTitle($crawler).$this->getDescription($crawler),
+                self::NEW_BUILD_WORDS
+            );
         }
 
-        return StringUtil::contains($this->getTitle($crawler) . $this->getDescription($crawler), self::NEW_BUILD_WORDS);
+        try {
+            if ($nodeExistenceOnly) {
+                return 1 === $crawler->filter(static::SELECTOR_NEW_BUILD)->count();
+            }
+
+            return StringUtil::contains(
+                $crawler->filter(static::SELECTOR_NEW_BUILD)->text(),
+                self::NEW_BUILD_WORDS
+            );
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     /**

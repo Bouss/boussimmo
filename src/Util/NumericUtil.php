@@ -13,28 +13,28 @@ class NumericUtil
     /**
      * @param string $val
      *
-     * @return int
+     * @return int|null
      */
-    public static function extractInt(string $val): int
+    public static function extractInt(string $val): ?int
     {
         $val = StringUtil::removeWhitespaces($val);
         preg_match(sprintf('/%s/', self::REGEX_INT), $val, $matches);
 
-        return (int) $matches[0];
+        return isset($matches[0]) ? (int) $matches[0] : null;
     }
 
     /**
      * @param string $val
      *
-     * @return float
+     * @return float|null
      */
-    public static function extractFloat(string $val): float
+    public static function extractFloat(string $val): ?float
     {
         $val = StringUtil::removeWhitespaces($val);
         $val = str_replace(',', '.', $val);
         preg_match(sprintf('/%s/', self::REGEX_FLOAT), $val, $matches);
 
-        return (float) $matches[0];
+        return isset($matches[0]) ? (float) $matches[0] : null;
     }
 
     /**

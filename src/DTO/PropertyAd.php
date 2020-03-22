@@ -32,7 +32,7 @@ class PropertyAd
     private $url;
 
     /**
-     * @var float
+     * @var float|null
      */
     private $price;
 
@@ -180,19 +180,19 @@ class PropertyAd
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getPrice(): float
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
     /**
-     * @param float $price
+     * @param float|null $price
      *
      * @return PropertyAd
      */
-    public function setPrice(float $price): PropertyAd
+    public function setPrice(?float $price): PropertyAd
     {
         $this->price = $price;
 
@@ -439,7 +439,7 @@ class PropertyAd
             $this->roomsCount === $propertyAd->getRoomsCount() &&
             $this->price === $propertyAd->getPrice() &&
             abs($this->area - $propertyAd->getArea()) <= 1 &&
-            ($strict ? ($this->site === $propertyAd->getSite()) : true) &&
+            ($strict ? $this->site === $propertyAd->getSite() : true) &&
             $this->publishedAt->diff($propertyAd->getPublishedAt())->h <= 48;
     }
 }
