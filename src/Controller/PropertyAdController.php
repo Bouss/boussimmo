@@ -20,8 +20,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class PropertyAdController extends AbstractController
 {
     /**
-     * @param GmailClient         $gmailClient
-     * @param GoogleService       $googleService
+     * @param GmailClient   $gmailClient
+     * @param GoogleService $googleService
      *
      * @return Response
      */
@@ -61,18 +61,19 @@ class PropertyAdController extends AbstractController
         GoogleService $googleService
     ): Response
     {
+        parse_str($request->query->get('filters'), $filters);
+        $sort = $request->query->get('sort');
+
         /** @var User $user */
         $user = $this->getUser();
 
         $googleService->refreshAccessTokenIfExpired($user);
 
-        parse_str($request->query->get('filters'), $filters);
-
         $propertyAds = $propertyAdManager->find($user->getAccessToken(), $filters);
 
-        return $this->render('property_ad/list.html.twig', [
+        return $this->render('property_ad/_list.html.twig', [
             'property_ads' => $propertyAds,
-            'sort' => $sortResolver->resolve($request->query->get('sort'))
+            'sort' => $sortResolver->resolve($sort)
         ]);
     }
 

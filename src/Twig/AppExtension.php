@@ -9,6 +9,8 @@ use Twig\TwigFilter;
 
 class AppExtension extends AbstractExtension
 {
+    private const ORDER_ASC = 1;
+
     /**
      * @var ProviderService
      */
@@ -50,7 +52,7 @@ class AppExtension extends AbstractExtension
      *
      * @return PropertyAd[]
      */
-    public function sortBy(array $propertyAds, string $field, int $order = 1): array
+    public function sortBy(array $propertyAds, string $field, int $order = self::ORDER_ASC): array
     {
         $getter = 'get' . ucfirst($field);
 
@@ -61,7 +63,7 @@ class AppExtension extends AbstractExtension
         usort($propertyAds, static function (PropertyAd $a1, PropertyAd $a2) use ($getter, $order) {
             $comparison = $a1->{$getter}() <=> $a2->{$getter}();
 
-            return 1 === $order ? $comparison : -$comparison;
+            return self::ORDER_ASC === $order ? $comparison : -$comparison;
         });
 
         return $propertyAds;

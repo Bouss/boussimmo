@@ -27,7 +27,7 @@ class EmailTemplate
     /**
      * @var string|null
      */
-    public $subject;
+    public $subjectKeyword;
 
     /**
      * @param string      $id
@@ -42,6 +42,6 @@ class EmailTemplate
         $this->provider = $provider;
         $this->email = $email;
         $this->from = sprintf('%s <%s>', $name, $email);
-        $this->subject = $subject;
+        $this->subjectKeyword = $subject;
     }
 }

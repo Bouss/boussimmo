@@ -8,7 +8,7 @@ use App\DTO\PropertyAd;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
 use App\Service\GmailService;
-use App\Service\EmailTemplateService;
+use App\Service\EmailTemplateManager;
 use Exception;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
@@ -31,7 +31,7 @@ class PropertyAdManager
     private $gmailService;
 
     /**
-     * @var EmailTemplateService
+     * @var EmailTemplateManager
      */
     private $providerService;
 
@@ -44,14 +44,14 @@ class PropertyAdManager
      * @param GmailClient          $gmailClient
      * @param EmailParserContainer $parserContainer
      * @param GmailService         $gmailService
-     * @param EmailTemplateService $providerService
+     * @param EmailTemplateManager $providerService
      * @param LoggerInterface      $logger
      */
     public function __construct(
         GmailClient $gmailClient,
         EmailParserContainer $parserContainer,
         GmailService $gmailService,
-        EmailTemplateService $providerService,
+        EmailTemplateManager $providerService,
         LoggerInterface $logger
     ) {
         $this->gmailClient = $gmailClient;
@@ -86,7 +86,7 @@ class PropertyAdManager
             $html = $this->gmailService->getHtml($message);
 
             try {
-                $emailTemplate = $this->providerService->getEmailTemplate($headers['from'], $headers['subject']);
+                $emailTemplate = $this->providerService->getEmailTemplate($headers['from'], $headers['subject'])->id;
                 $propertyAds[] = $this->parserContainer->get($emailTemplate)->parse($html, $filters, [
                     'email_template' => $emailTemplate,
                     'date' => $headers['date']
@@ -115,7 +115,7 @@ class PropertyAdManager
      */
     private function removeDuplicates(array &$propertyAds): void
     {
-        foreach ($propertyAds as &$comparedAd) {
+        foreach ($propertyAds as $comparedAd) {
             foreach ($propertyAds as $i => $ad) {
                 if ($comparedAd !== $ad && $comparedAd->equals($ad, true)) {
                     unset($propertyAds[$i]);

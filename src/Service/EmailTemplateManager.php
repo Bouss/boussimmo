@@ -6,7 +6,7 @@ use App\DTO\EmailTemplate;
 use RuntimeException;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class EmailTemplateService
+class EmailTemplateManager
 {
     /**
      * @var EmailTemplate[]
@@ -48,24 +48,24 @@ class EmailTemplateService
      * @param string $from
      * @param string $subject
      *
-     * @return string
+     * @return EmailTemplate
      *
      * @throws RuntimeException
      */
-    public function getEmailTemplate(string $from, string $subject): string
+    public function getEmailTemplate(string $from, string $subject): EmailTemplate
     {
         foreach ($this->emailTemplates as $template) {
             if ($from === $template->from) {
                 // First, try to match an email template containing a particular subject keyword
-                if (null !== $template->subject) {
-                    if (false !== stripos($subject, $template->subject)) {
-                        return $template->id;
+                if (null !== $template->subjectKeyword) {
+                    if (false !== stripos($subject, $template->subjectKeyword)) {
+                        return $template;
                     }
 
                     continue;
                 }
 
-                return $template->id;
+                return $template;
             }
         }
 

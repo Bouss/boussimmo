@@ -13,7 +13,7 @@ abstract class AbstractEnum
      *
      * @throws InvalidArgumentException
      */
-    public static function check(?string $value, bool $allowNull = false): void
+    public static function validate(?string $value, bool $allowNull = false): void
     {
         $availableValues = static::getAvailableValues();
 

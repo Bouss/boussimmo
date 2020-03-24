@@ -1,20 +1,20 @@
 parameters:
     email_templates:
-        # Provider email templates with particular subject keywords
+        # Provider email templates having a particular keyword in the subject
         -
             id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF
             provider: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
             name: "\"Ouestfrance-immo.com\""
             email: alerte@news.ouestfrance-immo.com
-            subject: neuf
+            subject_keyword: neuf
         -
             id: !php/const App\Enum\EmailTemplate::SELOGER_2
             provider: !php/const App\Enum\Provider::SELOGER
             name: SeLoger
             email: seloger@al.alerteimmo.com
-            subject: exclusivités
+            subject_keyword: exclusivités
 
-        # Provider email templates without subject
+        # Provider email templates without a particular subject
         -
             id: !php/const App\Enum\EmailTemplate::BIENICI
             provider: !php/const App\Enum\Provider::BIENICI
@@ -67,7 +67,7 @@ parameters:
             email: seloger@al.alerteimmo.com
 
 services:
-    App\Service\EmailTemplateService:
+    App\Service\EmailTemplateManager:
         autowire: true
         autoconfigure: true
         arguments:

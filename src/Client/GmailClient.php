@@ -3,7 +3,7 @@
 namespace App\Client;
 
 use App\Enum\PropertyAdFilter;
-use App\Service\EmailTemplateService;
+use App\Service\EmailTemplateManager;
 use Exception;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Message;
@@ -18,7 +18,7 @@ class GmailClient
     private $gmailService;
 
     /**
-     * @var EmailTemplateService
+     * @var EmailTemplateManager
      */
     private $emailTemplateService;
 
@@ -29,10 +29,10 @@ class GmailClient
 
     /**
      * @param Google_Service_Gmail $gmailService
-     * @param EmailTemplateService $emailTemplateService
+     * @param EmailTemplateManager $emailTemplateService
      * @param LoggerInterface      $logger
      */
-    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateService $emailTemplateService, LoggerInterface $logger)
+    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateManager $emailTemplateService, LoggerInterface $logger)
     {
         $this->gmailService = $gmailService;
         $this->emailTemplateService = $emailTemplateService;

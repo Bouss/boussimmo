@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% set sort_choices = {
-    'Date décroissante': constant('App\\Service\\PropertyAdSortResolver::PUBLISHED_AT_DESC'),
-    'Date croissante': constant('App\\Service\\PropertyAdSortResolver::PUBLISHED_AT_ASC'),
-    'Prix décroissant': constant('App\\Service\\PropertyAdSortResolver::PRICE_DESC'),
-    'Prix croissant': constant('App\\Service\\PropertyAdSortResolver::PRICE_ASC'),
-    'Surface décroissante': constant('App\\Service\\PropertyAdSortResolver::AREA_DESC'),
-    'Surface croissante': constant('App\\Service\\PropertyAdSortResolver::AREA_ASC')
+    'Date décroissante': constant('App\\Enum\\PropertyAdSort::PUBLISHED_AT_DESC'),
+    'Date croissante': constant('App\\Enum\\PropertyAdSort::PUBLISHED_AT_ASC'),
+    'Prix décroissant': constant('App\\Enum\\PropertyAdSort::PRICE_DESC'),
+    'Prix croissant': constant('App\\Enum\\PropertyAdSort::PRICE_ASC'),
+    'Surface décroissante': constant('App\\Enum\\PropertyAdSort::AREA_DESC'),
+    'Surface croissante': constant('App\\Enum\\PropertyAdSort::AREA_ASC')
 } %}
 
 {% block stylesheets %}
