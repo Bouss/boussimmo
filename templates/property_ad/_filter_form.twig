@@ -23,7 +23,7 @@
         <label for="newer-than-select">Annonces datant de moins de</label>
         <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}">
             {% for label, value in newer_than_choices %}
-                <option value={{ value }}>{{ label }}</option>
+                <option value="{{ value }}"{% if value == newer_than %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
     </div>
@@ -31,7 +31,7 @@
         <label for="gmail-label-select">Label Gmail</label>
         <select id="gmail-label-select" name="{{ constant('App\\Enum\\PropertyAdFilter::GMAIL_LABEL') }}">
             {% for label, value in gmail_label_choices %}
-                <option value={{ value }}>{{ label }}</option>
+                <option value="{{ value }}"{% if value == gmail_label %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
     </div>
@@ -39,12 +39,12 @@
         <label for="provider-select">Source</label>
         <select id="provider-select" name="{{ constant('App\\Enum\\PropertyAdFilter::PROVIDER') }}">
             {% for label, value in provider_choices %}
-                <option value={{ value }}>{{ label }}</option>
+                <option value="{{ value }}"{% if value == provider %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="checkbox">
-        <input id="new-build-checkbox" name="{{ constant('App\\Enum\\PropertyAdFilter::NEW_BUILD') }}" type="checkbox" value="1">
+        <input id="new-build-checkbox" name="{{ constant('App\\Enum\\PropertyAdFilter::NEW_BUILD') }}" type="checkbox" value="1"{% if new_build %} checked{% endif %}>
         <label for="new-build-checkbox">Neuf</label>
     </div>
     <button class="btn-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>

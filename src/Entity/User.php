@@ -84,6 +84,15 @@ class User implements UserInterface
     private $avatar;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $propertyAdSearchSettings = [];
+
+    /**
+     * @var = array
+     *
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -272,6 +281,26 @@ class User implements UserInterface
     public function setAvatar(?string $avatar): User
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPropertyAdSearchSettings(): array
+    {
+        return $this->propertyAdSearchSettings;
+    }
+
+    /**
+     * @param array $propertyAdSearchSettings
+     *
+     * @return User
+     */
+    public function setPropertyAdSearchSettings(array $propertyAdSearchSettings): User
+    {
+        $this->propertyAdSearchSettings = $propertyAdSearchSettings;
 
         return $this;
     }

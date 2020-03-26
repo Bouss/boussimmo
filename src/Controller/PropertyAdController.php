@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Client\GmailClient;
 use App\Entity\User;
+use App\Enum\PropertyAdFilter;
 use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
 use App\Service\GoogleService;
 use App\Service\PropertyAdSortResolver;
+use Doctrine\ORM\EntityManagerInterface;
 use Google_Service_Gmail_Label;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +27,7 @@ class PropertyAdController extends AbstractController
      *
      * @return Response
      */
-    public function index(
-        GmailClient $gmailClient,
-        GoogleService $googleService
-    ): Response
+    public function index(GmailClient $gmailClient, GoogleService $googleService): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -37,8 +36,15 @@ class PropertyAdController extends AbstractController
 
         $labels = $gmailClient->getLabels($user->getAccessToken());
 
+        $settings = $user->getPropertyAdSearchSettings();
+
         return $this->render('property_ad/index.html.twig', [
-            'gmail_label_choices' => $this->getGmailLabelChoices($labels)
+            'gmail_label_choices' => $this->getGmailLabelChoices($labels),
+            'newer_than' => $settings[PropertyAdFilter::NEWER_THAN] ?? null,
+            'gmail_label' => $settings[PropertyAdFilter::GMAIL_LABEL] ?? null,
+            'provider' => $settings[PropertyAdFilter::PROVIDER] ?? null,
+            'new_build' => isset($settings[PropertyAdFilter::NEW_BUILD]),
+            'sort' => $settings['sort'] ?? null
         ]);
     }
 
@@ -46,6 +52,7 @@ class PropertyAdController extends AbstractController
      * @Route("/list", methods={"GET"}, options={"expose"=true}, name="property_ads_list")
      *
      * @param Request                $request
+     * @param EntityManagerInterface $em
      * @param PropertyAdManager      $propertyAdManager
      * @param PropertyAdSortResolver $sortResolver
      * @param GoogleService          $googleService
@@ -56,6 +63,7 @@ class PropertyAdController extends AbstractController
      */
     public function list(
         Request $request,
+        EntityManagerInterface $em,
         PropertyAdManager $propertyAdManager,
         PropertyAdSortResolver $sortResolver,
         GoogleService $googleService
@@ -66,6 +74,8 @@ class PropertyAdController extends AbstractController
 
         /** @var User $user */
         $user = $this->getUser();
+        $user->setPropertyAdSearchSettings(array_merge($filters, ['sort' => $sort]));
+        $em->flush();
 
         $googleService->refreshAccessTokenIfExpired($user);
 

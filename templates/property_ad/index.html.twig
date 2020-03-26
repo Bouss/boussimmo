@@ -24,7 +24,6 @@
         <img class="avatar" src="{{ app.user.avatar }}" alt="Avatar" data-toggle="tooltip" data-placement="left" title="{{ app.user.email }}"/>
         <a class="btn-signout" href="{{ path('logout') }}">Déconnexion</a>
     </div>
-
     {{ include('property_ad/_filter_form.twig') }}
 {% endblock %}
 
@@ -34,7 +33,7 @@
         <div class="result__sort-select dropdown dropdown--without-label">
             <select id="sort-select" name="sort">
                 {% for label, value in sort_choices %}
-                    <option value={{ value }}>{{ label }}</option>
+                    <option value="{{ value }}"{% if value == sort %} selected{% endif %}>{{ label }}</option>
                 {% endfor %}
             </select>
         </div>
