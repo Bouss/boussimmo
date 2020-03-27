@@ -16,6 +16,7 @@ use App\Parser\EmailParser\OuestFranceImmoNeufParser;
 use App\Parser\EmailParser\OuestFranceImmoParser;
 use App\Parser\EmailParser\PapParser;
 use App\Parser\EmailParser\SeLoger2Parser;
+use App\Parser\EmailParser\SeLogerNeufParser;
 use App\Parser\EmailParser\SeLogerParser;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
@@ -52,7 +53,8 @@ class EmailParserContainer implements ServiceSubscriberInterface
             EmailTemplate::OUESTFRANCE_IMMO_NEUF_2 => OuestFranceImmoNeuf2Parser::class,
             EmailTemplate::PAP                     => PapParser::class,
             EmailTemplate::SELOGER                 => SeLogerParser::class,
-            EmailTemplate::SELOGER_2               => SeLoger2Parser::class
+            EmailTemplate::SELOGER_2               => SeLoger2Parser::class,
+            EmailTemplate::SELOGER_NEUF            => SeLogerNeufParser::class
         ];
     }
 

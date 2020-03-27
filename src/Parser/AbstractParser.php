@@ -131,6 +131,10 @@ abstract class AbstractParser
      */
     protected function getPrice(Crawler $crawler): ?float
     {
+        if (empty(static::SELECTOR_PRICE)) {
+            return null;
+        }
+
         try {
             $priceStr = trim($crawler->filter(static::SELECTOR_PRICE)->text());
         } catch (Exception $e) {

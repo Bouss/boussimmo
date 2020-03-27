@@ -30,7 +30,7 @@ function loadPropertyAds() {
         },
         success: function (html) {
             $container.html(html);
-            $('#result-count').html($container.find('> *').length);
+            $('#result-count').html($container.find('.property-ad').length);
         },
         complete: function () {
             $('body').find('.loader').remove();

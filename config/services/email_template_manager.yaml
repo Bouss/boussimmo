@@ -65,6 +65,11 @@ parameters:
             provider: !php/const App\Enum\Provider::SELOGER
             name: SeLoger
             email: seloger@al.alerteimmo.com
+        -
+            id: !php/const App\Enum\EmailTemplate::SELOGER_NEUF
+            provider: !php/const App\Enum\Provider::SELOGER
+            name: SeLoger Neuf
+            email: selogerneuf@al.alerteimmo.com
 
 services:
     App\Service\EmailTemplateManager:

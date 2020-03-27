@@ -16,4 +16,5 @@ class EmailTemplate extends AbstractEnum
     public const PAP = 'pap';
     public const SELOGER = 'seloger';
     public const SELOGER_2 = 'seloger_2';
+    public const SELOGER_NEUF = 'seloger_neuf';
 }
