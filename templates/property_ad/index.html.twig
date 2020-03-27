@@ -28,9 +28,11 @@
 {% endblock %}
 
 {% block body %}
-    <div class="result">
-        <div class="result__label"><span class="result__count"></span>&nbsp;annonces trouvées</div>
-        <div class="result__sort-select dropdown dropdown--without-label">
+    <div class="result-section">
+        <div>
+            <span id="result-count"></span>&nbsp;annonces trouvées
+        </div>
+        <div class="dropdown dropdown--without-label">
             <select id="sort-select" name="sort">
                 {% for label, value in sort_choices %}
                     <option value="{{ value }}"{% if value == sort %} selected{% endif %}>{{ label }}</option>
@@ -39,5 +41,5 @@
         </div>
     </div>
 
-    <div class="property-ad-container"></div>
+    <div id="property-ad-container"></div>
 {% endblock %}

@@ -100,7 +100,6 @@ class PropertyAdManager
         if (!empty($propertyAds)) {
             $propertyAds = array_merge(...$propertyAds);
         }
-
         // Remove duplicates from same provider
         $this->removeDuplicates($propertyAds);
 
@@ -115,7 +114,7 @@ class PropertyAdManager
      */
     private function removeDuplicates(array &$propertyAds): void
     {
-        foreach ($propertyAds as $comparedAd) {
+        foreach ($propertyAds as &$comparedAd) {
             foreach ($propertyAds as $i => $ad) {
                 if ($comparedAd !== $ad && $comparedAd->equals($ad, true)) {
                     unset($propertyAds[$i]);
@@ -129,7 +128,7 @@ class PropertyAdManager
      */
     private function groupPropertyAds(array &$propertyAds): void
     {
-        foreach ($propertyAds as $comparedAd) {
+        foreach ($propertyAds as &$comparedAd) {
             foreach ($propertyAds as $i => $ad) {
                 if ($comparedAd !== $ad && $comparedAd->equals($ad)) {
                     $comparedAd->addDuplicate($ad);

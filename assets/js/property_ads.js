@@ -3,7 +3,7 @@ import '../scss/property_ad.scss';
 
 let $filterForm = $('#filter-form');
 let $sortSelect = $('#sort-select');
-let $container = $('.property-ad-container');
+let $container = $('#property-ad-container');
 
 $filterForm.on('submit', function (e) {
     e.preventDefault();
@@ -30,7 +30,7 @@ function loadPropertyAds() {
         },
         success: function (html) {
             $container.html(html);
-            $('.result__count').html($container.find('.property-ad').length);
+            $('#result-count').html($container.find('> *').length);
         },
         complete: function () {
             $('body').find('.loader').remove();

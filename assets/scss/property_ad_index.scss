@@ -9,7 +9,7 @@
 
 $margin: 10px;
 
-.property-ad-container {
+#property-ad-container {
   margin-top: 10px;
 
   & > *:not(:first-child) {
@@ -69,21 +69,21 @@ $margin: 10px;
   }
 }
 
-.result {
+.result-section {
   display: flex;
   align-items: center;
   margin-top: $margin;
 
-  & > *:not(:first-child) {
+  > *:not(:first-child) {
     margin-left: $margin
   }
 
-  &__count {
+  #result-count {
     font-weight: bold;
     font-size: 18px;
   }
 
-  &__sort-select {
+  .dropdown {
     select {
       border: solid 1px grey;
     }
