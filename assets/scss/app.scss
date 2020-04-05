@@ -1,11 +1,12 @@
 @import 'colors';
-@import 'variables';
+@import 'sizes';
 @import 'loader';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 html {
-    height: 100%;
     box-sizing: border-box;
+    font-size: 16px;
+    font-family: Arial;
 }
 
 *,
@@ -15,12 +16,8 @@ html {
 }
 
 body {
-    position: relative;
-    min-height: 100%;
     margin: 0;
-    padding-bottom: 6rem;
     background-color: $grey-light;
-    font-family: Arial;
 }
 
 a {
@@ -29,13 +26,12 @@ a {
 }
 
 footer {
-    position: absolute;
-    width: 100%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $footer-height;
     text-align: center;
+    background-color: $primary-color;
     color: #ffffff;
 }
 
@@ -47,4 +43,14 @@ footer {
 
 .content {
     max-width: $page-width;
+}
+
+.unknown {
+    color: $silver;
+}
+
+@media screen and (max-width: 576px) {
+    html {
+        font-size: 14px;
+    }
 }

@@ -1,2 +1,2 @@
-import '../scss/homepage.scss';
-import '../scss/btn_signin.scss';
+import '../scss/homepage/homepage.scss';
+import '../scss/homepage/btn_signin.scss';

@@ -436,10 +436,14 @@ class PropertyAd
     public function equals(PropertyAd $propertyAd, bool $strict = false): bool
     {
         return
-            $this->roomsCount === $propertyAd->getRoomsCount() &&
-            $this->price === $propertyAd->getPrice() &&
-            abs($this->area - $propertyAd->getArea()) <= 1 &&
             ($strict ? $this->site === $propertyAd->getSite() : true) &&
-            $this->publishedAt->diff($propertyAd->getPublishedAt())->h <= 48;
+            (
+                ($this->price === $propertyAd->getPrice() && '000' !== substr($this->price, -3)) ||
+                (
+                    $this->roomsCount === $propertyAd->getRoomsCount() &&
+                    $this->price === $propertyAd->getPrice() &&
+                    abs($this->area - $propertyAd->getArea()) <= 1
+                )
+            );
     }
 }

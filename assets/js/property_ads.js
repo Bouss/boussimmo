@@ -1,5 +1,5 @@
-import '../scss/property_ad_index.scss';
-import '../scss/property_ad.scss';
+import '../scss/property_ad/index.scss';
+import '../scss/property_ad/property_ad.scss';
 
 let $filterForm = $('#filter-form');
 let $sortSelect = $('#sort-select');
@@ -26,7 +26,7 @@ function loadPropertyAds() {
             sort: $sortSelect.val()
         },
         beforeSend: function () {
-            $('body').append('<div class="loader"></div>')
+            $('body').append('<div class="loader"></div>');
         },
         success: function (html) {
             $container.html(html);

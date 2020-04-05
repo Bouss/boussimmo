@@ -20,7 +20,7 @@
 
 <form id="filter-form">
     <div class="dropdown">
-        <label for="newer-than-select">Annonces datant de moins de</label>
+        <label for="newer-than-select">Annonces datant de</label>
         <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}">
             {% for label, value in newer_than_choices %}
                 <option value="{{ value }}"{% if value == newer_than %} selected{% endif %}>{{ label }}</option>
@@ -45,7 +45,7 @@
     </div>
     <div class="checkbox">
         <input id="new-build-checkbox" name="{{ constant('App\\Enum\\PropertyAdFilter::NEW_BUILD') }}" type="checkbox" value="1"{% if new_build %} checked{% endif %}>
-        <label for="new-build-checkbox">Neuf</label>
+        <label for="new-build-checkbox">Neuf uniquement</label>
     </div>
     <button class="btn-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
 </form>

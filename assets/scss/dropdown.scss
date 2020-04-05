@@ -1,24 +1,27 @@
-$margin: 10px;
+@import 'colors';
+
 $border-radius: 5px;
-$height: 35px;
+$height: 2.2rem;
 
 .dropdown {
-  display: inline-flex;
-  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
   line-height: $height;
+  border-radius: $border-radius;
   background-color: #fff;
 
   label, select {
-    font-size: 14px;
-    color: grey;
+    color: $grey-dark;
   }
 
   label {
-    padding: 0 $margin;
+    min-width: 25%;
+    padding: 0 10px;
     border-right: solid 1px;
   }
 
   select {
+    flex: 1;
     height: $height;
     padding-left: 5px;
     padding-right: 35px;

@@ -1,0 +1,152 @@
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/mixins';
+@import '../../../node_modules/bootstrap/scss/badge';
+@import '../colors';
+
+$padding: 1em;
+$border-radius: 5px;
+$duplicate-spacing: 5px;
+$photo-width: 300px;
+$photo-max-height-factor: 3/4;
+
+.property-ad {
+  position: relative;
+  background-color: white;
+  box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
+  border-radius: $border-radius;
+
+  &:hover {
+    box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.6);
+  }
+
+  > .link {
+    display: flex;
+
+    .photo {
+      width: $photo-width;
+      max-height: $photo-width*$photo-max-height-factor;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+      background-color: $grey-dark;
+    }
+  }
+
+  .new-build-tag {
+    @extend .badge;
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    background-color: $queen-blue;
+    color: #fff;
+  }
+
+  .main-section {
+    padding: $padding;
+
+    p {
+      line-height: 1rem;
+    }
+  }
+
+  .price {
+    color: $primary-color;
+    margin: 0 auto;
+  }
+
+  .provider-logo {
+    max-height: 20px;
+    max-width: 200px;
+  }
+
+  .publication-date {
+    position: absolute;
+    top: $padding;
+    right: $padding;
+    font-size: 0.9em;
+    font-style: italic;
+    color: $grey-dark;
+
+    &-time {
+      font-size: 0.7em;
+    }
+  }
+
+  .duplicate-container {
+    display: flex;
+    row-gap: $duplicate-spacing;
+    position: absolute;
+    bottom: $padding;
+    right: $padding;
+    padding-right: 5px;
+    border: 1px solid $grey-light;
+    border-radius: $border-radius;
+  }
+}
+
+.duplicate {
+  > .link {
+    display: flex;
+    column-gap: 10px;
+
+    &:first-child {
+      .photo {
+        border-top-left-radius: $border-radius;
+      }
+    }
+
+    &:last-child {
+      .photo {
+        border-bottom-left-radius: $border-radius;
+      }
+    }
+
+    .photo {
+      max-height: 30px;
+      width: 50px;
+    }
+
+    .provider-logo {
+      max-height: 12px;
+      max-width: 120px;
+    }
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .property-ad {
+    .duplicate-container {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .property-ad {
+    > .link {
+      .photo {
+        width: 2/3*$photo-width;
+        max-height: (2/3*$photo-width)*$photo-max-height-factor;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .property-ad {
+    font-size: 0.8rem;
+
+    > .link {
+      .photo {
+        width: 1/2*$photo-width;
+        max-height: (1/2*$photo-width)*$photo-max-height-factor;
+      }
+    }
+  }
+}

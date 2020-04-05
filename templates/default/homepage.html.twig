@@ -12,46 +12,50 @@
 
 {% block header %}
     <div class="cta-wrapper">
-        <h1>Facilitez votre recherche d'appartements maintenant</h1>
+        <h1>Facilitez la consultation de vos annonces immobilières dès maintenant</h1>
         <a class="btn-signin" href="{{ path('connect_google_start') }}">
-            <img src="{{ asset('build/logo_google_signin.svg') }}" alt="Google logo"/>
+            <img src="{{ asset('build/logo_google_signin.svg') }}" alt="Google logo" />
             Sign in with Google
         </a>
     </div>
 {% endblock %}
 
 {% block body %}
-    <h2>Qu'est-ce que Immo'Scrap ?</h2>
-    <p>
-        Immo'Scrap est un site développé par un particulier indépendant dont l'objectif est de centraliser les annonces immobilières qui vous intéressent.<br>
+    <p class="introduction">
+        Immo'Scrap est un site développé par un particulier <b>indépendant</b> et désintéressé dont l'objectif est de <b>centraliser</b> les annonces immobilières extraites depuis vos <b>newsletters</b>
     </p>
-    <h2>Pourquoi l'utiliser ?</h2>
-    <p>
-        Chercher un appartement est souvent une tâche fastidieuse. Deux choix nous sont souvent offerts :
-    </p>
-    <h2>Comment ça marche ?</h2>
-    <p>
-        Immo'Scrap extrait les informations pertinentes qui se trouvent dans vos newsletters d'annonces immobilières, les filtre (retire les annonces en double, notamment), puis les affiche.<br>
-        Les plateformes d'annonces immobilières traitables sont :
-    </p>
-    <h2>Que faut-il faire pour utiliser le site ?</h2>
-    <ol>
-        <li>Au préalable, s'<b>inscrire aux newsletters</b> de recherche d'appartement qui conviennent à vos critères sur les plateformes d'annonces immobilières citées ci-dessus.</li>
-        <li>Ensuite, <b>connecter son compte Gmail</b> à Immo'Scrap via le bouton ci-dessus</li>
-        <li>Consulter Immo'Scrap aussi longtemps que vous n'aurez pas trouvé votre chez-vous !</li>
-    </ol>
-    <h2>Qu'en est-il de la confidentialité ?</h2>
-    <p>
-        Immo'Scrap traite <b>uniquement</b> des mails provenant d'adresses mail utilisées par des sites d'annonces immoblières.
-        Aucune donnée personnelle n'est stockée. Seul un cookie créé par Google lors de la connexion avec la plateforme est utilisé.
-        La liste <b>exhaustive</b> des adresses mail traitée est la suivante :
-    </p>
-    <ul>
-        <li>no_reply@bienici.com</li>
-        <li>no-reply@fnaim.fr</li>
-        <li>no.reply@leboncoin.fr</li>
-        <li>news@logicimmo.nmp1.com</li>
-        <li>alerte@news.ouestfrance-immo.com</li>
-        <li>seloger@al.alerteimmo.com</li>
-    </ul>
+    <div class="section-container">
+        <div id="principle" class="section">
+            <h2>Comment ça marche ?</h2>
+            <p>Tout d'abord, Immo'Scrap <b>extrait les biens immobiliers</b> qui se trouvent dans vos emails de newsletter de sites d'annonces immobilières.</p>
+            <p>Les annonces sont ensuite filtrées : les doublons (provenant d'un même site) sont <b>mis de côté</b>, tandis que les annonces similaires émanant de sites différents sont <b>regroupées</b> entre elles, afin d'offir le contenu le plus exhaustif et <b>unique</b> possible.</p>
+            <p>Enfin, libre à vous de <b>refiltrer</b> et <b>trier</b> vos annonces comme bon vous semble !</p>
+        </div>
+        <div id="instructions" class="section">
+            <h2>Que faut-il faire pour utiliser le site ?</h2>
+            <p>Au préalable, s'<b>inscrire aux newsletters</b> de vente de biens immobiliers qui vous intéressent sur les plateformes citées juste après.</p>
+            <p>Connecter son <b>compte Gmail</b> à Immo'Scrap en cliquant sur le bouton </p>
+            <p>Consulter Immo'Scrap aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
+        </div>
+        <div id="providers" class="section">
+            <h2>Quelles sont les plateformes d'annonces immobilières gérées par Immo'Scrap ?</h2>
+            <ul class="provider-container">
+                <li><a href="https://www.bienici.com"><img src="{{ asset('build/providers/bienici.svg') }}" alt="Bien'ici"/></a></li>
+                <li><a href="https://www.fnaim.fr"><img src="{{ asset('build/providers/fnaim.png') }}" alt="FNAIM"/></a></li>
+                <li><a href="https://www.leboncoin.fr"><img src="{{ asset('build/providers/leboncoin.svg') }}" alt="Leboncoin"/></a></li>
+                <li><a href="https://www.logic-immo.com"><img src="{{ asset('build/providers/logic_immo.png') }}" alt="Logic-Immo"/></a></li>
+                <li><a href="https://www.ouestfrance-immo.com"><img src="{{ asset('build/providers/ouestfrance_immo.svg') }}" alt="OuestFrance-Immo"/></a></li>
+                <li><a href="https://www.pap.fr"><img src="{{ asset('build/providers/pap.png') }}" alt="PAP"/></a></li>
+                <li><a href="https://www.seloger.com"><img src="{{ asset('build/providers/seloger.svg') }}" alt="SeLoger"/></a></li>
+            </ul>
+        </div>
+        <div id="security" class="section">
+            <h2>Qu'en est-il de la confidentialité ?</h2>
+            <p>Immo'Scrap traite <b>uniquement</b> des emails provenant d'adresses mail appartenant à des sites d'annonces immoblières.</p>
+            <p>Immo'Scrap ne <b>conserve</b> ni ne <b>diffuse</b> aucun email.</p>
+            <p>Immo'Scrap ne stocke que les données personnelles dont il a besoin pour <b>fonctionner</b> : votre adresse Gmail.</p>
+            <p>Les adresses mails ne sont <b>ni vendues ni partagées</b> car Immo'Scrap est développé par un particulier complètement désintéressé.</p>
+            <p>Il est possible à tout moment de <b>déconnecter</b> votre compte Google d'Immo'Scrap, depuis Immo'Scrap ou votre <a class="link" href="https://myaccount.google.com/permissions">compte Google</a>.</p>
+        </div>
+    </div>
 {% endblock %}

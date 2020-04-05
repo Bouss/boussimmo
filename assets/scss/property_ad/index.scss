@@ -1,0 +1,129 @@
+@import '../../../node_modules/bootstrap/scss/mixins';
+@import '../../../node_modules/bootstrap/scss/functions';
+@import '../../../node_modules/bootstrap/scss/variables';
+@import '../../../node_modules/bootstrap/scss/tooltip';
+@import '../sizes';
+@import '../colors';
+@import '../dropdown';
+@import '../checkbox';
+
+$spacing: 0.6rem;
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: $footer-height*1.25;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.user-section {
+  display: flex;
+  column-gap: $spacing;
+  max-width: $page-width;
+  margin: 0 auto;
+  padding: $spacing 0;
+
+  .avatar {
+    margin-left: auto;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+
+  .btn-signout {
+    padding: 0 12px;
+    line-height: 28px;
+    border: 1px solid #c6c6c6;
+    border-radius: 2px;
+    background: #f8f8f8;
+    color: #666;
+    font: 13px/27px Roboto,RobotoDraft,Arial,sans-serif;
+    cursor: pointer;
+
+    &:hover {
+      border-color: #c6c6c6;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+      background-image: linear-gradient(top, #fff, #f8f8f8);
+      background-color: #fff;
+    }
+  }
+}
+
+#filter-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: $spacing;
+  row-gap: 0.2rem;
+  padding: $spacing;
+  background-color: $primary-color;
+
+  select, label {
+    font-size: 0.8rem;
+  }
+
+  button[type=submit] {
+    padding: 0.5rem;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $secondary-color;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+}
+
+.result-section {
+  display: flex;
+  align-items: center;
+  column-gap: $spacing;
+  margin-top: $spacing;
+
+  #result-count {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .dropdown {
+    select {
+      border: solid 1px $silver;
+    }
+  }
+}
+
+#property-ad-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.9em;
+  margin-top: $spacing;
+}
+
+@media screen and (max-width: 960px) {
+  .user-section {
+    padding: $spacing $content-min-padding;
+  }
+
+  #filter-form {
+    flex-direction: column;
+    padding: $content-min-padding;
+  }
+
+  .content {
+    padding: 0 $content-min-padding;
+  }
+
+  #property-ad-container {
+    row-gap: $content-min-padding;
+  }
+}

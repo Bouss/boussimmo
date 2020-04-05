@@ -1,7 +1,12 @@
-$grey-light: #f2f2f2;
-$grey-light-2: #D3D3D3;
-$primary-color: #2364aa;
-$maximum-blue: #3da5d9;
-$munsell-yellow: #f0c808;
-$moonstone-blue: #73bfb8;
-$vivid-tangello: #ea7317;
+// From palette: https://coolors.co/ff6700-ebebeb-c0c0c0-3a6ea5-004e98
+$blaze-orange: #ff6700;
+$isabelline: #ebebeb;
+$silver: #c0c0c0;
+$queen-blue: #3a6ea5;
+$usafa-blue: #004e98;
+$dim-gray: #696969;
+
+$primary-color: $usafa-blue;
+$secondary-color: $blaze-orange;
+$grey-light: $isabelline;
+$grey-dark: $dim-gray;

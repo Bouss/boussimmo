@@ -1,0 +1,93 @@
+@import 'assets/scss/colors';
+@import '../sizes';
+
+header {
+  padding: 1.9rem $content-padding;
+  box-shadow: 0 0 12px 0 rgba(38, 38, 38, 1);
+  background-color: $primary-color;
+  color: #fff;
+}
+
+.cta-wrapper {
+  max-width: $page-width;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    margin-top: 0;
+    font-size: 1.7rem;
+  }
+}
+
+.content {
+  padding: $content-padding;
+  background-color: white;
+  box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
+}
+
+.introduction {
+  margin: 3em 0;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.section-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.section {
+  p {
+    text-align: justify;
+  }
+
+  h2 {
+    margin-top: 0;
+    padding-bottom: 0.5em;
+    font-size: 1.4rem;
+    color: $primary-color;
+    border-bottom: 1px solid $grey-light;
+  }
+
+  ul, ol {
+    padding-left: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  .link {
+    text-decoration: revert;
+    color: revert;
+  }
+}
+
+
+.provider-container {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap: 5px;
+
+  li {
+    flex: 1;
+    text-align: center;
+  }
+
+  img {
+    max-height: 1.2rem;
+    max-width: 8rem;
+  }
+}
+
+#security {
+  p:before {
+    margin-right: 10px;
+    font-weight: 900;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f023';
+    color: $secondary-color;
+  }
+}
