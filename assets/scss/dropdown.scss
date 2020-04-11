@@ -15,13 +15,11 @@ $height: 2.2rem;
   }
 
   label {
-    min-width: 25%;
     padding: 0 10px;
     border-right: solid 1px;
   }
 
   select {
-    flex: 1;
     height: $height;
     padding-left: 5px;
     padding-right: 35px;
@@ -32,7 +30,7 @@ $height: 2.2rem;
     -webkit-appearance: none;
     appearance: none;
     background-color: #fff;
-    background-image: url('../images/chevron-circle-down-solid.svg');
+    background-image: url('../images/chevron-down-solid.svg');
     background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
     background-size: 1.2em auto, 100%;

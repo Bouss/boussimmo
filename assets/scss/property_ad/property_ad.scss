@@ -6,7 +6,7 @@
 
 $padding: 1em;
 $border-radius: 5px;
-$duplicate-spacing: 5px;
+$duplicate-spacing: 2px;
 $photo-width: 300px;
 $photo-max-height-factor: 3/4;
 
@@ -22,13 +22,21 @@ $photo-max-height-factor: 3/4;
 
   > .link {
     display: flex;
+  }
+
+  .photo-wrapper {
+    width: $photo-width;
+    height: $photo-width*$photo-max-height-factor;
+    overflow-y: hidden;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    background-color: rgba(#000, .8);
 
     .photo {
       width: $photo-width;
-      max-height: $photo-width*$photo-max-height-factor;
-      border-top-left-radius: $border-radius;
-      border-bottom-left-radius: $border-radius;
-      background-color: $grey-dark;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 
@@ -73,7 +81,7 @@ $photo-max-height-factor: 3/4;
   }
 
   .duplicate-container {
-    display: flex;
+    display: grid;
     row-gap: $duplicate-spacing;
     position: absolute;
     bottom: $padding;
@@ -85,21 +93,20 @@ $photo-max-height-factor: 3/4;
 }
 
 .duplicate {
+  &:first-child {
+    .photo {
+      border-top-left-radius: $border-radius;
+    }
+  }
+
+  &:last-child {
+    .photo {
+      border-bottom-left-radius: $border-radius;
+    }
+  }
+
   > .link {
     display: flex;
-    column-gap: 10px;
-
-    &:first-child {
-      .photo {
-        border-top-left-radius: $border-radius;
-      }
-    }
-
-    &:last-child {
-      .photo {
-        border-bottom-left-radius: $border-radius;
-      }
-    }
 
     .photo {
       max-height: 30px;
@@ -115,6 +122,7 @@ $photo-max-height-factor: 3/4;
   .label {
     display: flex;
     align-items: center;
+    margin-left: 0.5rem;
     font-size: 0.7rem;
   }
 }
@@ -129,10 +137,12 @@ $photo-max-height-factor: 3/4;
 
 @media screen and (max-width: 576px) {
   .property-ad {
-    > .link {
+    .photo-wrapper {
+      width: 2/3*$photo-width;
+      height: (2/3*$photo-width)*$photo-max-height-factor;
+
       .photo {
         width: 2/3*$photo-width;
-        max-height: (2/3*$photo-width)*$photo-max-height-factor;
       }
     }
   }
@@ -142,10 +152,18 @@ $photo-max-height-factor: 3/4;
   .property-ad {
     font-size: 0.8rem;
 
-    > .link {
+    .photo-wrapper {
+      width: 1/2*$photo-width;
+      height: (1/2*$photo-width)*$photo-max-height-factor;
+
       .photo {
         width: 1/2*$photo-width;
-        max-height: (1/2*$photo-width)*$photo-max-height-factor;
+      }
+    }
+
+    .main-section {
+      p {
+        line-height: 0.5em;
       }
     }
   }

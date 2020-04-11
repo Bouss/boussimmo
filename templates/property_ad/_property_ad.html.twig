@@ -1,9 +1,11 @@
 <div class="property-ad">
     <a class="link" href="{{ ad.url }}">
-        <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
-        {% if ad.newBuild %}
-            <div class="new-build-tag">NEUF</div>
-        {% endif %}
+        <div class="photo-wrapper">
+            <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+            {% if ad.newBuild %}
+                <div class="new-build-tag">NEUF</div>
+            {% endif %}
+        </div>
         <div class="main-section">
             <h3 class="price">{{ ad.price ? ad.price|number_format(null, ',', ' ') : 'N/A' }} &euro;</h3>
             <p>

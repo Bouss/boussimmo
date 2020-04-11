@@ -3,6 +3,7 @@
 
 header {
   padding: 1.9rem $content-padding;
+  position: relative;
   box-shadow: 0 0 12px 0 rgba(38, 38, 38, 1);
   background-color: $primary-color;
   color: #fff;
@@ -32,7 +33,7 @@ header {
 }
 
 .section-container {
-  display: flex;
+  display: grid;
   flex-direction: column;
   row-gap: 2rem;
 }
@@ -68,16 +69,19 @@ header {
 .provider-container {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 5px;
-  row-gap: 5px;
 
   li {
+    padding: 5px;
     flex: 1;
     text-align: center;
   }
 
+  a {
+    display: block;
+  }
+
   img {
-    max-height: 1.2rem;
+    height: 1.2rem;
     max-width: 8rem;
   }
 }
