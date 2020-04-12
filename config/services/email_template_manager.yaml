@@ -70,6 +70,11 @@ parameters:
             provider: !php/const App\Enum\Provider::SELOGER
             name: SeLoger Neuf
             email: selogerneuf@al.alerteimmo.com
+        -
+            id: !php/const App\Enum\EmailTemplate::SUPERIMMO
+            provider: !php/const App\Enum\Provider::SUPERIMMO
+            name: "\"Superimmo.com\""
+            email: notifications@m.superimmo.com
 
 services:
     App\Service\EmailTemplateManager:

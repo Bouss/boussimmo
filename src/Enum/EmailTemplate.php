@@ -17,4 +17,5 @@ class EmailTemplate extends AbstractEnum
     public const SELOGER = 'seloger';
     public const SELOGER_2 = 'seloger_2';
     public const SELOGER_NEUF = 'seloger_neuf';
+    public const SUPERIMMO = 'superimmo';
 }

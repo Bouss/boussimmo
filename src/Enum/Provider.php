@@ -11,4 +11,5 @@ class Provider extends AbstractEnum
     public const OUESTFRANCE_IMMO = 'ouestfrance-immo';
     public const PAP = 'pap';
     public const SELOGER = 'seloger';
+    public const SUPERIMMO = 'superimmo';
 }

@@ -141,7 +141,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the price: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractPrice($priceStr) ?: NumericUtil::extractFloat($priceStr);
+        return NumericUtil::extractPrice($priceStr);
     }
 
     /**
@@ -163,7 +163,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the area: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractArea($areaStr) ?: NumericUtil::extractFloat($areaStr);
+        return NumericUtil::extractArea($areaStr);
     }
 
     /**
@@ -185,7 +185,7 @@ abstract class AbstractParser
             throw new ParseException('Error while parsing the number of rooms: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractRoomsCount($roomsCountStr) ?: NumericUtil::extractInt($roomsCountStr);
+        return NumericUtil::extractRoomsCount($roomsCountStr);
     }
 
     /**

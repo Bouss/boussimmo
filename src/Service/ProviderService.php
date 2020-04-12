@@ -13,7 +13,8 @@ class ProviderService
         Provider::LOGIC_IMMO => 'logic_immo.png',
         Provider::OUESTFRANCE_IMMO => 'ouestfrance_immo.svg',
         Provider::PAP => 'pap.png',
-        Provider::SELOGER => 'seloger.svg'
+        Provider::SELOGER => 'seloger.svg',
+        Provider::SUPERIMMO => 'superimmo.svg'
     ];
 
     /**
