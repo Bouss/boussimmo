@@ -7,7 +7,7 @@ class NumericUtil
     private const REGEX_INT = '([0-9]+)';
     private const REGEX_FLOAT = '([0-9]+(?:\.[0-9]+)*)';
     private const REGEX_PRICE = self::REGEX_FLOAT . '\s?(?:€|euro)';
-    private const REGEX_ROOMS_COUNT = self::REGEX_INT . '\s?pi[e\p{L}]ce';
+    private const REGEX_ROOMS_COUNT = self::REGEX_INT . '\s?(?:pi[e\p{L}]ce|p.)';
     private const REGEX_AREA = self::REGEX_FLOAT . '\s?(?:m²|m2)';
 
     /**

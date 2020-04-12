@@ -59,9 +59,9 @@ abstract class AbstractParser
     {
         // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        $ads[] = (new Crawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $adCrawler) use ($params) {
+        $ads[] = (new Crawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $crawler) use ($params) {
             try {
-                return $this->buildPropertyAd($adCrawler, $params);
+                return $this->buildPropertyAd($crawler, $params);
             } catch (Exception $e) {
                 $this->logger->warning('Error while parsing a property ad: ' . $e->getMessage(), $params);
 

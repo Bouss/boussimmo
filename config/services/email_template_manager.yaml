@@ -75,6 +75,11 @@ parameters:
             provider: !php/const App\Enum\Provider::SUPERIMMO
             name: "\"Superimmo.com\""
             email: notifications@m.superimmo.com
+        -
+            id: !php/const App\Enum\EmailTemplate::SUPERIMMO_NEUF
+            provider: !php/const App\Enum\Provider::SUPERIMMO
+            name: SuperimmoNeuf
+            email: superimmoneuf@mail.superemailing.com
 
 services:
     App\Service\EmailTemplateManager:
