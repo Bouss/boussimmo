@@ -122,6 +122,7 @@ $photo-max-height-factor: 3/4;
 
   .label {
     display: flex;
+    flex-grow: 1;
     align-items: center;
     margin-left: 0.5rem;
     font-size: 0.7rem;

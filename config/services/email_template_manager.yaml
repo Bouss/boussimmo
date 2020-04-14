@@ -71,6 +71,7 @@ parameters:
             name: SeLoger Neuf
             email: selogerneuf@al.alerteimmo.com
         -
+            # Note: the SuperimmoNeuf subscription email is sent with this email address and should be excluded
             id: !php/const App\Enum\EmailTemplate::SUPERIMMO
             provider: !php/const App\Enum\Provider::SUPERIMMO
             name: "\"Superimmo.com\""

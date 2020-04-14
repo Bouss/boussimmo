@@ -31,7 +31,7 @@ abstract class AbstractParser
     protected const SELECTOR_NEW_BUILD = '';
     protected const PUBLISHED_AT_FORMAT = '';
 
-    private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme'];
+    private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
 
     /**
      * @var LoggerInterface
@@ -59,7 +59,7 @@ abstract class AbstractParser
     {
         // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        $ads[] = (new Crawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $crawler) use ($params) {
+        $ads[] = ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $crawler) use ($params) {
             try {
                 return $this->buildPropertyAd($crawler, $params);
             } catch (Exception $e) {
@@ -84,6 +84,18 @@ abstract class AbstractParser
         });
 
         return $ads;
+    }
+
+    /**
+     * Enable to inject some DOM before starting the parsing
+     *
+     * @param string $html
+     *
+     * @return Crawler
+     */
+    protected function createCrawler(string $html): Crawler
+    {
+        return new Crawler($html);
     }
 
     /**
@@ -315,7 +327,7 @@ abstract class AbstractParser
     {
         if (empty(static::SELECTOR_NEW_BUILD)) {
             return StringUtil::contains(
-                $this->getTitle($crawler).$this->getDescription($crawler),
+                $this->getTitle($crawler) . $this->getDescription($crawler),
                 self::NEW_BUILD_WORDS
             );
         }

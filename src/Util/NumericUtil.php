@@ -5,7 +5,7 @@ namespace App\Util;
 class NumericUtil
 {
     private const REGEX_INT = '([0-9]+)';
-    private const REGEX_FLOAT = '([0-9]+(?:\.[0-9]+)*)';
+    private const REGEX_FLOAT = '([0-9]+(?:,[0-9]+)*)';
     private const REGEX_PRICE = self::REGEX_FLOAT . '\s?(?:€|euro)';
     private const REGEX_ROOMS_COUNT = self::REGEX_INT . '\s?(?:pi[e\p{L}]ce|p.)';
     private const REGEX_AREA = self::REGEX_FLOAT . '\s?(?:m²|m2)';
@@ -31,10 +31,13 @@ class NumericUtil
     public static function extractFloat(string $val): ?float
     {
         $val = StringUtil::removeWhitespaces($val);
-        $val = str_replace(',', '.', $val);
         preg_match(sprintf('/%s/', self::REGEX_FLOAT), $val, $matches);
 
-        return isset($matches[0]) ? (float) $matches[0] : null;
+        if (!isset($matches[0])) {
+            return null;
+        }
+
+        return (float) str_replace(',', '.', $matches[0]);
     }
 
     /**
@@ -45,10 +48,13 @@ class NumericUtil
     public static function extractPrice(string $val): ?float
     {
         $val = StringUtil::removeWhitespaces($val);
-        $val = str_replace([',', '.'], ['.', ''], $val);
         preg_match(sprintf('/%s/ui', self::REGEX_PRICE), $val, $matches);
 
-        return isset($matches[1]) ? (float) $matches[1] : null;
+        if (!isset($matches[1])) {
+            return null;
+        }
+
+        return (float) str_replace(',', '.', $matches[1]);
     }
 
     /**
@@ -58,6 +64,7 @@ class NumericUtil
      */
     public static function extractRoomsCount(string $val): ?int
     {
+        $val = StringUtil::removeWhitespaces($val);
         preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT), $val, $matches);
 
         return isset($matches[1]) ? (int) $matches[1] : null;
@@ -70,9 +77,13 @@ class NumericUtil
      */
     public static function extractArea(string $val): ?float
     {
-        $val = str_replace(',', '.', $val);
+        $val = StringUtil::removeWhitespaces($val);
         preg_match(sprintf('/%s/ui', self::REGEX_AREA), $val, $matches);
 
-        return isset($matches[1]) ? (float) $matches[1] : null;
+        if (!isset($matches[1])) {
+            return null;
+        }
+
+        return (float) str_replace(',', '.', $matches[1]);
     }
 }

@@ -10,12 +10,12 @@ class SuperimmoNeufParser extends AbstractParser
 {
     protected const SITE = Provider::SUPERIMMO;
     protected const SELECTOR_AD_WRAPPER  = 'td[style="width: 540px;"]';
-    protected const SELECTOR_TITLE       = 'span[style*="color:#0063c6"]';
-    protected const SELECTOR_DESCRIPTION = 'span[style="font-size: 14px;color:#282828;"]';
-    protected const SELECTOR_LOCATION    = 'span[style*="font-size: 18px"][style*="color:#282828"]';
+    protected const SELECTOR_TITLE       = 'table:nth-child(2) tr:nth-child(1) span';
+    protected const SELECTOR_DESCRIPTION = 'table:nth-child(2) tr:nth-child(5) span';
+    protected const SELECTOR_LOCATION    = 'table:nth-child(2) tr:nth-child(2) span';
     protected const SELECTOR_URL         = 'a:first-child';
-    protected const SELECTOR_ROOMS_COUNT = 'span[style*="color:#0063c6"]';
-    protected const SELECTOR_PHOTO       = 'img:first-child';
+    protected const SELECTOR_ROOMS_COUNT = 'table:nth-child(2) tr:nth-child(1) span';
+    protected const SELECTOR_PHOTO       = 'table:nth-child(1) img:first-child';
 
     /**
      * {@inheritDoc}

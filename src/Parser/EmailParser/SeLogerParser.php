@@ -9,20 +9,13 @@ use Symfony\Component\DomCrawler\Crawler;
 class SeLogerParser extends AbstractParser
 {
     protected const SITE = Provider::SELOGER;
-    protected const SELECTOR_AD_WRAPPER = 'td[class$="two-column"]';
-    protected const SELECTOR_EXTERNAL_ID = '';
-    protected const SELECTOR_TITLE = '';
-    protected const SELECTOR_DESCRIPTION = '';
-    protected const SELECTOR_LOCATION = 'td[style$="font-size: 16px; line-height: 25px; color: #262626;"] a';
-    protected const SELECTOR_PUBLISHED_AT = '';
-    protected const SELECTOR_URL = 'a:first-child';
-    protected const SELECTOR_PRICE = 'b';
-    protected const SELECTOR_AREA = 'td[style$="font-size: 16px; line-height: 25px; color: #262626;"] a';
-    protected const SELECTOR_ROOMS_COUNT = 'td[style$="font-size: 16px; line-height: 25px; color: #262626;"] a';
-    protected const SELECTOR_PHOTO = 'img';
-    protected const SELECTOR_REAL_AGENT_ESTATE = '';
-    protected const SELECTOR_NEW_BUILD = '';
-    protected const PUBLISHED_AT_FORMAT = '';
+    protected const SELECTOR_AD_WRAPPER  = '.two-column > a[_category="Bloc annonce"]'; // Ignore "Recommendation" ads
+    protected const SELECTOR_LOCATION    = '.contents tr:nth-child(2) a';
+    protected const SELECTOR_URL         = 'a';
+    protected const SELECTOR_PRICE       = '.contents tr:nth-child(1) a';
+    protected const SELECTOR_AREA        = '.contents tr:nth-child(2) a';
+    protected const SELECTOR_ROOMS_COUNT = '.contents tr:nth-child(2) a';
+    protected const SELECTOR_PHOTO       = '.column:nth-child(1) img:first-child';
 
     /**
      * {@inheritDoc}
