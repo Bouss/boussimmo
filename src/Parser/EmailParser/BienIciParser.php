@@ -4,7 +4,6 @@ namespace App\Parser\EmailParser;
 
 use App\Enum\Provider;
 use App\Parser\AbstractParser;
-use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class BienIciParser extends AbstractParser

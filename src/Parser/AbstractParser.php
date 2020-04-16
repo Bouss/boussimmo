@@ -87,7 +87,7 @@ abstract class AbstractParser
     }
 
     /**
-     * Enable to inject some DOM before starting the parsing
+     * Enable to modify the DOM before parsing
      *
      * @param string $html
      *
