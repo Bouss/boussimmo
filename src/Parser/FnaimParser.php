@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class FnaimParser extends AbstractParser
 {
-    protected const SITE = Provider::FNAIM;
+    protected const PROVIDER = Provider::FNAIM;
     protected const SELECTOR_AD_WRAPPER = '[class*=item]';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '[class$=desc]';

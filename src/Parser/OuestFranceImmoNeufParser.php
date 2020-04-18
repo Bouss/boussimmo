@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class OuestFranceImmoNeufParser extends AbstractParser
 {
-    protected const SITE = Provider::OUESTFRANCE_IMMO;
+    protected const PROVIDER = Provider::OUESTFRANCE_IMMO;
     protected const SELECTOR_AD_WRAPPER = 'table[style*="border: 1px solid #e6e6e6; float: left;"]';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '';

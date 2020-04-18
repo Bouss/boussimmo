@@ -1,0 +1,51 @@
+parameters:
+    providers:
+        -
+            id: !php/const App\Enum\Provider::BIENICI
+            logo: bienici.svg
+        -
+            id: !php/const App\Enum\Provider::FNAIM
+            logo: fnaim.png
+        -
+            id: !php/const App\Enum\Provider::LEBONCOIN
+            logo: leboncoin.svg
+        -
+            id: !php/const App\Enum\Provider::LOGIC_IMMO
+            logo: logic_immo.png
+        -
+            id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
+            logo: ouestfrance_immo.svg
+        -
+            id: !php/const App\Enum\Provider::PAP
+            logo: pap.png
+        -
+            id: !php/const App\Enum\Provider::SELOGER
+            logo: seloger.svg
+        -
+            id: !php/const App\Enum\Provider::SUPERIMMO
+            logo: superimmo.svg
+
+        # New-build sub providers
+        -
+            id: !php/const App\Enum\Provider::LOGIC_IMMO_NEUF
+            logo: logic_immo.png
+            parent_provider: !php/const App\Enum\Provider::LOGIC_IMMO
+        -
+            id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
+            logo: ouestfrance_immo.svg
+            parent_provider: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
+        -
+            id: !php/const App\Enum\Provider::SELOGER_NEUF
+            logo: ouestfrance_immo.svg
+            parent_provider: !php/const App\Enum\Provider::SELOGER
+        -
+            id: !php/const App\Enum\Provider::SUPERIMMO_NEUF
+            logo: ouestfrance_immo.svg
+            parent_provider: !php/const App\Enum\Provider::SUPERIMMO
+
+services:
+    App\Finder\ProviderFinder:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $providers: '%providers%'

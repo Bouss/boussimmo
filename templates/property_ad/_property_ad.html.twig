@@ -14,7 +14,7 @@
                 <span class="rooms-count{% if ad.roomsCount is null %} unknown{% endif %}">{{ ad.roomsCount|default('N/A') }}&nbsp;pièces</span>
             </p>
             <p class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;{{ ad.location }}</p>
-            <img class="provider-logo" src="{{ asset('build/providers/' ~ ad.site|provider_logo) }}" alt="{{ ad.site }}">
+            <img class="provider-logo" src="{{ asset('build/providers/' ~ ad.provider|provider_logo) }}" alt="{{ ad.provider }}">
         </div>
         <div class="publication-date">
             <i class="far fa-clock"></i>&nbsp;
@@ -30,7 +30,7 @@
                         <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                         <span class="label">
                             Aussi présent sur&nbsp;
-                            <img class="provider-logo" src="{{ asset('build/providers/' ~ duplicate.site|provider_logo) }}" alt="{{ duplicate.site }}">
+                            <img class="provider-logo" src="{{ asset('build/providers/' ~ duplicate.provider|provider_logo) }}" alt="{{ duplicate.provider }}">
                         </span>
                     </a>
                 </div>

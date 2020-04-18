@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmo2Parser extends AbstractParser
 {
-    protected const SITE = Provider::LOGIC_IMMO;
+    protected const PROVIDER = Provider::LOGIC_IMMO;
     protected const SELECTOR_AD_WRAPPER = 'table[bgcolor="#f1f1f1"] > tr:nth-child(n+6):not(:nth-last-child(-n+8)) table[width=600][bgcolor="#ffffff"]';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = 'td[style*="font-size:12px"]';

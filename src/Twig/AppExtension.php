@@ -3,7 +3,7 @@
 namespace App\Twig;
 
 use App\DTO\PropertyAd;
-use App\Service\ProviderService;
+use App\Finder\ProviderFinder;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -12,16 +12,16 @@ class AppExtension extends AbstractExtension
     private const ORDER_ASC = 1;
 
     /**
-     * @var ProviderService
+     * @var ProviderFinder
      */
-    private $providerService;
+    private $providerFinder;
 
     /**
-     * @param ProviderService $providerService
+     * @param ProviderFinder $ProviderFinder
      */
-    public function __construct(ProviderService $providerService)
+    public function __construct(ProviderFinder $ProviderFinder)
     {
-        $this->providerService = $providerService;
+        $this->providerFinder = $ProviderFinder;
     }
 
     /**
@@ -42,7 +42,7 @@ class AppExtension extends AbstractExtension
      */
     public function getProviderLogo(string $provider): string
     {
-        return $this->providerService->getLogo($provider);
+        return $this->providerFinder->getLogo($provider);
     }
 
     /**

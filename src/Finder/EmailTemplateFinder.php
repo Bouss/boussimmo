@@ -51,18 +51,18 @@ class EmailTemplateFinder
     }
 
     /**
-     * @param string|null $provider
+     * @param string|null $providerId
      *
      * @return string[]
      */
-    public function getProviderEmails(string $provider = null): array
+    public function getProviderEmails(string $providerId = null): array
     {
-        if (null !== $provider) {
-            $templates = array_filter($this->emailTemplates, static function(EmailTemplate $template) use ($provider) {
-                return $provider === $template->provider;
+        $templates = $this->emailTemplates;
+
+        if (null !== $providerId) {
+            $templates = array_filter($templates, static function(EmailTemplate $template) use ($providerId) {
+                return $providerId === $template->provider;
             });
-        } else {
-            $templates = $this->emailTemplates;
         }
 
         $emails = array_map(static function(EmailTemplate $template) {

@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class SeLogerParser extends AbstractParser
 {
-    protected const SITE = Provider::SELOGER;
+    protected const PROVIDER = Provider::SELOGER;
     protected const SELECTOR_AD_WRAPPER  = '.two-column > a[_category="Bloc annonce"]'; // Ignore "Recommendation" ads
     protected const SELECTOR_LOCATION    = '.contents tr:nth-child(2) a';
     protected const SELECTOR_URL         = 'a';

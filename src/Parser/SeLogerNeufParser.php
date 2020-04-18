@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class SeLogerNeufParser extends AbstractParser
 {
-    protected const SITE = Provider::SELOGER;
+    protected const PROVIDER = Provider::SELOGER;
     protected const SELECTOR_AD_WRAPPER = 'td[style*="padding-left:20px"] > .outer';
     protected const SELECTOR_TITLE      = '.contents tr:nth-child(2) span:first-child';
     protected const SELECTOR_LOCATION   = '.contents tr:nth-child(2) span b';

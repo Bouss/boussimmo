@@ -7,7 +7,6 @@ use App\Enum\PropertyAdFilter;
 use App\Exception\ParseException;
 use App\Util\NumericUtil;
 use App\Util\StringUtil;
-use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
@@ -15,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 abstract class AbstractParser implements ParserInterface
 {
     // Redefined in the child classes
-    protected const SITE = '';
+    protected const PROVIDER = '';
     protected const SELECTOR_AD_WRAPPER = null;
     protected const SELECTOR_TITLE = null;
     protected const SELECTOR_DESCRIPTION = null;
@@ -284,7 +283,7 @@ abstract class AbstractParser implements ParserInterface
     protected function buildPropertyAd(Crawler $crawler, array $params = []): PropertyAd
     {
         return (new PropertyAd)
-            ->setSite(static::SITE)
+            ->setProvider(static::PROVIDER)
             ->setUrl($this->getUrl($crawler))
             ->setPrice($this->getPrice($crawler))
             ->setArea($this->getArea($crawler))

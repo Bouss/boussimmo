@@ -12,19 +12,9 @@ class PropertyAd
     private $id;
 
     /**
-     * @var string|null
-     */
-    private $externalId;
-
-    /**
-     * @var string|null
-     */
-    private $checksum;
-
-    /**
      * @var string
      */
-    private $site;
+    private $provider;
 
     /**
      * @var string
@@ -72,11 +62,6 @@ class PropertyAd
     private $photo;
 
     /**
-     * @var string|null
-     */
-    private $realEstateAgent;
-
-    /**
      * @var bool
      */
     private $newBuild = false;
@@ -87,11 +72,6 @@ class PropertyAd
     private $duplicates = [];
 
     /**
-     * @var PropertyType
-     */
-    private $propertyType;
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -100,61 +80,21 @@ class PropertyAd
     }
 
     /**
-     * @return string|null
-     */
-    public function getExternalId(): ?string
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param string|null $externalId
-     *
-     * @return PropertyAd
-     */
-    public function setExternalId(?string $externalId): PropertyAd
-    {
-        $this->externalId = $externalId;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getChecksum(): ?string
-    {
-        return $this->checksum;
-    }
-
-    /**
-     * @param string|null $checksum
-     *
-     * @return PropertyAd
-     */
-    public function setChecksum(?string $checksum): PropertyAd
-    {
-        $this->checksum = $checksum;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getSite(): string
+    public function getProvider(): string
     {
-        return $this->site;
+        return $this->provider;
     }
 
     /**
-     * @param string $site
+     * @param string $provider
      *
      * @return PropertyAd
      */
-    public function setSite(string $site): PropertyAd
+    public function setProvider(string $provider): PropertyAd
     {
-        $this->site = $site;
+        $this->provider = $provider;
 
         return $this;
     }
@@ -340,26 +280,6 @@ class PropertyAd
     }
 
     /**
-     * @return string|null
-     */
-    public function getRealEstateAgent(): ?string
-    {
-        return $this->realEstateAgent;
-    }
-
-    /**
-     * @param string|null $realEstateAgent
-     *
-     * @return PropertyAd
-     */
-    public function setRealEstateAgent(?string $realEstateAgent): PropertyAd
-    {
-        $this->realEstateAgent = $realEstateAgent;
-
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isNewBuild(): bool
@@ -408,26 +328,6 @@ class PropertyAd
     }
 
     /**
-     * @return PropertyType
-     */
-    public function getPropertyType(): PropertyType
-    {
-        return $this->propertyType;
-    }
-
-    /**
-     * @param PropertyType $propertyType
-     *
-     * @return PropertyAd
-     */
-    public function setPropertyType(PropertyType $propertyType): PropertyAd
-    {
-        $this->propertyType = $propertyType;
-
-        return $this;
-    }
-
-    /**
      * @param PropertyAd $propertyAd
      * @param bool       $strict
      *
@@ -440,7 +340,7 @@ class PropertyAd
         }
 
         return
-            ($strict ? $this->site === $propertyAd->getSite() : true) &&
+            ($strict ? $this->provider === $propertyAd->getProvider() : true) &&
             (
                 ($this->price === $propertyAd->getPrice() && '000' !== substr($this->price, -3)) ||
                 ($this->price === $propertyAd->getPrice() && abs($this->area - $propertyAd->getArea()) <= 1)

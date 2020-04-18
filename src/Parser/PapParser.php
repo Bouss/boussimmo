@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class PapParser extends AbstractParser
 {
-    protected const SITE = Provider::PAP;
+    protected const PROVIDER = Provider::PAP;
     protected const SELECTOR_AD_WRAPPER  = 'table tr:nth-child(n+3):not(:last-child)';
     protected const SELECTOR_DESCRIPTION = 'td:nth-child(2)';
     protected const SELECTOR_LOCATION    = 'td:nth-child(2) b';
