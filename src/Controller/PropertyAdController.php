@@ -5,8 +5,8 @@ namespace App\Controller;
 use App\Client\GmailClient;
 use App\Entity\User;
 use App\Enum\PropertyAdFilter;
-use App\Manager\PropertyAdManager;
 use App\Exception\ParserNotFoundException;
+use App\Finder\PropertyAdFinder;
 use App\Service\GoogleService;
 use App\Service\PropertyAdSortResolver;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,7 +53,7 @@ class PropertyAdController extends AbstractController
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
-     * @param PropertyAdManager      $propertyAdManager
+     * @param PropertyAdFinder       $propertyAdFinder
      * @param PropertyAdSortResolver $sortResolver
      * @param GoogleService          $googleService
      *
@@ -64,7 +64,7 @@ class PropertyAdController extends AbstractController
     public function list(
         Request $request,
         EntityManagerInterface $em,
-        PropertyAdManager $propertyAdManager,
+        PropertyAdFinder $propertyAdFinder,
         PropertyAdSortResolver $sortResolver,
         GoogleService $googleService
     ): Response
@@ -79,7 +79,7 @@ class PropertyAdController extends AbstractController
 
         $googleService->refreshAccessTokenIfExpired($user);
 
-        $propertyAds = $propertyAdManager->find($user->getAccessToken(), $filters);
+        $propertyAds = $propertyAdFinder->find($user->getAccessToken(), $filters);
 
         return $this->render('property_ad/_list.html.twig', [
             'property_ads' => $propertyAds,

@@ -83,7 +83,7 @@ parameters:
             email: superimmoneuf@mail.superemailing.com
 
 services:
-    App\Service\EmailTemplateManager:
+    App\Finder\EmailTemplateFinder:
         autowire: true
         autoconfigure: true
         arguments:

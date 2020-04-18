@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Service;
+namespace App\Finder;
 
 use App\DTO\EmailTemplate;
 use RuntimeException;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class EmailTemplateManager
+class EmailTemplateFinder
 {
     /**
      * @var EmailTemplate[]
@@ -20,6 +20,34 @@ class EmailTemplateManager
     public function __construct(SerializerInterface $serializer, array $emailTemplates)
     {
         $this->emailTemplates = $serializer->denormalize($emailTemplates,'App\DTO\EmailTemplate[]');
+    }
+
+    /**
+     * @param string $from
+     * @param string $subject
+     *
+     * @return EmailTemplate
+     *
+     * @throws RuntimeException
+     */
+    public function find(string $from, string $subject): EmailTemplate
+    {
+        foreach ($this->emailTemplates as $template) {
+            if ($from === $template->from) {
+                // First, try to match an email template containing a particular subject keyword
+                if (null !== $template->subjectKeyword) {
+                    if (false !== stripos($subject, $template->subjectKeyword)) {
+                        return $template;
+                    }
+
+                    continue;
+                }
+
+                return $template;
+            }
+        }
+
+        throw new RuntimeException('No email template found');
     }
 
     /**
@@ -42,33 +70,5 @@ class EmailTemplateManager
         }, $templates);
 
         return array_unique($emails);
-    }
-
-    /**
-     * @param string $from
-     * @param string $subject
-     *
-     * @return EmailTemplate
-     *
-     * @throws RuntimeException
-     */
-    public function getEmailTemplate(string $from, string $subject): EmailTemplate
-    {
-        foreach ($this->emailTemplates as $template) {
-            if ($from === $template->from) {
-                // First, try to match an email template containing a particular subject keyword
-                if (null !== $template->subjectKeyword) {
-                    if (false !== stripos($subject, $template->subjectKeyword)) {
-                        return $template;
-                    }
-
-                    continue;
-                }
-
-                return $template;
-            }
-        }
-
-        throw new RuntimeException('No email template found');
     }
 }

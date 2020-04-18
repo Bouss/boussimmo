@@ -3,7 +3,7 @@
 namespace App\Client;
 
 use App\Enum\PropertyAdFilter;
-use App\Service\EmailTemplateManager;
+use App\Finder\EmailTemplateFinder;
 use Exception;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Message;
@@ -18,9 +18,9 @@ class GmailClient
     private $gmailService;
 
     /**
-     * @var EmailTemplateManager
+     * @var EmailTemplateFinder
      */
-    private $emailTemplateService;
+    private $emailTemplateFinder;
 
     /**
      * @var LoggerInterface
@@ -29,13 +29,13 @@ class GmailClient
 
     /**
      * @param Google_Service_Gmail $gmailService
-     * @param EmailTemplateManager $emailTemplateService
+     * @param EmailTemplateFinder  $emailTemplateFinder
      * @param LoggerInterface      $logger
      */
-    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateManager $emailTemplateService, LoggerInterface $logger)
+    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateFinder $emailTemplateFinder, LoggerInterface $logger)
     {
         $this->gmailService = $gmailService;
-        $this->emailTemplateService = $emailTemplateService;
+        $this->emailTemplateFinder = $emailTemplateFinder;
         $this->logger = $logger;
     }
 
@@ -116,7 +116,7 @@ class GmailClient
      */
     private function buildMessagesQuery(string $provider = null, int $newerThan = null): string
     {
-        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->emailTemplateService->getProviderEmails($provider)));
+        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->emailTemplateFinder->getProviderEmails($provider)));
         $dateFilter = sprintf('newer_than:%dd', $newerThan);
 
         return implode(' ', [$fromFilter, $dateFilter]);

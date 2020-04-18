@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Util\StringUtil;
 use DateTime;
-use Exception;
 use Google_Service_Gmail_Message;
 use Google_Service_Gmail_MessagePart;
 use Google_Service_Gmail_MessagePartHeader;
@@ -15,8 +14,6 @@ class GmailService
      * @param Google_Service_Gmail_Message $message
      *
      * @return array ['from', 'date', 'subject']
-     *
-     * @throws Exception
      */
     public function getHeaders(Google_Service_Gmail_Message $message): array
     {
