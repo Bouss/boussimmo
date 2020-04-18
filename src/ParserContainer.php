@@ -4,26 +4,26 @@ namespace App;
 
 use App\Enum\EmailTemplate;
 use App\Exception\ParserNotFoundException;
-use App\Parser\AbstractParser;
-use App\Parser\EmailParser\BienIciParser;
-use App\Parser\EmailParser\FnaimParser;
-use App\Parser\EmailParser\LeBonCoinParser;
-use App\Parser\EmailParser\LogicImmo2Parser;
-use App\Parser\EmailParser\LogicImmoNeufParser;
-use App\Parser\EmailParser\LogicImmoParser;
-use App\Parser\EmailParser\OuestFranceImmoNeuf2Parser;
-use App\Parser\EmailParser\OuestFranceImmoNeufParser;
-use App\Parser\EmailParser\OuestFranceImmoParser;
-use App\Parser\EmailParser\PapParser;
-use App\Parser\EmailParser\SeLoger2Parser;
-use App\Parser\EmailParser\SeLogerNeufParser;
-use App\Parser\EmailParser\SeLogerParser;
-use App\Parser\EmailParser\SuperimmoNeufParser;
-use App\Parser\EmailParser\SuperimmoParser;
+use App\Parser\BienIciParser;
+use App\Parser\FnaimParser;
+use App\Parser\LeBonCoinParser;
+use App\Parser\LogicImmo2Parser;
+use App\Parser\LogicImmoNeufParser;
+use App\Parser\LogicImmoParser;
+use App\Parser\OuestFranceImmoNeuf2Parser;
+use App\Parser\OuestFranceImmoNeufParser;
+use App\Parser\OuestFranceImmoParser;
+use App\Parser\PapParser;
+use App\Parser\ParserInterface;
+use App\Parser\SeLoger2Parser;
+use App\Parser\SeLogerNeufParser;
+use App\Parser\SeLogerParser;
+use App\Parser\SuperimmoNeufParser;
+use App\Parser\SuperimmoParser;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
-class EmailParserContainer implements ServiceSubscriberInterface
+class ParserContainer implements ServiceSubscriberInterface
 {
     /**
      * @var ContainerInterface
@@ -65,11 +65,11 @@ class EmailParserContainer implements ServiceSubscriberInterface
     /**
      * @param string $id
      *
-     * @return AbstractParser
+     * @return ParserInterface
      *
      * @throws ParserNotFoundException
      */
-    public function get(string $id): AbstractParser
+    public function get(string $id): ParserInterface
     {
         if (!$this->locator->has($id)) {
             throw new ParserNotFoundException(sprintf('No parser found with the id: "%s"', $id));

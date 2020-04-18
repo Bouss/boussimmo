@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Parser\EmailParser;
+namespace App\Parser;
 
 use App\Enum\Provider;
 use App\Exception\ParseException;
-use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

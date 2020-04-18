@@ -3,7 +3,7 @@
 namespace App\Manager;
 
 use App\Client\GmailClient;
-use App\EmailParserContainer;
+use App\ParserContainer;
 use App\DTO\PropertyAd;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
@@ -21,7 +21,7 @@ class PropertyAdManager
     private $gmailClient;
 
     /**
-     * @var EmailParserContainer
+     * @var ParserContainer
      */
     private $parserContainer;
 
@@ -42,14 +42,14 @@ class PropertyAdManager
 
     /**
      * @param GmailClient          $gmailClient
-     * @param EmailParserContainer $parserContainer
+     * @param ParserContainer      $parserContainer
      * @param GmailService         $gmailService
      * @param EmailTemplateManager $providerService
      * @param LoggerInterface      $logger
      */
     public function __construct(
         GmailClient $gmailClient,
-        EmailParserContainer $parserContainer,
+        ParserContainer $parserContainer,
         GmailService $gmailService,
         EmailTemplateManager $providerService,
         LoggerInterface $logger

@@ -13,36 +13,6 @@ class NumericUtil
     /**
      * @param string $val
      *
-     * @return int|null
-     */
-    public static function extractInt(string $val): ?int
-    {
-        $val = StringUtil::removeWhitespaces($val);
-        preg_match(sprintf('/%s/', self::REGEX_INT), $val, $matches);
-
-        return isset($matches[0]) ? (int) $matches[0] : null;
-    }
-
-    /**
-     * @param string $val
-     *
-     * @return float|null
-     */
-    public static function extractFloat(string $val): ?float
-    {
-        $val = StringUtil::removeWhitespaces($val);
-        preg_match(sprintf('/%s/', self::REGEX_FLOAT), $val, $matches);
-
-        if (!isset($matches[0])) {
-            return null;
-        }
-
-        return (float) str_replace(',', '.', $matches[0]);
-    }
-
-    /**
-     * @param string $val
-     *
      * @return float|null
      */
     public static function extractPrice(string $val): ?float

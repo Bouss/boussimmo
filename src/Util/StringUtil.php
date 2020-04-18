@@ -32,13 +32,13 @@ class StringUtil
     }
 
     /**
-     * @param string $data
+     * @param string $str
      * @param bool   $strict
      *
      * @return string
      */
-    public static function base64UrlDecode(string $data, bool $strict = false): string
+    public static function base64UrlDecode(string $str, bool $strict = false): string
     {
-        return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '='), $strict);
+        return base64_decode(str_pad(strtr($str, '-_', '+/'), strlen($str) % 4, '='), $strict);
     }
 }

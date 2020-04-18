@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Parser\EmailParser;
+namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Parser\AbstractParser;
 
 class SeLoger2Parser extends AbstractParser
 {

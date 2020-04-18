@@ -53,9 +53,7 @@ class GmailService
     {
         $html = '';
 
-        $body = $message->getPayload()->getBody()->data;
-
-        if (null !== $body) {
+        if (null !== $body = $message->getPayload()->getBody()->data) {
             $html = StringUtil::base64UrlDecode($body);
         }
 

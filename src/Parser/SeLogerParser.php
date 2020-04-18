@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Parser\EmailParser;
+namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class SeLogerParser extends AbstractParser

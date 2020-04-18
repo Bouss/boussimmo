@@ -30,24 +30,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    # scraper
-    App\Scraper\LeBoinCoinScraper:
-        arguments:
-            $urlBuilder: '@App\UrlBuilder\LeBonCoinUrlBuilder'
-            $parser: '@App\Parser\WebParser\LeBonCoinParser'
-
-    App\Scraper\LogicImmoScraper:
-        arguments:
-            $urlBuilder: '@App\UrlBuilder\LogicImmoUrlBuilder'
-            $parser: '@App\Parser\WebParser\LogicImmoParser'
-
-    App\Scraper\OuestFranceImmoScraper:
-        arguments:
-            $urlBuilder: '@App\UrlBuilder\OuestFranceImmoUrlBuilder'
-            $parser: '@App\Parser\WebParser\OuestFranceImmoParser'
-
-    App\Scraper\SeLogerScraper:
-        arguments:
-            $urlBuilder: '@App\UrlBuilder\SeLogerUrlBuilder'
-            $parser: '@App\Parser\WebParser\SeLogerParser'

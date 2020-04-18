@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Parser\EmailParser;
+namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Parser\AbstractParser;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FnaimParser extends AbstractParser
 {
     protected const SITE = Provider::FNAIM;
     protected const SELECTOR_AD_WRAPPER = '[class*=item]';
-    protected const SELECTOR_EXTERNAL_ID = '';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '[class$=desc]';
     protected const SELECTOR_LOCATION = 'h3 + p';
@@ -20,9 +18,7 @@ class FnaimParser extends AbstractParser
     protected const SELECTOR_AREA = 'h3 > a';
     protected const SELECTOR_ROOMS_COUNT = 'h3 > a';
     protected const SELECTOR_PHOTO = 'img';
-    protected const SELECTOR_REAL_AGENT_ESTATE = '';
     protected const SELECTOR_NEW_BUILD = '';
-    protected const PUBLISHED_AT_FORMAT = '';
 
     /**
      * {@inheritDoc}
