@@ -7,41 +7,81 @@ class EmailTemplate
     /**
      * @var string
      */
-    public $id;
+    private $id;
 
     /**
      * @var string
      */
-    public $provider;
+    private $providerId;
 
     /**
      * @var string
      */
-    public $email;
+    private $email;
 
     /**
      * @var string
      */
-    public $from;
+    private $from;
 
     /**
      * @var string|null
      */
-    public $subjectKeyword;
+    private $subjectKeyword;
 
     /**
      * @param string      $id
-     * @param string      $provider
-     * @param string      $name
+     * @param string      $providerId
+     * @param string      $username
      * @param string      $email
-     * @param string|null $subject
+     * @param string|null $subjectKeyword
      */
-    public function __construct(string $id, string $provider, string $name, string $email, string $subject = null)
+    public function __construct(string $id, string $providerId, string $username, string $email, string $subjectKeyword = null)
     {
         $this->id = $id;
-        $this->provider = $provider;
+        $this->providerId = $providerId;
         $this->email = $email;
-        $this->from = sprintf('%s <%s>', $name, $email);
-        $this->subjectKeyword = $subject;
+        $this->from = sprintf('%s <%s>', $username, $email);
+        $this->subjectKeyword = $subjectKeyword;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderId(): string
+    {
+        return $this->providerId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFrom(): string
+    {
+        return $this->from;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSubjectKeyword(): ?string
+    {
+        return $this->subjectKeyword;
     }
 }

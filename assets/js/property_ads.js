@@ -1,9 +1,11 @@
 import '../scss/property_ad/index.scss';
 import '../scss/property_ad/property_ad.scss';
 
+let $body = $('body');
 let $filterForm = $('#filter-form');
 let $sortSelect = $('#sort-select');
 let $container = $('#property-ad-container');
+let xhrCount = 0;
 
 $filterForm.on('submit', function (e) {
     e.preventDefault();
@@ -16,6 +18,9 @@ $sortSelect.on('change', function () {
 });
 
 function loadPropertyAds() {
+    let xhrId = ++xhrCount;
+    console.log(xhrId);
+
     $.ajax({
         type: 'GET',
         url: Routing.generate('property_ads_list'),
@@ -26,13 +31,25 @@ function loadPropertyAds() {
             sort: $sortSelect.val()
         },
         beforeSend: function () {
-            $('body').append('<div class="loader"></div>');
+            if ($body.find('.loader').length) {
+                return;
+            }
+
+            $body.append('<div class="loader"></div>');
         },
         success: function (html) {
+            if (xhrId !== xhrCount) {
+                return;
+            }
+
             $container.html(html);
             $('#result-count').html($container.find('.property-ad').length);
         },
         complete: function () {
+            if (xhrId !== xhrCount) {
+                return;
+            }
+
             $('body').find('.loader').remove();
         }
     });

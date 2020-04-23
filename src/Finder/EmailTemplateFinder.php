@@ -33,10 +33,10 @@ class EmailTemplateFinder
     public function find(string $from, string $subject): EmailTemplate
     {
         foreach ($this->emailTemplates as $template) {
-            if ($from === $template->from) {
+            if ($from === $template->getFrom()) {
                 // First, try to match an email template containing a particular subject keyword
-                if (null !== $template->subjectKeyword) {
-                    if (false !== stripos($subject, $template->subjectKeyword)) {
+                if (null !== $template->getSubjectKeyword()) {
+                    if (false !== stripos($subject, $template->getSubjectKeyword())) {
                         return $template;
                     }
 
@@ -60,14 +60,10 @@ class EmailTemplateFinder
         $templates = $this->emailTemplates;
 
         if (null !== $providerId) {
-            $templates = array_filter($templates, static function(EmailTemplate $template) use ($providerId) {
-                return $providerId === $template->provider;
-            });
+            $templates = array_filter($templates, fn(EmailTemplate $template) => $providerId === $template->getProviderId());
         }
 
-        $emails = array_map(static function(EmailTemplate $template) {
-            return $template->email;
-        }, $templates);
+        $emails = array_map(fn(EmailTemplate $template) => $template->getEmail(), $templates);
 
         return array_unique($emails);
     }

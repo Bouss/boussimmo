@@ -7,17 +7,17 @@ class Provider
     /**
      * @var string
      */
-    public $id;
+    private $id;
 
     /**
      * @var string
      */
-    public $logo;
+    private $logo;
 
     /**
      * @var string|null
      */
-    public $parentProvider;
+    private $parentProvider;
 
     /**
      * @param string      $id
@@ -29,5 +29,29 @@ class Provider
         $this->id = $id;
         $this->logo = $logo;
         $this->parentProvider = $parentProvider;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogo(): string
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getParentProvider(): ?string
+    {
+        return $this->parentProvider;
     }
 }

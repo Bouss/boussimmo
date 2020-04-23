@@ -2,6 +2,7 @@
 
 namespace App\Parser;
 
+use App\DTO\PropertyAd;
 use App\Enum\Provider;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -31,7 +32,7 @@ class SuperimmoNeufParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
+    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
     {
         return true;
     }

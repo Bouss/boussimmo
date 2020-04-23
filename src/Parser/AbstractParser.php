@@ -14,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 abstract class AbstractParser implements ParserInterface
 {
     // Redefined in the child classes
-    protected const PROVIDER = '';
+    protected const PROVIDER = null;
     protected const SELECTOR_AD_WRAPPER = null;
     protected const SELECTOR_TITLE = null;
     protected const SELECTOR_DESCRIPTION = null;
@@ -113,7 +113,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getPrice(Crawler $crawler): ?float
     {
-        if (empty(static::SELECTOR_PRICE)) {
+        if (null === static::SELECTOR_PRICE) {
             return null;
         }
 
@@ -135,7 +135,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getArea(Crawler $crawler): ?float
     {
-        if (empty(static::SELECTOR_AREA)) {
+        if (null === static::SELECTOR_AREA) {
             return null;
         }
 
@@ -157,7 +157,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getRoomsCount(Crawler $crawler): ?int
     {
-        if (empty(static::SELECTOR_ROOMS_COUNT)) {
+        if (null === static::SELECTOR_ROOMS_COUNT) {
             return null;
         }
 
@@ -177,7 +177,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getLocation(Crawler $crawler): ?string
     {
-        if (empty(static::SELECTOR_LOCATION)) {
+        if (null === static::SELECTOR_LOCATION) {
             return null;
         }
 
@@ -195,7 +195,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getTitle(Crawler $crawler): ?string
     {
-        if (empty(static::SELECTOR_TITLE)) {
+        if (null === static::SELECTOR_TITLE) {
             return null;
         }
 
@@ -213,7 +213,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getDescription(Crawler $crawler): ?string
     {
-        if (empty(static::SELECTOR_DESCRIPTION)) {
+        if (null === static::SELECTOR_DESCRIPTION) {
             return null;
         }
 
@@ -231,7 +231,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function getPhoto(Crawler $crawler): ?string
     {
-        if (empty(static::SELECTOR_PHOTO)) {
+        if (null === static::SELECTOR_PHOTO) {
             return null;
         }
 
@@ -243,16 +243,17 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler $crawler
-     * @param bool    $nodeExistenceOnly
+     * @param Crawler    $crawler
+     * @param PropertyAd $propertyAd
+     * @param bool       $nodeExistenceOnly
      *
      * @return bool
      */
-    protected function isNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
+    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
     {
-        if (empty(static::SELECTOR_NEW_BUILD)) {
+        if (null === static::SELECTOR_NEW_BUILD) {
             return StringUtil::contains(
-                $this->getTitle($crawler) . $this->getDescription($crawler),
+                $propertyAd->getTitle() . $propertyAd->getDescription(),
                 self::NEW_BUILD_WORDS
             );
         }
@@ -282,7 +283,7 @@ abstract class AbstractParser implements ParserInterface
      */
     protected function buildPropertyAd(Crawler $crawler, array $params = []): PropertyAd
     {
-        return (new PropertyAd)
+        $propertyAd = (new PropertyAd)
             ->setProvider(static::PROVIDER)
             ->setUrl($this->getUrl($crawler))
             ->setPrice($this->getPrice($crawler))
@@ -292,7 +293,10 @@ abstract class AbstractParser implements ParserInterface
             ->setPublishedAt($params['date'])
             ->setTitle($this->getTitle($crawler))
             ->setDescription($this->getDescription($crawler))
-            ->setPhoto($this->getPhoto($crawler))
-            ->setNewBuild($this->isNewBuild($crawler));
+            ->setPhoto($this->getPhoto($crawler));
+
+        $propertyAd->setNewBuild($this->isNewBuild($crawler, $propertyAd));
+
+        return $propertyAd;
     }
 }

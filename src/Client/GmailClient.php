@@ -75,11 +75,7 @@ class GmailClient
             $messages[] = $response->getMessages();
         } while (null !== $pageToken = $response->getNextPageToken());
 
-        if (!empty($messages)) {
-            $ids = array_column(array_merge(...$messages), 'id');
-        }
-
-        return $ids;
+        return array_column(array_merge(...$messages), 'id');
     }
 
     /**

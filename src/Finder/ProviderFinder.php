@@ -29,8 +29,8 @@ class ProviderFinder
     public function getLogo(string $providerId): string
     {
         foreach ($this->providers as $provider) {
-            if ($providerId === $provider->id) {
-                return $provider->logo;
+            if ($providerId === $provider->getId()) {
+                return $provider->getLogo();
             }
         }
 

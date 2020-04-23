@@ -86,7 +86,7 @@ class PropertyAdFinder
 
             // Find the email template matching the email headers
             try {
-                $emailTemplate = $this->emailTemplateFinder->find($headers['from'], $headers['subject'])->id;
+                $emailTemplate = $this->emailTemplateFinder->find($headers['from'], $headers['subject'])->getId();
             } catch (RuntimeException $e) {
                 $this->logger->error($e->getMessage(), $headers);
                 continue;
@@ -104,9 +104,8 @@ class PropertyAdFinder
             }
         }
 
-        if (!empty($propertyAds)) {
-            $propertyAds = array_merge(...$propertyAds);
-        }
+        $propertyAds = array_merge(...$propertyAds);
+
         // Remove duplicates from same provider
         $this->removeDuplicates($propertyAds);
 

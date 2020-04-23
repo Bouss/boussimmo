@@ -2,6 +2,7 @@
 
 namespace App\Parser;
 
+use App\DTO\PropertyAd;
 use App\Enum\Provider;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -26,17 +27,17 @@ class BienIciParser extends AbstractParser
         $photo = parent::getPhoto($crawler);
 
         return str_replace(
-               ['200x160', 'width=200&height=160'],
-               ['600x370', 'width=600&height=370'],
-               $photo
+            ['200x160', 'width=200&height=160'],
+            ['600x370', 'width=600&height=370'],
+            $photo
         );
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
+    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
     {
-        return parent::isNewBuild($crawler, false);
+        return parent::isNewBuild($crawler, $propertyAd, false);
     }
 }

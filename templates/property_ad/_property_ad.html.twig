@@ -1,5 +1,5 @@
 <div class="property-ad">
-    <a class="link" href="{{ ad.url }}">
+    <a class="link" target="_blank" rel="noopener noreferrer" href="{{ ad.url }}">
         <div class="photo-wrapper">
             <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
             {% if ad.newBuild %}
@@ -26,7 +26,7 @@
         <div class="duplicate-container">
             {% for duplicate in ad.duplicates %}
                 <div class="duplicate">
-                    <a class="link" href="{{ duplicate.url }}">
+                    <a class="link" target="_blank" rel="noopener noreferrer" href="{{ duplicate.url }}">
                         <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                         <span class="label">
                             Aussi présent sur&nbsp;

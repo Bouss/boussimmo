@@ -2,6 +2,7 @@
 
 namespace App\Parser;
 
+use App\DTO\PropertyAd;
 use App\Enum\Provider;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;
@@ -34,8 +35,8 @@ class LogicImmoParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
+    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
     {
-        return parent::isNewBuild($crawler, false);
+        return parent::isNewBuild($crawler, $propertyAd, false);
     }
 }
