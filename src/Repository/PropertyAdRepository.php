@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Finder;
+namespace App\Repository;
 
 use App\Client\GmailClient;
-use App\ParserContainer;
 use App\DTO\PropertyAd;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
+use App\ParserContainer;
 use App\Service\GmailService;
 use Exception;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
 
-class PropertyAdFinder
+class PropertyAdRepository
 {
     /**
      * @var GmailClient
@@ -30,9 +29,9 @@ class PropertyAdFinder
     private $gmailService;
 
     /**
-     * @var EmailTemplateFinder
+     * @var EmailTemplateRepository
      */
-    private $emailTemplateFinder;
+    private $emailTemplateRepository;
 
     /**
      * @var LoggerInterface
@@ -40,23 +39,23 @@ class PropertyAdFinder
     private $logger;
 
     /**
-     * @param GmailClient         $gmailClient
-     * @param ParserContainer     $parserContainer
-     * @param GmailService        $gmailService
-     * @param EmailTemplateFinder $emailTemplateFinder
-     * @param LoggerInterface     $logger
+     * @param GmailClient             $gmailClient
+     * @param ParserContainer         $parserContainer
+     * @param GmailService            $gmailService
+     * @param EmailTemplateRepository $emailTemplateRepository
+     * @param LoggerInterface         $logger
      */
     public function __construct(
         GmailClient $gmailClient,
         ParserContainer $parserContainer,
         GmailService $gmailService,
-        EmailTemplateFinder $emailTemplateFinder,
+        EmailTemplateRepository $emailTemplateRepository,
         LoggerInterface $logger
     ) {
         $this->gmailClient = $gmailClient;
         $this->parserContainer = $parserContainer;
         $this->gmailService = $gmailService;
-        $this->emailTemplateFinder = $emailTemplateFinder;
+        $this->emailTemplateRepository = $emailTemplateRepository;
         $this->logger = $logger;
     }
 
@@ -85,21 +84,21 @@ class PropertyAdFinder
             $html = $this->gmailService->getHtml($message);
 
             // Find the email template matching the email headers
-            try {
-                $emailTemplate = $this->emailTemplateFinder->find($headers['from'], $headers['subject'])->getId();
-            } catch (RuntimeException $e) {
-                $this->logger->error($e->getMessage(), $headers);
+            $emailTemplate = $this->emailTemplateRepository->find($headers['from'], $headers['subject']);
+
+            if (null === $emailTemplate) {
+                $this->logger->error('No email template found', $headers);
                 continue;
             }
 
             // Parse the property ads
             try {
-                $propertyAds[] = $this->parserContainer->get($emailTemplate)->parse($html, $filters, [
-                    'email_template' => $emailTemplate,
+                $propertyAds[] = $this->parserContainer->get($emailTemplate->getId())->parse($html, $filters, [
+                    'email_template' => $emailTemplate->getId(),
                     'date' => $headers['date']
                 ]);
             } catch (ParseException $e) {
-                $this->logger->error($e->getMessage(), array_merge($headers, ['email_template' => $emailTemplate]));
+                $this->logger->error($e->getMessage(), array_merge($headers, ['email_template' => $emailTemplate->getId()]));
                 continue;
             }
         }

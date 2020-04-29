@@ -3,11 +3,11 @@
 namespace App\Client;
 
 use App\Enum\PropertyAdFilter;
-use App\Finder\EmailTemplateFinder;
+use App\Repository\EmailTemplateRepository;
 use Exception;
 use Google_Service_Gmail;
-use Google_Service_Gmail_Message;
 use Google_Service_Gmail_Label;
+use Google_Service_Gmail_Message;
 use Psr\Log\LoggerInterface;
 
 class GmailClient
@@ -18,9 +18,9 @@ class GmailClient
     private $gmailService;
 
     /**
-     * @var EmailTemplateFinder
+     * @var EmailTemplateRepository
      */
-    private $emailTemplateFinder;
+    private $emailTemplateRepository;
 
     /**
      * @var LoggerInterface
@@ -28,14 +28,14 @@ class GmailClient
     private $logger;
 
     /**
-     * @param Google_Service_Gmail $gmailService
-     * @param EmailTemplateFinder  $emailTemplateFinder
-     * @param LoggerInterface      $logger
+     * @param Google_Service_Gmail    $gmailService
+     * @param EmailTemplateRepository $emailTemplateRepository
+     * @param LoggerInterface         $logger
      */
-    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateFinder $emailTemplateFinder, LoggerInterface $logger)
+    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateRepository $emailTemplateRepository, LoggerInterface $logger)
     {
         $this->gmailService = $gmailService;
-        $this->emailTemplateFinder = $emailTemplateFinder;
+        $this->emailTemplateRepository = $emailTemplateRepository;
         $this->logger = $logger;
     }
 
@@ -52,7 +52,6 @@ class GmailClient
         $labelId = $filters[PropertyAdFilter::GMAIL_LABEL] ?? null;
         $provider = $filters[PropertyAdFilter::PROVIDER] ?? null;
         $newerThan = $filters[PropertyAdFilter::NEWER_THAN];
-        $ids = [];
         $messages = [];
         $pageToken = null;
 
@@ -112,7 +111,7 @@ class GmailClient
      */
     private function buildMessagesQuery(string $provider = null, int $newerThan = null): string
     {
-        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->emailTemplateFinder->getProviderEmails($provider)));
+        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->emailTemplateRepository->getEmailAddresses($provider)));
         $dateFilter = sprintf('newer_than:%dd', $newerThan);
 
         return implode(' ', [$fromFilter, $dateFilter]);

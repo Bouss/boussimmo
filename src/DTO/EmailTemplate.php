@@ -17,7 +17,7 @@ class EmailTemplate
     /**
      * @var string
      */
-    private $email;
+    private $emailAddress;
 
     /**
      * @var string
@@ -33,15 +33,15 @@ class EmailTemplate
      * @param string      $id
      * @param string      $providerId
      * @param string      $username
-     * @param string      $email
+     * @param string      $emailAddress
      * @param string|null $subjectKeyword
      */
-    public function __construct(string $id, string $providerId, string $username, string $email, string $subjectKeyword = null)
+    public function __construct(string $id, string $providerId, string $username, string $emailAddress, string $subjectKeyword = null)
     {
         $this->id = $id;
         $this->providerId = $providerId;
-        $this->email = $email;
-        $this->from = sprintf('%s <%s>', $username, $email);
+        $this->emailAddress = $emailAddress;
+        $this->from = sprintf('%s <%s>', $username, $emailAddress);
         $this->subjectKeyword = $subjectKeyword;
     }
 
@@ -64,9 +64,9 @@ class EmailTemplate
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmailAddress(): string
     {
-        return $this->email;
+        return $this->emailAddress;
     }
 
     /**

@@ -42,10 +42,3 @@ parameters:
             id: !php/const App\Enum\Provider::SUPERIMMO_NEUF
             logo: ouestfrance_immo.svg
             parent_provider: !php/const App\Enum\Provider::SUPERIMMO
-
-services:
-    App\Finder\ProviderFinder:
-        autowire: true
-        autoconfigure: true
-        arguments:
-            $providers: '%providers%'

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Finder;
+namespace App\Repository;
 
 use App\DTO\EmailTemplate;
-use RuntimeException;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class EmailTemplateFinder
+class EmailTemplateRepository
 {
     /**
      * @var EmailTemplate[]
@@ -19,18 +18,16 @@ class EmailTemplateFinder
      */
     public function __construct(SerializerInterface $serializer, array $emailTemplates)
     {
-        $this->emailTemplates = $serializer->denormalize($emailTemplates,'App\DTO\EmailTemplate[]');
+        $this->emailTemplates = $serializer->denormalize($emailTemplates, EmailTemplate::class . '[]');
     }
 
     /**
      * @param string $from
      * @param string $subject
      *
-     * @return EmailTemplate
-     *
-     * @throws RuntimeException
+     * @return EmailTemplate|null
      */
-    public function find(string $from, string $subject): EmailTemplate
+    public function find(string $from, string $subject): ?EmailTemplate
     {
         foreach ($this->emailTemplates as $template) {
             if ($from === $template->getFrom()) {
@@ -47,7 +44,7 @@ class EmailTemplateFinder
             }
         }
 
-        throw new RuntimeException('No email template found');
+        return null;
     }
 
     /**
@@ -55,7 +52,7 @@ class EmailTemplateFinder
      *
      * @return string[]
      */
-    public function getProviderEmails(string $providerId = null): array
+    public function getEmailAddresses(string $providerId = null): array
     {
         $templates = $this->emailTemplates;
 
@@ -63,7 +60,7 @@ class EmailTemplateFinder
             $templates = array_filter($templates, fn(EmailTemplate $template) => $providerId === $template->getProviderId());
         }
 
-        $emails = array_map(fn(EmailTemplate $template) => $template->getEmail(), $templates);
+        $emails = array_map(fn(EmailTemplate $template) => $template->getEmailAddress(), $templates);
 
         return array_unique($emails);
     }
