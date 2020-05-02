@@ -2,9 +2,9 @@
 # Files in the packages/ subdirectory configure your dependencies.
 
 imports:
-    - { resource: data/email_templates.yaml }
-    - { resource: data/providers.yaml }
-    - { resource: data/cities.yaml }
+    - { resource: ../data/providers.yaml }
+    - { resource: ../data/email_templates.yaml }
+    - { resource: ../data/cities.yaml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -32,11 +32,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Repository\LocationRepository:
-        arguments:
-            $cities: '%cities%'
-
     App\Repository\ProviderRepository:
         arguments:
             $providers: '%providers%'
@@ -44,3 +39,7 @@ services:
     App\Repository\EmailTemplateRepository:
         arguments:
             $emailTemplates: '%email_templates%'
+
+    App\Repository\LocationRepository:
+        arguments:
+            $cities: '%cities%'
