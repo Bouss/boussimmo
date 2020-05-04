@@ -20,9 +20,9 @@ class SuperimmoNeufParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPhoto(Crawler $crawler): ?string
+    protected function parsePhoto(Crawler $crawler): ?string
     {
-        $photo = parent::getPhoto($crawler);
+        $photo = parent::parsePhoto($crawler);
 
         $photo = substr($photo, strpos($photo, '#'));
 
@@ -32,7 +32,7 @@ class SuperimmoNeufParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
+    protected function parseNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
     {
         return true;
     }

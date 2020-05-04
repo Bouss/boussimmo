@@ -19,9 +19,9 @@ class SeLogerParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getLocation(Crawler $crawler): ?string
+    protected function parseLocation(Crawler $crawler): ?string
     {
-        $description = parent::getLocation($crawler);
+        $description = parent::parseLocation($crawler);
 
         $location = explode('m²', $description)[1];
 

@@ -20,15 +20,15 @@ class OuestFranceImmoNeuf2Parser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPhoto(Crawler $crawler): ?string
+    protected function parsePhoto(Crawler $crawler): ?string
     {
-        return str_replace('375-180', '1200-900', parent::getPhoto($crawler));
+        return str_replace('375-180', '1200-900', parent::parsePhoto($crawler));
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
+    protected function parseNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
     {
         return true;
     }

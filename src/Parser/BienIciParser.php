@@ -22,9 +22,9 @@ class BienIciParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPhoto(Crawler $crawler): ?string
+    protected function parsePhoto(Crawler $crawler): ?string
     {
-        $photo = parent::getPhoto($crawler);
+        $photo = parent::parsePhoto($crawler);
 
         return str_replace(
             ['200x160', 'width=200&height=160'],
@@ -36,8 +36,8 @@ class BienIciParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
+    protected function parseNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
     {
-        return parent::isNewBuild($crawler, $propertyAd, false);
+        return parent::parseNewBuild($crawler, false);
     }
 }

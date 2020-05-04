@@ -24,7 +24,7 @@ class LogicImmoNeufParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function isNewBuild(Crawler $crawler, PropertyAd $propertyAd, bool $nodeExistenceOnly = true): bool
+    protected function parseNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
     {
         return true;
     }

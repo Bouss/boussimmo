@@ -23,9 +23,9 @@ class FnaimParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPhoto(Crawler $crawler): ?string
+    protected function parsePhoto(Crawler $crawler): ?string
     {
-        $photo = parent::getPhoto($crawler);
+        $photo = parent::parsePhoto($crawler);
 
         return str_replace('images2', 'images1', $photo);
     }

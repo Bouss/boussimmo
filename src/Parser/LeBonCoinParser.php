@@ -20,8 +20,8 @@ class LeBonCoinParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPhoto(Crawler $crawler): ?string
+    protected function parsePhoto(Crawler $crawler): ?string
     {
-        return str_replace('thumb', 'image', parent::getPhoto($crawler));
+        return str_replace('thumb', 'image', parent::parsePhoto($crawler));
     }
 }

@@ -24,11 +24,11 @@ class SuperimmoParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPrice(Crawler $crawler): ?float
+    protected function parsePrice(Crawler $crawler): ?float
     {
         // Some property ads don't have a price
         try {
-            return parent::getPrice($crawler);
+            return parent::parsePrice($crawler);
         } catch (ParseException $e) {
             return null;
         }
@@ -38,9 +38,9 @@ class SuperimmoParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getPhoto(Crawler $crawler): ?string
+    protected function parsePhoto(Crawler $crawler): ?string
     {
-        $photo = parent::getPhoto($crawler);
+        $photo = parent::parsePhoto($crawler);
 
         $photo = substr($photo, strpos($photo, '#'));
 

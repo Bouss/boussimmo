@@ -23,9 +23,9 @@ class LogicImmo2Parser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function getLocation(Crawler $crawler): ?string
+    protected function parseLocation(Crawler $crawler): ?string
     {
-        $data = parent::getLocation($crawler);
+        $data = parent::parseLocation($crawler);
 
         return explode('|', $data)[0];
     }

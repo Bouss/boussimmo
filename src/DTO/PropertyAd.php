@@ -2,10 +2,13 @@
 
 namespace App\DTO;
 
+use App\Util\StringUtil;
 use DateTime;
 
 class PropertyAd
 {
+    public const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
+
     /**
      * @var int
      */
@@ -345,5 +348,10 @@ class PropertyAd
                 ($this->price === $propertyAd->getPrice() && '000' !== substr($this->price, -3)) ||
                 ($this->price === $propertyAd->getPrice() && abs($this->area - $propertyAd->getArea()) <= 1)
             );
+    }
+
+    public function guessNewBuild(): void
+    {
+        $this->newBuild = StringUtil::contains($this->title . $this->description, self::NEW_BUILD_WORDS);
     }
 }
