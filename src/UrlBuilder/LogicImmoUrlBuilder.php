@@ -2,120 +2,106 @@
 
 namespace App\UrlBuilder;
 
-use App\Enum\Provider;
-use App\Entity\PropertyType;
+use App\DTO\City;
+use App\Enum\PropertyType;
 
 class LogicImmoUrlBuilder extends AbstractUrlBuilder
 {
-    protected const SITE = Provider::LOGIC_IMMO;
-
-    private const URL_START = 'https://www.logic-immo.com/vente-immobilier-';
+    private const MAX_ROOMS_COUNT = 6;
 
     /**
      * {@inheritDoc}
      */
-    protected function getUrlPath(
-        string $city,
-        int $propertyType,
+    protected function buildPath(
+        City $city,
+        array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
         int $minArea,
         ?int $maxArea,
-        int $minRoomsCount,
-        ?int $maxRoomsCount
+        int $minRoomsCount
     ): string
     {
-        [$city, $code] = $this->getLocationParts($city);
-
-        return self::URL_START . $city . '-tous-codes-postaux,' . $code . '_99/options/'
-            . $this->buildPropertyTypeParam($propertyType) . '/'
-            . ((null !== $minPrice) ? $this->buildPriceParam('min', $minPrice) . '/' : '')
-            . $this->buildPriceParam('max', $maxPrice) . '/'
-            . $this->buildAreaParam('min', $minArea) . '/'
-            . ((null !== $maxArea) ? $this->buildAreaParam('max', $maxArea) . '/' : '')
-            . $this->buildRoomsCountParam($minRoomsCount, $maxRoomsCount) . '/'
-            . 'order=update_date_desc';
+        return sprintf('https://www.logic-immo.com/%s/options/%s/%s%s/%s/%s%s',
+            $this->buildLocationParam($city),
+            $this->buildPropertyTypeParam($propertyTypes),
+            ((null !== $minPrice) ? $this->buildPriceParam('min', $minPrice) . '/' : ''),
+            $this->buildPriceParam('max', $maxPrice),
+            $this->buildAreaParam('min', $minArea),
+            ((null !== $maxArea) ? $this->buildAreaParam('max', $maxArea) . '/' : ''),
+            ($minRoomsCount > 1 ? $this->buildRoomsCountParam($minRoomsCount) : '')
+        );
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getUrlParameters(
-        string $city,
-        int $propertyType,
+    protected function buildQueryParameters(
+        City $city,
+        array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
         int $minArea,
         ?int $maxArea,
-        int $minRoomsCount,
-        ?int $maxRoomsCount
-    ): ?array
+        int $minRoomsCount
+    ): array
     {
-        return null;
+        return [];
     }
 
     /**
-     * @param int $type
+     * @param City $city
      *
      * @return string
      */
-    private function buildPropertyTypeParam(int $type): string
+    private function buildLocationParam(City $city): string
     {
-        switch ($type) {
-            case PropertyType::HOUSE:
-                $value = 2;
-                break;
-            case PropertyType::APARTMENT:
-            default:
-                $value = 1;
-        }
-
-        return 'groupprptypesids=' . $value;
+        return sprintf('vente-immobilier-%s-tous-codes-postaux,%d_99', $city->getName(), $city->getLogicImmoCode());
     }
 
     /**
-     * @param string $type
+     * @param string[] $types
+     *
+     * @return string
+     */
+    private function buildPropertyTypeParam(array $types): string
+    {
+        $types = str_replace([PropertyType::APARTMENT, PropertyType::HOUSE], [1, 2], $types);
+
+        return 'groupprptypesids=' . implode(',', $types);
+    }
+
+    /**
+     * @param string $bound
      * @param int    $price
      *
      * @return string
      */
-    private function buildPriceParam(string $type, int $price): string
+    private function buildPriceParam(string $bound, int $price): string
     {
-        return sprintf('price%s=%d', $type, $price);
+        return "price$bound=$price";
     }
 
     /**
-     * @param string $type
+     * @param string $bound
      * @param int    $area
      *
      * @return string
      */
-    private function buildAreaParam(string $type, int $area): string
+    private function buildAreaParam(string $bound, int $area): string
     {
-        return sprintf('area%s=%d', $type, $area);
+        return "area$bound=$area";
     }
 
     /**
-     * @param int      $minRoomsCount
-     * @param int|null $maxRoomsCount
+     * @param int $minRoomsCount
      *
      * @return string
      */
-    private function buildRoomsCountParam(int $minRoomsCount, ?int $maxRoomsCount): string
+    private function buildRoomsCountParam(int $minRoomsCount): string
     {
-        $maxRoomsCount = $maxRoomsCount ?: $minRoomsCount;
-        $values = range($minRoomsCount, $maxRoomsCount);
+        $values = range($minRoomsCount, self::MAX_ROOMS_COUNT);
 
         return 'nbrooms=' . implode(',', $values);
-    }
-
-    /**
-     * @param string $city
-     *
-     * @return string[]
-     */
-    private function getLocationParts(string $city): array
-    {
-        return explode(',', $this->getLocation($city));
     }
 }

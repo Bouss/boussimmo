@@ -41,7 +41,6 @@
             <h2>Quelles sont les plateformes d'annonces immobilières gérées par Immo'Scrap ?</h2>
             <div class="provider-container">
                 <a href="https://www.bienici.com"><img src="{{ asset('build/providers/bienici.svg') }}" alt="Bien'ici"/></a>
-                <a href="https://www.fnaim.fr"><img src="{{ asset('build/providers/fnaim.png') }}" alt="FNAIM"/></a>
                 <a href="https://www.leboncoin.fr"><img src="{{ asset('build/providers/leboncoin.svg') }}" alt="Leboncoin"/></a>
                 <a href="https://www.logic-immo.com"><img src="{{ asset('build/providers/logic_immo.png') }}" alt="Logic-Immo"/></a>
                 <a href="https://www.ouestfrance-immo.com"><img src="{{ asset('build/providers/ouestfrance_immo.svg') }}" alt="OuestFrance-Immo"/></a>
@@ -49,6 +48,7 @@
                 <a href="https://www.seloger.com"><img src="{{ asset('build/providers/seloger.svg') }}" alt="SeLoger"/></a>
                 <a href="https://www.superimmo.com"><img src="{{ asset('build/providers/superimmo.svg') }}" alt="Superimmo"/></a>
             </div>
+            {{ include('default/_search_form.html.twig') }}
         </div>
         <div id="security" class="section">
             <h2>Qu'en est-il de la confidentialité ?</h2>

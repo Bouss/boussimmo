@@ -2,89 +2,100 @@ parameters:
     cities:
         !php/const App\Enum\City::PARIS:
             name: paris
-            insee_code: 75056
             department_code: 75
             department: paris
             region: ile-de-france
+            insee_code: 75056
             logic_immo_code: 424
             pap_code: 439
+            seloger_neuf_code: 38920
         !php/const App\Enum\City::MARSEILLE:
             name: marseille
-            insee_code: 13055
             department_code: 13
             department: bouches-du-rhone
             region: provence-alpes-cote-d-azur
+            insee_code: 13055
             logic_immo_code: 421
             pap_code: 12024
+            seloger_neuf_code: 38922
         !php/const App\Enum\City::LYON:
             name: lyon
-            insee_code: 69123
             department_code: 69
             department: rhone
             region: rhone-alpes
+            insee_code: 69123
             logic_immo_code: 422
             pap_code: 43590
+            seloger_neuf_code: 38921
         !php/const App\Enum\City::TOULOUSE:
             name: toulouse
-            insee_code: 69123
             department_code: 31
             department: haute-garonne
             region: midi-pyrenees
+            insee_code: 69123
             logic_immo_code: 393
             pap_code: 43612
+            seloger_neuf_code: 13379
         !php/const App\Enum\City::NICE:
             name: nice
-            insee_code: 31555
             department_code: 06
             department: alpes-maritimes
             region: provence-alpes-cote-d-azur
+            insee_code: 31555
             logic_immo_code: 244
             pap_code: 8979
+            seloger_neuf_code: 2474
         !php/const App\Enum\City::NANTES:
             name: nantes
-            insee_code: 44109
             department_code: 44
             department: loire-atlantique
             region: pays-de-la-loire
+            insee_code: 44109
             logic_immo_code: 240
             pap_code: 43619
+            seloger_neuf_code: 18168
         !php/const App\Enum\City::MONTPELLIER:
             name: montpellier
-            insee_code: 34172
             department_code: 34
             department: herault
             region: languedoc-roussillon
+            insee_code: 34172
             logic_immo_code: 232
             pap_code: 43621
+            seloger_neuf_code: 14627
         !php/const App\Enum\City::STRASBOURG:
             name: strasbourg
-            insee_code: 67482
             department_code: 67
             department: bas-rhin
             region: alsace
+            insee_code: 67482
             logic_immo_code: 382
             pap_code: 43623
+            seloger_neuf_code: 29562
         !php/const App\Enum\City::BORDEAUX:
             name: bordeaux
-            insee_code: 33063
             department_code: 33
             department: gironde
             region: aquitaine
+            insee_code: 33063
             logic_immo_code: 49
             pap_code: 43588
+            seloger_neuf_code: 13950
         !php/const App\Enum\City::LILLE:
             name: lille
-            insee_code: 59350
             department_code: 59
             department: nord
             region: nord-pas-de-calais
+            insee_code: 59350
             logic_immo_code: 193
             pap_code: 43627
+            seloger_neuf_code: 24869
         !php/const App\Enum\City::RENNES:
             name: rennes
-            insee_code: 35238
             department_code: 35
             department: ile-et-vilaine
             region: bretagne
+            insee_code: 35238
             logic_immo_code: 294
             pap_code: 43618
+            seloger_neuf_code: 15039

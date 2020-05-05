@@ -2,7 +2,6 @@
 
 namespace App\Parser;
 
-use App\DTO\PropertyAd;
 use App\Enum\Provider;
 use Exception;
 use Symfony\Component\DomCrawler\Crawler;

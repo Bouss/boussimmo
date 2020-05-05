@@ -5,9 +5,9 @@ namespace App\UrlBuilder;
 use App\DTO\City;
 use App\Enum\PropertyType;
 
-class LeBonCoinUrlBuilder extends AbstractUrlBuilder
+class LogicImmoNeufUrlBuilder extends AbstractUrlBuilder
 {
-    private const MAX_ROOMS_COUNT = 8;
+    private const MAX_ROOMS_COUNT = 5;
 
     /**
      * {@inheritDoc}
@@ -22,7 +22,7 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
         int $minRoomsCount
     ): string
     {
-        return 'https://www.leboncoin.fr/recherche/';
+        return 'https://neuf.logic-immo.com/habiter/programmes-neufs';
     }
 
     /**
@@ -39,12 +39,9 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
     ): array
     {
         $params = [
-            ['category' => 9],
-            $this->buildLocationParam($city),
-            $this->buildPropertyTypesParam($propertyTypes),
-            $this->buildPriceParam($minPrice, $maxPrice),
-            $this->buildAreaParam($minArea, $maxArea),
-            ['immo_sell_type' => 'old,new'],
+            ...$this->buildLocationParam($city),
+            $this->buildPropertyTypeParam($propertyTypes),
+            $this->buildPriceParam($maxPrice)
         ];
 
         if ($minRoomsCount > 1) {
@@ -61,7 +58,11 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
      */
     private function buildLocationParam(City $city): array
     {
-        return ['locations' => ucfirst($city->getName())];
+        return [
+            ['locName' => strtoupper($city->getName())],
+            ['locId' => $city->getLogicImmoCode()],
+            ['locLevel' => 99]
+        ];
     }
 
     /**
@@ -69,37 +70,23 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
      *
      * @return array
      */
-    private function buildPropertyTypesParam(array $types): array
+    private function buildPropertyTypeParam(array $types): array
     {
-        $types = str_replace([PropertyType::HOUSE, PropertyType::APARTMENT], [1, 2], $types);
+        if (2 === count($types)) {
+            return ['tdb' => 'maison-appartement'];
+        }
 
-        return ['real_estate_type' => implode(',', $types)];
+        return ['tdb' => str_replace([PropertyType::APARTMENT, PropertyType::HOUSE], ['appartement', 'maison'], $types[0])];
     }
 
     /**
-     * @param int|null $minPrice
-     * @param int      $maxPrice
+     * @param int $maxPrice
      *
      * @return array
      */
-    private function buildPriceParam(?int $minPrice, int $maxPrice): array
+    private function buildPriceParam(int $maxPrice): array
     {
-        $minPrice = $minPrice ?: 'min';
-
-        return ['price' => "$minPrice-$maxPrice"];
-    }
-
-    /**
-     * @param int      $minArea
-     * @param int|null $maxArea
-     *
-     * @return array
-     */
-    private function buildAreaParam(int $minArea, ?int $maxArea = null): array
-    {
-        $maxArea = $maxArea ?: 'max';
-
-        return ['square' => "$minArea-$maxArea"];
+        return ['budget' => $maxPrice];
     }
 
     /**
@@ -110,7 +97,8 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
     private function buildRoomsCountParam(int $minRoomsCount): array
     {
         $minRoomsCount = min($minRoomsCount, self::MAX_ROOMS_COUNT);
+        $roomsRange = range($minRoomsCount, self::MAX_ROOMS_COUNT);
 
-        return ['rooms' => "$minRoomsCount-max"];
+        return ['nbRooms' => implode('-', $roomsRange)];
     }
 }

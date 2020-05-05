@@ -40,3 +40,6 @@ services:
         arguments:
             $emailTemplates: '%email_templates%'
 
+    App\Repository\LocationRepository:
+        arguments:
+            $cities: '%cities%'
