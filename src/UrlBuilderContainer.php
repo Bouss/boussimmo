@@ -22,10 +22,7 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
 class UrlBuilderContainer implements ServiceSubscriberInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $locator;
+    private ContainerInterface $locator;
 
     /**
      * @param ContainerInterface $locator

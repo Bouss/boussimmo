@@ -2,6 +2,8 @@
 
 namespace App\Util;
 
+use function preg_match;
+
 class NumericUtil
 {
     private const REGEX_INT = '([0-9]+)';

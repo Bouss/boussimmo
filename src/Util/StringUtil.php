@@ -2,6 +2,9 @@
 
 namespace App\Util;
 
+use function preg_replace;
+use function stripos;
+
 class StringUtil
 {
     /**

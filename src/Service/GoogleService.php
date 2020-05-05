@@ -10,15 +10,8 @@ use Google_Client;
 
 class GoogleService
 {
-    /**
-     * @var Google_Client
-     */
-    private $googleClient;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
+    private Google_Client $googleClient;
+    private EntityManagerInterface $em;
 
     /**
      * @param Google_Client          $googleClient

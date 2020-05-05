@@ -12,10 +12,7 @@ use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 class LogoutHandler implements LogoutHandlerInterface
 {
-    /**
-     * @var GoogleService
-     */
-    private $googleService;
+    private GoogleService $googleService;
 
     /**
      * @param GoogleService $googleService

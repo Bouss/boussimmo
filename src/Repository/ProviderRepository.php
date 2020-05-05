@@ -7,10 +7,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ProviderRepository
 {
-    /**
-     * @var Provider[]
-     */
-    private $providers;
+    /** @var Provider[] */
+    private array $providers;
 
     /**
      * @param SerializerInterface $serializer

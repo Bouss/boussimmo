@@ -9,70 +9,20 @@ class PropertyAd
 {
     public const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
 
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $provider;
-
-    /**
-     * @var string
-     */
-    private $url;
-
-    /**
-     * @var float|null
-     */
-    private $price;
-
-    /**
-     * @var float|null
-     */
-    private $area;
-
-    /**
-     * @var int|null
-     */
-    private $roomsCount;
-
-    /**
-     * @var string|null
-     */
-    private $location;
-
-    /**
-     * @var DateTime|null
-     */
-    private $publishedAt;
-
-    /**
-     * @var string|null
-     */
-    private $title;
-
-    /**
-     * @var string|null
-     */
-    private $description;
-
-    /**
-     * @var string|null
-     */
-    private $photo;
-
-    /**
-     * @var bool
-     */
-    private $newBuild = false;
-
-    /**
-     * @var PropertyAd[]
-     */
-    private $duplicates = [];
+    private int $id;
+    private string $provider;
+    private DateTime $publishedAt;
+    private string $url;
+    private ?float $price;
+    private ?float $area;
+    private ?int $roomsCount;
+    private ?string $location;
+    private ?string $title;
+    private ?string $description;
+    private ?string $photo;
+    private bool $newBuild = false;
+    /** @var PropertyAd[] */
+    private array $duplicates = [];
 
     /**
      * @return int
@@ -98,6 +48,26 @@ class PropertyAd
     public function setProvider(string $provider): PropertyAd
     {
         $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getPublishedAt(): DateTime
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @param DateTime $publishedAt
+     *
+     * @return PropertyAd
+     */
+    public function setPublishedAt(DateTime $publishedAt): PropertyAd
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }
@@ -198,26 +168,6 @@ class PropertyAd
     public function setLocation(?string $location): PropertyAd
     {
         $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTime|null
-     */
-    public function getPublishedAt(): ?DateTime
-    {
-        return $this->publishedAt;
-    }
-
-    /**
-     * @param DateTime|null $publishedAt
-     *
-     * @return PropertyAd
-     */
-    public function setPublishedAt(?DateTime $publishedAt): PropertyAd
-    {
-        $this->publishedAt = $publishedAt;
 
         return $this;
     }

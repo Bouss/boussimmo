@@ -20,20 +20,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class GoogleAuthenticator extends SocialAuthenticator
 {
-    /**
-     * @var ClientRegistry
-     */
-    private $clientRegistry;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private ClientRegistry $clientRegistry;
+    private EntityManagerInterface $em;
+    private RouterInterface $router;
 
     /**
      * @param ClientRegistry         $clientRegistry

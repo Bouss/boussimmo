@@ -18,49 +18,49 @@ class User implements UserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
      */
-    private $googleId;
+    private string $googleId;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    private $refreshToken;
+    private string $refreshToken;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    private $accessToken;
+    private string $accessToken;
 
     /**
      * @var DateTime
      *
      * @ORM\Column(type="datetime")
      */
-    private $accessTokenExpiresAt;
+    private DateTime $accessTokenExpiresAt;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean", options={"default": 0})
      */
-    private $revoked = false;
+    private bool $revoked = false;
 
     /**
      * @var string|null
@@ -81,21 +81,21 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $avatar;
+    private ?string $avatar;
 
     /**
      * @var array
      *
      * @ORM\Column(type="json")
      */
-    private $propertyAdSearchSettings = [];
+    private array $propertyAdSearchSettings = [];
 
     /**
-     * @var = array
+     * @var array
      *
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @return int|null

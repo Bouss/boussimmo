@@ -7,10 +7,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class LocationRepository
 {
-    /**
-     * @var City[]
-     */
-    private $cities;
+    /** @var City[] */
+    private array $cities;
 
     /**
      * @param SerializerInterface $serializer

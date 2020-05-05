@@ -4,30 +4,11 @@ namespace App\DTO;
 
 class EmailTemplate
 {
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $providerId;
-
-    /**
-     * @var string
-     */
-    private $emailAddress;
-
-    /**
-     * @var string
-     */
-    private $from;
-
-    /**
-     * @var string|null
-     */
-    private $subjectKeyword;
+    private string $id;
+    private string $providerId;
+    private string $emailAddress;
+    private string $from;
+    private ?string $subjectKeyword;
 
     /**
      * @param string      $id

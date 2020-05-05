@@ -1,5 +1,7 @@
-@import 'assets/scss/colors';
+@import '../colors';
 @import '../sizes';
+@import '../dropdown';
+@import '../checkbox';
 
 header {
   padding: 1.9rem $content-padding;

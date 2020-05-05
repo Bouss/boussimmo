@@ -7,10 +7,7 @@ use App\Repository\LocationRepository;
 
 abstract class AbstractUrlBuilder implements UrlBuilderInterface
 {
-    /**
-     * @var LocationRepository
-     */
-    protected $locationRepository;
+    protected LocationRepository $locationRepository;
 
     /**
      * @param LocationRepository $locationRepository

@@ -7,10 +7,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class EmailTemplateRepository
 {
-    /**
-     * @var EmailTemplate[]
-     */
-    private $emailTemplates;
+    /** @var EmailTemplate[] */
+    private array $emailTemplates;
 
     /**
      * @param SerializerInterface $serializer

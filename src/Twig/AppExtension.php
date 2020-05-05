@@ -11,10 +11,7 @@ class AppExtension extends AbstractExtension
 {
     private const ORDER_ASC = 1;
 
-    /**
-     * @var ProviderRepository
-     */
-    private $providerRepository;
+    private ProviderRepository $providerRepository;
 
     /**
      * @param ProviderRepository $ProviderRepository

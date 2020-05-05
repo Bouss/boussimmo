@@ -13,30 +13,11 @@ use Psr\Log\LoggerInterface;
 
 class PropertyAdRepository
 {
-    /**
-     * @var GmailClient
-     */
-    private $gmailClient;
-
-    /**
-     * @var ParserContainer
-     */
-    private $parserContainer;
-
-    /**
-     * @var GmailService
-     */
-    private $gmailService;
-
-    /**
-     * @var EmailTemplateRepository
-     */
-    private $emailTemplateRepository;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private GmailClient $gmailClient;
+    private ParserContainer $parserContainer;
+    private GmailService $gmailService;
+    private EmailTemplateRepository $emailTemplateRepository;
+    private LoggerInterface $logger;
 
     /**
      * @param GmailClient             $gmailClient
@@ -91,7 +72,7 @@ class PropertyAdRepository
                 continue;
             }
 
-            // Parse the property ads
+            // Parse the HTML content to extract property ads
             try {
                 $propertyAds[] = $this->parserContainer->get($emailTemplate->getId())->parse($html, $filters, [
                     'email_template' => $emailTemplate->getId(),

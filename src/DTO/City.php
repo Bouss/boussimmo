@@ -4,49 +4,14 @@ namespace App\DTO;
 
 class City
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $zipCode;
-
-    /**
-     * @var int
-     */
-    private $departmentCode;
-
-    /**
-     * @var string
-     */
-    private $department;
-
-    /**
-     * @var string
-     */
-    private $region;
-
-    /**
-     * @var int
-     */
-    private $inseeCode;
-
-    /**
-     * @var int
-     */
+    private string $name;
+    private string $zipCode;
+    private int $departmentCode;
+    private string $department;
+    private string $region;
+    private int $inseeCode;
     private int $logicImmoCode;
-
-    /**
-     * @var int
-     */
     private int $papCode;
-
-    /**
-     * @var int
-     */
     private int $selogerNeufCode;
 
     /**

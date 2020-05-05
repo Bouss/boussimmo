@@ -4,20 +4,9 @@ namespace App\DTO;
 
 class Provider
 {
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $logo;
-
-    /**
-     * @var string|null
-     */
-    private $parentProvider;
+    private string $id;
+    private string $logo;
+    private ?string $parentProvider;
 
     /**
      * @param string      $id

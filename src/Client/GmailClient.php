@@ -12,20 +12,9 @@ use Psr\Log\LoggerInterface;
 
 class GmailClient
 {
-    /**
-     * @var Google_Service_Gmail
-     */
-    private $gmailService;
-
-    /**
-     * @var EmailTemplateRepository
-     */
-    private $emailTemplateRepository;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private Google_Service_Gmail $gmailService;
+    private EmailTemplateRepository $emailTemplateRepository;
+    private LoggerInterface $logger;
 
     /**
      * @param Google_Service_Gmail    $gmailService

@@ -28,10 +28,7 @@ abstract class AbstractParser implements ParserInterface
     protected const SELECTOR_PHOTO = null;
     protected const SELECTOR_NEW_BUILD = null;
 
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * @param LoggerInterface $logger
@@ -280,6 +277,7 @@ abstract class AbstractParser implements ParserInterface
     {
         $propertyAd = (new PropertyAd)
             ->setProvider(static::PROVIDER)
+            ->setPublishedAt($publishedAt)
             ->setUrl($this->parseUrl($crawler))
             ->setPrice($this->parsePrice($crawler))
             ->setArea($this->parseArea($crawler))
@@ -287,8 +285,7 @@ abstract class AbstractParser implements ParserInterface
             ->setLocation($this->parseLocation($crawler))
             ->setTitle($this->parseTitle($crawler))
             ->setDescription($this->parseDescription($crawler))
-            ->setPhoto($this->parsePhoto($crawler))
-            ->setPublishedAt($publishedAt);
+            ->setPhoto($this->parsePhoto($crawler));
 
         if (null !== static::SELECTOR_NEW_BUILD) {
             $propertyAd->setNewBuild($this->parseNewBuild($crawler));
