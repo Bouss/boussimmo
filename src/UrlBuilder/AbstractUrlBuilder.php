@@ -2,121 +2,97 @@
 
 namespace App\UrlBuilder;
 
-use App\Service\LocationService;
+use App\DTO\City;
+use App\Repository\LocationRepository;
 
-abstract class AbstractUrlBuilder
+abstract class AbstractUrlBuilder implements UrlBuilderInterface
 {
-    // Redefined in the child classes
-    protected const SITE = '';
+    /**
+     * @var LocationRepository
+     */
+    protected $locationRepository;
 
     /**
-     * @var LocationService
+     * @param LocationRepository $locationRepository
      */
-    protected $locationService;
-
-    /**
-     * @param LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
+    public function __construct(LocationRepository $locationRepository)
     {
-        $this->locationService = $locationService;
+        $this->locationRepository = $locationRepository;
     }
 
     /**
-     * @param string   $city
-     * @param int      $propertyType
+     * @param string   $cityId
+     * @param string[] $propertyTypes
      * @param int|null $minPrice
      * @param int      $maxPrice
      * @param int      $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
-     * @param int|null $maxRoomsCount
      *
      * @return string
      */
-    public function buildUrl(
-        string $city,
-        int $propertyType,
+    public function build(
+        string $cityId,
+        array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
         int $minArea,
         ?int $maxArea,
-        int $minRoomsCount,
-        ?int $maxRoomsCount
+        int $minRoomsCount
     ): string
     {
-        $criteria = [$city, $propertyType, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount, $maxRoomsCount];
+        $city = $this->locationRepository->find($cityId);
 
-        $url = $this->getUrlPath(...$criteria);
+        $criteria = [$city, $propertyTypes, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount];
 
-        if (null !== $params = $this->getUrlParameters(...$criteria)) {
-            $url .= '?' . http_build_query(array_merge(...$params));
+        $url = $this->buildPath(...$criteria);
+
+        if (!empty($params = $this->buildQueryParameters(...$criteria))) {
+            $url .= '?' . urldecode(http_build_query(array_merge(...$params)));
         }
 
         return $url;
     }
 
     /**
-     * @return string
-     */
-    public function getSite(): string
-    {
-        return static::SITE;
-    }
-
-    /**
-     * @param string   $city
-     * @param int      $propertyType
+     * @param City     $city
+     * @param array    $types
      * @param int|null $minPrice
      * @param int      $maxPrice
      * @param int      $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
-     * @param int|null $maxRoomsCount
      *
      * @return string
      */
-    abstract protected function getUrlPath(
-        string $city,
-        int $propertyType,
+    abstract protected function buildPath(
+        City $city,
+        array $types,
         ?int $minPrice,
         int $maxPrice,
         int $minArea,
         ?int $maxArea,
-        int $minRoomsCount,
-        ?int $maxRoomsCount
+        int $minRoomsCount
     ): string;
 
     /**
-     * @param string   $city
-     * @param int      $propertyType
+     * @param City     $city
+     * @param string[] $types
      * @param int|null $minPrice
      * @param int      $maxPrice
      * @param int      $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
-     * @param int|null $maxRoomsCount
      *
-     * @return array|null
+     * @return array
      */
-    abstract protected function getUrlParameters(
-        string $city,
-        int $propertyType,
+    abstract protected function buildQueryParameters(
+        City $city,
+        array $types,
         ?int $minPrice,
         int $maxPrice,
         int $minArea,
         ?int $maxArea,
-        int $minRoomsCount,
-        ?int $maxRoomsCount
-    ): ?array;
-
-    /**
-     * @param $city
-     *
-     * @return string
-     */
-    protected function getLocation($city): string
-    {
-        return $this->locationService->getLocation(static::SITE, $city);
-    }
+        int $minRoomsCount
+    ): array;
 }

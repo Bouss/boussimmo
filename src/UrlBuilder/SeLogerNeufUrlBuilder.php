@@ -5,9 +5,9 @@ namespace App\UrlBuilder;
 use App\DTO\City;
 use App\Enum\PropertyType;
 
-class SeLogerUrlBuilder extends AbstractUrlBuilder
+class SeLogerNeufUrlBuilder extends AbstractUrlBuilder
 {
-    private const MAX_ROOMS_COUNT = 5;
+    private const MAX_ROOMS_COUNT = 4;
 
     /**
      * {@inheritDoc}
@@ -22,7 +22,7 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
         int $minRoomsCount
     ): string
     {
-        return 'https://www.seloger.com/list.html';
+        return 'https://www.selogerneuf.com/recherche';
     }
 
     /**
@@ -39,15 +39,14 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
     ): array
     {
         return [
-            ['projects' => '2,5'],
             $this->buildPropertyTypesParam($propertyTypes),
-            ['natures' => '1,2,4'],
-            $this->buildLocationParam($city),
-            $this->buildPriceParam($minPrice, $maxPrice),
-            $this->buildAreaParam($minArea, $maxArea),
+            $this->buildPriceParam($maxPrice),
             $this->buildRoomsCountParam($minRoomsCount),
-            ['enterprise' => 0],
-            ['qsVersion' => '1.0']
+            $this->buildAreaParam('min', $minArea),
+            $this->buildAreaParam('max', $maxArea),
+            ['idtt' => '9'],
+            ['tri' => 'selection'],
+            $this->buildLocationParam($city),
         ];
     }
 
@@ -58,7 +57,7 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
      */
     private function buildLocationParam(City $city): array
     {
-        return ['places' => sprintf('[{ci:%s}]', substr_replace($city->getInseeCode(), '0', 2, 0))];
+        return ['localities' => $city->getSelogerNeufCode()];
     }
 
     /**
@@ -70,33 +69,28 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
     {
         $types = str_replace([PropertyType::APARTMENT, PropertyType::HOUSE], [1, 2], $types);
 
-        return ['types' => implode(',', $types)];
+        return ['idtypebien' => implode(',', $types)];
     }
 
     /**
-     * @param int|null $minPrice
-     * @param int      $maxPrice
+     * @param int $maxPrice
      *
      * @return array
      */
-    private function buildPriceParam(?int $minPrice, int $maxPrice): array
+    private function buildPriceParam(int $maxPrice): array
     {
-        $minPrice = $minPrice ?: 'NaN';
-
-        return ['price' => "$minPrice/$maxPrice"];
+        return ['pxmax' => $maxPrice];
     }
 
     /**
-     * @param int      $minArea
-     * @param int|null $maxArea
+     * @param string   $bound
+     * @param int|null $area
      *
      * @return array
      */
-    private function buildAreaParam(int $minArea, int $maxArea = null): array
+    private function buildAreaParam(string $bound, ?int $area): array
     {
-        $maxArea = $maxArea ?: 'NaN';
-
-        return ['surface' => "$minArea/$maxArea"];
+        return ["surface$bound" => $area];
     }
 
     /**
@@ -106,6 +100,17 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
      */
     private function buildRoomsCountParam(int $minRoomsCount): array
     {
-        return ['rooms' => min($minRoomsCount, self::MAX_ROOMS_COUNT)];
+        if ($minRoomsCount > self::MAX_ROOMS_COUNT) {
+            return ['nb_pieces' => '+4'];
+        }
+
+        $roomsCount = min($minRoomsCount, self::MAX_ROOMS_COUNT);
+        $roomsList = implode(',', range(1, $roomsCount));
+
+        if ($minRoomsCount > self::MAX_ROOMS_COUNT) {
+            $roomsList .= ',+4';
+        }
+
+        return ['nb_pieces' => $roomsList];
     }
 }

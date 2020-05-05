@@ -5,7 +5,6 @@ namespace App;
 use App\Enum\EmailTemplate;
 use App\Exception\ParserNotFoundException;
 use App\Parser\BienIciParser;
-use App\Parser\FnaimParser;
 use App\Parser\LeBonCoinParser;
 use App\Parser\LogicImmo2Parser;
 use App\Parser\LogicImmoNeufParser;
@@ -46,7 +45,6 @@ class ParserContainer implements ServiceSubscriberInterface
         return [
             EmailTemplate::BIENICI                 => BienIciParser::class,
             EmailTemplate::LEBONCOIN               => LeBonCoinParser::class,
-            EmailTemplate::FNAIM                   => FnaimParser::class,
             EmailTemplate::LOGIC_IMMO              => LogicImmoParser::class,
             EmailTemplate::LOGIC_IMMO_2            => LogicImmo2Parser::class,
             EmailTemplate::LOGIC_IMMO_NEUF         => LogicImmoNeufParser::class,

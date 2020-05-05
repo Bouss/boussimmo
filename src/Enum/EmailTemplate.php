@@ -5,7 +5,6 @@ namespace App\Enum;
 class EmailTemplate extends AbstractEnum
 {
     public const BIENICI = 'bienici';
-    public const FNAIM = 'fnaim';
     public const LEBONCOIN = 'leboncoin';
     public const LOGIC_IMMO = 'logic_immo';
     public const LOGIC_IMMO_2 = 'logic_immo_2';

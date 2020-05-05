@@ -2,12 +2,11 @@
 
 namespace App\Parser;
 
-use App\Enum\Provider;
 use Symfony\Component\DomCrawler\Crawler;
 
 class FnaimParser extends AbstractParser
 {
-    protected const PROVIDER = Provider::FNAIM;
+    protected const PROVIDER = 'fnaim';
     protected const SELECTOR_AD_WRAPPER = '[class*=item]';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '[class$=desc]';

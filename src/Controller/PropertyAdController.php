@@ -9,7 +9,6 @@ use App\Exception\ParserNotFoundException;
 use App\Repository\PropertyAdRepository;
 use App\Service\GoogleService;
 use App\Service\PropertyAdSortResolver;
-use Doctrine\ORM\EntityManagerInterface;
 use Google_Service_Gmail_Label;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +51,6 @@ class PropertyAdController extends AbstractController
      * @Route("/list", methods={"GET"}, options={"expose"=true}, name="property_ads_list")
      *
      * @param Request                $request
-     * @param EntityManagerInterface $em
      * @param PropertyAdRepository   $propertyAdRepository
      * @param PropertyAdSortResolver $sortResolver
      * @param GoogleService          $googleService
@@ -63,7 +61,6 @@ class PropertyAdController extends AbstractController
      */
     public function list(
         Request $request,
-        EntityManagerInterface $em,
         PropertyAdRepository $propertyAdRepository,
         PropertyAdSortResolver $sortResolver,
         GoogleService $googleService
@@ -75,6 +72,7 @@ class PropertyAdController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $user->setPropertyAdSearchSettings(array_merge($filters, ['sort' => $sort]));
+        $em = $this->getDoctrine()->getManager();
         $em->flush();
 
         $googleService->refreshAccessTokenIfExpired($user);

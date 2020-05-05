@@ -64,7 +64,6 @@ header {
   }
 }
 
-
 .provider-container {
   display: grid;
   grid-auto-flow: column;
@@ -79,12 +78,12 @@ header {
       background-color: rgba($grey-light, 0.5);
     }
   }
+}
 
-  img {
-    height: 1.2rem;
-    max-width: 8rem;
-    vertical-align: middle;
-  }
+#providers img {
+  height: 1.2rem;
+  max-width: 8rem;
+  vertical-align: middle;
 }
 
 #security {

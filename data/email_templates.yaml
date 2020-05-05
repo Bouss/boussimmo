@@ -20,11 +20,6 @@ parameters:
             provider_id: !php/const App\Enum\Provider::BIENICI
             username: "\"Bien'ici\""
             email_address: no_reply@bienici.com
-        !php/const App\Enum\EmailTemplate::FNAIM:
-            id: !php/const App\Enum\EmailTemplate::FNAIM
-            provider_id: !php/const App\Enum\Provider::FNAIM
-            username: FNAIM
-            email_address: no-reply@fnaim.fr
         !php/const App\Enum\EmailTemplate::LEBONCOIN:
             id: !php/const App\Enum\EmailTemplate::LEBONCOIN
             provider_id: !php/const App\Enum\Provider::LEBONCOIN

@@ -3,9 +3,6 @@ parameters:
         !php/const App\Enum\Provider::BIENICI:
             id: !php/const App\Enum\Provider::BIENICI
             logo: bienici.svg
-        !php/const App\Enum\Provider::FNAIM:
-            id: !php/const App\Enum\Provider::FNAIM
-            logo: fnaim.png
         !php/const App\Enum\Provider::LEBONCOIN:
             id: !php/const App\Enum\Provider::LEBONCOIN
             logo: leboncoin.svg
@@ -28,17 +25,21 @@ parameters:
         # New-build sub providers
         !php/const App\Enum\Provider::LOGIC_IMMO_NEUF:
             id: !php/const App\Enum\Provider::LOGIC_IMMO_NEUF
-            logo: logic_immo.png
+            logo: logic_immo_neuf.png
             parent_provider: !php/const App\Enum\Provider::LOGIC_IMMO
         !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF:
             id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
             logo: ouestfrance_immo.svg
             parent_provider: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
+        !php/const App\Enum\Provider::PAP_NEUF:
+            id: !php/const App\Enum\Provider::PAP_NEUF
+            logo: pap_neuf.png
+            parent_provider: !php/const App\Enum\Provider::PAP_NEUF
         !php/const App\Enum\Provider::SELOGER_NEUF:
             id: !php/const App\Enum\Provider::SELOGER_NEUF
-            logo: ouestfrance_immo.svg
+            logo: seloger_neuf.svg
             parent_provider: !php/const App\Enum\Provider::SELOGER
         !php/const App\Enum\Provider::SUPERIMMO_NEUF:
             id: !php/const App\Enum\Provider::SUPERIMMO_NEUF
-            logo: ouestfrance_immo.svg
+            logo: superimmo_neuf.svg
             parent_provider: !php/const App\Enum\Provider::SUPERIMMO
