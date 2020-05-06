@@ -21,8 +21,6 @@ class OuestFranceImmoParser extends AbstractParser
      */
     protected function parsePhoto(Crawler $crawler): ?string
     {
-        $photo = parent::parsePhoto($crawler);
-
-        return str_replace('276-207', '686-515', $photo);
+        return str_replace('276-207', '686-515', parent::parsePhoto($crawler));
     }
 }

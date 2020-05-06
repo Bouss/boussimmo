@@ -2,8 +2,10 @@
 
 namespace App\Util;
 
+use function base64_decode;
 use function preg_replace;
 use function stripos;
+use function strtr;
 
 class StringUtil
 {

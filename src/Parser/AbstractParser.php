@@ -11,6 +11,8 @@ use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
+use function array_filter;
+use function array_merge;
 
 abstract class AbstractParser implements ParserInterface
 {
@@ -63,11 +65,10 @@ abstract class AbstractParser implements ParserInterface
         }
 
         // Clean (exclude null values) and filter the property ads
-        $ads = array_filter($ads, static function (?PropertyAd $ad) use ($filters) {
-            return
-                null !== $ad &&
-                (isset($filters[PropertyAdFilter::NEW_BUILD]) && true === $filters[PropertyAdFilter::NEW_BUILD] ? $ad->isNewBuild() : true);
-        });
+        $ads = array_filter($ads, fn(?PropertyAd $ad) =>
+            null !== $ad &&
+            (isset($filters[PropertyAdFilter::NEW_BUILD]) && true === $filters[PropertyAdFilter::NEW_BUILD] ? $ad->isNewBuild() : true)
+        );
 
         return $ads;
     }

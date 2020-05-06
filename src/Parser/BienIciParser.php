@@ -23,12 +23,10 @@ class BienIciParser extends AbstractParser
      */
     protected function parsePhoto(Crawler $crawler): ?string
     {
-        $photo = parent::parsePhoto($crawler);
-
         return str_replace(
             ['200x160', 'width=200&height=160'],
             ['600x370', 'width=600&height=370'],
-            $photo
+            parent::parsePhoto($crawler)
         );
     }
 

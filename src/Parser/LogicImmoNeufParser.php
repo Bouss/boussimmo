@@ -7,7 +7,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmoNeufParser extends AbstractParser
 {
-    protected const PROVIDER = Provider::LOGIC_IMMO;
+    protected const PROVIDER = Provider::LOGIC_IMMO_NEUF;
     protected const SELECTOR_AD_WRAPPER = '[class$="contentads1"]';
     protected const SELECTOR_TITLE = '';
     protected const SELECTOR_DESCRIPTION = '';

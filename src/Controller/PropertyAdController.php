@@ -69,6 +69,10 @@ class PropertyAdController extends AbstractController
         parse_str($request->query->get('filters'), $filters);
         $sort = $request->query->get('sort');
 
+        if (isset($filters[PropertyAdFilter::NEW_BUILD])) {
+            $filters[PropertyAdFilter::NEW_BUILD] = (bool) $filters[PropertyAdFilter::NEW_BUILD];
+        }
+
         /** @var User $user */
         $user = $this->getUser();
         $user->setPropertyAdSearchSettings(array_merge($filters, ['sort' => $sort]));

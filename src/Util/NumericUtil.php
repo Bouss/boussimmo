@@ -3,6 +3,7 @@
 namespace App\Util;
 
 use function preg_match;
+use function str_replace;
 
 class NumericUtil
 {

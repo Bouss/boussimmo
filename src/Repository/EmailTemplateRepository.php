@@ -3,20 +3,29 @@
 namespace App\Repository;
 
 use App\DTO\EmailTemplate;
+use App\DTO\Provider;
 use Symfony\Component\Serializer\SerializerInterface;
+use function array_filter;
+use function array_map;
+use function array_unique;
+use function in_array;
+use function stripos;
 
 class EmailTemplateRepository
 {
     /** @var EmailTemplate[] */
     private array $emailTemplates;
+    private ProviderRepository $providerRepository;
 
     /**
-     * @param SerializerInterface $serializer
      * @param array               $emailTemplates
+     * @param SerializerInterface $serializer
+     * @param ProviderRepository  $providerRepository
      */
-    public function __construct(SerializerInterface $serializer, array $emailTemplates)
+    public function __construct(array $emailTemplates, SerializerInterface $serializer, ProviderRepository $providerRepository)
     {
         $this->emailTemplates = $serializer->denormalize($emailTemplates, EmailTemplate::class . '[]');
+        $this->providerRepository = $providerRepository;
     }
 
     /**
@@ -46,16 +55,21 @@ class EmailTemplateRepository
     }
 
     /**
-     * @param string|null $providerId
+     * @param string|null $mainProviderId
      *
      * @return string[]
      */
-    public function getEmailAddresses(string $providerId = null): array
+    public function getEmailAddresses(string $mainProviderId = null): array
     {
         $templates = $this->emailTemplates;
 
-        if (null !== $providerId) {
-            $templates = array_filter($templates, fn(EmailTemplate $template) => $providerId === $template->getProviderId());
+        if (null !== $mainProviderId) {
+            $providers = $this->providerRepository->getAllProviders($mainProviderId);
+            $providerIds = array_map(fn(Provider $provider) => $provider->getId(), $providers);
+
+            $templates = array_filter($templates, fn(EmailTemplate $template) =>
+                in_array($template->getProviderId(), $providerIds, true)
+            );
         }
 
         $emails = array_map(fn(EmailTemplate $template) => $template->getEmailAddress(), $templates);

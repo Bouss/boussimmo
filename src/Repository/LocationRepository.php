@@ -11,10 +11,10 @@ class LocationRepository
     private array $cities;
 
     /**
-     * @param SerializerInterface $serializer
      * @param array               $cities
+     * @param SerializerInterface $serializer
      */
-    public function __construct(SerializerInterface $serializer, array $cities)
+    public function __construct(array $cities, SerializerInterface $serializer)
     {
         $this->cities = $serializer->denormalize($cities, City::class . '[]');
     }

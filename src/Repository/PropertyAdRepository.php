@@ -10,6 +10,7 @@ use App\ParserContainer;
 use App\Service\GmailService;
 use Exception;
 use Psr\Log\LoggerInterface;
+use function array_merge;
 
 class PropertyAdRepository
 {
