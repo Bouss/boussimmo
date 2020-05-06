@@ -19,7 +19,6 @@ $sortSelect.on('change', function () {
 
 function loadPropertyAds() {
     let xhrId = ++xhrCount;
-    console.log(xhrId);
 
     $.ajax({
         type: 'GET',
