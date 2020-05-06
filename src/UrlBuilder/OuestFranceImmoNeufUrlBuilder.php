@@ -81,7 +81,7 @@ class OuestFranceImmoNeufUrlBuilder extends AbstractUrlBuilder
      */
     private function buildPriceParam(string $bound, int $price): array
     {
-        return ["price_$bound" => $price];
+        return ["prix_$bound" => $price];
     }
 
     /**
