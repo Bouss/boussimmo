@@ -20,6 +20,7 @@
         "symfony/orm-pack": "*",
         "symfony/security-bundle": "^5.0",
         "symfony/serializer-pack": "*",
+        "symfony/string": "^5.0",
         "symfony/translation": "^5.0",
         "symfony/twig-bundle": "^5.0",
         "symfony/webpack-encore-bundle": "^1.6",

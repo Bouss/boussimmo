@@ -13,11 +13,15 @@
                 &nbsp;•&nbsp;
                 <span class="rooms-count{% if ad.roomsCount is null %} unknown{% endif %}">{{ ad.roomsCount|default('N/A') }}&nbsp;pièces</span>
             </p>
-            <p class="location"><i class="fas fa-map-marker-alt"></i>&nbsp;{{ ad.location }}</p>
+            <p class="location">
+                <i class="fas fa-map-marker-alt fa-fw"></i>
+                {% if ad.name is not null %}<span class="name">{{ ad.name|upper }}</span>,&nbsp;{% endif %}
+                {{ ad.location }}
+            </p>
             <img class="provider-logo" src="{{ asset('build/providers/' ~ ad.provider|provider_logo) }}" alt="{{ ad.provider }}">
         </div>
         <div class="publication-date">
-            <i class="far fa-clock"></i>&nbsp;
+            <i class="far fa-clock fa-fw"></i>
             <span class="publication-date-day">{{ ad.publishedAt|date('d/m/Y') }}</span>&nbsp;
             <span class="publication-date-time">({{ ad.publishedAt|date('H:i:s') }})</span>
         </div>

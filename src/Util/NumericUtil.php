@@ -8,7 +8,7 @@ use function str_replace;
 class NumericUtil
 {
     private const REGEX_INT = '([0-9]+)';
-    private const REGEX_FLOAT = '([0-9]+(?:,[0-9]+)*)';
+    private const REGEX_FLOAT = '([0-9]+(?:(?:,|.)[0-9]+)*)';
     private const REGEX_PRICE = self::REGEX_FLOAT . '\s?(?:€|euro)';
     private const REGEX_ROOMS_COUNT = self::REGEX_INT . '(?:\spi[e\p{L}]ce|\s?p.)|(?:T|F)' . self::REGEX_INT;
     private const REGEX_AREA = self::REGEX_FLOAT . '\s?(?:m²|m2)';
@@ -23,11 +23,7 @@ class NumericUtil
         $val = StringUtil::removeWhitespaces($val);
         preg_match(sprintf('/%s/ui', self::REGEX_PRICE), $val, $matches);
 
-        if (!isset($matches[1])) {
-            return null;
-        }
-
-        return (float) str_replace(',', '.', $matches[1]);
+        return isset($matches[1]) ? (float) str_replace(['.', ','], ['', '.'], $matches[1]) : null;
     }
 
     /**
@@ -39,10 +35,10 @@ class NumericUtil
     {
         preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT), $val, $matches);
 
-        if (!empty($matches[1])) {
+        if (isset($matches[1])) {
             return (int) $matches[1];
         }
-        if (!empty($matches[2])) {
+        if (isset($matches[2])) {
             return (int) $matches[2];
         }
 
@@ -59,10 +55,6 @@ class NumericUtil
         $val = StringUtil::removeWhitespaces($val);
         preg_match(sprintf('/%s/ui', self::REGEX_AREA), $val, $matches);
 
-        if (!isset($matches[1])) {
-            return null;
-        }
-
-        return (float) str_replace(',', '.', $matches[1]);
+        return isset($matches[1]) ? (float) str_replace(',', '.', $matches[1]) : null;
     }
 }

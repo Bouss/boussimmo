@@ -63,6 +63,11 @@ $photo-max-height-factor: 3/4;
     margin: 0 auto;
   }
 
+  .name {
+    color: $secondary-color;
+    font-weight: bold;
+  }
+
   .provider-logo {
     max-height: 20px;
     max-width: 200px;

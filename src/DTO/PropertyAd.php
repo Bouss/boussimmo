@@ -17,6 +17,7 @@ class PropertyAd
     private ?float $area;
     private ?int $roomsCount;
     private ?string $location;
+    private ?string $name;
     private ?string $title;
     private ?string $description;
     private ?string $photo;
@@ -168,6 +169,26 @@ class PropertyAd
     public function setLocation(?string $location): PropertyAd
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string|null $name
+     *
+     * @return PropertyAd
+     */
+    public function setName(?string $name): PropertyAd
+    {
+        $this->name = $name;
 
         return $this;
     }

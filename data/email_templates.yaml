@@ -55,6 +55,11 @@ parameters:
             provider_id: !php/const App\Enum\Provider::PAP
             username: "\"PAP.fr\""
             email_address: users-alertes@pap.fr
+        !php/const App\Enum\EmailTemplate::PAP_NEUF:
+            id: !php/const App\Enum\EmailTemplate::PAP_NEUF
+            provider_id: !php/const App\Enum\Provider::PAP_NEUF
+            username: Immoneuf
+            email_address: users-alertes@pap.fr
         !php/const App\Enum\EmailTemplate::SELOGER:
             id: !php/const App\Enum\EmailTemplate::SELOGER
             provider_id: !php/const App\Enum\Provider::SELOGER

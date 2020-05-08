@@ -34,7 +34,7 @@ parameters:
         !php/const App\Enum\Provider::PAP_NEUF:
             id: !php/const App\Enum\Provider::PAP_NEUF
             logo: pap_neuf.png
-            parent_provider: !php/const App\Enum\Provider::PAP_NEUF
+            parent_provider: !php/const App\Enum\Provider::PAP
         !php/const App\Enum\Provider::SELOGER_NEUF:
             id: !php/const App\Enum\Provider::SELOGER_NEUF
             logo: seloger_neuf.svg

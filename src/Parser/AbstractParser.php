@@ -19,6 +19,7 @@ abstract class AbstractParser implements ParserInterface
     // Redefined in the child classes
     protected const PROVIDER = null;
     protected const SELECTOR_AD_WRAPPER = null;
+    protected const SELECTOR_NAME = null;
     protected const SELECTOR_TITLE = null;
     protected const SELECTOR_DESCRIPTION = null;
     protected const SELECTOR_LOCATION = null;
@@ -190,6 +191,24 @@ abstract class AbstractParser implements ParserInterface
      *
      * @return string|null
      */
+    protected function parseName(Crawler $crawler): ?string
+    {
+        if (null === static::SELECTOR_NAME) {
+            return null;
+        }
+
+        try {
+            return trim($crawler->filter(static::SELECTOR_NAME)->text());
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    /**
+     * @param Crawler $crawler
+     *
+     * @return string|null
+     */
     protected function parseTitle(Crawler $crawler): ?string
     {
         if (null === static::SELECTOR_TITLE) {
@@ -284,6 +303,7 @@ abstract class AbstractParser implements ParserInterface
             ->setArea($this->parseArea($crawler))
             ->setRoomsCount($this->parseRoomsCount($crawler))
             ->setLocation($this->parseLocation($crawler))
+            ->setName($this->parseName($crawler))
             ->setTitle($this->parseTitle($crawler))
             ->setDescription($this->parseDescription($crawler))
             ->setPhoto($this->parsePhoto($crawler));

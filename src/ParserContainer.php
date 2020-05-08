@@ -12,6 +12,7 @@ use App\Parser\LogicImmoParser;
 use App\Parser\OuestFranceImmoNeuf2Parser;
 use App\Parser\OuestFranceImmoNeufParser;
 use App\Parser\OuestFranceImmoParser;
+use App\Parser\PapNeufParser;
 use App\Parser\PapParser;
 use App\Parser\ParserInterface;
 use App\Parser\SeLoger2Parser;
@@ -49,6 +50,7 @@ class ParserContainer implements ServiceSubscriberInterface
             EmailTemplate::OUESTFRANCE_IMMO_NEUF   => OuestFranceImmoNeufParser::class,
             EmailTemplate::OUESTFRANCE_IMMO_NEUF_2 => OuestFranceImmoNeuf2Parser::class,
             EmailTemplate::PAP                     => PapParser::class,
+            EmailTemplate::PAP_NEUF                => PapNeufParser::class,
             EmailTemplate::SELOGER                 => SeLogerParser::class,
             EmailTemplate::SELOGER_2               => SeLoger2Parser::class,
             EmailTemplate::SELOGER_NEUF            => SeLogerNeufParser::class,
