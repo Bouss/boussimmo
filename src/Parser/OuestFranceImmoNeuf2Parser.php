@@ -3,7 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use Symfony\Component\DomCrawler\Crawler;
 
 class OuestFranceImmoNeuf2Parser extends AbstractParser
 {
@@ -19,12 +18,4 @@ class OuestFranceImmoNeuf2Parser extends AbstractParser
     protected const SELECTOR_ROOMS_COUNT = '';
     protected const SELECTOR_PHOTO = 'img';
     protected const SELECTOR_NEW_BUILD = '';
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function parseNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
-    {
-        return true;
-    }
 }

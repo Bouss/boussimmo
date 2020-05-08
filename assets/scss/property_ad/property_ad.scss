@@ -63,6 +63,10 @@ $photo-max-height-factor: 3/4;
     margin: 0 auto;
   }
 
+  .location {
+    color: $grey-dark;
+  }
+
   .name {
     color: $secondary-color;
     font-weight: bold;

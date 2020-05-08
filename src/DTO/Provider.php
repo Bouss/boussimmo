@@ -7,6 +7,7 @@ class Provider
     private string $id;
     private string $logo;
     private ?string $parentProvider;
+    private bool $newBuildOnly;
 
     /**
      * @param string      $id
@@ -18,6 +19,7 @@ class Provider
         $this->id = $id;
         $this->logo = $logo;
         $this->parentProvider = $parentProvider;
+        $this->newBuildOnly = null !== $parentProvider;
     }
 
     /**
@@ -42,5 +44,13 @@ class Provider
     public function getParentProvider(): ?string
     {
         return $this->parentProvider;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNewBuildOnly(): bool
+    {
+        return $this->newBuildOnly;
     }
 }

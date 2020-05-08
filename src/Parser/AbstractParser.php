@@ -5,6 +5,7 @@ namespace App\Parser;
 use App\DTO\PropertyAd;
 use App\Enum\PropertyAdFilter;
 use App\Exception\ParseException;
+use App\Repository\ProviderRepository;
 use App\Util\NumericUtil;
 use App\Util\StringUtil;
 use DateTime;
@@ -31,13 +32,16 @@ abstract class AbstractParser implements ParserInterface
     protected const SELECTOR_PHOTO = null;
     protected const SELECTOR_NEW_BUILD = null;
 
+    protected ProviderRepository $providerRepository;
     protected LoggerInterface $logger;
 
     /**
-     * @param LoggerInterface $logger
+     * @param ProviderRepository $providerRepository
+     * @param LoggerInterface    $logger
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(ProviderRepository $providerRepository, LoggerInterface $logger)
     {
+        $this->providerRepository = $providerRepository;
         $this->logger = $logger;
     }
 
@@ -308,7 +312,9 @@ abstract class AbstractParser implements ParserInterface
             ->setDescription($this->parseDescription($crawler))
             ->setPhoto($this->parsePhoto($crawler));
 
-        if (null !== static::SELECTOR_NEW_BUILD) {
+        if ((null !== $provider = $this->providerRepository->find(static::PROVIDER)) && $provider->isNewBuildOnly()) {
+            $propertyAd->setNewBuild(true);
+        } elseif (null !== static::SELECTOR_NEW_BUILD) {
             $propertyAd->setNewBuild($this->parseNewBuild($crawler));
         } else {
             $propertyAd->guessNewBuild();

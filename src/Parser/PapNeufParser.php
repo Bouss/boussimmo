@@ -9,6 +9,7 @@ use function preg_match;
 class PapNeufParser extends AbstractParser
 {
     protected const PROVIDER = Provider::PAP_NEUF;
+
     protected const SELECTOR_AD_WRAPPER  = 'table:nth-child(2) tr:nth-child(2n+4):not(:nth-last-child(-n+5))';
     protected const SELECTOR_LOCATION    = 'td:nth-child(4) b:first-child';
     protected const SELECTOR_NAME        = 'td:nth-child(4)';

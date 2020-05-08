@@ -8,6 +8,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class BienIciParser extends AbstractParser
 {
     protected const PROVIDER = Provider::BIENICI;
+
     protected const SELECTOR_AD_WRAPPER  = '.realEstateAd';
     protected const SELECTOR_TITLE       = '.realEstateAdTitle strong';
     protected const SELECTOR_LOCATION    = '.realEstateAdAddress a';

@@ -7,6 +7,7 @@ use App\Enum\Provider;
 class SeLoger2Parser extends AbstractParser
 {
     protected const PROVIDER = Provider::SELOGER;
+
     protected const SELECTOR_AD_WRAPPER  = 'a[_label="annonce entiere"] + table';
     protected const SELECTOR_DESCRIPTION = 'tr:nth-child(3) tr:nth-child(2) a';
     protected const SELECTOR_URL         = 'a';
