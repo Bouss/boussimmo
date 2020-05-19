@@ -3,19 +3,26 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
+use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmoNeufParser extends AbstractParser
 {
     protected const PROVIDER = Provider::LOGIC_IMMO_NEUF;
-    protected const SELECTOR_AD_WRAPPER = '[class$="contentads1"]';
-    protected const SELECTOR_TITLE = '';
-    protected const SELECTOR_DESCRIPTION = '';
-    protected const SELECTOR_LOCATION = '[class$="adscustom3"]';
-    protected const SELECTOR_PUBLISHED_AT = '';
-    protected const SELECTOR_URL = '[class$="adscustom4"] > a';
-    protected const SELECTOR_PRICE = '[class$="adscustom4"]';
-    protected const SELECTOR_AREA = '';
-    protected const SELECTOR_ROOMS_COUNT = '';
-    protected const SELECTOR_PHOTO = '[class$="adscustom2"]';
-    protected const SELECTOR_NEW_BUILD = '';
+
+    protected const SELECTOR_AD_WRAPPER = '.contentads1';
+    protected const SELECTOR_NAME       = '.adscustom3 span:first-child';
+    protected const SELECTOR_LOCATION   = '.adscustom3';
+    protected const SELECTOR_URL        = '.adscustom1 a:first-child';
+    protected const SELECTOR_PRICE      = '.adscustom4';
+    protected const SELECTOR_PHOTO      = '.adscustom2';
+
+    /**
+     * {@inheritDoc}
+     */
+    public function parseLocation(Crawler $crawler): ?string
+    {
+        $str = $crawler->filter(static::SELECTOR_LOCATION)->html();
+
+        return trim(explode('<br>', $str)[1]);
+    }
 }

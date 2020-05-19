@@ -14,16 +14,19 @@ class NumericUtil
     private const REGEX_AREA = self::REGEX_FLOAT . '\s?(?:m²|m2)';
 
     /**
-     * @param string $val
+     * @param string $str
      *
      * @return float|null
      */
-    public static function extractPrice(string $val): ?float
+    public static function extractPrice(string $str): ?float
     {
-        $val = StringUtil::removeWhitespaces($val);
-        preg_match(sprintf('/%s/ui', self::REGEX_PRICE), $val, $matches);
+        $str = StringUtil::removeWhitespaces($str);
 
-        return isset($matches[1]) ? (float) str_replace(['.', ','], ['', '.'], $matches[1]) : null;
+        if (preg_match(sprintf('/%s/ui', self::REGEX_PRICE), $str, $matches)) {
+            return (float) str_replace(['.', ','], ['', '.'], $matches[1]);
+        }
+
+        return null;
     }
 
     /**
@@ -35,10 +38,10 @@ class NumericUtil
     {
         preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT), $val, $matches);
 
-        if (isset($matches[1])) {
+        if (!empty($matches[1])) {
             return (int) $matches[1];
         }
-        if (isset($matches[2])) {
+        if (!empty($matches[2])) {
             return (int) $matches[2];
         }
 
