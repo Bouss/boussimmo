@@ -1,4 +1,4 @@
-<div class="property-ad">
+<div class="property-ad{% if 'now'|date('Y-m-d') == ad.publishedAt|date('Y-m-d') %} property-ad--new{% endif %}">
     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ ad.url }}">
         <div class="photo-wrapper">
             <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
@@ -18,12 +18,13 @@
                 {% if ad.name is not null %}<span class="name">{{ ad.name|upper }}</span>,&nbsp;{% endif %}
                 {{ ad.location }}
             </p>
-            <img class="provider-logo" src="{{ asset('build/providers/' ~ ad.provider|provider_logo) }}" alt="{{ ad.provider }}">
+            <img class="provider-logo" src="{{ asset('build/providers/' ~ ad|provider_logo) }}" alt="{{ ad.provider }}">
         </div>
         <div class="publication-date">
             <i class="far fa-clock fa-fw"></i>
-            <span class="publication-date-day">{{ ad.publishedAt|date('d/m/Y') }}</span>&nbsp;
-            <span class="publication-date-time">({{ ad.publishedAt|date('H:i:s') }})</span>
+            <span class="publication-date-day" data-toggle="tooltip" data-placement="top" title="{{ ad.publishedAt|localizeddate('medium') }}">
+                {{ ad.publishedAt|days_ago }}
+            </span>
         </div>
     </a>
     {% if ad.duplicates is not empty %}
@@ -34,7 +35,7 @@
                         <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                         <span class="label">
                             Aussi présent sur&nbsp;
-                            <img class="provider-logo" src="{{ asset('build/providers/' ~ duplicate.provider|provider_logo) }}" alt="{{ duplicate.provider }}">
+                            <img class="provider-logo" src="{{ asset('build/providers/' ~ duplicate|provider_logo) }}" alt="{{ duplicate.provider }}">
                         </span>
                     </a>
                 </div>

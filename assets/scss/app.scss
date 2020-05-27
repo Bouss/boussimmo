@@ -5,7 +5,7 @@
 
 html {
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: $default-font-size;
     font-family: Arial;
 }
 
@@ -51,6 +51,6 @@ footer {
 
 @media screen and (max-width: 576px) {
     html {
-        font-size: 14px;
+        font-size: $min-font-size;
     }
 }

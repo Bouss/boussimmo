@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Util\StringUtil;
 use DateTime;
+use DateTimeZone;
 use Google_Service_Gmail_Message;
 use Google_Service_Gmail_MessagePart;
 use Google_Service_Gmail_MessagePartHeader;
@@ -26,7 +27,7 @@ class GmailService
             }
 
             if ('Date' === $header->name) {
-                $headers['date'] = new DateTime($header->value);
+                $headers['date'] = (new DateTime($header->value))->setTimezone(new DateTimeZone(date_default_timezone_get()));
             }
 
             if ('Subject' === $header->name) {

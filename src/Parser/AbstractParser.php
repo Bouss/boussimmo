@@ -19,6 +19,7 @@ abstract class AbstractParser implements ParserInterface
 {
     // Redefined in the child classes
     protected const PROVIDER = null;
+
     protected const SELECTOR_AD_WRAPPER = null;
     protected const SELECTOR_NAME = null;
     protected const SELECTOR_TITLE = null;
@@ -32,8 +33,8 @@ abstract class AbstractParser implements ParserInterface
     protected const SELECTOR_PHOTO = null;
     protected const SELECTOR_NEW_BUILD = null;
 
-    protected ProviderRepository $providerRepository;
-    protected LoggerInterface $logger;
+    private ProviderRepository $providerRepository;
+    private LoggerInterface $logger;
 
     /**
      * @param ProviderRepository $providerRepository

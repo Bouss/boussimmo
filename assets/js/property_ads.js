@@ -1,5 +1,7 @@
+import 'bootstrap/js/dist/tooltip';
 import '../scss/property_ad/index.scss';
 import '../scss/property_ad/property_ad.scss';
+import '../scss/property_ad/filter_form.scss';
 
 let $body = $('body');
 let $filterForm = $('#filter-form');
@@ -43,6 +45,7 @@ function loadPropertyAds() {
 
             $container.html(html);
             $('#result-count').html($container.find('.property-ad').length);
+            initTooltips();
         },
         complete: function () {
             if (xhrId !== xhrCount) {
@@ -54,6 +57,11 @@ function loadPropertyAds() {
     });
 }
 
+function initTooltips() {
+    $('[data-toggle="tooltip"]').tooltip({animation: true});
+}
+
 $(function() {
+    initTooltips();
     loadPropertyAds();
 });

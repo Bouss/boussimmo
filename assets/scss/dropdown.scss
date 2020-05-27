@@ -2,26 +2,39 @@
 
 $border-radius: 5px;
 $height: 2.2rem;
+$lateral-padding: 0.8em;
 
 .dropdown {
   display: flex;
   align-items: center;
   line-height: $height;
+  border: 1px solid $grey-dark;
   border-radius: $border-radius;
   background-color: #fff;
+
+  &--without-label {
+    select {
+      border-radius: $border-radius;
+    }
+  }
+
+  &--without-border {
+    border: none;
+  }
 
   label, select {
     color: $grey-dark;
   }
 
   label {
-    padding: 0 10px;
+    padding: 0 $lateral-padding;
     border-right: solid 1px;
   }
 
   select {
+    flex: 1;
     height: $height;
-    padding-left: 5px;
+    padding-left: $lateral-padding;
     padding-right: 35px;
     border: none;
     border-top-right-radius: $border-radius;
@@ -34,11 +47,5 @@ $height: 2.2rem;
     background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
     background-size: 1em auto, 100%;
-  }
-
-  &--without-label {
-    select {
-      border-radius: $border-radius;
-    }
   }
 }

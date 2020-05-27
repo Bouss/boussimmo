@@ -30,19 +30,18 @@ class GmailClient
 
     /**
      * @param string $accessToken
-     * @param array  $filters
+     * @param array  $criteria
      *
      * @return int[]
      */
-    public function getMessageIds(string $accessToken, array $filters): array
+    public function getMessageIds(string $accessToken, array $criteria): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
-        $labelId = $filters[PropertyAdFilter::GMAIL_LABEL] ?? null;
-        $provider = $filters[PropertyAdFilter::PROVIDER] ?? null;
-        $newerThan = $filters[PropertyAdFilter::NEWER_THAN];
         $messages = [];
-        $pageToken = null;
+        $labelId = $criteria[PropertyAdFilter::GMAIL_LABEL] ?? null;
+        $provider = $criteria[PropertyAdFilter::PROVIDER] ?? null;
+        $newerThan = $criteria[PropertyAdFilter::NEWER_THAN];
 
         // Prepare the Gmail messages query
         $params['q'] = $this->buildMessagesQuery($provider, $newerThan);
@@ -50,6 +49,7 @@ class GmailClient
             $params['labelIds'] = [$labelId];
         }
 
+        $pageToken = null;
         do {
             $params['pageToken'] = $pageToken;
 

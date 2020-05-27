@@ -43,16 +43,16 @@ class PropertyAdRepository
 
     /**
      * @param string $accessToken
-     * @param array  $filters
+     * @param array  $criteria
      *
      * @return PropertyAd[]
      *
      * @throws ParserNotFoundException
      */
-    public function find(string $accessToken, array $filters): array
+    public function find(string $accessToken, array $criteria): array
     {
         $propertyAds = [];
-        $messageIds = $this->gmailClient->getMessageIds($accessToken, $filters);
+        $messageIds = $this->gmailClient->getMessageIds($accessToken, $criteria);
 
         foreach ($messageIds as $id) {
             try {
@@ -75,7 +75,7 @@ class PropertyAdRepository
 
             // Parse the HTML content to extract property ads
             try {
-                $propertyAds[] = $this->parserContainer->get($emailTemplate->getId())->parse($html, $filters, [
+                $propertyAds[] = $this->parserContainer->get($emailTemplate->getId())->parse($html, $criteria, [
                     'email_template' => $emailTemplate->getId(),
                     'date' => $headers['date']
                 ]);

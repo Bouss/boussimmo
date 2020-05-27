@@ -19,7 +19,7 @@
 {% set gmail_label_choices = {'Tous': ''}|merge(gmail_label_choices) %}
 
 <form id="filter-form">
-    <div class="dropdown">
+    <div class="dropdown dropdown--without-border">
         <label for="newer-than-select">Annonces datant de</label>
         <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}">
             {% for label, value in newer_than_choices %}
@@ -27,7 +27,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="dropdown">
+    <div class="dropdown dropdown--without-border">
         <label for="gmail-label-select">Label Gmail</label>
         <select id="gmail-label-select" name="{{ constant('App\\Enum\\PropertyAdFilter::GMAIL_LABEL') }}">
             {% for label, value in gmail_label_choices %}
@@ -35,7 +35,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="dropdown">
+    <div class="dropdown dropdown--without-border">
         <label for="provider-select">Source</label>
         <select id="provider-select" name="{{ constant('App\\Enum\\PropertyAdFilter::PROVIDER') }}">
             {% for label, value in provider_choices %}

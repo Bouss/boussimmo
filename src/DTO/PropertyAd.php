@@ -9,7 +9,6 @@ class PropertyAd
 {
     public const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
 
-    private int $id;
     private string $provider;
     private DateTime $publishedAt;
     private string $url;
@@ -24,14 +23,6 @@ class PropertyAd
     private bool $newBuild = false;
     /** @var PropertyAd[] */
     private array $duplicates = [];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
      * @return string

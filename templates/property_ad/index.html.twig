@@ -32,7 +32,7 @@
         <div>
             <span id="result-count"></span>&nbsp;annonces trouvées
         </div>
-        <div class="dropdown dropdown--without-label">
+        <div class="dropdown dropdown--without-label dropdown--without-border">
             <select id="sort-select" name="sort">
                 {% for label, value in sort_choices %}
                     <option value="{{ value }}"{% if value == sort %} selected{% endif %}>{{ label }}</option>

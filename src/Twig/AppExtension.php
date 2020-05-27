@@ -4,6 +4,8 @@ namespace App\Twig;
 
 use App\DTO\PropertyAd;
 use App\Repository\ProviderRepository;
+use DateTime;
+use Psr\Log\LoggerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -28,18 +30,19 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('provider_logo', [$this, 'getProviderLogo']),
-            new TwigFilter('sort_by', [$this, 'sortBy'])
+            new TwigFilter('sort_by', [$this, 'sortBy']),
+            new TwigFilter('days_ago', [$this, 'getDaysAgo'])
         ];
     }
 
     /**
-     * @param string $providerId
+     * @param PropertyAd $propertyAd
      *
      * @return string|null
      */
-    public function getProviderLogo(string $providerId): ?string
+    public function getProviderLogo(PropertyAd $propertyAd): ?string
     {
-        $provider = $this->providerRepository->find($providerId);
+        $provider = $this->providerRepository->find($propertyAd->getProvider());
 
         return null !== $provider ? $provider->getLogo() : null;
     }
@@ -66,5 +69,31 @@ class AppExtension extends AbstractExtension
         });
 
         return $propertyAds;
+    }
+
+    /**
+     * @param DateTime $date
+     *
+     * @return string
+     */
+    public function getDaysAgo(DateTime $date): string
+    {
+        $dateClone = clone $date;
+        $daysDiff = (new DateTime())->setTime(0, 0)->diff($dateClone->setTime(0, 0))->days;
+
+        if (0 === $daysDiff) {
+            return 'Aujourd\'hui';
+        }
+        if (1 === $daysDiff) {
+            return 'Hier';
+        }
+        if ($daysDiff >= 2 && $daysDiff <= 6) {
+            return "Il y a $daysDiff jours";
+        }
+        if (7 === $daysDiff) {
+            return 'Il y a 1 semaine';
+        }
+
+        return $date->format('d/m/Y');
     }
 }
