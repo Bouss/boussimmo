@@ -1,7 +1,5 @@
 @import '../colors';
 @import '../sizes';
-@import '../dropdown';
-@import '../checkbox';
 
 header {
   padding: 1.9rem $content-padding;
@@ -22,7 +20,7 @@ header {
   }
 }
 
-.content {
+.container {
   padding: $content-padding;
   background-color: white;
   box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
@@ -39,17 +37,17 @@ header {
   row-gap: 2rem;
 }
 
-.section {
-  p {
-    text-align: justify;
-  }
-
+section {
   h2 {
     margin-top: 0;
     padding-bottom: 0.5em;
     font-size: 1.4rem;
     color: $primary-color;
     border-bottom: 1px solid $grey-light;
+  }
+
+  p {
+    text-align: justify;
   }
 
   ul, ol {

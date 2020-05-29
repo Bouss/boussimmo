@@ -17,7 +17,7 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
@@ -33,7 +33,7 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array
@@ -87,13 +87,18 @@ class SeLogerUrlBuilder extends AbstractUrlBuilder
     }
 
     /**
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      *
      * @return array
      */
-    private function buildAreaParam(int $minArea, int $maxArea = null): array
+    private function buildAreaParam(?int $minArea, ?int $maxArea): array
     {
+        if (null === $minArea && null === $maxArea) {
+            return [];
+        }
+
+        $minArea = $minArea ?: 'NaN';
         $maxArea = $maxArea ?: 'NaN';
 
         return ['surface' => "$minArea/$maxArea"];

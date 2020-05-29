@@ -4,53 +4,65 @@
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 html {
-    box-sizing: border-box;
-    font-size: $default-font-size;
-    font-family: Arial;
+  box-sizing: border-box;
+  font-size: $default-font-size;
+  font-family: Arial;
 }
 
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
-    margin: 0;
-    background-color: $grey-light;
+  margin: 0;
+  background-color: $grey-light;
 }
 
-a {
-    text-decoration: none;
-    color: black;
+main {
+  & > * {
+    margin: 0 auto;
+  }
 }
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $footer-height;
+  text-align: center;
+  background-color: $primary-color;
+  color: #ffffff;
+
+  p {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: $footer-height;
-    text-align: center;
-    background-color: $primary-color;
-    color: #ffffff;
+  }
+
+  a {
+    text-decoration: underline;
+    color: white;
+
+    &:first-child {
+      display: flex; // Force link to match wrapped GitHub logo
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 .container {
-    & > * {
-        margin: 0 auto;
-    }
-}
-
-.content {
-    max-width: $page-width;
+  max-width: $page-width;
 }
 
 .unknown {
-    color: $silver;
+  color: $silver;
 }
 
 @media screen and (max-width: 576px) {
-    html {
-        font-size: $min-font-size;
-    }
+  html {
+    font-size: $min-font-size;
+  }
 }

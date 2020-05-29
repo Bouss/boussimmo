@@ -9,7 +9,7 @@ interface UrlBuilderInterface
      * @param string[] $propertyTypes
      * @param int|null $minPrice
      * @param int      $maxPrice
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
      *
@@ -20,7 +20,7 @@ interface UrlBuilderInterface
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string;

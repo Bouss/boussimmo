@@ -17,17 +17,17 @@ class LogicImmoUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
     {
-        return sprintf('https://www.logic-immo.com/%s/options/%s/%s%s/%s/%s%s',
+        return sprintf('https://www.logic-immo.com/%s/options/%s/%s%s/%s%s%s',
             $this->buildLocationParam($city),
             $this->buildPropertyTypeParam($propertyTypes),
             ((null !== $minPrice) ? $this->buildPriceParam('min', $minPrice) . '/' : ''),
             $this->buildPriceParam('max', $maxPrice),
-            $this->buildAreaParam('min', $minArea),
+            ((null !== $minArea) ? $this->buildAreaParam('min', $minArea) . '/' : ''),
             ((null !== $maxArea) ? $this->buildAreaParam('max', $maxArea) . '/' : ''),
             ($minRoomsCount > 1 ? $this->buildRoomsCountParam($minRoomsCount) : '')
         );
@@ -41,7 +41,7 @@ class LogicImmoUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array

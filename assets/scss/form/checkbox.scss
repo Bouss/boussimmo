@@ -1,0 +1,73 @@
+@import '../colors';
+
+$font-size: 0.8;
+$checkbox-size: $font-size * 2rem;
+$check-font-size: $font-size * 1.25rem;
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  font-size: $font-size * 1rem;
+
+  input[type=checkbox] {
+    position: relative;
+    height: $checkbox-size;
+    width: $checkbox-size;
+    margin: 0; // Override native input margin
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid;
+    border-radius: 5px;
+
+    &:before {
+      transition: all .3s;
+    }
+
+    &:checked {
+      border-color: $secondary-color;
+      background: $secondary-color;
+
+      &:before {
+        position: absolute;
+        width: $checkbox-size;
+        line-height: $checkbox-size;
+        text-align: center;
+        font-size: $check-font-size;
+        font-weight: 900;
+        font-family: 'Font Awesome 5 Free';
+        color: #fff;
+        content: '\f00c';
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    &:not(:checked) {
+      border-color: $grey-dark;
+      background: #fff;
+
+      &:before {
+        position: absolute;
+        width: $checkbox-size;
+        line-height: $checkbox-size;
+        opacity: 0;
+        transform: scale(0);
+        content: '';
+      }
+    }
+
+    & + label {
+      margin-left: 0.5em;
+      line-height: $checkbox-size;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.checkbox-group {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  column-gap: 10px;
+}

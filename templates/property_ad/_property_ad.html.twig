@@ -1,4 +1,4 @@
-<div class="property-ad{% if 'now'|date('Y-m-d') == ad.publishedAt|date('Y-m-d') %} property-ad--new{% endif %}">
+<article class="property-ad{% if 'now'|date('Y-m-d') == ad.publishedAt|date('Y-m-d') %} property-ad--new{% endif %}">
     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ ad.url }}">
         <div class="photo-wrapper">
             <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
@@ -7,7 +7,9 @@
             {% endif %}
         </div>
         <div class="main-section">
-            <h3 class="price">{{ ad.price ? ad.price|number_format(null, ',', ' ') : 'N/A' }} &euro;</h3>
+            <header>
+                <h3 class="price">{{ ad.price ? ad.price|number_format(null, ',', ' ') : 'N/A' }} &euro;</h3>
+            </header>
             <p>
                 <span class="area{% if ad.area is null %} unknown{% endif %}">{{ ad.area|default('N/A') }}&nbsp;m&sup2;</span>
                 &nbsp;•&nbsp;
@@ -22,15 +24,15 @@
         </div>
         <div class="publication-date">
             <i class="far fa-clock fa-fw"></i>
-            <span class="publication-date-day" data-toggle="tooltip" data-placement="top" title="{{ ad.publishedAt|localizeddate('medium') }}">
+            <time datetime="{{ ad.publishedAt|date('Y-m-d H:i') }}" data-toggle="tooltip" data-placement="top" title="{{ ad.publishedAt|localizeddate('medium') }}">
                 {{ ad.publishedAt|days_ago }}
-            </span>
+            </time>
         </div>
     </a>
     {% if ad.duplicates is not empty %}
         <div class="duplicate-container">
             {% for duplicate in ad.duplicates %}
-                <div class="duplicate">
+                <article class="duplicate">
                     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ duplicate.url }}">
                         <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                         <span class="label">
@@ -38,8 +40,8 @@
                             <img class="provider-logo" src="{{ asset('build/providers/' ~ duplicate|provider_logo) }}" alt="{{ duplicate.provider }}">
                         </span>
                     </a>
-                </div>
+                </article>
             {% endfor %}
         </div>
     {% endif %}
-</div>
+</article>

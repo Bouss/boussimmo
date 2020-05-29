@@ -17,7 +17,7 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
@@ -33,7 +33,7 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array
@@ -90,13 +90,18 @@ class LeBonCoinUrlBuilder extends AbstractUrlBuilder
     }
 
     /**
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      *
      * @return array
      */
-    private function buildAreaParam(int $minArea, ?int $maxArea = null): array
+    private function buildAreaParam(?int $minArea, ?int $maxArea = null): array
     {
+        if (null === $minArea && null === $maxArea) {
+            return [];
+        }
+
+        $minArea = $minArea ?: 'min';
         $maxArea = $maxArea ?: 'max';
 
         return ['square' => "$minArea-$maxArea"];

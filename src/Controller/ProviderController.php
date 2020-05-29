@@ -38,7 +38,7 @@ class ProviderController extends AbstractController
         $types = array_keys($params->get('types'));
         $minPrice = $params->get('min_price') ?: null;
         $maxPrice = $params->get('max_price');
-        $minArea = $params->get('min_area');
+        $minArea = $params->get('min_area') ?: null;
         $maxArea = $params->get('max_area') ?: null;
         $minRoomsCount = $params->get('min_rooms_count');
         $data = [];

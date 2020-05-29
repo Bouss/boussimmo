@@ -11,8 +11,8 @@
 {% endblock %}
 
 {% block header %}
-    <div class="cta-wrapper">
-        <h1>Facilitez la consultation de vos annonces immobilières dès maintenant</h1>
+    <div id="sign-in" class="cta-wrapper">
+        <h1>Facilitez la recherche de votre futur logement dès maintenant</h1>
         <a class="btn-signin" href="{{ path('connect_google_start') }}">
             <img src="{{ asset('build/logo_google_signin.svg') }}" alt="Google logo" />
             Sign in with Google
@@ -22,22 +22,26 @@
 
 {% block body %}
     <p class="introduction">
-        Immo'Scrap est un site développé par un particulier <b>indépendant</b> et désintéressé dont l'objectif est de <b>centraliser</b> les annonces immobilières extraites depuis vos <b>newsletters</b>
+        Immo'Scrap <b>regroupe</b>, sur une seule et même page, toutes les <b>annonces immobilières</b> extraites depuis vos <b>newsletters</b>.
     </p>
     <div class="section-container">
-        <div id="principle" class="section">
+        <section id="principle">
             <h2>Comment ça marche ?</h2>
-            <p>Tout d'abord, Immo'Scrap <b>extrait les biens immobiliers</b> qui se trouvent dans vos emails de newsletter de sites d'annonces immobilières.</p>
-            <p>Les annonces sont ensuite filtrées : les doublons (provenant d'un même site) sont <b>mis de côté</b>, tandis que les annonces similaires émanant de sites différents sont <b>regroupées</b> entre elles, afin d'offir le contenu le plus exhaustif et <b>unique</b> possible.</p>
+            <p>Tout d'abord, Immo'Scrap <b>extrait les biens immobiliers</b> se trouvant dans vos emails de newsletter de sites d'annonces immobilières.</p>
+            <p>
+                Les annonces sont ensuite <b>filtrées</b> : les doublons (annonces indentiques émanant d'un même site) sont <b>mis de côté</b>,
+                tandis que les annonces similaires diffusées par des plateformes différentes sont <b>regroupées</b> entre elles,
+                afin d'offir le contenu à la fois le plus exhaustif et en même temps le plus <b>unique</b> possible.
+            </p>
             <p>Enfin, libre à vous de <b>refiltrer</b> et <b>trier</b> vos annonces comme bon vous semble !</p>
-        </div>
-        <div id="instructions" class="section">
+        </section>
+        <section id="instructions">
             <h2>Que faut-il faire pour utiliser le site ?</h2>
-            <p>Au préalable, s'<b>inscrire aux newsletters</b> de vente de biens immobiliers qui vous intéressent sur les plateformes citées juste après.</p>
-            <p>Connecter son <b>compte Gmail</b> à Immo'Scrap en cliquant sur le bouton </p>
+            <p>Au préalable, s'<b>inscrire aux alertes</b> de vente de biens immobiliers (maisons et/ou appartements) qui vous intéressent avec votre <b>adresse Gmail</b> sur les plateformes citées juste après.</p>
+            <p>Connecter son <b>compte Gmail</b> à Immo'Scrap en cliquant sur le bouton de connexion <a href="#sign-in">ci-dessus</a>.</p>
             <p>Consulter Immo'Scrap aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
-        </div>
-        <div id="providers" class="section">
+        </section>
+        <section id="providers">
             <h2>Quelles sont les plateformes d'annonces immobilières gérées par Immo'Scrap ?</h2>
             <div class="provider-container">
                 <a href="https://www.bienici.com"><img src="{{ asset('build/providers/bienici.svg') }}" alt="Bien'ici"/></a>
@@ -48,15 +52,18 @@
                 <a href="https://www.seloger.com"><img src="{{ asset('build/providers/seloger.svg') }}" alt="SeLoger"/></a>
                 <a href="https://www.superimmo.com"><img src="{{ asset('build/providers/superimmo.svg') }}" alt="Superimmo"/></a>
             </div>
-            {{ include('default/_search_form.html.twig') }}
-        </div>
-        <div id="security" class="section">
+
+            <p>Gagnez du temps en générant les <b>liens de page de résultats</b> de bien immobiliers qui correspondent à vos critères en utilisant le formulaire ci-dessous.</p>
+            <p>N'oubliez pas de vous inscrire aux <b>alertes</b> sur ces pages pour exploiter tout le potentiel d'ImmoScrap !</p>
+            {{ include('homepage/_search_form.html.twig') }}
+        </section>
+        <section id="security">
             <h2>Qu'en est-il de la confidentialité ?</h2>
-            <p>Immo'Scrap traite <b>uniquement</b> des emails provenant d'adresses mail appartenant à des sites d'annonces immoblières.</p>
+            <p>Immo'Scrap analyse <b>uniquement</b> des emails envoyés par les plateformes d'annonces immoblières citées ci-dessus.</p>
             <p>Immo'Scrap ne <b>conserve</b> ni ne <b>diffuse</b> aucun email.</p>
             <p>Immo'Scrap ne stocke que les données personnelles dont il a besoin pour <b>fonctionner</b> : votre adresse Gmail.</p>
-            <p>Les adresses mails ne sont <b>ni vendues ni partagées</b> car Immo'Scrap est développé par un particulier complètement désintéressé.</p>
+            <p>Les adresses e-mail ne sont <b>ni vendues ni partagées</b> car Immo'Scrap est développé par un particulier indépendant et complètement désintéressé.</p>
             <p>Il est possible à tout moment de <b>déconnecter</b> votre compte Google d'Immo'Scrap, depuis Immo'Scrap ou votre <a class="link" href="https://myaccount.google.com/permissions">compte Google</a>.</p>
-        </div>
+        </section>
     </div>
 {% endblock %}

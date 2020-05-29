@@ -1,4 +1,4 @@
-@import 'colors';
+@import '../colors';
 
 $border-radius: 5px;
 $height: 2.2rem;
@@ -24,6 +24,7 @@ $lateral-padding: 0.8em;
 
   label, select {
     color: $grey-dark;
+    font-size: 0.8rem;
   }
 
   label {
@@ -42,10 +43,10 @@ $lateral-padding: 0.8em;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background-color: #fff;
-    background-image: url('../images/chevron-down-solid.svg');
-    background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
     background-size: 1em auto, 100%;
+    background-repeat: no-repeat, repeat;
+    background-color: #fff;
+    background-image: url('../../images/chevron-down-solid.svg');
   }
 }

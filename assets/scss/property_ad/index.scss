@@ -4,8 +4,6 @@
 @import '~bootstrap/scss/tooltip';
 @import '../sizes';
 @import '../colors';
-@import '../dropdown';
-@import '../checkbox';
 
 $spacing: 0.6rem;
 
@@ -21,7 +19,6 @@ body {
 
 footer {
   position: absolute;
-  width: 100%;
   right: 0;
   bottom: 0;
   left: 0;
@@ -110,7 +107,7 @@ footer {
     }
   }
 
-  .content {
+  .container {
     padding: 0 $content-min-padding;
   }
 

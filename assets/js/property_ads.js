@@ -44,7 +44,7 @@ function loadPropertyAds() {
             }
 
             $container.html(html);
-            $('#result-count').html($container.find('.property-ad').length);
+            $('#result-count').html($container.find('> article').length);
             initTooltips();
         },
         complete: function () {

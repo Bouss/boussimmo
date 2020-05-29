@@ -1,0 +1,44 @@
+<form id="search-form">
+    <div class="checkbox-group" style="grid-area: a;">
+        <div class="checkbox">
+            <input id="apartment-checkbox" name="types[{{ constant('App\\Enum\\PropertyType::APARTMENT') }}]" value="1" type="checkbox" checked>
+            <label for="apartment-checkbox">Appartement</label>
+        </div>
+        <div class="checkbox">
+            <input id="house-checkbox" name="types[{{ constant('App\\Enum\\PropertyType::HOUSE') }}]" value="1" type="checkbox" checked>
+            <label for="house-checkbox">Maison</label>
+        </div>
+    </div>
+    <div class="dropdown dropdown--without-label" style="grid-area: b;">
+        <select id="city-select" name="city" required>
+            <option value="" selected>Quelle ville ?</option>
+            <option value="{{ constant('App\\Enum\\City::BORDEAUX') }}">Bordeaux</option>
+            <option value="{{ constant('App\\Enum\\City::LILLE') }}">Lille</option>
+            <option value="{{ constant('App\\Enum\\City::LYON') }}">Lyon</option>
+            <option value="{{ constant('App\\Enum\\City::MARSEILLE') }}">Marseille</option>
+            <option value="{{ constant('App\\Enum\\City::MONTPELLIER') }}">Montpellier</option>
+            <option value="{{ constant('App\\Enum\\City::NANTES') }}">Nantes</option>
+            <option value="{{ constant('App\\Enum\\City::NICE') }}">Nice</option>
+            <option value="{{ constant('App\\Enum\\City::PARIS') }}">Paris</option>
+            <option value="{{ constant('App\\Enum\\City::RENNES') }}">Rennes</option>
+            <option value="{{ constant('App\\Enum\\City::STRASBOURG') }}">Strasbourg</option>
+            <option value="{{ constant('App\\Enum\\City::TOULOUSE') }}">Toulouse</option>
+        </select>
+    </div>
+    <div class="dropdown dropdown--without-label" style="grid-area: c;">
+        <select id="min-rooms-count-select" name="min_rooms_count" required>
+            <option value="" selected>Combien de pièces au moins ?</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="3">4</option>
+            <option value="5">5</option>
+            <option value="100">5+</option>
+        </select>
+    </div>
+    <input class="input" type="number" name="min_price" placeholder="Quel prix minimum ?" style="grid-area: d;"/>
+    <input class="input" type="number" name="max_price" placeholder="Quel prix maximum ?" required style="grid-area: e;" />
+    <input class="input" type="number" name="min_area" placeholder="Quelle surface minimum ?" style="grid-area: f;" />
+    <input class="input" type="number" name="max_area" placeholder="Quelle surface maximum ?" style="grid-area: g;" />
+    <button class="btn-filter" type="submit" style="grid-area: h;"><i class="fas fa-search fa-fw"></i>Générer</button>
+</form>

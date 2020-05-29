@@ -1,5 +1,6 @@
-import '../scss/homepage/homepage.scss';
+import '../scss/homepage/index.scss';
 import '../scss/homepage/btn_signin.scss';
+import '../scss/homepage/search_form.scss';
 
 let $searchForm = $('#search-form');
 let $urlContainer = $('#url-container');

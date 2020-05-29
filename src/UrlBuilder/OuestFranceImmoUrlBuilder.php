@@ -17,7 +17,7 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
@@ -33,7 +33,7 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array
@@ -82,13 +82,18 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
     }
 
     /**
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      *
      * @return array
      */
-    private function buildAreaParam(int $minArea, int $maxArea = null): array
+    private function buildAreaParam(?int $minArea, ?int $maxArea): array
     {
+        if (null === $minArea && null === $maxArea) {
+            return [];
+        }
+
+        $minArea = $minArea ?: 0;
         $maxArea = $maxArea ?: 0;
 
         return ['surface' => sprintf('%d_%d', $minArea, $maxArea)];

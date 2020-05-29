@@ -22,7 +22,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
      * @param string[] $propertyTypes
      * @param int|null $minPrice
      * @param int      $maxPrice
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
      *
@@ -33,7 +33,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
@@ -56,7 +56,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
      * @param array    $types
      * @param int|null $minPrice
      * @param int      $maxPrice
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
      *
@@ -67,7 +67,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
         array $types,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string;
@@ -77,7 +77,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
      * @param string[] $types
      * @param int|null $minPrice
      * @param int      $maxPrice
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      * @param int      $minRoomsCount
      *
@@ -88,7 +88,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
         array $types,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array;

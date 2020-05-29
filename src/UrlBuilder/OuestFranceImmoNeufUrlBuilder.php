@@ -17,7 +17,7 @@ class OuestFranceImmoNeufUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
@@ -36,7 +36,7 @@ class OuestFranceImmoNeufUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array

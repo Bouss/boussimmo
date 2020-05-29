@@ -1,0 +1,36 @@
+@import '../colors';
+@import '../form/checkbox';
+@import '../form/dropdown';
+@import '../form/input';
+
+$border-radius: 5px;
+
+#search-form {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  grid-template-rows: auto;
+  grid-template:
+          "a a a a b b b b c c c c h h"
+          "d d d e e e f f f g g g h h";
+  column-gap: 5px;
+  row-gap: 5px;
+
+  button[type=submit] {
+    border: none;
+    border-radius: $border-radius;
+    background-color: $secondary-color;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  #search-form {
+    grid-template-columns: none;
+    grid-template: none;
+    grid-auto-flow: row;
+  }
+}
+
+

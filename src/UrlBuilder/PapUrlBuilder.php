@@ -17,7 +17,7 @@ class PapUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): string
@@ -39,7 +39,7 @@ class PapUrlBuilder extends AbstractUrlBuilder
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
-        int $minArea,
+        ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
     ): array
@@ -89,18 +89,26 @@ class PapUrlBuilder extends AbstractUrlBuilder
     }
 
     /**
-     * @param int      $minArea
+     * @param int|null $minArea
      * @param int|null $maxArea
      *
      * @return string
      */
-    private function buildAreaParam(int $minArea, ?int $maxArea): string
+    private function buildAreaParam(?int $minArea, ?int $maxArea): string
     {
-        if (null === $maxArea) {
+        if (null !== $minArea && null !== $maxArea) {
+            return "entre-$minArea-et-$maxArea-m2";
+        }
+
+        if (null !== $minArea) {
             return "a-partir-de-$minArea-m2";
         }
 
-        return "entre-$minArea-et-$maxArea-m2";
+        if (null !== $maxArea) {
+            return "jusqu-a-$maxArea-m2";
+        }
+
+        return '';
     }
 
     /**
