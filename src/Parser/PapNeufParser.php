@@ -3,6 +3,8 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
+use App\Exception\ParseException;
+use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 use function preg_match;
 
@@ -16,6 +18,20 @@ class PapNeufParser extends AbstractParser
     protected const SELECTOR_URL         = 'a:first-child';
     protected const SELECTOR_PRICE       = 'td:nth-child(4)';
     protected const SELECTOR_PHOTO       = 'img:first-child';
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function parsePrice(Crawler $crawler): ?float
+    {
+        try {
+            $priceStr = trim($crawler->filter(static::SELECTOR_PRICE)->text());
+        } catch (Exception $e) {
+            throw new ParseException('Error while parsing the price: ' . $e->getMessage());
+        }
+
+        return $this->formatter->parsePrice(str_replace('.', '', $priceStr));
+    }
 
     /**
      * {@inheritDoc}

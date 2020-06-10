@@ -317,6 +317,9 @@
     "symfony/inflector": {
         "version": "v4.3.2"
     },
+    "symfony/intl": {
+        "version": "v5.1.0"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -368,6 +371,9 @@
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.15.0"
     },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.17.0"
+    },
     "symfony/polyfill-intl-idn": {
         "version": "v1.11.0"
     },
@@ -382,6 +388,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.11.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.17.0"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.4"

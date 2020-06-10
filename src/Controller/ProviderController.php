@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Enum\Provider;
 use App\Exception\ParserNotFoundException;
+use App\Formatter\DecimalFormatter;
 use App\Repository\ProviderRepository;
 use App\UrlBuilderContainer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,7 @@ class ProviderController extends AbstractController
      * @param Request             $request
      * @param UrlBuilderContainer $urlBuilderContainer
      * @param ProviderRepository  $providerRepository
+     * @param DecimalFormatter    $formatter
      *
      * @return JsonResponse
      *
@@ -30,16 +32,17 @@ class ProviderController extends AbstractController
     public function getSearchUrls(
         Request $request,
         UrlBuilderContainer $urlBuilderContainer,
-        ProviderRepository $providerRepository
+        ProviderRepository $providerRepository,
+        DecimalFormatter $formatter
     ): JsonResponse
     {
         $params = $request->request;
         $city = $params->get('city');
         $types = array_keys($params->get('types'));
-        $minPrice = $params->get('min_price') ?: null;
-        $maxPrice = $params->get('max_price');
-        $minArea = $params->get('min_area') ?: null;
-        $maxArea = $params->get('max_area') ?: null;
+        $minPrice = null !== $params->get('min_price') ? $formatter->parse($params->get('min_price')) : null;
+        $maxPrice = $formatter->parse($params->get('max_price'));
+        $minArea = null !== $params->get('min_area') ? $formatter->parse($params->get('min_area')) : null;
+        $maxArea = null !== $params->get('max_area') ? $formatter->parse($params->get('max_area')) : null;
         $minRoomsCount = $params->get('min_rooms_count');
         $data = [];
 

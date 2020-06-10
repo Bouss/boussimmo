@@ -3,6 +3,7 @@
     "license": "proprietary",
     "require": {
         "php": "^7.4.4",
+        "ext-intl": "*",
         "ext-json": "*",
         "friendsofsymfony/jsrouting-bundle": "^2.4",
         "google/apiclient": "^2.0",
@@ -16,6 +17,7 @@
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "^5.0",
         "symfony/http-client": "^5.0",
+        "symfony/intl": "^5.0",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
         "symfony/security-bundle": "^5.0",

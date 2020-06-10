@@ -6,7 +6,7 @@ use App\DTO\PropertyAd;
 use App\Enum\PropertyAdFilter;
 use App\Exception\ParseException;
 use App\Repository\ProviderRepository;
-use App\Util\NumericUtil;
+use App\Formatter\DecimalFormatter;
 use App\Util\StringUtil;
 use DateTime;
 use Exception;
@@ -35,14 +35,17 @@ abstract class AbstractParser implements ParserInterface
 
     private ProviderRepository $providerRepository;
     private LoggerInterface $logger;
+    protected DecimalFormatter $formatter;
 
     /**
      * @param ProviderRepository $providerRepository
+     * @param DecimalFormatter   $formatter
      * @param LoggerInterface    $logger
      */
-    public function __construct(ProviderRepository $providerRepository, LoggerInterface $logger)
+    public function __construct(ProviderRepository $providerRepository, DecimalFormatter $formatter, LoggerInterface $logger)
     {
         $this->providerRepository = $providerRepository;
+        $this->formatter = $formatter;
         $this->logger = $logger;
     }
 
@@ -126,7 +129,7 @@ abstract class AbstractParser implements ParserInterface
             throw new ParseException('Error while parsing the price: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractPrice($priceStr);
+        return $this->formatter->parsePrice($priceStr);
     }
 
     /**
@@ -148,7 +151,7 @@ abstract class AbstractParser implements ParserInterface
             throw new ParseException('Error while parsing the area: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractArea($areaStr);
+        return $this->formatter->parseArea($areaStr);
     }
 
     /**
@@ -170,7 +173,7 @@ abstract class AbstractParser implements ParserInterface
             throw new ParseException('Error while parsing the number of rooms: ' . $e->getMessage());
         }
 
-        return NumericUtil::extractRoomsCount($roomsCountStr);
+        return $this->formatter->parseRoomsCount($roomsCountStr);
     }
 
     /**
