@@ -19,25 +19,25 @@
 {% set gmail_label_choices = {'Tous': ''}|merge(gmail_label_choices) %}
 
 <form id="filter-form">
-    <div class="dropdown dropdown--without-border">
+    <div class="dropdown-wrapper">
         <label for="newer-than-select">Annonces datant de</label>
-        <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}">
+        <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}" class="dropdown">
             {% for label, value in newer_than_choices %}
                 <option value="{{ value }}"{% if value == newer_than %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
     </div>
-    <div class="dropdown dropdown--without-border">
+    <div class="dropdown-wrapper">
         <label for="gmail-label-select">Label Gmail</label>
-        <select id="gmail-label-select" name="{{ constant('App\\Enum\\PropertyAdFilter::GMAIL_LABEL') }}">
+        <select id="gmail-label-select" name="{{ constant('App\\Enum\\PropertyAdFilter::GMAIL_LABEL') }}" class="dropdown">
             {% for label, value in gmail_label_choices %}
                 <option value="{{ value }}"{% if value == gmail_label %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
         </select>
     </div>
-    <div class="dropdown dropdown--without-border">
+    <div class="dropdown-wrapper">
         <label for="provider-select">Source</label>
-        <select id="provider-select" name="{{ constant('App\\Enum\\PropertyAdFilter::PROVIDER') }}">
+        <select id="provider-select" name="{{ constant('App\\Enum\\PropertyAdFilter::PROVIDER') }}" class="dropdown">
             {% for label, value in provider_choices %}
                 <option value="{{ value }}"{% if value == provider %} selected{% endif %}>{{ label }}</option>
             {% endfor %}

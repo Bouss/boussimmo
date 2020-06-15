@@ -1,7 +1,7 @@
 @import '../colors';
 @import '../sizes';
-@import '../form/checkbox';
-@import '../form/dropdown';
+@import '../components/form/checkbox';
+@import '../components/form/dropdown';
 
 $spacing: 0.6rem;
 $border-radius: 5px;
@@ -15,7 +15,7 @@ $border-radius: 5px;
   padding: $spacing;
   background-color: $primary-color;
 
-  select {
+  .dropdown {
     max-width: 180px;
   }
 
@@ -42,9 +42,8 @@ $border-radius: 5px;
     justify-content: normal;
     padding: $content-min-padding;
 
-    select {
+    .dropdown {
       max-width: none;
-      flex: 1;
     }
 
     label {

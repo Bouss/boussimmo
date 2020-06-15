@@ -1,6 +1,6 @@
 @import 'colors';
 @import 'sizes';
-@import 'loader';
+@import 'components/loader';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 html {
@@ -33,17 +33,18 @@ footer {
   background-color: $primary-color;
   color: #ffffff;
 
-  p {
-    display: flex;
-    align-items: center;
-  }
-
   a {
     text-decoration: underline;
     color: white;
+  }
 
-    &:first-child {
-      display: flex; // Force link to match wrapped GitHub logo
+  .footer-logo-link {
+    img {
+      display: block;
+    }
+
+    + p {
+      margin-left: 0.5rem;
     }
   }
 }
@@ -51,6 +52,12 @@ footer {
 a {
   text-decoration: none;
   color: black;
+}
+
+input, select, button {
+  &:focus {
+    outline: none;
+  }
 }
 
 .container {

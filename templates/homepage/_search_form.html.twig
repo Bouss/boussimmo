@@ -1,5 +1,5 @@
 <form id="search-form">
-    <div class="checkbox-group" style="grid-area: a;">
+    <div class="checkbox-group grid-a">
         <div class="checkbox">
             <input id="apartment-checkbox" name="types[{{ constant('App\\Enum\\PropertyType::APARTMENT') }}]" value="1" type="checkbox" checked>
             <label for="apartment-checkbox">Appartement</label>
@@ -9,9 +9,9 @@
             <label for="house-checkbox">Maison</label>
         </div>
     </div>
-    <div class="dropdown dropdown--without-label" style="grid-area: b;">
-        <select id="city-select" name="city" required>
-            <option value="" selected>Quelle ville ?</option>
+    <div class="dropdown-wrapper grid-b">
+        <select id="city-select" name="city" class="dropdown" required>
+            <option value="" disabled selected>Quelle ville ?</option>
             <option value="{{ constant('App\\Enum\\City::BORDEAUX') }}">Bordeaux</option>
             <option value="{{ constant('App\\Enum\\City::LILLE') }}">Lille</option>
             <option value="{{ constant('App\\Enum\\City::LYON') }}">Lyon</option>
@@ -25,9 +25,9 @@
             <option value="{{ constant('App\\Enum\\City::TOULOUSE') }}">Toulouse</option>
         </select>
     </div>
-    <div class="dropdown dropdown--without-label" style="grid-area: c;">
-        <select id="min-rooms-count-select" name="min_rooms_count" required>
-            <option value="" selected>Combien de pièces au moins ?</option>
+    <div class="dropdown-wrapper grid-c">
+        <select id="min-rooms-count-select" name="min_rooms_count" class="dropdown" required>
+            <option value="" disabled selected>Combien de pièces au moins ?</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -36,9 +36,17 @@
             <option value="100">5+</option>
         </select>
     </div>
-    <input class="input" type="number" name="min_price" placeholder="Quel prix minimum ?" style="grid-area: d;"/>
-    <input class="input" type="number" name="max_price" placeholder="Quel prix maximum ?" required style="grid-area: e;" />
-    <input class="input" type="number" name="min_area" placeholder="Quelle surface minimum ?" style="grid-area: f;" />
-    <input class="input" type="number" name="max_area" placeholder="Quelle surface maximum ?" style="grid-area: g;" />
-    <button class="btn-filter" type="submit" style="grid-area: h;"><i class="fas fa-search fa-fw"></i>Générer</button>
+    <div class="field-wrapper field-wrapper--currency grid-d">
+        <input class="field field--number" type="text" name="min_price" placeholder="Quel prix minimum ?" />
+    </div>
+    <div class="field-wrapper field-wrapper--currency grid-e">
+        <input class="field field--number" type="text" name="max_price" placeholder="Quel prix maximum ?" required />
+    </div>
+    <div class="field-wrapper field-wrapper--area grid-f">
+        <input class="field field--number" type="text" name="min_area" placeholder="Quelle surface minimum ?" />
+    </div>
+    <div class="field-wrapper field-wrapper--area grid-g">
+        <input class="field field--number" type="text" name="max_area" placeholder="Quelle surface maximum ?" />
+    </div>
+    <button class="btn-filter grid-h" type="submit"><i class="fas fa-search fa-fw"></i>Générer</button>
 </form>

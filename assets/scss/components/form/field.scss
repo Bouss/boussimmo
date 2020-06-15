@@ -1,0 +1,63 @@
+@import '../../colors';
+@import 'form';
+
+.field {
+  height: $height;
+  line-height: $height;
+  padding-left: $lateral-padding;
+  border: $border;
+  border-radius: $border-radius;
+  background-color: #fff;
+  font-size: $font-size;
+
+  &:focus {
+    border-color: $border-color;
+    transition: .5s;
+  }
+}
+
+.field-wrapper {
+  position: relative;
+  height: $height;
+  border: $border;
+  border-radius: $border-radius;
+
+  &:focus-within {
+    border-color: $selected-color;
+    transition: .5s;
+  }
+
+  &--currency, &--area {
+    font-weight: 600;
+
+    &:before {
+      position: absolute;
+      right: $lateral-padding;
+      line-height: calc(#{$height} - 2*#{$border-width});
+      font-size: $font-size;
+    }
+
+    .field {
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+  }
+
+  &--currency:before {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f153';
+  }
+
+  &--area:before {
+    content: 'm²';
+  }
+
+  .field {
+    height: calc(#{$height} - 2*#{$border-width});
+    line-height: calc(#{$height} - 2*#{$border-width});
+    border: none;
+  }
+}

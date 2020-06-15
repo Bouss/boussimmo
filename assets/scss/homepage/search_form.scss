@@ -1,14 +1,12 @@
 @import '../colors';
-@import '../form/checkbox';
-@import '../form/dropdown';
-@import '../form/input';
+@import '../components/form/checkbox';
+@import '../components/form/dropdown';
+@import '../components/form/field';
 
 $border-radius: 5px;
 
 #search-form {
   display: grid;
-  grid-template-columns: repeat(14, 1fr);
-  grid-template-rows: auto;
   grid-template:
           "a a a a b b b b c c c c h h"
           "d d d e e e f f f g g g h h";
@@ -16,6 +14,7 @@ $border-radius: 5px;
   row-gap: 5px;
 
   button[type=submit] {
+    padding: 1rem;
     border: none;
     border-radius: $border-radius;
     background-color: $secondary-color;
@@ -25,12 +24,40 @@ $border-radius: 5px;
   }
 }
 
-@media screen and (max-width: 960px) {
-  #search-form {
-    grid-template-columns: none;
-    grid-template: none;
-    grid-auto-flow: row;
+.grid {
+  &-a {
+    grid-area: a;
+  }
+  &-b {
+    grid-area: b;
+  }
+  &-c {
+    grid-area: c;
+  }
+  &-d {
+    grid-area: d;
+  }
+  &-e {
+    grid-area: e;
+  }
+  &-f {
+    grid-area: f;
+  }
+  &-g {
+    grid-area: g;
+  }
+  &-h {
+    grid-area: h;
   }
 }
 
+@media screen and (max-width: 960px) {
+  #search-form {
+    grid-template: none;
+    grid-auto-flow: row;
+  }
 
+  [class*="grid-"] {
+    grid-area: unset;
+  }
+}

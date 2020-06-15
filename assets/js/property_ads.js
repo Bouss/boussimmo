@@ -26,9 +26,11 @@ function loadPropertyAds() {
         type: 'GET',
         url: Routing.generate('property_ads_list'),
         data: {
-            filters: $filterForm.find(':input').filter(function () {
-                return '' !== $(this).val()
-            }).serialize(),
+            filters: $filterForm
+                .find(':input').filter(function () {
+                    return '' !== $(this).val()
+                })
+                .serialize(),
             sort: $sortSelect.val()
         },
         beforeSend: function () {

@@ -1,5 +1,5 @@
 import '../scss/homepage/index.scss';
-import '../scss/homepage/btn_signin.scss';
+import '../scss/components/btn_signin.scss';
 import '../scss/homepage/search_form.scss';
 
 let $searchForm = $('#search-form');

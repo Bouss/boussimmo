@@ -1,0 +1,59 @@
+@import '../../colors';
+@import 'form';
+
+.dropdown {
+  height: $height;
+  padding-left: $lateral-padding;
+  padding-right: 35px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: $border-radius;
+  border: $border;
+  font-size: $font-size;
+  background-position: right .7em top 50%, 0 0;
+  background-size: 1em auto, 100%;
+  background-repeat: no-repeat, repeat;
+  background-color: #fff;
+  background-image: url('../../../images/chevron-down-solid.svg');
+
+  &:focus {
+    border-color: $selected-color;
+    background-image: url('../../../images/chevron-up-solid.svg');
+    transition: .5s;
+  }
+
+  &:invalid {
+    color: $grey-dark;
+  }
+}
+
+.dropdown-wrapper {
+  display: flex;
+  align-items: center;
+  height: $height;
+  border-radius: $border-radius;
+  border: $border;
+  font-size: $font-size;
+  background-color: #fff;
+
+  &:focus-within {
+    border-color: $selected-color;
+    transition: .5s;
+  }
+
+  label, .dropdown {
+    height: calc(#{$height} - 2*#{$border-width});
+  }
+
+  label {
+    line-height: calc(#{$height} - 2*#{$border-width});
+    padding: 0 $lateral-padding;
+    border-right: $border;
+  }
+
+  .dropdown {
+    flex: 1;
+    border: none;
+  }
+}
