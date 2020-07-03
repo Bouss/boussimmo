@@ -1,5 +1,5 @@
 @import '../../colors';
-@import 'form';
+@import 'values';
 
 .field {
   height: $height;
@@ -21,6 +21,7 @@
   height: $height;
   border: $border;
   border-radius: $border-radius;
+  background-color: #fff;
 
   &:focus-within {
     border-color: $selected-color;

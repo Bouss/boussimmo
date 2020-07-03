@@ -76,8 +76,7 @@ class PropertyAdController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $user->setPropertyAdSearchSettings(array_merge($filters, ['sort' => $sort]));
-        $em = $this->getDoctrine()->getManager();
-        $em->flush();
+        $this->getDoctrine()->getManager()->flush();
 
         $googleService->refreshAccessTokenIfExpired($user);
 

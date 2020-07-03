@@ -1,31 +1,33 @@
 import '../scss/homepage/index.scss';
-import '../scss/components/btn_signin.scss';
-import '../scss/homepage/search_form.scss';
+import '../scss/homepage/btn_signin.scss';
+import '../scss/homepage/generate_urls_form.scss';
 
-let $searchForm = $('#search-form');
-let $urlContainer = $('#url-container');
+let $form = $('#generate-urls-form');
+let $resultContainer = $('#result-container');
 
-$searchForm.on('submit', function (e) {
+$form.on('submit', function (e) {
     e.preventDefault();
 
     $.ajax({
         type: 'POST',
-        url: Routing.generate('provider_search_urls'),
-        data: $searchForm.serialize(),
+        url: Routing.generate('provider_result_urls'),
+        data: $form.serialize(),
         success: function (data) {
-            if (!$urlContainer.length) {
-                $searchForm.after('<div id="url-container" style="display: grid; row-gap: 1em;"></div>');
-                $urlContainer = $('#url-container');
+            if (!$resultContainer.length) {
+                $form.parent().after('<div id="result-container"></div>');
+                $resultContainer = $('#result-container');
             } else {
-                $urlContainer.empty();
+                $resultContainer.empty();
             }
 
             $.each(data, function (i, item) {
-                $urlContainer.append(`
-                    <div style="display: flex; align-items: center;">
-                        <img src="build/providers/${item.logo}" alt="${item.provider}"/>
-                        <a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.url}</a>
-                    </div>
+                $resultContainer.append(`
+                    <a class="result link" href="${item.url}" target="_blank" rel="noopener noreferrer">
+                        <div class="result-logo-wrapper">
+                            <img src="build/providers/${item.logo}" alt="${item.provider}"/>
+                        </div>
+                        <span>${item.url}</span>
+                    </a>
                 `);
             })
         }

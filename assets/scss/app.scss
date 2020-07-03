@@ -4,18 +4,19 @@
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 html {
-  box-sizing: border-box;
+  line-height: 1.5rem;
+  font-weight: 400;
   font-size: $default-font-size;
-  font-family: Arial;
+  font-family: 'Lato', sans-serif;
 }
 
 *, *:before, *:after {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background-color: $grey-light;
+  background-color: #fff;
 }
 
 main {
@@ -29,12 +30,12 @@ footer {
   align-items: center;
   justify-content: center;
   height: $footer-height;
+  padding: 0 2rem;
   text-align: center;
   background-color: $primary-color;
   color: #ffffff;
 
   a {
-    text-decoration: underline;
     color: white;
   }
 
@@ -61,11 +62,19 @@ input, select, button {
 }
 
 .container {
-  max-width: $page-width;
+  max-width: $container-width;
 }
 
 .unknown {
   color: $silver;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 576px) {

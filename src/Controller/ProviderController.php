@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProviderController extends AbstractController
 {
     /**
-     * @Route("/search-urls", methods={"POST"}, options={"expose"=true}, name="provider_search_urls")
+     * @Route("/result-urls", methods={"POST"}, options={"expose"=true}, name="provider_result_urls")
      *
      * @param Request             $request
      * @param UrlBuilderContainer $urlBuilderContainer
@@ -29,7 +29,7 @@ class ProviderController extends AbstractController
      *
      * @throws ParserNotFoundException
      */
-    public function getSearchUrls(
+    public function getResultUrls(
         Request $request,
         UrlBuilderContainer $urlBuilderContainer,
         ProviderRepository $providerRepository,

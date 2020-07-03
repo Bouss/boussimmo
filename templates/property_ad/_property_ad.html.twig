@@ -31,7 +31,7 @@
     </a>
     {% if ad.duplicates is not empty %}
         <div class="duplicate-container">
-            {% for duplicate in ad.duplicates %}
+            {% for duplicate in ad.duplicates|slice(0, 5) %}
                 <article class="duplicate">
                     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ duplicate.url }}">
                         <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">

@@ -1,4 +1,4 @@
-<form id="search-form">
+<form id="generate-urls-form">
     <div class="checkbox-group grid-a">
         <div class="checkbox">
             <input id="apartment-checkbox" name="types[{{ constant('App\\Enum\\PropertyType::APARTMENT') }}]" value="1" type="checkbox" checked>
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="dropdown-wrapper grid-b">
-        <select id="city-select" name="city" class="dropdown" required>
+        <select id="city-select" class="dropdown" name="city" required>
             <option value="" disabled selected>Quelle ville ?</option>
             <option value="{{ constant('App\\Enum\\City::BORDEAUX') }}">Bordeaux</option>
             <option value="{{ constant('App\\Enum\\City::LILLE') }}">Lille</option>
@@ -26,7 +26,7 @@
         </select>
     </div>
     <div class="dropdown-wrapper grid-c">
-        <select id="min-rooms-count-select" name="min_rooms_count" class="dropdown" required>
+        <select id="min-rooms-count-select" class="dropdown" name="min_rooms_count" required>
             <option value="" disabled selected>Combien de pièces au moins ?</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -37,16 +37,16 @@
         </select>
     </div>
     <div class="field-wrapper field-wrapper--currency grid-d">
-        <input class="field field--number" type="text" name="min_price" placeholder="Quel prix minimum ?" />
+        <input class="field" data-type-number type="text" name="min_price" placeholder="Quel prix min ?" />
     </div>
     <div class="field-wrapper field-wrapper--currency grid-e">
-        <input class="field field--number" type="text" name="max_price" placeholder="Quel prix maximum ?" required />
+        <input class="field" data-type-number type="text" name="max_price" placeholder="Quel prix max ?" required />
     </div>
     <div class="field-wrapper field-wrapper--area grid-f">
-        <input class="field field--number" type="text" name="min_area" placeholder="Quelle surface minimum ?" />
+        <input class="field" data-type-number type="text" name="min_area" placeholder="Quelle surface min ?" />
     </div>
     <div class="field-wrapper field-wrapper--area grid-g">
-        <input class="field field--number" type="text" name="max_area" placeholder="Quelle surface maximum ?" />
+        <input class="field" data-type-number type="text" name="max_area" placeholder="Quelle surface max ?" />
     </div>
     <button class="btn-filter grid-h" type="submit"><i class="fas fa-search fa-fw"></i>Générer</button>
 </form>

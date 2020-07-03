@@ -22,12 +22,12 @@
 
 {% block body %}
     <p class="introduction">
-        Immo'Scrap <b>regroupe</b>, sur une seule et même page, toutes les <b>annonces immobilières</b> extraites depuis vos <b>newsletters</b>.
+        BoussImmo <b>regroupe</b>, sur une seule et même page, toutes les <b>annonces immobilières</b> extraites depuis vos <b>newsletters</b>.
     </p>
     <div class="section-container">
         <section id="principle">
             <h2>Comment ça marche ?</h2>
-            <p>Tout d'abord, Immo'Scrap <b>extrait les biens immobiliers</b> se trouvant dans vos emails de newsletter de sites d'annonces immobilières.</p>
+            <p>Tout d'abord, BoussImmo <b>extrait les biens immobiliers</b> se trouvant dans vos emails de newsletter de sites d'annonces immobilières.</p>
             <p>
                 Les annonces sont ensuite <b>filtrées</b> : les doublons (annonces indentiques émanant d'un même site) sont <b>mis de côté</b>,
                 tandis que les annonces similaires diffusées par des plateformes différentes sont <b>regroupées</b> entre elles,
@@ -38,32 +38,47 @@
         <section id="instructions">
             <h2>Que faut-il faire pour utiliser le site ?</h2>
             <p>Au préalable, s'<b>inscrire aux alertes</b> de vente de biens immobiliers (maisons et/ou appartements) qui vous intéressent avec votre <b>adresse Gmail</b> sur les plateformes citées juste après.</p>
-            <p>Connecter son <b>compte Gmail</b> à Immo'Scrap en cliquant sur le bouton de connexion <a href="#sign-in">ci-dessus</a>.</p>
-            <p>Consulter Immo'Scrap aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
+            <p>Connecter son <b>compte Gmail</b> à BoussImmo en cliquant sur le bouton de connexion <a href="#sign-in">ci-dessus</a>.</p>
+            <p>Consulter BoussImmo aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
         </section>
         <section id="providers">
-            <h2>Quelles sont les plateformes d'annonces immobilières gérées par Immo'Scrap ?</h2>
+            <h2>Quelles sont les plateformes d'annonces immobilières gérées par BoussImmo ?</h2>
             <div class="provider-container">
-                <a href="https://www.bienici.com"><img src="{{ asset('build/providers/bienici.svg') }}" alt="Bien'ici"/></a>
-                <a href="https://www.leboncoin.fr"><img src="{{ asset('build/providers/leboncoin.svg') }}" alt="Leboncoin"/></a>
-                <a href="https://www.logic-immo.com"><img src="{{ asset('build/providers/logic_immo.png') }}" alt="Logic-Immo"/></a>
-                <a href="https://www.ouestfrance-immo.com"><img src="{{ asset('build/providers/ouestfrance_immo.svg') }}" alt="OuestFrance-Immo"/></a>
-                <a href="https://www.pap.fr"><img src="{{ asset('build/providers/pap.png') }}" alt="PAP"/></a>
-                <a href="https://www.seloger.com"><img src="{{ asset('build/providers/seloger.svg') }}" alt="SeLoger"/></a>
-                <a href="https://www.superimmo.com"><img src="{{ asset('build/providers/superimmo.svg') }}" alt="Superimmo"/></a>
+                <a href="https://www.bienici.com" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/bienici.svg') }}" alt="Bien'ici"/>
+                </a>
+                <a href="https://www.leboncoin.fr" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/leboncoin.svg') }}" alt="Leboncoin"/>
+                </a>
+                <a href="https://www.logic-immo.com" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/logic_immo.png') }}" alt="Logic-Immo"/>
+                </a>
+                <a href="https://www.ouestfrance-immo.com" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/ouestfrance_immo.svg') }}" alt="OuestFrance-Immo"/>
+                </a>
+                <a href="https://www.pap.fr" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/pap.png') }}" alt="PAP"/>
+                </a>
+                <a href="https://www.seloger.com" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/seloger.svg') }}" alt="SeLoger"/>
+                </a>
+                <a href="https://www.superimmo.com" class="link" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('build/providers/superimmo.svg') }}" alt="Superimmo"/>
+                </a>
             </div>
-
-            <p>Gagnez du temps en générant les <b>liens de page de résultats</b> de bien immobiliers qui correspondent à vos critères en utilisant le formulaire ci-dessous.</p>
-            <p>N'oubliez pas de vous inscrire aux <b>alertes</b> sur ces pages pour exploiter tout le potentiel d'ImmoScrap !</p>
-            {{ include('homepage/_search_form.html.twig') }}
+            <div id="generate-urls-form-wrapper">
+                <p>Gagnez du temps en générant les <b>liens de page de résultats</b> de bien immobiliers qui correspondent à vos critères</p>
+                <p><i class="fas fa-bell fa-fw"></i>&nbsp;N'oubliez pas de vous inscrire aux <b>alertes</b> sur ces pages pour exploiter tout le potentiel de BoussImmo !</p>
+                {{ include('homepage/_generate_urls_form.html.twig') }}
+            </div>
         </section>
         <section id="security">
             <h2>Qu'en est-il de la confidentialité ?</h2>
-            <p>Immo'Scrap analyse <b>uniquement</b> des emails envoyés par les plateformes d'annonces immoblières citées ci-dessus.</p>
-            <p>Immo'Scrap ne <b>conserve</b> ni ne <b>diffuse</b> aucun email.</p>
-            <p>Immo'Scrap ne stocke que les données personnelles dont il a besoin pour <b>fonctionner</b> : votre adresse Gmail.</p>
-            <p>Les adresses e-mail ne sont <b>ni vendues ni partagées</b> car Immo'Scrap est développé par un particulier indépendant et complètement désintéressé.</p>
-            <p>Il est possible à tout moment de <b>déconnecter</b> votre compte Google d'Immo'Scrap, depuis Immo'Scrap ou votre <a class="link" href="https://myaccount.google.com/permissions">compte Google</a>.</p>
+            <p>BoussImmo analyse <b>uniquement</b> des emails envoyés par les plateformes d'annonces immoblières citées ci-dessus.</p>
+            <p>BoussImmo ne <b>conserve</b> ni ne <b>diffuse</b> aucun email.</p>
+            <p>BoussImmo ne stocke que les données personnelles dont il a besoin pour <b>fonctionner</b> : votre adresse Gmail.</p>
+            <p>Les adresses e-mail ne sont <b>ni vendues ni partagées</b> car BoussImmo est développé par un particulier indépendant et complètement désintéressé.</p>
+            <p>Il est possible à tout moment de <b>déconnecter</b> votre compte Google d'BoussImmo, depuis BoussImmo ou votre <a class="underline" href="https://myaccount.google.com/permissions">compte Google</a>.</p>
         </section>
     </div>
 {% endblock %}

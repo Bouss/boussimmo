@@ -15,6 +15,7 @@ body {
   position: relative;
   min-height: 100%;
   padding-bottom: $footer-height*1.25;
+  background-color: $grey-light;
 }
 
 footer {
@@ -26,7 +27,8 @@ footer {
 
 .user-section {
   display: flex;
-  max-width: $page-width;
+  align-items: center;
+  max-width: $container-width;
   margin: 0 auto;
   padding: $spacing 0;
 
@@ -42,13 +44,14 @@ footer {
   }
 
   .btn-signout {
-    padding: 0 12px;
-    line-height: 28px;
+    padding: 6px 12px;
     border: 1px solid #c6c6c6;
     border-radius: 2px;
     background: #f8f8f8;
+    font-weight: 300;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
     color: #666;
-    font: 13px/27px Roboto,RobotoDraft,Arial,sans-serif;
     cursor: pointer;
 
     &:hover {

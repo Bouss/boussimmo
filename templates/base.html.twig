@@ -5,17 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{% block title %}Immo' Scrap{% endblock %}</title>
         {% block stylesheets %}
-            <link href="https://fonts.googleapis.com/css?family=Roboto:400&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
         <header>
-            {% block header %}{% endblock %}
+            {% block header %}
+            {% endblock %}
         </header>
         <main>
             <div class="container">
-                {% block body %}{% endblock %}
+                {% block body %}
+                {% endblock %}
             </div>
         </main>
         <footer>
@@ -23,10 +25,9 @@
                 <img src="{{ asset('build/github.svg') }}" alt="GitHub" />
             </a>&nbsp;
             <p>
-                Dans un souci de parfaite transparence, le code de ce projet est disponible&nbsp;<a href="https://github.com/Bouss/immoscrap">ici</a>.
+                Dans un souci de parfaite transparence, le code de ce projet est disponible&nbsp;<a class="underline" href="https://github.com/Bouss/immoscrap">ici</a>.
             </p>
         </footer>
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}

@@ -10,40 +10,54 @@ header {
 }
 
 .cta-wrapper {
-  max-width: $page-width;
+  max-width: $container-width;
   margin: 0 auto;
   text-align: center;
 
   h1 {
     margin-top: 0;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
 }
 
 .container {
-  padding: $content-padding;
   background-color: white;
-  box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
 }
 
 .introduction {
   margin: 3em 0;
+  padding: $content-padding;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .section-container {
-  display: grid;
-  row-gap: 2rem;
+  > *:not(:first-child) {
+    margin-top: 3rem;
+  }
 }
 
 section {
+  $border: 10px solid $queen-blue;
+  padding: 0 3rem;
+
+  &:nth-child(even) {
+    border-right: $border;
+
+    h2 {
+      text-align: right;
+    }
+  }
+
+  &:nth-child(odd) {
+    border-left: $border;
+  }
+
   h2 {
     margin-top: 0;
     padding-bottom: 0.5em;
     font-size: 1.4rem;
-    color: $primary-color;
-    border-bottom: 1px solid $grey-light;
+    color: $queen-blue;
   }
 
   p {
@@ -57,26 +71,15 @@ section {
   li {
     list-style-type: none;
   }
-
-  .link {
-    text-decoration: underline;
-    color: blue;
-  }
 }
 
 .provider-container {
   display: grid;
   grid-auto-flow: column;
 
-  a {
+  .link {
     display: block;
-    padding: 10px 0;
     text-align: center;
-    transition: .5s;
-
-    &:hover {
-      background-color: rgba($grey-light, 0.5);
-    }
   }
 }
 
@@ -84,6 +87,20 @@ section {
   height: 1.2rem;
   max-width: 8rem;
   vertical-align: middle;
+}
+
+#generate-urls-form-wrapper {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba($grey-light, 0.5);
+
+  p {
+    text-align: center;
+  }
+
+  .fa-bell {
+    color: $secondary-color;
+  }
 }
 
 #security {
@@ -96,8 +113,66 @@ section {
   }
 }
 
+#result-container {
+  display: grid;
+  row-gap: 1em;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  overflow: hidden;
+
+  .result {
+    display: flex;
+    align-items: center;
+    line-height: 1rem;
+    text-decoration: none;
+
+    &-logo-wrapper {
+      $logo-width: 150px;
+      width: $logo-width;
+
+      & > img {
+        max-width: $logo-width;
+      }
+    }
+
+    & > span {
+      margin-left: 2rem;
+      white-space: nowrap;
+      background: linear-gradient(to right, #000 0%, $grey-light 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+.link {
+  padding: 10px;
+  transition: .5s;
+
+  &:hover, &:active {
+    background-color: rgba($grey-light, 0.5);
+  }
+}
+
 @media screen and (max-width: 960px) {
   .provider-container {
     grid-auto-flow: row;
+  }
+
+  #result-container {
+    .result {
+      &-logo-wrapper {
+        $logo-width: 70px;
+        width: $logo-width;
+
+        & > img {
+          max-width: $logo-width;
+        }
+      }
+
+      & > a {
+        max-width: 125px;
+      }
+    }
   }
 }

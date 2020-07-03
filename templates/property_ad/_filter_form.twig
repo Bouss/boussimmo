@@ -19,7 +19,7 @@
 {% set gmail_label_choices = {'Tous': ''}|merge(gmail_label_choices) %}
 
 <form id="filter-form">
-    <div class="dropdown-wrapper">
+    <div class="dropdown-wrapper no-border">
         <label for="newer-than-select">Annonces datant de</label>
         <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyAdFilter::NEWER_THAN') }}" class="dropdown">
             {% for label, value in newer_than_choices %}
@@ -27,7 +27,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="dropdown-wrapper">
+    <div class="dropdown-wrapper no-border">
         <label for="gmail-label-select">Label Gmail</label>
         <select id="gmail-label-select" name="{{ constant('App\\Enum\\PropertyAdFilter::GMAIL_LABEL') }}" class="dropdown">
             {% for label, value in gmail_label_choices %}
@@ -35,7 +35,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="dropdown-wrapper">
+    <div class="dropdown-wrapper no-border">
         <label for="provider-select">Source</label>
         <select id="provider-select" name="{{ constant('App\\Enum\\PropertyAdFilter::PROVIDER') }}" class="dropdown">
             {% for label, value in provider_choices %}
@@ -44,7 +44,7 @@
         </select>
     </div>
     <div class="checkbox">
-        <input id="new-build-checkbox" name="{{ constant('App\\Enum\\PropertyAdFilter::NEW_BUILD') }}" type="checkbox" value="1"{% if new_build %} checked{% endif %}>
+        <input id="new-build-checkbox" class="no-border" name="{{ constant('App\\Enum\\PropertyAdFilter::NEW_BUILD') }}" type="checkbox" value="1"{% if new_build %} checked{% endif %}>
         <label for="new-build-checkbox">Neuf uniquement</label>
     </div>
     <button class="btn-filter" type="submit"><i class="fas fa-search"></i>&nbsp;Appliquer</button>
