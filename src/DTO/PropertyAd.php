@@ -300,7 +300,7 @@ class PropertyAd
      */
     public function equals(PropertyAd $propertyAd, bool $strict = false): bool
     {
-        if (null === $this->price) {
+        if (null === $this->price || null === $propertyAd->getPrice()) {
             return false;
         }
 

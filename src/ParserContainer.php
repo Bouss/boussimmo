@@ -69,7 +69,7 @@ class ParserContainer implements ServiceSubscriberInterface
     public function get(string $id): ParserInterface
     {
         if (!$this->locator->has($id)) {
-            throw new ParserNotFoundException(sprintf('No parser found with the id: "%s"', $id));
+            throw new ParserNotFoundException('No parser found with the id: ' . $id);
         }
 
         return $this->locator->get($id);

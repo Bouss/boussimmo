@@ -3,7 +3,7 @@
 namespace App;
 
 use App\Enum\Provider;
-use App\Exception\ParserNotFoundException;
+use App\Exception\UrlBuilderNotFoundException;
 use App\UrlBuilder\BienIciUrlBuilder;
 use App\UrlBuilder\LeBonCoinUrlBuilder;
 use App\UrlBuilder\LogicImmoNeufUrlBuilder;
@@ -58,12 +58,12 @@ class UrlBuilderContainer implements ServiceSubscriberInterface
      *
      * @return UrlBuilderInterface
      *
-     * @throws ParserNotFoundException
+     * @throws UrlBuilderNotFoundException
      */
     public function get(string $id): UrlBuilderInterface
     {
         if (!$this->locator->has($id)) {
-            throw new ParserNotFoundException(sprintf('No parser found with the id: "%s"', $id));
+            throw new UrlBuilderNotFoundException('No URL builder found with the id: ' . $id);
         }
 
         return $this->locator->get($id);
