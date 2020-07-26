@@ -85,12 +85,13 @@ class PropertyAdRepository
             }
         }
 
+        // Flatten the array
         $propertyAds = array_merge(...$propertyAds);
 
         // Remove duplicates from same provider
         $this->removeDuplicates($propertyAds);
 
-        // Group same property ads from different providers
+        // Group same properties from different property ads
         $this->groupPropertyAds($propertyAds);
 
         return $propertyAds;
