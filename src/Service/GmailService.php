@@ -52,7 +52,7 @@ class GmailService
         $html = '';
 
         if (null !== $body = $message->getPayload()->getBody()->data) {
-            $html = StringUtil::base64UrlDecode($body);
+            $html .= StringUtil::base64UrlDecode($body);
         }
 
         /** @var Google_Service_Gmail_MessagePart $part */

@@ -7,13 +7,13 @@ use App\Enum\PropertyAdFilter;
 use App\Exception\ParseException;
 use App\Repository\ProviderRepository;
 use App\Formatter\DecimalFormatter;
-use App\Util\StringUtil;
 use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use function array_filter;
 use function array_merge;
+use function Symfony\Component\String\u;
 
 abstract class AbstractParser implements ParserInterface
 {
@@ -283,10 +283,7 @@ abstract class AbstractParser implements ParserInterface
                 return 1 === $crawler->filter(static::SELECTOR_NEW_BUILD)->count();
             }
 
-            return StringUtil::contains(
-                $crawler->filter(static::SELECTOR_NEW_BUILD)->text(),
-                PropertyAd::NEW_BUILD_WORDS
-            );
+            return u($crawler->filter(static::SELECTOR_NEW_BUILD)->text())->containsAny(PropertyAd::NEW_BUILD_WORDS);
         } catch (Exception $e) {
             return false;
         }

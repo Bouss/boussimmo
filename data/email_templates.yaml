@@ -1,6 +1,12 @@
 parameters:
     email_templates:
         # Provider email templates having a particular keyword in the subject
+        !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF:
+            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF
+            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
+            username: "\"Ouestfrance-immo.com\""
+            email_address: contact_alerte@news.ouestfrance-immo.com
+            subject_keyword: neuf
         !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF_2:
             id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF_2
             provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
@@ -45,9 +51,9 @@ parameters:
             provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
             username: "\"Ouestfrance-immo.com\""
             email_address: alerte@news.ouestfrance-immo.com
-        !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF:
-            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF
-            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
+        !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2:
+            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2
+            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
             username: "\"Ouestfrance-immo.com\""
             email_address: contact_alerte@news.ouestfrance-immo.com
         !php/const App\Enum\EmailTemplate::PAP:

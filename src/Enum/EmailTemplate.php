@@ -10,6 +10,7 @@ class EmailTemplate extends AbstractEnum
     public const LOGIC_IMMO_2 = 'logic_immo_2';
     public const LOGIC_IMMO_NEUF = 'logic_immo_neuf';
     public const OUESTFRANCE_IMMO = 'ouestfrance_immo';
+    public const OUESTFRANCE_IMMO_2 = 'ouestfrance_immo_2';
     public const OUESTFRANCE_IMMO_NEUF = 'ouestfrance_immo_neuf';
     public const OUESTFRANCE_IMMO_NEUF_2 = 'ouestfrance_immo_neuf_2';
     public const PAP = 'pap';

@@ -9,6 +9,7 @@ use App\Parser\LeBonCoinParser;
 use App\Parser\LogicImmo2Parser;
 use App\Parser\LogicImmoNeufParser;
 use App\Parser\LogicImmoParser;
+use App\Parser\OuestFranceImmo2Parser;
 use App\Parser\OuestFranceImmoNeuf2Parser;
 use App\Parser\OuestFranceImmoNeufParser;
 use App\Parser\OuestFranceImmoParser;
@@ -47,6 +48,7 @@ class ParserContainer implements ServiceSubscriberInterface
             EmailTemplate::LOGIC_IMMO_2            => LogicImmo2Parser::class,
             EmailTemplate::LOGIC_IMMO_NEUF         => LogicImmoNeufParser::class,
             EmailTemplate::OUESTFRANCE_IMMO        => OuestFranceImmoParser::class,
+            EmailTemplate::OUESTFRANCE_IMMO_2      => OuestFranceImmo2Parser::class,
             EmailTemplate::OUESTFRANCE_IMMO_NEUF   => OuestFranceImmoNeufParser::class,
             EmailTemplate::OUESTFRANCE_IMMO_NEUF_2 => OuestFranceImmoNeuf2Parser::class,
             EmailTemplate::PAP                     => PapParser::class,

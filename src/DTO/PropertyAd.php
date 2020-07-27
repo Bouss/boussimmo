@@ -2,8 +2,8 @@
 
 namespace App\DTO;
 
-use App\Util\StringUtil;
 use DateTime;
+use function Symfony\Component\String\u;
 
 class PropertyAd
 {
@@ -314,6 +314,6 @@ class PropertyAd
 
     public function guessNewBuild(): void
     {
-        $this->newBuild = StringUtil::contains($this->title . $this->description, self::NEW_BUILD_WORDS);
+        $this->newBuild = u($this->title . $this->description)->containsAny(self::NEW_BUILD_WORDS);
     }
 }
