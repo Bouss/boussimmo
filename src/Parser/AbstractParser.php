@@ -56,9 +56,9 @@ abstract class AbstractParser implements ParserInterface
     {
         // Iterate over all DOM elements wrapping a property ad
         /** @var PropertyAd[] $ads */
-        $ads[] = ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $crawler) use ($params) {
+        $ads[] = ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $node) use ($params) {
             try {
-                return $this->createPropertyAd($crawler, $params['date']);
+                return $this->createPropertyAd($node, $params['date']);
             } catch (Exception $e) {
                 $this->logger->warning('Error while parsing a property ad: ' . $e->getMessage(), $params);
 

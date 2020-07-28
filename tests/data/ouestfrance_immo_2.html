@@ -1,1348 +1,573 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
-      xmlns:o="urn:schemas-microsoft-com:office:office">
-<head><title></title><!--[if !mso]><!-- -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <style type="text/css">#outlook a {
-        padding: 0;
-    }
-
-
-    .ReadMsgBody {
-        width: 100%;
-    }
-
-
-    .ExternalClass {
-        width: 100%;
-    }
-
-
-    .ExternalClass * {
-        line-height: 100%;
-    }
-
-
-    body {
-        margin: 0;
-        padding: 0;
-        -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-    }
-
-
-    table, td {
-        border-collapse: collapse;
-        mso-table-lspace: 0pt;
-        mso-table-rspace: 0pt;
-    }
-
-
-    img {
-        border: 0;
-        height: auto;
-        line-height: 100%;
-        outline: none;
-        text-decoration: none;
-        -ms-interpolation-mode: bicubic;
-    }
-
-
-    p {
-        display: block;
-        margin: 13px 0;
-    }</style><!--[if !mso]><!-->
-    <style type="text/css">@media only screen and (max-width: 480px) {
-
-
-        @-ms-viewport {
-            width: 320px;
-        }
-
-
-        @viewport {
-            width: 320px;
-        }
-
-
-    }</style><!--<![endif]--><!--[if mso]>
-
-
-    <xml>
-
-
-        <o:OfficeDocumentSettings>
-
-
-            <o:AllowPNG/>
-
-
-            <o:PixelsPerInch>96</o:PixelsPerInch>
-
-
-        </o:OfficeDocumentSettings>
-
-
-    </xml>
-
-
-    <![endif]--><!--[if lte mso 11]>
-
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
     <style type="text/css">
+        <!--
 
+        /* Basics */
+        body {
+            margin: 0 !important;
+            padding: 0;
+            background-color: #ffffff;
+        }
 
-        .outlook-group-fix {
-            width: 100% !important;
+        table {
+            border-spacing: 0;
+            font-family: sans-serif;
+            color: #333333;
+        }
+
+        td {
+            padding: 0;
+        }
+
+        img {
+            border: 0;
+        }
+
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        .wrapper {
+            width: 100%;
+            table-layout: fixed;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        .webkit {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            .hidephone {
+                display: none;
+            }
+
+            tr[class=hidephone] {
+                display: none;
+            }
+        }
+
+        /* OFI */
+        body {
+            margin-top: 0;
+            margin-right: 0;
+            margin-left: 0;
+            margin-bottom: 0;
+            padding-top: 0;
+            padding-right: 0;
+            padding-left: 0;
+            padding-bottom: 0;
+            background-color: #ffffff;
+            color: #6e6e6e;
+        }
+
+        .QuiEnvoi {
+            color: #6e6e6e;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:link {
+            color: #000000;
+        }
+
+        a:visited {
+            color: #000000;
+        }
+
+        a:hover {
+            color: #000000;
+        }
+
+        .blocAnn {
+            float: left;
+            margin-right: 5px;
+        }
+
+        .btnIconsAccessOFI {
+            text-align: center;
+        }
+
+        .btnActionAlerte a, .btnIconsAccessOFI a {
+            display: inline-block
+        }
+
+        .btnActionAlerte img, .btnIconsAccessOFI img {
+            display: inline-block
         }
 
 
+        -->
     </style>
-
-
-    <![endif]-->
-    <style type="text/css">@media only screen and (min-width: 480px) {
-
-
-        .mj-column-per-100 {
-            width: 100% !important;
-            max-width: 100%;
-        }
-
-
-        .mj-column-per-50 {
-            width: 50% !important;
-            max-width: 50%;
-        }
-
-
-        .mj-column-per-20 {
-            width: 20% !important;
-            max-width: 20%;
-        }
-
-
-        .mj-column-per-49 {
-            width: 49% !important;
-            max-width: 49%;
-        }
-
-
-        .mj-column-per-2 {
-            width: 2% !important;
-            max-width: 2%;
-        }
-
-
-        .mj-column-per-25 {
-            width: 25% !important;
-            max-width: 25%;
-        }
-
-
-    }</style>
-    <style type="text/css">@media only screen and (max-width: 480px) {
-
-
-        table.full-width-mobile {
-            width: 100% !important;
-        }
-
-
-        td.full-width-mobile {
-            width: auto !important;
-        }
-
-
-    }</style>
-    <style type="text/css">a, a:visited, a:hover, a:active, .ii a, .ii a:hover {
-        color: inherit;
-        text-decoration: none;
-    }</style>
 </head>
-<body>
-<div><!--[if mso]>
-    <style type="text/css"> body, table, td, h1, h2, h3, h4, h5, h6, p, div, span, strong, a {
-        font-family: Arial, Helvetica, sans-serif !important;
-    }
 
 
-    </style>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:arial;font-size:11px;line-height:10px;text-align:center;color:#6a6a6a;">
-                                        Nous avons trouvé de nouvelles annonces correspondant à votre recherche.
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="background:#2D4389;background-color:#2D4389;Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
-               style="background:#2D4389;background-color:#2D4389;width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:2px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr></tr>
-                    </table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center" style="font-size:0px;padding:10px 10px;word-break:break-word;">
-                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                           style="border-collapse:collapse;border-spacing:0px;">
-                                        <tbody>
+<body bgcolor="#ebebeb" patch="fix">
+
+<table width="100%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff"
+       class="tablEmailing">
+    <tr>
+        <td>
+
+            <table width="95%" height="" border="0" align="center" cellpadding="0" cellspacing="0">
+
+                <tr>
+
+                    <td align="center">
+
+                        <table style="font-size:14px;border:0;" width="100%" align="center" border="0" cellpadding="0"
+                               cellspacing="0">
+
+                            <tr class="hidephone">
+                                <td align="center">
+
+                                    <table cellpadding="0" align="center" cellspacing="0" border="0"
+                                           style="border:0;font-size:14px;">
                                         <tr>
-                                            <td style="width:320px;"><a
-                                                    href="https://www.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=logo"
-                                                    target="_blank"><img alt="Ouestfrance-immo.com" height="auto"
-                                                                         src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/ouestfranceimmo.gif"
-                                                                         style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                         width="320"></a></td>
+                                            <td height="10"
+                                                style="mso-table-rspace:0pt;mso-table-lspace:0pt;border-collapse:collapse;"></td>
                                         </tr>
-                                        </tbody>
                                     </table>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td style="font-size:0px;padding:0;word-break:break-word;"><p
-                                        style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:600px;" role="presentation" width="600px" ><tr><td style="height:0;line-height:0;"> &nbsp;
 
- 
-</td></tr></table><![endif]--></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:8px 20px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:560px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
                             <tr>
-                                <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
-                                    <div style="font-family:Arial, sans-serif, Helvetica;font-size:20px;line-height:1;text-align:center;color:#2D4389;">
-                                        Mes alertes immo !
+                                <td align="center">
+                                    <div style="height:5px;background-color:#265da2;max-width: 600px;"></div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <!-- Bannière entete - LOGO OFI -->
+                                <td height="20" align="center">
+                                    <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/1/T_oblyFGyTPvg0AB54cjlw/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vP3V0bV9zb3VyY2U9YWxlcnRlJnV0bV9tZWRpdW09ZW1haWxfaW50ZXJuZSZ1dG1fY2FtcGFpZ249cHJvZHVpdHMtcmVjb3MmdXRtX2NvbnRlbnQ9bG9nbyZhYm89MjkyODY1Mw"
+                                       title="ouestfrance-immo.com">
+                                        <div style="height:63px;max-width: 600px;background-color:#f8f8f8;">
+                                            <img src="https://www.ouestfrance-immo.com/img/mail/alerte/01_v2.gif"
+                                                 border="0" alt="ouestfrance-immo.com" width="316" height="22"
+                                                 style="display: block;float:left;margin-top:15px;margin-left:10px"/>
+                                        </div>
+                                    </a>
+                                </td>
+
+                            </tr>
+
+                            <tr class="hidephone">
+
+                                <!-- Bannière entete - MES ALERTES -->
+                                <td align="center" height="108" width="600" style="height:108px;width:600px">
+                                    <div style="height:108px; width: 600px; text-align:left;background:url(https://www.ouestfrance-immo.com/img/mail/alerte/entete_reco_new.gif);">
+                                        &nbsp;
                                     </div>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="background:#F7F7F7;background-color:#F7F7F7;Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation"
-               style="background:#F7F7F7;background-color:#F7F7F7;width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:10px 20px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:560px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
                             <tr>
-                                <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
-                                    <div style="font-family:Arial, sans-serif, Helvetica;font-size:16px;line-height:1;text-align:center;color:#2D4389;">
-                                        <a href="https://www.ouestfrance-immo.com/annonce/push/?idpsh=1500582&utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=toutes_annonces"><b>Programme
-                                            Neuf, Vente appartement, Vente maison à Nantes avec une surface minimum de
-                                            50m² pour un prix minimum de 140 000€ et un maximum de 200 000€</b></a>
+                                <td height="20" width="600" align="center"
+                                    style="width:600px;font-family:Arial, Helvetica, sans-serif; font-size:16px; color:4d4d4d;text-align:center;">
+                                    <div style="width: 580px; text-align:left;padding:10px;background:#f8f8f8;margin:0 auto;">
+                                        Dans le cadre de votre <b>recherche immobilière</b> nous vous proposons une <b>sélection
+                                        personnalisée</b> d’annonces qui peut vous <b>intéresser !</b>
                                     </div>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:5px 0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:middle;width:300px;"><![endif]-->
-                    <div class="mj-column-per-50 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
-                            <tbody>
                             <tr>
-                                <td style="vertical-align:middle;padding:0px;">
-                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%">
+
+                                <!-- SPACER -->
+                                <td height="20">
+                                    <img width="20" border="0" height="20" style="display: block;" alt=""
+                                         src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif">
+                                </td>
+
+                            </tr>
+
+
+                            <!-- DEBUT TR bandeau recherche -->
+                            <tr>
+
+                                <td height="20"
+                                    style="background:url(https://www.ouestfrance-immo.com/img/mail/alerte/back.gif);background-repeat:repeat-y;background-position:center">
+
+                                    <table cellpadding="0" align="center" cellspacing="0" border="0">
+
                                         <tr>
-                                            <td align="center"
-                                                style="font-size:0px;padding:5px 0px 0px 0px;word-break:break-word;">
-                                                <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                                       style="border-collapse:collapse;border-spacing:0px;"
-                                                       class="full-width-mobile">
-                                                    <tbody>
+
+                                            <!-- SPACER -->
+                                            <td colspan="3">
+                                                <img src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif"
+                                                     border="0" alt="" width="20" height="20" style="display: block;"/>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <!-- SPACER -->
+                                            <td>
+                                                <img src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif"
+                                                     border="0" alt="" width="20" height="20" style="display: block;"/>
+                                            </td>
+
+                                            <!-- Bandeau critères de recherche -->
+                                            <td height="20" align="left"
+                                                style="font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#4e4e4e;max-width: 600px;">
+
+                                                <font align="left" color="#4e4e4e" size="2" face="Arial, sans-serif"
+                                                      style="mso-line-height-rule:exactly; line-height:20px;font-family:Arial, sans-serif;font-size:16px;color:#4e4e4e;font-weight:normal;display:block;padding: 0 10px;">
+                                                    <b>Les crit&egrave;res de votre alerte :</b><br/>
+                                                    Nantes - Vente maison - Vente appartement 3 pièces - De 140000
+                                                    &euro; à 200000 &euro; </font>
+
+                                            </td>
+
+                                            <!-- SPACER -->
+                                            <td>
+                                                <img src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif"
+                                                     border="0" alt="" width="20" height="20" style="display: block;"/>
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                            <!-- SPACER -->
+                                            <td colspan="3">
+                                                <img src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif"
+                                                     border="0" alt="" width="20" height="20" style="display: block;"/>
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                                </td>
+
+                            </tr>
+                            <!-- FIN TR bandeau recherche -->
+
+                            <tr>
+
+                                <!-- Ombre portée bottom -->
+                                <td height="3"
+                                    style="background:url(https://www.ouestfrance-immo.com/img/mail/alerte/back_bottom.gif);background-repeat:no-repeat;background-position:center">
+                                </td>
+
+                            </tr>
+
+                            <tr>
+                                <!-- SPACER -->
+                                <td height="20"><img src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif"
+                                                     border="0" alt="" width="20" height="20" style="display: block;"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <!-- TD CONTAINER ANNONCES -->
+                                <td height="20" align="center">
+
+                                    <!-- DEBUT TABLE CONTAINER -->
+                                    <table align="center" style="max-width:615px">
+
+                                        <tr>
+
+                                            <td align="center">
+
+                                                <!-- DEBUT ANNONCE -->
+
+
+                                                <!-- DEBUT TABLE bloc annonce -->
+                                                <table cellpadding="10" align="left" cellspacing="0" border="0"
+                                                       background="https://www.ouestfrance-immo.com/img/mail/alerte/background.gif"
+                                                       width="300" height="343" class="blocAnn">
+
+
                                                     <tr>
-                                                        <td style="width:300px;" class="full-width-mobile"><a
-                                                                href="https://www.ouestfrance-immo.com/annonce/push/?idabo=2928653&amp;idpsh=1500582&amp;ann_id=14903412&utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=annonce"
-                                                                target="_blank"><img height="auto"
-                                                                                     src="https://www.ouestfrance-immo.com/photo-vente-appartement-nantes-44/201/appartement-a-vendre-nantes-14903412_1_1595698443_89ef82ade19c1fcffbff3d91e26f87f7_rcrop_375-180_.jpg"
-                                                                                     style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                                     width="300"></a></td>
+
+                                                        <!-- ANNONCE PHOTO -->
+
+                                                        <td colspan="1"
+                                                            style="position: relative;height:206px;padding-bottom: 0px;padding-left : 10px; ">
+
+                                                            <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/2/EPDKz2-tz362BYK5504I4Q/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vYW5ub25jZS9wdXNoLz9pZGFibz0yOTI4NjUzJmlkcHNoPTEzMjEwMTYmYW5uX2lkPTE0NjA5MDk5JnR5cGU9Y29sbGFiJnV0bV9zb3VyY2U9YWxlcnRlJnV0bV9tZWRpdW09ZW1haWxfaW50ZXJuZSZ1dG1fY2FtcGFpZ249cHJvZHVpdHMtcmVjb3MmdXRtX2NvbnRlbnQ9YW5ub25jZV9yZWNv"
+                                                               onfocus="this.blur();"
+                                                               title="Nantes - Vente maison - Vente appartement 3 pièces - De 140000 &euro; à 200000 &euro;"
+                                                               style="text-decoration: none;position : relative;">
+                                                                <img src="https://www.ouestfrance-immo.com/photo-vente-appartement-nantes-44/201/appartement-a-vendre-nantes-14609099_1_1583375731_df552368223b0256869f24287a986f1a_crop_276-207_.jpg"
+                                                                     border="0" alt="Vente appartement" width="276"
+                                                                     height="206"
+                                                                     style="display: block;position:relative;"/>
+
+                                                                <!-- DEBUT TABLE ANNONCE TEXTE - prix - nb photos -->
+                                                                <table height="100" width="277">
+
+                                                                    <tr>
+
+                                                                        <td width="58%"
+                                                                            style="font-family: arial, sans-serif;font-size:20px; padding-top: 0; padding-bottom: 0;">
+
+
+                                                                            <font color="#000000" size="3"
+                                                                                  face="Arial, sans-serif"><span
+                                                                                    style="font-family: arial, sans-serif;font-size:20px;color:#000000;"><b>187 020&nbsp;€</b></span>
+                                                                            </font>
+
+                                                                            <span style="white-space: nowrap;">
+                                                                    <span style="font-size:15px; font-weight: bold; color: #575757; padding-left: 10px;"
+                                                                          class="spanNbPhoto">5 </span>
+                                                                    <img src="https://www.ouestfrance-immo.com/img/mail/alerte/pictoPhoto.gif"
+                                                                         border="0" alt="" width="20" height="15"
+                                                                         style="display: inline;"/>
+                                                                </span>
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <!-- ANNONCE TEXTE - type bien - lieu -->
+                                                                    <tr>
+
+                                                                        <td colspan="2"
+                                                                            style="padding-top: 5px;padding-bottom:0;">
+                                                                            <div style="font-family: arial, sans-serif;font-size:12px;">
+                                                                                <font color="#575757" size="2"
+                                                                                      face="Arial, sans-serif"><span
+                                                                                        onfocus="this.blur();"
+                                                                                        style="font-family: arial, sans-serif;font-size:12px;color:#575757;"><b>Vente appartement</b></span></font>
+                                                                            </div>
+                                                                            <div style="font-family: arial, sans-serif;font-size:12px;">
+                                                                                <font color="#575757" size="2"
+                                                                                      face="Arial, sans-serif"><span
+                                                                                        onfocus="this.blur();"
+                                                                                        style="font-family: arial, sans-serif;font-size:12px;color:#575757;">Nantes 44</span></font>
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <!-- ANNONCE TEXTE - critères -->
+                                                                    <tr>
+
+                                                                        <td colspan="2"
+                                                                            style="font-family: arial, sans-serif;font-size:12px;padding-top:0"
+                                                                            align="left">
+                                                                            <font color="#7f7f7f" size="2"
+                                                                                  face="Arial, sans-serif"
+                                                                                  style="padding-right : 10px;">
+                                                                <span onfocus="this.blur();"
+                                                                      style="font-family: arial, sans-serif;font-size:12px;color:#7f7f7f;text-decoration:none;">
+                                                              <b>2 pièces</b>
+                                                              </span>
+                                                                            </font>
+                                                                            <font color="#7f7f7f" size="2"
+                                                                                  face="Arial, sans-serif"
+                                                                                  style="padding-right : 10px;">
+                                                                <span onfocus="this.blur();"
+                                                                      style="font-family: arial, sans-serif;font-size:12px;color:#7f7f7f;text-decoration:none;">
+                                                              <b>46 m²</b>
+                                                              </span>
+                                                                            </font>
+                                                                            <font color="#7f7f7f" size="2"
+                                                                                  face="Arial, sans-serif"
+                                                                                  style="padding-right : 10px;">
+                                                                <span onfocus="this.blur();"
+                                                                      style="font-family: arial, sans-serif;font-size:12px;color:#7f7f7f;text-decoration:none;">
+                                                              <b>1 chambre</b>
+                                                              </span>
+                                                                            </font>
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                    <tr>
+
+                                                                        <!-- ANNONCE TEXTE - btn voir detail -->
+                                                                        <td style="padding-top: 0; padding-bottom: 0;"
+                                                                            align="left">
+                                                           <span onfocus="this.blur();">
+                                                           <img src="https://www.ouestfrance-immo.com/img/mail/alerte/btnVoir.gif"
+                                                                border="0" alt="Voir le détail" width="106" height="28"
+                                                                style="display: block;"/>
+                                                           </span>
+                                                                        </td>
+
+                                                                    </tr>
+
+                                                                </table>
+                                                                <!-- FIN TABLE ANNONCE TEXTE - prix - nb photos -->
+                                                            </a>
+                                                        </td>
+
                                                     </tr>
-                                                    </tbody>
+
+
                                                 </table>
+                                                <!-- FIN TABLE bloc annonce -->
+
+                                                <!-- SPACER -->
+                                                <img src="https://www.ouestfrance-immo.com/img/mail/alerte/0.gif"
+                                                     border="0" alt="" width="276" height="20" style="display: block;"/>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- FIN TABLE CONTAINER -->
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td height="20" width="600" align="center"
+                                    style="width:600px;font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#4d4d4d;text-align:center;">
+                                    <div style="max-width: 580px; padding:10px;margin:0 auto;">
+                                        Soyez sûr de ne pas passer à côté du bien qui vous correspond avec les alertes
+                                        <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/8/7G9SdBVmIqTgPRKEC49KtQ/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1tb25fY29tcHRlJmFibz0yOTI4NjUz"
+                                           title="Je modifie mon alerte"
+                                           style="color: #4d4d4d; text-decoration: underline;">www.ouestfrance-immo.com</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="20" width="600" align="center"
+                                    style="width:600px;font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#4d4d4d;text-align:center;">
+                                    <div style="max-width: 580px; padding:10px;margin:0 auto;border-top: 1px dotted #4d4d4d;">
+                                        Merci de votre confiance et à bientôt ! L’équipe <a
+                                            href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/9/u3GT-yvRSURE-r-ISaPWuQ/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1tb25fY29tcHRlJmFibz0yOTI4NjUz"
+                                            title="Je modifie mon alerte"
+                                            style="color: #4d4d4d; text-decoration: underline;">www.ouestfrance-immo.com</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <!-- BTN modifier créer supprimer alerte -->
+                            <tr>
+                                <td height="20" align="center">
+                                    <table cellpadding="0" align="center" cellspacing="0" border="0">
+                                        <tr>
+                                            <td height="20" align="center" class="btnActionAlerte">
+                                                <div style="padding-top: 10px; padding-bottom: 10px; border-top: 1px solid #d3d3d3;border-bottom: 1px solid #d3d3d3;">
+                                                    <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/10/KCXv9r1JWPatdv2lcNxSoQ/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1tb25fY29tcHRlJmFibz0yOTI4NjUz"
+                                                       title="Je modifie mon alerte"
+                                                       style="display:inline-bloc; padding: 15px; margin-top: 15px;margin-bottom: 10px; margin-right: 10px; color: #4d4d4d; text-decoration: underline;">
+                                                        JE&nbsp;MODIFIE&nbsp;MON&nbsp;ALERTE
+                                                    </a>
+                                                    <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/11/mKQ5sbDjwtMYrutxZ013IQ/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1tb25fY29tcHRlJmFibz0yOTI4NjUz"
+                                                       title="Je cr&eacute;e mon alerte"
+                                                       style="display:inline-bloc; padding: 15px; margin-top: 15px;margin-bottom: 10px; margin-right: 10px; color: #4d4d4d; text-decoration: underline;">
+                                                        JE&nbsp;CRÉE&nbsp;MON&nbsp;ALERTE
+                                                    </a>
+                                                    <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/12/1hWnGm7yZjLEEhLUwS1tlw/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1saWVuX2Rlc2FibyZhYm89MjkyODY1Mw"
+                                                       title="Je supprime mon alerte"
+                                                       style="display:inline-bloc; padding: 15px; margin-top: 15px;margin-bottom: 10px; margin-right: 10px; color: #4d4d4d; text-decoration: underline;">
+                                                        JE&nbsp;SUPPRIME&nbsp;MON&nbsp;ALERTE
+                                                    </a>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td>
-                <td class="" style="vertical-align:middle;width:300px;"><![endif]-->
-                    <div class="mj-column-per-50 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:middle;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:middle;" width="100%">
+
+                            <!-- Bandeau retrouver tt les services -->
                             <tr>
-                                <td align="left" style="font-size:0px;padding:6px 15px 0px 15px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;line-height:1;text-align:left;color:#3390E5;">
-                                        <a href="https://www.ouestfrance-immo.com/annonce/push/?idabo=2928653&amp;idpsh=1500582&amp;ann_id=14903412&utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=annonce">179
-                                            350€</a></div>
+                                <td height="20" align="center">
+                                    <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/13/mkH3aRn2QRs19xGbEqfCwg/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20_dXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1sb2dvJmFibz0yOTI4NjUz"
+                                       title="Les services ouestfrance-immo" style="text-decoration:none;">
+                                        <div style="max-width: 600px;background-color: #f8f8f8;padding: 10px;color: #4d4d4d;font-size:19px;">
+                                            Retrouvez tous les services ouestfrance-immo.com
+                                        </div>
+                                    </a>
                                 </td>
                             </tr>
+
+                            <!-- Icones accès : mon compte, annonces gratuites, alertes... -->
                             <tr>
-                                <td align="left" style="font-size:0px;padding:6px 15px 0px 15px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1;text-align:left;color:#65707A;">
-                                        Vente appartement 2 pièces
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="font-size:0px;padding:6px 15px 0px 15px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1;text-align:left;color:#65707A;">
-                                        Nantes (44)
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="font-size:0px;padding:6px 15px 0px 15px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;line-height:1;text-align:left;color:#65707A;">
-                                        53m² | 1 chambre | 1 salle de bain
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="font-size:0px;padding:6px 15px 0px 15px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;font-weight:bold;line-height:1;text-align:left;color:#000000;">
-                                        5 photos
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" vertical-align="middle"
-                                    style="font-size:0px;padding:6px 15px 0px 15px;word-break:break-word;">
-                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                           style="border-collapse:separate;width:80%;line-height:100%;">
+                                <td height="20" align="center">
+
+                                    <table cellpadding="0" align="center" cellspacing="0" border="0">
                                         <tr>
-                                            <td align="center" bgcolor="#3390E5" role="presentation"
-                                                style="border:none;border-radius:0;cursor:auto;padding:10px 25px;background:#3390E5;"
-                                                valign="middle"><a
-                                                    href="https://www.ouestfrance-immo.com/annonce/push/?idabo=2928653&amp;idpsh=1500582&amp;ann_id=14903412&utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=annonce"
-                                                    style="background:#3390E5;color:white;font-family:Helvetica;font-size:16px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                    target="_blank">Voir le détail &#10095;</a></td>
+                                            <td height="20" class="btnIconsAccessOFI">
+                                                <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/14/oLpfdziDzVoW6msH1hUaCQ/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9pbmZvcy8_aWQ9MjkyODY1MyZzaWduYXR1cmU9ODVDOUFFQjktM0RGNC00N0Y5LUI4QTMtMDU0RkUzRjg3N0IxJnV0bV9zb3VyY2U9YWxlcnRlJnV0bV9tZWRpdW09ZW1haWxfaW50ZXJuZSZ1dG1fY2FtcGFpZ249cHJvZHVpdHMtcmVjb3MmdXRtX2NvbnRlbnQ9bW9uX2NvbXB0ZSZhYm89MjkyODY1Mw"
+                                                   title="Mon compte">
+                                                    <img src="https://www.ouestfrance-immo.com/img/mail/alerte/06a.gif"
+                                                         border="0" alt="Mon compte" width="127" height="139"/>
+                                                </a>
+                                                <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/15/EBKB06gMdnbVi_iR8erpcQ/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vaW1tb2JpbGllci1wYXJ0aWN1bGllci1wYXNzZXItYW5ub25jZS1pbW1vYmlsaWVyZS8_dXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1kZXBvdF9hbm5vbmNlcyZhYm89MjkyODY1Mw"
+                                                   title="Annonces gratuites">
+                                                    <img src="https://www.ouestfrance-immo.com/img/mail/alerte/06b.gif"
+                                                         border="0" alt="Annonces gratuites" width="115" height="139"/>
+                                                </a>
+                                                <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/16/kLJmrchedbVbOQu-ET2R_g/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1hbGVydGVzJmFibz0yOTI4NjUz"
+                                                   title="Alertes">
+                                                    <img src="https://www.ouestfrance-immo.com/img/mail/alerte/06c.gif"
+                                                         border="0" alt="Alertes" width="111" height="139"/>
+                                                </a>
+                                                <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/17/xN4T6tvqh13nCcY3uKS_4g/aHR0cHM6Ly9lc3RpbWF0aW9uLm91ZXN0ZnJhbmNlLWltbW8uY29tLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1lc3RpbWF0aW9uJmFibz0yOTI4NjUz"
+                                                   title="Estimation">
+                                                    <img src="https://www.ouestfrance-immo.com/img/mail/alerte/estimation_119X139.gif"
+                                                         border="0" alt="Estimation" width="119" height="139"/>
+                                                </a>
+                                                <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/18/XMMM5Exb9TrxT2VFvrMP9A/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vZXZvbHV0aW9uLXByaXgtaW1tb2JpbGllci12ZW50ZS8_aWQ9MjkyODY1MyZzaWduYXR1cmU9ODVDOUFFQjktM0RGNC00N0Y5LUI4QTMtMDU0RkUzRjg3N0IxJnV0bV9zb3VyY2U9YWxlcnRlJnV0bV9tZWRpdW09ZW1haWxfaW50ZXJuZSZ1dG1fY2FtcGFpZ249cHJvZHVpdHMtcmVjb3MmdXRtX2NvbnRlbnQ9YmFyb21ldHJlJmFibz0yOTI4NjUz"
+                                                   title="Barom&eacute;tre">
+                                                    <img src="https://www.ouestfrance-immo.com/img/mail/alerte/06e.gif"
+                                                         border="0" alt="Barom&eacute;tre" width="132" height="139"/>
+                                                </a>
+                                            </td>
+
                                         </tr>
                                     </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:30px 0px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:300px;"><![endif]-->
-                    <div class="mj-column-per-50 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center" vertical-align="middle"
-                                    style="font-size:0px;padding:10px 25px;padding-top:2px;padding-bottom:2px;word-break:break-word;">
-                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                           style="border-collapse:separate;line-height:100%;">
-                                        <tr>
-                                            <td align="center" bgcolor="#2EAD4C" role="presentation"
-                                                style="border:none;border-radius:0;cursor:auto;padding:10px 25px;background:#2EAD4C;"
-                                                valign="middle"><a
-                                                    href="https://www.ouestfrance-immo.com/annonce/push/?idpsh=1500582&utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=toutes_annonces"
-                                                    style="background:#2EAD4C;color:white;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                    target="_blank">Voir les autres annonces<span
-                                                    style="white-space:nowrap;">&shy; &#10095;</span></a></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td style="font-size:0px;padding:10px 20px 20px 20px;word-break:break-word;"><p
-                                        style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:560px;" role="presentation" width="560px" ><tr><td style="height:0;line-height:0;"> &nbsp;
 
- 
-</td></tr></table><![endif]--></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:120px;"><![endif]-->
-                    <div class="mj-column-per-20 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center"
-                                    style="font-size:0px;padding:10px 25px;padding-right:25px;padding-bottom:10px;padding-left:10px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1;text-align:center;text-decoration:underline;color:#2D4389;">
-                                        <a style="text-decoration:none ; color:#2D4389"
-                                           href="https://www.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=lien_acheter">Acheter</a>
-                                    </div>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td>
-                <td class="" style="vertical-align:top;width:120px;"><![endif]-->
-                    <div class="mj-column-per-20 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center"
-                                    style="font-size:0px;padding:10px 25px;padding-right:25px;padding-bottom:10px;padding-left:10px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1;text-align:center;text-decoration:underline;color:#2D4389;">
-                                        <a style="text-decoration:none ; color:#2D4389"
-                                           href="https://www.ouestfrance-immo.com/location/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=lien_louer">Louer</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td>
-                <td class="" style="vertical-align:top;width:120px;"><![endif]-->
-                    <div class="mj-column-per-20 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center"
-                                    style="font-size:0px;padding:10px 25px;padding-right:25px;padding-bottom:10px;padding-left:10px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1;text-align:center;text-decoration:underline;color:#2D4389;">
-                                        <a style="text-decoration:none ; color:#2D4389"
-                                           href="https://www.ouestfrance-immo.com/immobilier-neuf/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=lien_immoneuf">Immo
-                                            neuf</a></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td>
-                <td class="" style="vertical-align:top;width:120px;"><![endif]-->
-                    <div class="mj-column-per-20 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center"
-                                    style="font-size:0px;padding:10px 25px;padding-right:25px;padding-bottom:10px;padding-left:10px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1;text-align:center;text-decoration:underline;color:#2D4389;">
-                                        <a style="text-decoration:none ; color:#2D4389"
-                                           href="https://actu.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=lien_actu">Actualités</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td>
-                <td class="" style="vertical-align:top;width:120px;"><![endif]-->
-                    <div class="mj-column-per-20 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center"
-                                    style="font-size:0px;padding:10px 25px;padding-right:25px;padding-bottom:10px;padding-left:10px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1;text-align:center;text-decoration:underline;color:#2D4389;">
-                                        <a style="text-decoration:none ; color:#2D4389"
-                                           href="https://estimation.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=lien_estimer">Estimer</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td style="font-size:0px;padding:20px;word-break:break-word;"><p
-                                        style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:560px;" role="presentation" width="560px" ><tr><td style="height:0;line-height:0;"> &nbsp;
 
- 
-</td></tr></table><![endif]--></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
+                            <!-- Bandeau Votre recherche efficace -->
                             <tr>
-                                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:20px;line-height:1;text-align:center;color:#65707A;">
-                                        Retrouvez tous les services <span style="white-space:nowrap;">ouestfrance-immo&shy;.com</span>
-                                    </div>
+                                <td height="20" align="center">
+                                    <a href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/19/5_HqH4a9Qyjbi-ZGThW_xg/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20_dXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1sb2dvJmFibz0yOTI4NjUz"
+                                       title="ouestfrance-immo, votre recherche efficace !"
+                                       style="text-decoration:none;">
+                                        <div style="max-width: 600px;background-color: #a9a9a9;padding: 10px;color:white; font-size: 20px;">
+                                            www.ouestfrance-immo.com, votre recherche efficace !
+                                        </div>
+                                    </a>
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:5px 0px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:0;line-height:0;text-align:left;display:inline-block;width:100%;direction:ltr;">
-                        <!--[if mso | IE]>
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="vertical-align:top;width:294px;"><![endif]-->
-                        <div class="mj-column-per-49 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:49%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="background-color:#F8F8F8;vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:28px;"><a
-                                                        href="https://www.ouestfrance-immo.com/mon-compte/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=compte"
-                                                        target="_blank"><img alt="Mon compte Ouestfrance-immo"
-                                                                             height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/mon_compte.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="28"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" vertical-align="middle"
-                                        style="font-size:0px;padding:2px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:separate;line-height:100%;">
-                                            <tr>
-                                                <td align="center" bgcolor="#F8F8F8" role="presentation"
-                                                    style="border:none;border-radius:3px;cursor:auto;padding:5px;background:#F8F8F8;"
-                                                    valign="middle"><a
-                                                        href="https://www.ouestfrance-immo.com/mon-compte/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=compte"
-                                                        style="background:#F8F8F8;color:#65707A;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                        target="_blank">MON COMPTE</a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:12px;"><![endif]-->
-                        <div class="mj-column-per-2 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:2%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%"></table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:294px;"><![endif]-->
-                        <div class="mj-column-per-49 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:49%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="background-color:#F8F8F8;vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:28px;"><a
-                                                        href="https://www.ouestfrance-immo.com/immobilier-particulier-passer-annonce-immobiliere/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=deposez"
-                                                        target="_blank"><img alt="Déposez votre annonce gratuite"
-                                                                             height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/liste.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="28"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" vertical-align="middle"
-                                        style="font-size:0px;padding:2px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:separate;line-height:100%;">
-                                            <tr>
-                                                <td align="center" bgcolor="#F8F8F8" role="presentation"
-                                                    style="border:none;border-radius:3px;cursor:auto;padding:5px;background:#F8F8F8;"
-                                                    valign="middle"><a
-                                                        href="https://www.ouestfrance-immo.com/immobilier-particulier-passer-annonce-immobiliere/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=deposez"
-                                                        style="background:#F8F8F8;color:#65707A;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                        target="_blank">ANNONCES GRATUITES</a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td></tr></table><![endif]--></div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:5px 0px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:0;line-height:0;text-align:left;display:inline-block;width:100%;direction:ltr;">
-                        <!--[if mso | IE]>
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="vertical-align:top;width:294px;"><![endif]-->
-                        <div class="mj-column-per-49 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:49%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="background-color:#F8F8F8;vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:28px;"><a
-                                                        href="https://actu.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=actu"
-                                                        target="_blank"><img alt="Actualité Ouestfrance-immo"
-                                                                             height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/actu.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="28"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" vertical-align="middle"
-                                        style="font-size:0px;padding:2px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:separate;line-height:100%;">
-                                            <tr>
-                                                <td align="center" bgcolor="#F8F8F8" role="presentation"
-                                                    style="border:none;border-radius:3px;cursor:auto;padding:5px;background:#F8F8F8;"
-                                                    valign="middle"><a
-                                                        href="https://actu.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=actu"
-                                                        style="background:#F8F8F8;color:#65707A;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                        target="_blank">ACTUALITE</a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:12px;"><![endif]-->
-                        <div class="mj-column-per-2 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:2%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%"></table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:294px;"><![endif]-->
-                        <div class="mj-column-per-49 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:49%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="background-color:#F8F8F8;vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:28px;"><a
-                                                        href="https://www.ouestfrance-immo.com/evolution-prix-immobilier-vente/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=barometre"
-                                                        target="_blank"><img alt="Prix de l'immobilier" height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/prix_immo.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="28"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" vertical-align="middle"
-                                        style="font-size:0px;padding:2px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:separate;line-height:100%;">
-                                            <tr>
-                                                <td align="center" bgcolor="#F8F8F8" role="presentation"
-                                                    style="border:none;border-radius:3px;cursor:auto;padding:5px;background:#F8F8F8;"
-                                                    valign="middle"><a
-                                                        href="https://www.ouestfrance-immo.com/evolution-prix-immobilier-vente/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=barometre"
-                                                        style="background:#F8F8F8;color:#65707A;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                        target="_blank">PRIX DE L'IMMOBILIER</a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td></tr></table><![endif]--></div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:5px 0px;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:0;line-height:0;text-align:left;display:inline-block;width:100%;direction:ltr;">
-                        <!--[if mso | IE]>
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="vertical-align:top;width:294px;"><![endif]-->
-                        <div class="mj-column-per-49 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:49%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="background-color:#F8F8F8;vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:28px;"><a
-                                                        href="https://www.ouestfrance-immo.com/mon-compte/alertes/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=alerte"
-                                                        target="_blank"><img alt="Mes Alertes" height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/alerte.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="28"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" vertical-align="middle"
-                                        style="font-size:0px;padding:2px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:separate;line-height:100%;">
-                                            <tr>
-                                                <td align="center" bgcolor="#F8F8F8" role="presentation"
-                                                    style="border:none;border-radius:3px;cursor:auto;padding:5px;background:#F8F8F8;"
-                                                    valign="middle"><a
-                                                        href="https://www.ouestfrance-immo.com/mon-compte/alertes/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=alerte"
-                                                        style="background:#F8F8F8;color:#65707A;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                        target="_blank">MES ALERTES</a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:12px;"><![endif]-->
-                        <div class="mj-column-per-2 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:2%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%"></table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:294px;"><![endif]-->
-                        <div class="mj-column-per-49 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:49%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="background-color:#F8F8F8;vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:28px;"><a
-                                                        href="https://estimation.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=estimer"
-                                                        target="_blank"><img alt="Estimer" height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/estimation/estimation_footer_bleu.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="28"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" vertical-align="middle"
-                                        style="font-size:0px;padding:2px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:separate;line-height:100%;">
-                                            <tr>
-                                                <td align="center" bgcolor="#F8F8F8" role="presentation"
-                                                    style="border:none;border-radius:3px;cursor:auto;padding:5px;background:#F8F8F8;"
-                                                    valign="middle"><a
-                                                        href="https://estimation.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=estimer"
-                                                        style="background:#F8F8F8;color:#65707A;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:bold;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
-                                                        target="_blank">ESTIMER</a></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td></tr></table><![endif]--></div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td style="font-size:0px;padding:10px 25px;padding-top:20px;word-break:break-word;"><p
-                                        style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:550px;" role="presentation" width="550px" ><tr><td style="height:0;line-height:0;"> &nbsp;
 
- 
-</td></tr></table><![endif]--></td>
+                            <!-- Lien désabonnement -->
+                            <tr>
+                                <td align="center" class="txt"
+                                    style="font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#A3A3A3;">
+                                    <br/><font align="center" color="#9c9c9c" size="2" face="Arial, sans-serif"
+                                               style="mso-line-height-rule:exactly; line-height:16px;font-family:Arial, sans-serif;font-size:13px;color:#9c9c9c;font-weight:normal;">Si
+                                    vous souhaitez vous d&eacute;sabonner, <a
+                                            href="https://t.news.ouestfrance-immo.com/lnk/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/20/IGuzQ_casCARNe7h8CoQMA/aHR0cHM6Ly93d3cub3Vlc3RmcmFuY2UtaW1tby5jb20vbW9uLWNvbXB0ZS9hbGVydGVzLz9pZD0yOTI4NjUzJnNpZ25hdHVyZT04NUM5QUVCOS0zREY0LTQ3RjktQjhBMy0wNTRGRTNGODc3QjEmdXRtX3NvdXJjZT1hbGVydGUmdXRtX21lZGl1bT1lbWFpbF9pbnRlcm5lJnV0bV9jYW1wYWlnbj1wcm9kdWl0cy1yZWNvcyZ1dG1fY29udGVudD1saWVuX2Rlc2FibyZhYm89MjkyODY1Mw"
+                                            style="text-decoration:none;"><font color="#9ba1a7" size="2"
+                                                                                face="Arial, sans-serif"
+                                                                                style="mso-line-height-rule:exactly; line-height:16px;font-family:Arial, sans-serif;font-weight:normal;font-size:13px;color:#3392e9;text-decoration:none;">suivez
+                                        ce lien</font></a></font><br/> <br/>
+                                </td>
                             </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:0;line-height:0;text-align:left;display:inline-block;width:100%;direction:ltr;">
-                        <!--[if mso | IE]>
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                            <tr>
-                                <td style="vertical-align:top;width:150px;"><![endif]-->
-                        <div class="mj-column-per-25 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:25%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:50px;"><a
-                                                        href="https://fr-fr.facebook.com/ouestfranceimmo/"
-                                                        target="_blank"><img height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/reseaux_sociaux/fb.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="50"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:150px;"><![endif]-->
-                        <div class="mj-column-per-25 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:25%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:50px;"><a href="https://twitter.com/OFImmo/"
-                                                                           target="_blank"><img height="auto"
-                                                                                                src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/reseaux_sociaux/twiter.png"
-                                                                                                style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                                                width="50"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:150px;"><![endif]-->
-                        <div class="mj-column-per-25 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:25%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:50px;"><a
-                                                        href="https://www.linkedin.com/company/ouest-france-immo"
-                                                        target="_blank"><img height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/reseaux_sociaux/linkedin.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="50"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td>
-                    <td style="vertical-align:top;width:150px;"><![endif]-->
-                        <div class="mj-column-per-25 outlook-group-fix"
-                             style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:25%;">
-                            <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                   style="vertical-align:top;" width="100%">
-                                <tr>
-                                    <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                               style="border-collapse:collapse;border-spacing:0px;">
-                                            <tbody>
-                                            <tr>
-                                                <td style="width:50px;"><a
-                                                        href="https://www.youtube.com/channel/UCf2lOp4oyTMmX61OmwQfugQ"
-                                                        target="_blank"><img height="auto"
-                                                                             src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/reseaux_sociaux/youtube.png"
-                                                                             style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                             width="50"></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--[if mso | IE]></td></tr></table><![endif]--></div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td style="font-size:0px;padding:20px;word-break:break-word;"><p
-                                        style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:560px;" role="presentation" width="560px" ><tr><td style="height:0;line-height:0;"> &nbsp;
 
- 
-</td></tr></table><![endif]--></td>
-                            </tr>
                         </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:20px 0;padding-bottom:20px;padding-top:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:12px;text-align:center;color:#6a6a6a;">
-                                        N.B : Pour être sûr(e) de recevoir nos emails et profiter de tous les services
-                                        de ouestfrance-immo, nous vous conseillons d'ajouter
-                                        contact@info.ouestfrance-immo.com à votre carnet d'adresses !
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1;text-align:center;color:#9c9c9c;">
-                                        Si vous souhaitez vous désabonner, <a
-                                            href="http://www.ouestfrance-immo.com/mon-compte/login/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=desinscription"
-                                            no-trak="true" style="text-decoration:none;">suivez ce lien</a>.
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td style="font-size:0px;padding:0;word-break:break-word;"><p
-                                        style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:100%;"></p><!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 1px #D8D8D8;font-size:1;margin:0px auto;width:600px;" role="presentation" width="600px" ><tr><td style="height:0;line-height:0;"> &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 
- 
-</td></tr></table><![endif]--></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600">
-        <tr>
-            <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="Margin:0px auto;max-width:600px;">
-        <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-            <tbody>
-            <tr>
-                <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;vertical-align:top;">
-                    <!--[if mso | IE]>
-                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td class="" style="vertical-align:top;width:600px;"><![endif]-->
-                    <div class="mj-column-per-100 outlook-group-fix"
-                         style="font-size:13px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                               style="vertical-align:top;" width="100%">
-                            <tr>
-                                <td align="center" style="font-size:0px;padding:15px;word-break:break-word;">
-                                    <table border="0" cellpadding="0" cellspacing="0" role="presentation"
-                                           style="border-collapse:collapse;border-spacing:0px;">
-                                        <tbody>
-                                        <tr>
-                                            <td style="width:260px;"><a
-                                                    href="https://www.ouestfrance-immo.com/?utm_source=alerte&utm_medium=email_interne&utm_campaign=alerte_immo_reco_V1&utm_content=logo"
-                                                    target="_blank"><img alt="Ouestfrance-immo.com" height="auto"
-                                                                         src="https://probance.of2m.fr/www.ouestfrance-immo.com/email_interne/ouestfranceimmo.png"
-                                                                         style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;"
-                                                                         width="260"></a></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="font-size:0px;padding:0;word-break:break-word;">
-                                    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1;text-align:center;color:#6a6a6a;">
-                                        Votre recherche efficace
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <!--[if mso | IE]></td></tr></table><![endif]--></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table><![endif]--></div>
+<br/><img
+        src="https://t.news.ouestfrance-immo.com/oo/AL4AAG3EsIIAAck58tAAAAAEJQYAAAAAAAIAAAAAAAXZrwBek2BIJ6TLyxOKSGCPXHZjaSGxYgACXGU/1af65723/e.gif"
+        height="1" width="1" alt="" border="0" style="height:1px;width:1px;border:0;"/>
 </body>
 </html>

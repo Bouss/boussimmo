@@ -5,7 +5,7 @@ namespace App\Parser;
 use App\Enum\Provider;
 use Symfony\Component\DomCrawler\Crawler;
 
-class LogicImmo2Parser extends AbstractParser
+class LogicImmoPartnerParser extends AbstractParser
 {
     protected const PROVIDER = Provider::LOGIC_IMMO;
     protected const SELECTOR_AD_WRAPPER = 'table[bgcolor="#f1f1f1"] > tr:nth-child(n+6):not(:nth-last-child(-n+8)) table[width=600][bgcolor="#ffffff"]';

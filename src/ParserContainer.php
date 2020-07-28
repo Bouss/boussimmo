@@ -6,17 +6,16 @@ use App\Enum\EmailTemplate;
 use App\Exception\ParserNotFoundException;
 use App\Parser\BienIciParser;
 use App\Parser\LeBonCoinParser;
-use App\Parser\LogicImmo2Parser;
+use App\Parser\LogicImmoPartnerParser;
 use App\Parser\LogicImmoNeufParser;
 use App\Parser\LogicImmoParser;
 use App\Parser\OuestFranceImmo2Parser;
-use App\Parser\OuestFranceImmoNeuf2Parser;
 use App\Parser\OuestFranceImmoNeufParser;
 use App\Parser\OuestFranceImmoParser;
 use App\Parser\PapNeufParser;
 use App\Parser\PapParser;
 use App\Parser\ParserInterface;
-use App\Parser\SeLoger2Parser;
+use App\Parser\SeLogerPartnerParser;
 use App\Parser\SeLogerNeufParser;
 use App\Parser\SeLogerParser;
 use App\Parser\SuperimmoNeufParser;
@@ -42,22 +41,21 @@ class ParserContainer implements ServiceSubscriberInterface
     public static function getSubscribedServices(): array
     {
         return [
-            EmailTemplate::BIENICI                 => BienIciParser::class,
-            EmailTemplate::LEBONCOIN               => LeBonCoinParser::class,
-            EmailTemplate::LOGIC_IMMO              => LogicImmoParser::class,
-            EmailTemplate::LOGIC_IMMO_2            => LogicImmo2Parser::class,
-            EmailTemplate::LOGIC_IMMO_NEUF         => LogicImmoNeufParser::class,
-            EmailTemplate::OUESTFRANCE_IMMO        => OuestFranceImmoParser::class,
-            EmailTemplate::OUESTFRANCE_IMMO_2      => OuestFranceImmo2Parser::class,
-            EmailTemplate::OUESTFRANCE_IMMO_NEUF   => OuestFranceImmoNeufParser::class,
-            EmailTemplate::OUESTFRANCE_IMMO_NEUF_2 => OuestFranceImmoNeuf2Parser::class,
-            EmailTemplate::PAP                     => PapParser::class,
-            EmailTemplate::PAP_NEUF                => PapNeufParser::class,
-            EmailTemplate::SELOGER                 => SeLogerParser::class,
-            EmailTemplate::SELOGER_2               => SeLoger2Parser::class,
-            EmailTemplate::SELOGER_NEUF            => SeLogerNeufParser::class,
-            EmailTemplate::SUPERIMMO               => SuperimmoParser::class,
-            EmailTemplate::SUPERIMMO_NEUF          => SuperimmoNeufParser::class
+            EmailTemplate::BIENICI               => BienIciParser::class,
+            EmailTemplate::LEBONCOIN             => LeBonCoinParser::class,
+            EmailTemplate::LOGIC_IMMO            => LogicImmoParser::class,
+            EmailTemplate::LOGIC_IMMO_PARTNER    => LogicImmoPartnerParser::class,
+            EmailTemplate::LOGIC_IMMO_NEUF       => LogicImmoNeufParser::class,
+            EmailTemplate::OUESTFRANCE_IMMO      => OuestFranceImmoParser::class,
+            EmailTemplate::OUESTFRANCE_IMMO_2    => OuestFranceImmo2Parser::class,
+            EmailTemplate::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,
+            EmailTemplate::PAP                   => PapParser::class,
+            EmailTemplate::PAP_NEUF              => PapNeufParser::class,
+            EmailTemplate::SELOGER               => SeLogerParser::class,
+            EmailTemplate::SELOGER_PARTNER       => SeLogerPartnerParser::class,
+            EmailTemplate::SELOGER_NEUF          => SeLogerNeufParser::class,
+            EmailTemplate::SUPERIMMO             => SuperimmoParser::class,
+            EmailTemplate::SUPERIMMO_NEUF        => SuperimmoNeufParser::class
         ];
     }
 

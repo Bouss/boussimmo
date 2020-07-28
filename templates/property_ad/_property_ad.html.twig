@@ -8,10 +8,14 @@
         </div>
         <div class="main-section">
             <header>
-                <h3 class="price">{{ ad.price ? ad.price|number_format(null, ',', ' ') : 'N/A' }} &euro;</h3>
+                <h3 class="price">
+                    {{ ad.price is not null ? ad.price|number_format|trim('0', 'right')|trim(',', 'right') : 'N/A' }} &euro;
+                </h3>
             </header>
             <p>
-                <span class="area{% if ad.area is null %} unknown{% endif %}">{{ ad.area|default('N/A') }}&nbsp;m&sup2;</span>
+                <span class="area{% if ad.area is null %} unknown{% endif %}">
+                    {{ ad.area is not null ? ad.area|number_format|trim('0', 'right')|trim(',', 'right') : 'N/A' }}&nbsp;m&sup2;
+                </span>
                 &nbsp;•&nbsp;
                 <span class="rooms-count{% if ad.roomsCount is null %} unknown{% endif %}">{{ ad.roomsCount|default('N/A') }}&nbsp;pièces</span>
             </p>

@@ -14,8 +14,8 @@ class User implements UserInterface
     /**
      * @var int
      *
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private int $id;

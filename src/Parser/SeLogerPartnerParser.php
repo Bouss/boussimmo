@@ -4,7 +4,7 @@ namespace App\Parser;
 
 use App\Enum\Provider;
 
-class SeLoger2Parser extends AbstractParser
+class SeLogerPartnerParser extends AbstractParser
 {
     protected const PROVIDER = Provider::SELOGER;
 

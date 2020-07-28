@@ -7,14 +7,8 @@ parameters:
             username: "\"Ouestfrance-immo.com\""
             email_address: contact_alerte@news.ouestfrance-immo.com
             subject_keyword: neuf
-        !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF_2:
-            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF_2
-            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
-            username: "\"Ouestfrance-immo.com\""
-            email_address: alerte@news.ouestfrance-immo.com
-            subject_keyword: neuf
-        !php/const App\Enum\EmailTemplate::SELOGER_2:
-            id: !php/const App\Enum\EmailTemplate::SELOGER_2
+        !php/const App\Enum\EmailTemplate::SELOGER_PARTNER:
+            id: !php/const App\Enum\EmailTemplate::SELOGER_PARTNER
             provider_id: !php/const App\Enum\Provider::SELOGER
             username: SeLoger
             email_address: seloger@al.alerteimmo.com
@@ -36,8 +30,8 @@ parameters:
             provider_id: !php/const App\Enum\Provider::LOGIC_IMMO
             username: "\"Logic-immo.com\""
             email_address: news@logicimmo.nmp1.com
-        !php/const App\Enum\EmailTemplate::LOGIC_IMMO_2:
-            id: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_2
+        !php/const App\Enum\EmailTemplate::LOGIC_IMMO_PARTNER:
+            id: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_PARTNER
             provider_id: !php/const App\Enum\Provider::LOGIC_IMMO
             username: "\"Logic-Immo.com\""
             email_address: news@logicimmo.nmp1.com
@@ -50,12 +44,12 @@ parameters:
             id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO
             provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
             username: "\"Ouestfrance-immo.com\""
-            email_address: alerte@news.ouestfrance-immo.com
+            email_address: contact_alerte@news.ouestfrance-immo.com
         !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2:
             id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2
             provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
             username: "\"Ouestfrance-immo.com\""
-            email_address: contact_alerte@news.ouestfrance-immo.com
+            email_address: alerte@news.ouestfrance-immo.com
         !php/const App\Enum\EmailTemplate::PAP:
             id: !php/const App\Enum\EmailTemplate::PAP
             provider_id: !php/const App\Enum\Provider::PAP
