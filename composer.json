@@ -5,6 +5,7 @@
         "php": "^7.4.4",
         "ext-intl": "*",
         "ext-json": "*",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
         "friendsofsymfony/jsrouting-bundle": "^2.4",
         "google/apiclient": "^2.0",
         "knpuniversity/oauth2-client-bundle": "^1.32",

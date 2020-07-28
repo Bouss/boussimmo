@@ -67,20 +67,6 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string", nullable=true)
      */
-    private $firstname;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $lastname;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
     private ?string $avatar;
 
     /**
@@ -228,46 +214,6 @@ class User implements UserInterface
     /**
      * @return string|null
      */
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string|null $firstname
-     *
-     * @return User
-     */
-    public function setFirstname(?string $firstname): User
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * @param string|null $lastname
-     *
-     * @return User
-     */
-    public function setLastname(?string $lastname): User
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getAvatar(): ?string
     {
         return $this->avatar;
@@ -354,16 +300,8 @@ class User implements UserInterface
     /**
      * {@inheritDoc}
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
-    }
-
-    /**
-     * @return string
-     */
-    public function getFullName(): string
-    {
-        return $this->firstname . ' ' . $this->lastname;
     }
 
     /**
