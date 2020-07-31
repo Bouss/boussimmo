@@ -300,16 +300,25 @@ class PropertyAd
      */
     public function equals(PropertyAd $propertyAd, bool $strict = false): bool
     {
+        // If at least one price is missing
         if (null === $this->price || null === $propertyAd->getPrice()) {
+            // If the properties are new-build, they are the same ones if their name are equal
+            if ($this->isNewBuild() && $propertyAd->isNewBuild()) {
+                return
+                    ($strict ? $this->provider === $propertyAd->getProvider() : true) &&
+                    $this->getName() === $propertyAd->getName();
+            }
+
+            // At least one property is not a new-build, we can't determinate if they're the same ones
             return false;
         }
 
+        // Properties are equals if their price are equal as long as the price doesn't finish with a so common "000"
+        // or when their area are pretty much equal
         return
             ($strict ? $this->provider === $propertyAd->getProvider() : true) &&
-            (
-                ($this->price === $propertyAd->getPrice() && '000' !== substr($this->price, -3)) ||
-                ($this->price === $propertyAd->getPrice() && abs($this->area - $propertyAd->getArea()) <= 1)
-            );
+            $this->price === $propertyAd->getPrice() &&
+            ('000' !== substr($this->price, -3) || abs($this->area - $propertyAd->getArea()) <= 1);
     }
 
     public function guessNewBuild(): void

@@ -3,6 +3,8 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
+use App\Exception\ParseException;
+use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class PapParser extends AbstractParser
@@ -29,6 +31,20 @@ class PapParser extends AbstractParser
         $crawler->filter('table')->getNode(0)->setAttribute('style', 'border-collapse: collapse');
 
         return $crawler;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function parsePrice(Crawler $crawler): ?float
+    {
+        try {
+            $priceStr = trim($crawler->filter(static::SELECTOR_PRICE)->text());
+        } catch (Exception $e) {
+            throw new ParseException('Error while parsing the price: ' . $e->getMessage());
+        }
+
+        return $this->formatter->parsePrice(str_replace('.', '', $priceStr));
     }
 
     /**
