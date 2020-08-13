@@ -9,15 +9,12 @@ $border-radius: 5px;
 #filter-form {
   display: grid;
   grid-auto-flow: column;
+  align-items: center;
   justify-content: center;
   column-gap: $spacing;
   row-gap: 0.2rem;
   padding: $spacing;
   background-color: $primary-color;
-
-  .dropdown {
-    max-width: 180px;
-  }
 
   button[type=submit] {
     padding: 0.5rem;

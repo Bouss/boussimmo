@@ -5,15 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{% block title %}BoussImmo{% endblock %}</title>
         {% block stylesheets %}
-            <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Roboto:wght@300;400&display=swap">
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
+        <link rel="icon" type="image/svg" href="{{ asset('favicon.svg') }}" />
     </head>
     <body>
-        <header>
+        <header id="main-header">
+            <a class="header-logo" href="{{ path('default_index') }}">
+                <img src="{{ asset('build/logo-landscape.svg') }}" alt="BoussImmo" />
+            </a>
             {% block header %}
             {% endblock %}
         </header>
+        {% block sub_header %}
+        {% endblock %}
         <main>
             <div class="container">
                 {% block body %}
@@ -21,12 +27,24 @@
             </div>
         </main>
         <footer>
-            <a class="footer-logo-link" href="https://github.com/Bouss/immoscrap">
-                <img src="{{ asset('build/github.svg') }}" alt="GitHub" />
-            </a>&nbsp;
-            <p>
-                Dans un souci de parfaite transparence, le code de ce projet est disponible&nbsp;<a class="underline" href="https://github.com/Bouss/immoscrap">ici</a>.
-            </p>
+            <div class="footer-content">
+                <div>
+                    <a class="footer-logo" href="{{ path('default_index') }}">
+                        <img src="{{ asset('build/logo-portrait-white.svg') }}" alt="BoussImmo" />
+                    </a>
+                </div>
+                <div class="github-link">
+                    <a href="https://github.com/Bouss/immoscrap">
+                        <img src="{{ asset('build/github.svg') }}" alt="GitHub" />
+                    </a>&nbsp;
+                    <p>
+                        Dans un souci de parfaite transparence, le code de ce projet est disponible&nbsp;<a class="underline" href="https://github.com/Bouss/immoscrap">ici</a>.
+                    </p>
+                </div>
+                <div>
+                    <a class="underline" href="{{ path('default_index') }}">Politique de confidentialité</a>
+                </div>
+            </div>
         </footer>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

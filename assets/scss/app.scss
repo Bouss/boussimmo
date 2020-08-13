@@ -4,7 +4,7 @@
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 html {
-  line-height: 1.5rem;
+  line-height: $line-height;
   font-weight: 400;
   font-size: $default-font-size;
   font-family: 'Lato', sans-serif;
@@ -19,6 +19,19 @@ body {
   background-color: #fff;
 }
 
+#main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $header-padding;
+
+  .header-logo {
+    & > img {
+      width: 15rem;
+    }
+  }
+}
+
 main {
   & > * {
     margin: 0 auto;
@@ -26,26 +39,43 @@ main {
 }
 
 footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: $footer-height;
-  padding: 0 2rem;
-  text-align: center;
+  padding: 2rem;
   background-color: $primary-color;
-  color: #ffffff;
+  color: #fff;
 
-  a {
-    color: white;
+  .footer-content {
+    display: grid;
+    row-gap: 1rem;
+    text-align: center;
+
+    & > div {
+      & > * {
+        display: inline-block;
+      }
+    }
   }
 
-  .footer-logo-link {
+  a {
+    color: #fff;
+  }
+
+  .github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     img {
       display: block;
     }
 
-    + p {
+    p {
       margin-left: 0.5rem;
+    }
+  }
+
+  .footer-logo {
+    & > img {
+      width: 10rem;
     }
   }
 }
@@ -80,5 +110,10 @@ input, select, button {
 @media screen and (max-width: 576px) {
   html {
     font-size: $min-font-size;
+  }
+
+  #main-header {
+    padding-left: $content-min-padding;
+    padding-right: $content-min-padding;
   }
 }

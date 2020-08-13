@@ -10,11 +10,11 @@
     {{ encore_entry_script_tags('homepage') }}
 {% endblock %}
 
-{% block header %}
+{% block sub_header %}
     <div id="sign-in" class="cta-wrapper">
         <h1>Facilitez la recherche de votre futur logement dès maintenant</h1>
         <a class="btn-signin" href="{{ path('connect_google_start') }}">
-            <img src="{{ asset('build/logo_google_signin.svg') }}" alt="Google logo" />
+            <img src="{{ asset('build/logo-google-signin.svg') }}" alt="Google logo" />
             Sign in with Google
         </a>
     </div>
@@ -22,12 +22,12 @@
 
 {% block body %}
     <p class="introduction">
-        BoussImmo <b>regroupe</b>, sur une seule et même page, toutes les <b>annonces immobilières</b> extraites depuis vos <b>newsletters</b>.
+            BoussImmo <b>regroupe</b>, sur une seule et même page, tous les <b>biens immobiliers</b> récupérés depuis vos <b>emails d'alerte d'annonces immobilières</b>.
     </p>
     <div class="section-container">
         <section id="principle">
             <h2>Comment ça marche ?</h2>
-            <p>Tout d'abord, BoussImmo <b>extrait les biens immobiliers</b> se trouvant dans vos emails de newsletter de sites d'annonces immobilières.</p>
+            <p>Tout d'abord, BoussImmo <b>extrait les biens immobiliers</b> se trouvant dans vos emails d'alerte d'annonces immobilières.</p>
             <p>
                 Les annonces sont ensuite <b>filtrées</b> : les doublons (annonces indentiques émanant d'un même site) sont <b>mis de côté</b>,
                 tandis que les annonces similaires diffusées par des plateformes différentes sont <b>regroupées</b> entre elles,
@@ -38,7 +38,7 @@
         <section id="instructions">
             <h2>Que faut-il faire pour utiliser le site ?</h2>
             <p>Au préalable, s'<b>inscrire aux alertes</b> de vente de biens immobiliers (maisons et/ou appartements) qui vous intéressent avec votre <b>adresse Gmail</b> sur les plateformes citées juste après.</p>
-            <p>Connecter son <b>compte Gmail</b> à BoussImmo en cliquant sur le bouton de connexion <a href="#sign-in">ci-dessus</a>.</p>
+            <p>Connecter son <b>compte Gmail</b> à BoussImmo en cliquant sur le bouton de connexion <i><a href="#sign-in">ci-dessus</a></i>.</p>
             <p>Consulter BoussImmo aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
         </section>
         <section id="providers">
@@ -51,10 +51,10 @@
                     <img src="{{ asset('build/providers/leboncoin.svg') }}" alt="Leboncoin"/>
                 </a>
                 <a href="https://www.logic-immo.com" class="link" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('build/providers/logic_immo.png') }}" alt="Logic-Immo"/>
+                    <img src="{{ asset('build/providers/logic-immo.png') }}" alt="Logic-Immo"/>
                 </a>
                 <a href="https://www.ouestfrance-immo.com" class="link" target="_blank" rel="noopener noreferrer">
-                    <img src="{{ asset('build/providers/ouestfrance_immo.svg') }}" alt="OuestFrance-Immo"/>
+                    <img src="{{ asset('build/providers/ouestfrance-immo.svg') }}" alt="OuestFrance-Immo"/>
                 </a>
                 <a href="https://www.pap.fr" class="link" target="_blank" rel="noopener noreferrer">
                     <img src="{{ asset('build/providers/pap.png') }}" alt="PAP"/>
@@ -67,7 +67,7 @@
                 </a>
             </div>
             <div id="generate-urls-form-wrapper">
-                <p>Gagnez du temps en générant les <b>liens de page de résultats</b> de bien immobiliers qui correspondent à vos critères</p>
+                <p>Gagnez du temps en générant les <b>liens de page de résultats</b> qui correspondent à vos critères</p>
                 <p><i class="fas fa-bell fa-fw"></i>&nbsp;N'oubliez pas de vous inscrire aux <b>alertes</b> sur ces pages pour exploiter tout le potentiel de BoussImmo !</p>
                 {{ include('homepage/_generate_urls_form.html.twig') }}
             </div>

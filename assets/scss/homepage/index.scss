@@ -1,18 +1,13 @@
 @import '../colors';
 @import '../sizes';
 
-header {
+.cta-wrapper {
+  margin: 0 auto;
   padding: 1.9rem $content-padding;
-  position: relative;
-  box-shadow: 0 0 12px 0 rgba(38, 38, 38, 1);
+  text-align: center;
+  box-shadow: 0 15px 15px -15px rgba(38, 38, 38, 1);
   background-color: $primary-color;
   color: #fff;
-}
-
-.cta-wrapper {
-  max-width: $container-width;
-  margin: 0 auto;
-  text-align: center;
 
   h1 {
     margin-top: 0;

@@ -24,6 +24,9 @@
         <img class="avatar" src="{{ app.user.avatar }}" alt="Avatar" data-toggle="tooltip" data-placement="left" title="{{ app.user.email }}"/>
         <a class="btn-signout" href="{{ path('logout') }}">Déconnexion</a>
     </div>
+{% endblock %}
+
+{% block sub_header %}
     {{ include('property_ad/_filter_form.twig') }}
 {% endblock %}
 

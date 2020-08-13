@@ -18,6 +18,8 @@
 
 .field-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
   height: $height;
   border: $border;
   border-radius: $border-radius;

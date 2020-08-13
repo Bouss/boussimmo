@@ -64,6 +64,7 @@ function initTooltips() {
 }
 
 $(function() {
+    $('body').css('padding-bottom', ($('footer').outerHeight()));
     initTooltips();
     loadPropertyAds();
 });

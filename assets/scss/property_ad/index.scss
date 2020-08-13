@@ -14,8 +14,11 @@ html {
 body {
   position: relative;
   min-height: 100%;
-  padding-bottom: $footer-height*1.25;
   background-color: $grey-light;
+}
+
+#main-header {
+  background-color: #fff;
 }
 
 footer {
@@ -25,12 +28,13 @@ footer {
   left: 0;
 }
 
+.container {
+  padding: $spacing 0;
+}
+
 .user-section {
   display: flex;
   align-items: center;
-  max-width: $container-width;
-  margin: 0 auto;
-  padding: $spacing 0;
 
   > *:not(:first-child) {
     margin-left: $spacing;
@@ -66,7 +70,6 @@ footer {
 .result-section {
   display: flex;
   align-items: center;
-  margin-top: $spacing;
 
   > *:not(:first-child) {
     margin-left: $spacing;
@@ -85,27 +88,25 @@ footer {
 }
 
 @media screen and (max-width: 960px) {
-  .user-section {
-    padding: $spacing $content-min-padding;
-  }
-
   #filter-form {
     grid-auto-flow: row;
     justify-content: normal;
     padding: $content-min-padding;
 
-    select {
-      max-width: none;
-      flex: 1;
-    }
+    .dropdown-wrapper {
+      & > label {
+        width: 30%;
+      }
 
-    label {
-      width: 30%;
+      & > .dropdown {
+        max-width: none;
+        flex: 1;
+      }
     }
   }
 
   .container {
-    padding: 0 $content-min-padding;
+    padding: $content-min-padding;
   }
 
   #property-ad-container {
