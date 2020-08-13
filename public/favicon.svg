@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="clip-Favicon_32X32">
+      <rect width="32" height="32"/>
+    </clipPath>
+  </defs>
+  <g id="Favicon_32X32" data-name="Favicon 32X32" clip-path="url(#clip-Favicon_32X32)">
+    <rect width="32" height="32" fill="#fff"/>
+    <g id="Groupe_1" data-name="Groupe 1" transform="translate(-152.887 -248.169)">
+      <path id="Tracé_1" data-name="Tracé 1" d="M152.887,275.191l16.031-17.939,15.969,17.939v-4.522l-16-18.043-16,17.984Z" transform="translate(0 0)" fill="#004896"/>
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="6.715" height="7.437" transform="translate(165.53 267.367)" fill="#f05c12"/>
+    </g>
+  </g>
+</svg>
