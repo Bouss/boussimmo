@@ -25,8 +25,8 @@ security:
                 path: /
                 always_remember_me: true
             logout:
-                path: logout
-                handler: App\Security\LogoutHandler
+                path: app_logout
+                target: default_index
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

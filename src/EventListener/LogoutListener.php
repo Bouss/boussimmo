@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Security;
+namespace App\EventListener;
 
 use App\Entity\User;
 use App\Exception\GoogleApiException;
 use App\Service\GoogleService;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
+use Symfony\Component\Security\Http\Event\LogoutEvent;
 
-class LogoutHandler implements LogoutHandlerInterface
+class LogoutListener
 {
     private GoogleService $googleService;
 
@@ -23,12 +21,14 @@ class LogoutHandler implements LogoutHandlerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param LogoutEvent $event
      *
      * @throws GoogleApiException
      */
-    public function logout(Request $request, Response $response, TokenInterface $token): void
+    public function onLogout(LogoutEvent $event): void
     {
+        /** @var TokenInterface $token */
+        $token = $event->getToken();
         /** @var User $user */
         $user = $token->getUser();
 

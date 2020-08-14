@@ -38,7 +38,7 @@ parameters:
             seloger_neuf_code: 13379
         !php/const App\Enum\City::NICE:
             name: nice
-            department_code: 06
+            department_code: '06'
             department: alpes-maritimes
             region: provence-alpes-cote-d-azur
             insee_code: 31555

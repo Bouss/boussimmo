@@ -1,11 +1,15 @@
 {
+    "name": "bouss/boussimmo",
     "type": "project",
     "license": "proprietary",
     "require": {
         "php": "^7.4.4",
         "ext-intl": "*",
         "ext-json": "*",
+        "doctrine/annotations": "^1.10",
+        "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.7",
         "friendsofsymfony/jsrouting-bundle": "^2.4",
         "google/apiclient": "^2.0",
         "knpuniversity/oauth2-client-bundle": "^1.32",
@@ -20,7 +24,6 @@
         "symfony/http-client": "^5.1",
         "symfony/intl": "^5.1",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/orm-pack": "*",
         "symfony/security-bundle": "^5.1",
         "symfony/serializer-pack": "*",
         "symfony/string": "^5.1",
@@ -28,16 +31,22 @@
         "symfony/twig-bundle": "^5.1",
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "^5.1",
-        "twig/extensions": "^1.5"
+        "twig/extra-bundle": "^3.0",
+        "twig/intl-extra": "^3.0",
+        "twig/twig": "^3.0"
     },
     "require-dev": {
-        "symfony/debug-pack": "*",
+        "symfony/browser-kit": "^5.1",
+        "symfony/css-selector": "^5.1",
+        "symfony/debug-bundle": "^5.1",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.1",
-        "symfony/profiler-pack": "^1.0",
-        "symfony/test-pack": "*"
+        "symfony/stopwatch": "^5.1",
+        "symfony/var-dumper": "^5.1",
+        "symfony/web-profiler-bundle": "^5.1"
     },
     "config": {
+        "optimize-autoloader": true,
         "preferred-install": {
             "*": "dist"
         },
@@ -57,6 +66,7 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
@@ -79,7 +89,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "^5.1"
+            "require": "5.1.*"
         }
     }
 }

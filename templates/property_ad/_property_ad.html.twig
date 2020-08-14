@@ -28,7 +28,7 @@
         </div>
         <div class="publication-date">
             <i class="far fa-clock fa-fw"></i>
-            <time datetime="{{ ad.publishedAt|date('Y-m-d H:i') }}" data-toggle="tooltip" data-placement="top" title="{{ ad.publishedAt|localizeddate('medium') }}">
+            <time datetime="{{ ad.publishedAt|date('Y-m-d H:i') }}" data-toggle="tooltip" data-placement="top" title="{{ ad.publishedAt|format_datetime('medium') }}">
                 {{ ad.publishedAt|days_ago }}
             </time>
         </div>
