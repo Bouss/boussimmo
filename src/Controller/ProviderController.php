@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Enum\PropertyType;
 use App\Enum\Provider;
 use App\Exception\ParserNotFoundException;
 use App\Factory\ProviderUrlFactory;
@@ -38,11 +39,11 @@ class ProviderController extends AbstractController
     {
         $params = $request->request;
         $city = $params->get('city');
-        $types = array_keys($params->get('types'));
-        $minPrice = null !== $params->get('min_price') ? $formatter->parse($params->get('min_price')) : null;
+        $types = null !== $params->get('types') ? array_keys($params->get('types')) : PropertyType::getAvailableValues();
+        $minPrice = '' !== $params->get('min_price') ? $formatter->parse($params->get('min_price')) : null;
         $maxPrice = $formatter->parse($params->get('max_price'));
-        $minArea = null !== $params->get('min_area') ? $formatter->parse($params->get('min_area')) : null;
-        $maxArea = null !== $params->get('max_area') ? $formatter->parse($params->get('max_area')) : null;
+        $minArea = '' !== $params->get('min_area') ? $formatter->parse($params->get('min_area')) : null;
+        $maxArea = '' !== $params->get('max_area') ? $formatter->parse($params->get('max_area')) : null;
         $minRoomsCount = $params->get('min_rooms_count');
         $urls = [];
 

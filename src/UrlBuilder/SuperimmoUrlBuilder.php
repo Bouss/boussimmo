@@ -57,7 +57,7 @@ class SuperimmoUrlBuilder extends AbstractUrlBuilder
      */
     private function buildLocationParam(City $city): string
     {
-        return sprintf('%s/%s/%s-%d', $city->getRegion(), $city->getDepartment(), $city->getName(), $city->getDepartmentCode());
+        return sprintf('%s/%s/%s-%s', $city->getRegion(), $city->getDepartment(), $city->getName(), $city->getDepartmentCode());
     }
 
     /**

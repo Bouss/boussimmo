@@ -54,7 +54,7 @@ class PapUrlBuilder extends AbstractUrlBuilder
      */
     private function buildLocationParam(City $city): string
     {
-        return sprintf('%s-%d-g%d', $city->getName(), $city->getDepartmentCode(), $city->getPapCode());
+        return sprintf('%s-%s-g%d', $city->getName(), $city->getDepartmentCode(), $city->getPapCode());
     }
 
     /**

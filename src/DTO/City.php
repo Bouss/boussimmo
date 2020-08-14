@@ -6,7 +6,7 @@ class City
 {
     private string $name;
     private string $zipCode;
-    private int $departmentCode;
+    private string $departmentCode;
     private string $department;
     private string $region;
     private int $inseeCode;
@@ -16,7 +16,7 @@ class City
 
     /**
      * @param string $name
-     * @param int    $departmentCode
+     * @param string $departmentCode
      * @param string $department
      * @param string $region
      * @param int    $inseeCode
@@ -26,7 +26,7 @@ class City
      */
     public function __construct(
         string $name,
-        int $departmentCode,
+        string $departmentCode,
         string $department,
         string $region,
         int $inseeCode,
@@ -62,9 +62,9 @@ class City
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getDepartmentCode(): int
+    public function getDepartmentCode(): string
     {
         return $this->departmentCode;
     }

@@ -53,7 +53,7 @@ class OuestFranceImmoUrlBuilder extends AbstractUrlBuilder
      */
     private function buildLocationParam(City $city): string
     {
-        return sprintf('%s-%d-%s', $city->getName(), $city->getDepartmentCode(), $city->getZipCode());
+        return sprintf('%s-%s-%s', $city->getName(), $city->getDepartmentCode(), $city->getZipCode());
     }
 
     /**
