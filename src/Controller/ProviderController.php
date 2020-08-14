@@ -4,11 +4,8 @@ namespace App\Controller;
 
 use App\Enum\PropertyType;
 use App\Enum\Provider;
-use App\Exception\ParserNotFoundException;
 use App\Factory\ProviderUrlFactory;
 use App\Formatter\DecimalFormatter;
-use App\Repository\ProviderRepository;
-use App\UrlBuilderContainer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

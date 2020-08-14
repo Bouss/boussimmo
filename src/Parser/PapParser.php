@@ -15,11 +15,9 @@ class PapParser extends AbstractParser
     protected const SELECTOR_DESCRIPTION = 'td:nth-child(2)';
     protected const SELECTOR_NAME        = 'td:nth-child(2)';
     protected const SELECTOR_LOCATION    = 'td:nth-child(2) b';
-    protected const SELECTOR_URL         = 'a:first-child';
     protected const SELECTOR_PRICE       = 'td:nth-child(2)';
     protected const SELECTOR_AREA        = 'td:nth-child(2)';
     protected const SELECTOR_ROOMS_COUNT = 'td:nth-child(2)';
-    protected const SELECTOR_PHOTO       = 'img:first-child';
 
     /**
      * {@inheritDoc}

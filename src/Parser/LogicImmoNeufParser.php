@@ -12,9 +12,7 @@ class LogicImmoNeufParser extends AbstractParser
     protected const SELECTOR_AD_WRAPPER = '.contentads1';
     protected const SELECTOR_NAME       = '.adscustom3 span:first-child';
     protected const SELECTOR_LOCATION   = '.adscustom3';
-    protected const SELECTOR_URL        = '.adscustom1 a:first-child';
     protected const SELECTOR_PRICE      = '.adscustom4';
-    protected const SELECTOR_PHOTO      = '.adscustom2';
 
     /**
      * {@inheritDoc}

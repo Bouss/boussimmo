@@ -26,12 +26,12 @@ abstract class AbstractParser implements ParserInterface
     protected const SELECTOR_DESCRIPTION = null;
     protected const SELECTOR_LOCATION = null;
     protected const SELECTOR_PUBLISHED_AT = null;
-    protected const SELECTOR_URL = null;
     protected const SELECTOR_PRICE = null;
     protected const SELECTOR_AREA = null;
     protected const SELECTOR_ROOMS_COUNT = null;
-    protected const SELECTOR_PHOTO = null;
     protected const SELECTOR_NEW_BUILD = null;
+    protected const SELECTOR_URL = 'a:first-child';
+    protected const SELECTOR_PHOTO = 'img:first-child';
 
     private ProviderRepository $providerRepository;
     private LoggerInterface $logger;
