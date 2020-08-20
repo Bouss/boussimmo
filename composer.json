@@ -3,7 +3,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.4.4",
+        "php": "^7.4.3",
         "ext-intl": "*",
         "ext-json": "*",
         "doctrine/annotations": "^1.10",
