@@ -2,7 +2,7 @@
     "name": "boussimmo",
     "version": "1.0.0",
     "engines": {
-        "node": "^v12.18.3",
+        "node": "^v12.16",
         "npm": "^6.14.8"
     },
     "devDependencies": {
