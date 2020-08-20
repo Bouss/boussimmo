@@ -19,13 +19,17 @@ final class Version20200306131109 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
+        $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
+
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE "user" ADD revoked TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql("ALTER TABLE $user ADD revoked BOOLEAN DEFAULT '0' NOT NULL");
     }
 
     public function down(Schema $schema) : void
     {
+        $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
+
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE "user" DROP revoked');
+        $this->addSql("ALTER TABLE $user DROP revoked");
     }
 }

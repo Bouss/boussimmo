@@ -19,13 +19,17 @@ final class Version20200210125010 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
+        $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
+
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE "user" ADD refresh_token VARCHAR(255) NOT NULL');
+        $this->addSql("ALTER TABLE $user ADD refresh_token VARCHAR(255) NOT NULL");
     }
 
     public function down(Schema $schema) : void
     {
+        $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
+
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE "user" DROP refresh_token');
+        $this->addSql("ALTER TABLE $user DROP refresh_token");
     }
 }
