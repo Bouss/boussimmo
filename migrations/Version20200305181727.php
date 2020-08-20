@@ -22,7 +22,8 @@ final class Version20200305181727 extends AbstractMigration
         $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
 
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql("ALTER TABLE $user ADD firstname VARCHAR(255) DEFAULT NULL, ADD lastname VARCHAR(255) DEFAULT NULL, RENAME COLUMN profile_image TO avatar");
+        $this->addSql("ALTER TABLE $user ADD firstname VARCHAR(255) DEFAULT NULL, ADD lastname VARCHAR(255) DEFAULT NULL");
+        $this->addSql("ALTER TABLE $user RENAME COLUMN profile_image TO avatar");
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +31,7 @@ final class Version20200305181727 extends AbstractMigration
         $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
 
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql("ALTER TABLE $user DROP firstname, DROP lastname, DROP avatar, RENAME COLUMN avatar TO profile_image");
+        $this->addSql("ALTER TABLE $user DROP firstname, DROP lastname, DROP avatar");
+        $this->addSql("ALTER TABLE $user RENAME COLUMN avatar TO profile_image");
     }
 }
