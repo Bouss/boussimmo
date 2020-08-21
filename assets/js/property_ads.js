@@ -54,7 +54,7 @@ function loadPropertyAds() {
                 return;
             }
 
-            $('body').find('.loader').remove();
+            $body.find('.loader').remove();
         }
     });
 }
@@ -64,7 +64,7 @@ function initTooltips() {
 }
 
 $(function() {
-    $('body').css('padding-bottom', ($('footer').outerHeight()));
+    $body.css('padding-bottom', ($('footer').outerHeight()));
     initTooltips();
     loadPropertyAds();
 });

@@ -12,7 +12,7 @@ $form.on('submit', function (e) {
         type: 'POST',
         url: Routing.generate('provider_result_urls'),
         data: $form.serialize(),
-        success: function (data) {
+        success: function (urls) {
             if (!$resultContainer.length) {
                 $form.parent().after('<div id="result-container"></div>');
                 $resultContainer = $('#result-container');
@@ -20,13 +20,13 @@ $form.on('submit', function (e) {
                 $resultContainer.empty();
             }
 
-            $.each(data, function (i, item) {
+            $.each(urls, function (i, url) {
                 $resultContainer.append(`
-                    <a class="result link" href="${item.url}" target="_blank" rel="noopener noreferrer">
+                    <a class="result link" href="${url.value}" target="_blank" rel="noopener noreferrer">
                         <div class="result-logo-wrapper">
-                            <img src="build/providers/${item.logo}" alt="${item.provider}"/>
+                            <img src="build/providers/${url.logo}" alt="${url.website}"/>
                         </div>
-                        <span>${item.url}</span>
+                        <span>${url.value}</span>
                     </a>
                 `);
             })

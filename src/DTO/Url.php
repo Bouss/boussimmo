@@ -6,13 +6,13 @@ class Url
 {
     private string $website;
     private string $logo;
-    private string $url;
+    private string $value;
 
-    public function __construct(string $website, string $logo, string $url)
+    public function __construct(string $website, string $logo, string $value)
     {
         $this->website = $website;
         $this->logo = $logo;
-        $this->url = $url;
+        $this->value = $value;
     }
 
     /**
@@ -34,8 +34,13 @@ class Url
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getValue(): string
     {
-        return $this->url;
+        return $this->value;
+    }
+
+    public function __toString(): string
+    {
+        return $this->value;
     }
 }
