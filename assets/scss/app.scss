@@ -3,6 +3,10 @@
 @import 'components/loader';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
+html, body {
+  height: 100%;
+}
+
 html {
   line-height: $line-height;
   font-weight: 400;
@@ -10,11 +14,9 @@ html {
   font-family: 'Lato', sans-serif;
 }
 
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   background-color: #fff;
 }
@@ -33,12 +35,15 @@ body {
 }
 
 main {
+  flex: 1 0 auto;
+
   & > * {
     margin: 0 auto;
   }
 }
 
 footer {
+  flex-shrink: 0;
   padding: 2rem;
   background-color: $primary-color;
   color: #fff;
