@@ -1,6 +1,6 @@
-import '../scss/homepage/index.scss';
-import '../scss/homepage/btn_signin.scss';
-import '../scss/homepage/generate_urls_form.scss';
+import '../../scss/pages/homepage/index.scss';
+import '../../scss/pages/homepage/btn_signin.scss';
+import '../../scss/pages/homepage/generate_urls_form.scss';
 
 let $form = $('#generate-urls-form');
 let $resultContainer = $('#result-container');
@@ -24,7 +24,7 @@ $form.on('submit', function (e) {
                 $resultContainer.append(`
                     <a class="result link" href="${url.value}" target="_blank" rel="noopener noreferrer">
                         <div class="result-logo-wrapper">
-                            <img src="build/providers/${url.logo}" alt="${url.website}"/>
+                            <img src="${assets['build/images/providers/' + url.logo]}" alt="${url.website}"/>
                         </div>
                         <span>${url.value}</span>
                     </a>

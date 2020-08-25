@@ -1,7 +1,7 @@
 <article class="property-ad{% if 'now'|date('Y-m-d') == ad.publishedAt|date('Y-m-d') %} property-ad--new{% endif %}">
     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ ad.url }}">
         <div class="photo-wrapper">
-            <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+            <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/images/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
             {% if ad.newBuild %}
                 <div class="new-build-tag">NEUF</div>
             {% endif %}
@@ -24,7 +24,7 @@
                 {% if ad.name is not null %}<span class="name">{{ ad.name|upper }}</span>,&nbsp;{% endif %}
                 {{ ad.location }}
             </p>
-            <img class="provider-logo" src="{{ asset('build/providers/' ~ ad|provider_logo) }}" alt="{{ ad.provider }}">
+            <img class="provider-logo" src="{{ asset('build/images/providers/' ~ ad|provider_logo) }}" alt="{{ ad.provider }}">
         </div>
         <div class="publication-date">
             <i class="far fa-clock fa-fw"></i>
@@ -38,10 +38,10 @@
             {% for duplicate in ad.duplicates|slice(0, 5) %}
                 <article class="duplicate">
                     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ duplicate.url }}">
-                        <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+                        <img class="photo" src="{% if duplicate.photo is not empty %}{{ duplicate.photo }}{% else %}{{ asset('build/images/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                         <span class="label">
                             Aussi présent sur&nbsp;
-                            <img class="provider-logo" src="{{ asset('build/providers/' ~ duplicate|provider_logo) }}" alt="{{ duplicate.provider }}">
+                            <img class="provider-logo" src="{{ asset('build/images/providers/' ~ duplicate|provider_logo) }}" alt="{{ duplicate.provider }}">
                         </span>
                     </a>
                 </article>
