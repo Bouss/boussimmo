@@ -1,7 +1,7 @@
 import 'bootstrap/js/dist/tooltip';
-import '../scss/property_ad/index.scss';
-import '../scss/property_ad/property_ad.scss';
-import '../scss/property_ad/filter_form.scss';
+import '../../scss/pages/property_ads/index.scss';
+import '../../scss/pages/property_ads/property_ad.scss';
+import '../../scss/pages/property_ads/filter_form.scss';
 
 let $body = $('body');
 let $filterForm = $('#filter-form');

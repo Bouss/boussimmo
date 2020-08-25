@@ -8,3 +8,4 @@ twig:
         thousands_separator: ' '
     globals:
         github_link: https://github.com/Bouss/boussimmo
+        manifest_path: /build/manifest.json

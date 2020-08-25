@@ -12,6 +12,11 @@ Encore
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
+    .copyFiles({
+        from: './assets/images',
+        to: 'images/[path][name].[hash:8].[ext]'
+    })
+
     /*
      * ENTRY CONFIG
      *
@@ -22,8 +27,8 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('homepage', './assets/js/homepage.js')
-    .addEntry('property_ads', './assets/js/property_ads.js')
+    .addEntry('homepage', './assets/js/pages/homepage.js')
+    .addEntry('property_ads', './assets/js/pages/property_ads.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -43,7 +48,7 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(false)
+    .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
     .configureBabel(() => {}, {
@@ -63,9 +68,6 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
-    .copyFiles({
-        from: './assets/images'
-    })
 ;
 
 module.exports = Encore.getWebpackConfig();
