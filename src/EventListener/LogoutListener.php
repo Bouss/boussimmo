@@ -4,20 +4,20 @@ namespace App\EventListener;
 
 use App\Entity\User;
 use App\Exception\GoogleApiException;
-use App\Service\GoogleService;
+use App\Service\GoogleOAuthService;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 class LogoutListener
 {
-    private GoogleService $googleService;
+    private GoogleOAuthService $oAuthService;
 
     /**
-     * @param GoogleService $googleService
+     * @param GoogleOAuthService $oAuthService
      */
-    public function __construct(GoogleService $googleService)
+    public function __construct(GoogleOAuthService $oAuthService)
     {
-        $this->googleService = $googleService;
+        $this->oAuthService = $oAuthService;
     }
 
     /**
@@ -32,6 +32,6 @@ class LogoutListener
         /** @var User $user */
         $user = $token->getUser();
 
-        $this->googleService->revoke($user);
+        $this->oAuthService->revoke($user);
     }
 }

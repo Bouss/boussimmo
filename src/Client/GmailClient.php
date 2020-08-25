@@ -100,7 +100,11 @@ class GmailClient
      */
     private function buildMessagesQuery(string $provider = null, int $newerThan = null): string
     {
-        $fromFilter = sprintf('from:(%s)', implode(' | ', $this->emailTemplateRepository->getEmailAddresses($provider)));
+        $addresses = null !== $provider ?
+            $this->emailTemplateRepository->getAddressesByMainProvider($provider) :
+            $this->emailTemplateRepository->getAllAddresses();
+
+        $fromFilter = sprintf('from:(%s)', implode(' | ', $addresses));
         $dateFilter = sprintf('newer_than:%dd', $newerThan);
 
         return implode(' ', [$fromFilter, $dateFilter]);

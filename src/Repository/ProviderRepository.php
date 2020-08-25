@@ -35,7 +35,7 @@ class ProviderRepository
      *
      * @return Provider[]
      */
-    public function getAllProviders(string $id): array
+    public function getProvidersByMainProvider(string $id): array
     {
         return array_filter($this->providers, fn(Provider $provider) =>
             $id === $provider->getId() || $id === $provider->getParentProvider()

@@ -8,7 +8,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Google_Client;
 
-class GoogleService
+class GoogleOAuthService
 {
     private Google_Client $googleClient;
     private EntityManagerInterface $em;
