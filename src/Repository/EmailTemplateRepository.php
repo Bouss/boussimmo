@@ -55,25 +55,31 @@ class EmailTemplateRepository
     }
 
     /**
-     * @param string|null $mainProviderId
+     * @return string[]
+     */
+    public function getAllAddresses(): array
+    {
+        $addresses = array_map(fn(EmailTemplate $template) => $template->getAddress(), $this->emailTemplates);
+
+        return array_unique($addresses);
+    }
+
+    /**
+     * @param string $mainProviderId
      *
      * @return string[]
      */
-    public function getEmailAddresses(string $mainProviderId = null): array
+    public function getAddressesByMainProvider(string $mainProviderId): array
     {
-        $templates = $this->emailTemplates;
+        $providers = $this->providerRepository->getProvidersByMainProvider($mainProviderId);
+        $providerIds = array_map(fn(Provider $provider) => $provider->getId(), $providers);
 
-        if (null !== $mainProviderId) {
-            $providers = $this->providerRepository->getAllProviders($mainProviderId);
-            $providerIds = array_map(fn(Provider $provider) => $provider->getId(), $providers);
+        $templates = array_filter($this->emailTemplates, fn(EmailTemplate $template) =>
+            in_array($template->getProviderId(), $providerIds, true)
+        );
 
-            $templates = array_filter($templates, fn(EmailTemplate $template) =>
-                in_array($template->getProviderId(), $providerIds, true)
-            );
-        }
+        $addresses = array_map(fn(EmailTemplate $template) => $template->getAddress(), $templates);
 
-        $emails = array_map(fn(EmailTemplate $template) => $template->getEmailAddress(), $templates);
-
-        return array_unique($emails);
+        return array_unique($addresses);
     }
 }

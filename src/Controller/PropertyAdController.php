@@ -7,7 +7,7 @@ use App\Entity\User;
 use App\Enum\PropertyAdFilter;
 use App\Exception\ParserNotFoundException;
 use App\Repository\PropertyAdRepository;
-use App\Service\GoogleService;
+use App\Service\GoogleOAuthService;
 use App\Service\PropertyAdSortResolver;
 use Google_Service_Gmail_Label;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,17 +21,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class PropertyAdController extends AbstractController
 {
     /**
-     * @param GmailClient   $gmailClient
-     * @param GoogleService $googleService
+     * @param GmailClient        $gmailClient
+     * @param GoogleOAuthService $oAuthService
      *
      * @return Response
      */
-    public function index(GmailClient $gmailClient, GoogleService $googleService): Response
+    public function index(GmailClient $gmailClient, GoogleOAuthService $oAuthService): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        $googleService->refreshAccessTokenIfExpired($user);
+        $oAuthService->refreshAccessTokenIfExpired($user);
 
         $labels = $gmailClient->getLabels($user->getAccessToken());
 
@@ -53,7 +53,7 @@ class PropertyAdController extends AbstractController
      * @param Request                $request
      * @param PropertyAdRepository   $propertyAdRepository
      * @param PropertyAdSortResolver $sortResolver
-     * @param GoogleService          $googleService
+     * @param GoogleOAuthService     $oAuthService
      *
      * @return Response
      *
@@ -63,7 +63,7 @@ class PropertyAdController extends AbstractController
         Request $request,
         PropertyAdRepository $propertyAdRepository,
         PropertyAdSortResolver $sortResolver,
-        GoogleService $googleService
+        GoogleOAuthService $oAuthService
     ): Response
     {
         parse_str($request->query->get('filters'), $filters);
@@ -78,7 +78,7 @@ class PropertyAdController extends AbstractController
         $user->setPropertyAdSearchSettings(array_merge($filters, ['sort' => $sort]));
         $this->getDoctrine()->getManager()->flush();
 
-        $googleService->refreshAccessTokenIfExpired($user);
+        $oAuthService->refreshAccessTokenIfExpired($user);
 
         $propertyAds = $propertyAdRepository->find($user->getAccessToken(), $filters);
 
