@@ -5,7 +5,7 @@ namespace App\Twig;
 use App\DTO\PropertyAd;
 use App\Repository\ProviderRepository;
 use DateTime;
-use Psr\Log\LoggerInterface;
+use DateTimeZone;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -78,8 +78,11 @@ class AppExtension extends AbstractExtension
      */
     public function getDaysAgo(DateTime $date): string
     {
-        $dateClone = clone $date;
-        $daysDiff = (new DateTime())->setTime(0, 0)->diff($dateClone->setTime(0, 0))->days;
+        $timezone = new DateTimeZone('Europe/Paris');
+
+        $daysDiff = (new DateTime('now', $timezone))->setTime(0, 0)
+            ->diff((clone $date)->setTimezone($timezone)->setTime(0, 0))
+            ->days;
 
         if (0 === $daysDiff) {
             return 'Aujourd\'hui';

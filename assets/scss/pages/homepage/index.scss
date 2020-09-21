@@ -1,8 +1,7 @@
-@import '../colors';
-@import '../sizes';
+@import '../../colors';
+@import '../../sizes';
 
 .cta-wrapper {
-  margin: 0 auto;
   padding: 1.9rem $content-padding;
   text-align: center;
   box-shadow: 0 15px 15px -15px rgba(38, 38, 38, 1);
@@ -102,7 +101,7 @@ section {
   p:before {
     margin-right: 10px;
     font-weight: 900;
-    font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5 Free', serif;
     content: '\f023';
     color: $secondary-color;
   }
