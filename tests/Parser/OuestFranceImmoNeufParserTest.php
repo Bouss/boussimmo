@@ -4,11 +4,6 @@ namespace App\Tests\Parser;
 
 use App\DTO\Provider;
 use App\Formatter\DecimalFormatter;
-use App\Parser\BienIciParser;
-use App\Parser\LeBonCoinParser;
-use App\Parser\LogicImmoParser;
-use App\Parser\LogicImmoPartnerParser;
-use App\Parser\OuestFranceImmo2Parser;
 use App\Parser\OuestFranceImmoNeufParser;
 use App\Repository\ProviderRepository;
 use DateTime;

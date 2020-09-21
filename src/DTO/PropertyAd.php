@@ -300,28 +300,26 @@ class PropertyAd
      */
     public function equals(PropertyAd $propertyAd, bool $strict = false): bool
     {
-        $samePrice = null !== $this->price && $this->price === $propertyAd->getPrice();
-        $sameName = null !== $this->name && $this->name === $propertyAd->getName();
-        $sameArea = null !== $this->area && abs($this->area - $propertyAd->getArea()) <= 1;
-        $areBothNewBuild = $this->newBuild && $propertyAd->isNewBuild();
         $strictRespected = $strict ? $this->provider === $propertyAd->getProvider() : true;
 
         // If at least one price is missing
         if (null === $this->price || null === $propertyAd->getPrice()) {
             // If the properties are new-build, they are the same ones if their name are equal
-            if ($areBothNewBuild) {
-                return $sameName && $strictRespected;
+            if ($this->newBuild && $propertyAd->isNewBuild()) {
+                return (null !== $this->name && $this->name === $propertyAd->getName()) && $strictRespected;
             }
 
             // At least one property is not a new-build, we can't determinate if they're the same ones
             return false;
         }
 
+        $sameArea = null !== $this->area && abs($this->area - $propertyAd->getArea()) <= 1;
+
         // Properties are equals if their price are equal as long as the price doesn't finish with a so common "000"
         // or when their area are pretty much equal
         return
-            $samePrice &&
-            (null !== $this->area && null !== $propertyAd->getArea() ? $sameArea : true) &&
+            (null !== $this->price && $this->price === $propertyAd->getPrice()) &&
+            ((null !== $this->area && null !== $propertyAd->getArea()) ? $sameArea : true) &&
             ('000' !== substr($this->price, -3) || $sameArea) &&
             $strictRespected;
     }
