@@ -50,8 +50,8 @@ class PapParser extends AbstractParser
      */
     protected function parseName(Crawler $crawler): ?string
     {
-        if (preg_match('/\)(.+) -/', parent::parseName($crawler), $matches)) {
-            return $matches[1];
+        if (1 === preg_match('/\)(.+) -/', parent::parseName($crawler), $matches)) {
+            return trim($matches[1]);
         }
 
         return null;
