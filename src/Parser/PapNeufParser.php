@@ -36,8 +36,10 @@ class PapNeufParser extends AbstractParser
      */
     protected function parseName(Crawler $crawler): ?string
     {
-        preg_match('/\) (.+) Adresse/', parent::parseName($crawler), $matches);
+        if (1 === preg_match('/\)(.+)Adresse/', parent::parseName($crawler), $matches)) {
+            return trim($matches[1]);
+        }
 
-        return $matches[1] ?? null;
+        return null;
     }
 }

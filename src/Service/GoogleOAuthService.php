@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Exception\GoogleApiException;
 use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Google_Client;
 
@@ -35,7 +36,11 @@ class GoogleOAuthService
         $data = $this->googleClient->refreshToken($user->getRefreshToken());
         $user
             ->setAccessToken($data['access_token'])
-            ->setAccessTokenExpiresAt(new DateTime(sprintf('+%d seconds', $data['expires_in'])));
+            // ->setAccessTokenExpiresAt(new DateTime(sprintf('+%d seconds', $data['expires_in'])));
+            // Driven by the unit tests: time() function is mockable, new DateTime instances are not
+            ->setAccessTokenExpiresAt(DateTime::createFromFormat('U', time() + $data['expires_in'])
+                ->setTimezone(new DateTimeZone('UTC'))
+            );
         $this->em->flush();
     }
 
@@ -46,9 +51,10 @@ class GoogleOAuthService
      */
     public function revoke(User $user): void
     {
-        $revoked = $this->googleClient->revokeToken($user->getRefreshToken());
+        $accessTokenRevoked = $this->googleClient->revokeToken($user->getAccessToken());
+        $refreshTokenRevoked = $this->googleClient->revokeToken($user->getRefreshToken());
 
-        if (!$revoked) {
+        if (!($accessTokenRevoked && $refreshTokenRevoked)) {
             throw new GoogleApiException('User access revoking failed');
         }
 

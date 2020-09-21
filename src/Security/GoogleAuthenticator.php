@@ -3,7 +3,9 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
@@ -23,17 +25,23 @@ class GoogleAuthenticator extends SocialAuthenticator
     private ClientRegistry $clientRegistry;
     private EntityManagerInterface $em;
     private RouterInterface $router;
+    private UserRepository $userRepository;
 
     /**
      * @param ClientRegistry         $clientRegistry
      * @param EntityManagerInterface $em
      * @param RouterInterface        $router
      */
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router)
-    {
+    public function __construct(
+        ClientRegistry $clientRegistry,
+        EntityManagerInterface $em,
+        RouterInterface $router,
+        UserRepository $userRepository
+    ) {
         $this->clientRegistry = $clientRegistry;
         $this->em = $em;
         $this->router = $router;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -61,7 +69,7 @@ class GoogleAuthenticator extends SocialAuthenticator
         $accessToken = $credentials;
         $googleUser = $this->getGoogleClient()->fetchUserFromToken($accessToken);
 
-        $user = $this->em->getRepository(User::class)->findOneBy(['googleId' => $googleUser->getId()]);
+        $user = $this->userRepository->findOneBy(['googleId' => $googleUser->getId()]);
 
         if (null === $user) {
             $user = (new User())
@@ -77,7 +85,9 @@ class GoogleAuthenticator extends SocialAuthenticator
         $user
             ->setRevoked(false)
             ->setAccessToken($accessToken)
-            ->setAccessTokenExpiresAt(new DateTime('@' . $accessToken->getExpires()));
+            ->setAccessTokenExpiresAt(
+                (new DateTime('@' . $accessToken->getExpires()))->setTimezone(new DateTimeZone('UTC'))
+            );
 
         $this->em->flush();
 

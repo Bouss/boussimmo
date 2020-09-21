@@ -44,7 +44,7 @@ class GmailClient
         $newerThan = $criteria[PropertyAdFilter::NEWER_THAN];
 
         // Prepare the Gmail messages query
-        $params['q'] = $this->buildMessagesQuery($provider, $newerThan);
+        $params = ['q' => $this->buildMessagesQuery($provider, $newerThan)];
         if (!empty($labelId)) {
             $params['labelIds'] = [$labelId];
         }
