@@ -302,15 +302,9 @@ class PropertyAd
     {
         $strictRespected = $strict ? $this->provider === $propertyAd->getProvider() : true;
 
-        // If at least one price is missing
-        if (null === $this->price || null === $propertyAd->getPrice()) {
-            // If the properties are new-build, they are the same ones if their name are equal
-            if ($this->newBuild && $propertyAd->isNewBuild()) {
-                return (null !== $this->name && $this->name === $propertyAd->getName()) && $strictRespected;
-            }
-
-            // At least one property is not a new-build, we can't determinate if they're the same ones
-            return false;
+        // If the properties are new-build, they are the same ones if their name are equal
+        if ($this->newBuild && $propertyAd->isNewBuild()) {
+            return (null !== $this->name && $this->name === $propertyAd->getName()) && $strictRespected;
         }
 
         $sameArea = null !== $this->area && abs($this->area - $propertyAd->getArea()) <= 1;

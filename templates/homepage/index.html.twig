@@ -22,27 +22,48 @@
 
 {% block body %}
     <p class="introduction">
-            BoussImmo <b>regroupe</b>, sur une seule et même page, tous les <b>biens immobiliers</b> récupérés depuis vos <b>emails d'alerte d'annonces immobilières</b>.
+        BoussImmo <b>regroupe</b>, sur une seule et même page, tous les <b>biens immobiliers</b> issus de vos <b>emails d'alerte d'annonces immobilières</b>.
     </p>
+    <a class="overview" href="{{ asset('build/images/overview.png') }}" target="_blank" rel="noopener noreferrer">
+        <img src="{{ asset('build/images/overview.png') }}" alt="Aperçu de la solution" />
+    </a>
     <div class="section-container">
         <section id="principle">
             <h2>Comment ça marche ?</h2>
-            <p>Tout d'abord, BoussImmo <b>extrait les biens immobiliers</b> se trouvant dans vos emails d'alerte d'annonces immobilières.</p>
-            <p>
-                Les annonces sont ensuite <b>filtrées</b> : les doublons (annonces indentiques émanant d'un même site) sont <b>mis de côté</b>,
-                tandis que les annonces similaires diffusées par des plateformes différentes sont <b>regroupées</b> entre elles,
-                afin d'offir le contenu à la fois le plus exhaustif et en même temps le plus <b>unique</b> possible.
-            </p>
-            <p>Enfin, libre à vous de <b>refiltrer</b> et <b>trier</b> vos annonces comme bon vous semble !</p>
+            <div class="illustrated-text">
+                <i class="fas fa-envelope-open-text"></i>
+                <p>Tout d'abord, BoussImmo <b>extrait les biens immobiliers</b> se trouvant dans vos emails d'alerte d'annonces immobilières.</p>
+            </div>
+            <div class="illustrated-text">
+                <i class="fas fa-cogs"></i>
+                <p>
+                    Les annonces sont ensuite <b>filtrées</b> : les doublons (annonces indentiques émanant d'un même site) sont <b>mis de côté</b>,
+                    tandis que les annonces similaires diffusées par des plateformes différentes sont <b>regroupées</b> entre elles,
+                    afin d'offir le contenu à la fois le plus <b>exhaustif</b> et en même temps le plus <b>unique</b> possible.
+                </p>
+            </div>
+            <div class="illustrated-text">
+                <i class="fas fa-filter"></i>
+                <p>Enfin, libre à vous de <b>refiltrer</b> et <b>trier</b> vos annonces comme bon vous semble !</p>
+            </div>
         </section>
         <section id="instructions">
-            <h2>Que faut-il faire pour utiliser le site ?</h2>
-            <p>Au préalable, s'<b>inscrire aux alertes</b> de vente de biens immobiliers (maisons et/ou appartements) qui vous intéressent avec votre <b>adresse Gmail</b> sur les plateformes citées juste après.</p>
-            <p>Connecter son <b>compte Gmail</b> à BoussImmo en cliquant sur le bouton de connexion <i><a href="#sign-in">ci-dessus</a></i>.</p>
-            <p>Consulter BoussImmo aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
+            <h2>Que faut-il faire ?</h2>
+            <div class="illustrated-text">
+                <i class="far fa-bell"></i>
+                <p>Au préalable, s'<b>inscrire aux alertes</b> de vente de biens immobiliers (maisons et/ou appartements) qui vous intéressent avec votre <b>adresse Gmail</b> sur les plateformes citées juste après.</p>
+            </div>
+            <div class="illustrated-text">
+                <i class="fas fa-plug"></i>
+                <p>Connecter son <b>compte Gmail</b> à BoussImmo en cliquant sur le bouton de connexion <i><a href="#sign-in">ci-dessus</a></i>.</p>
+            </div>
+            <div class="illustrated-text">
+                <i class="fas fa-check"></i>
+                <p>Consulter BoussImmo aussi longtemps que vous n'aurez pas trouvé votre <b>chez-vous</b> !</p>
+            </div>
         </section>
         <section id="providers">
-            <h2>Quelles sont les plateformes d'annonces immobilières gérées par BoussImmo ?</h2>
+            <h2>Quelles sont les plateformes d'annonces immobilières traitées ?</h2>
             <div class="provider-container">
                 <a href="https://www.bienici.com" class="link" target="_blank" rel="noopener noreferrer">
                     <img src="{{ asset('build/images/providers/bienici.svg') }}" alt="Bien'ici"/>

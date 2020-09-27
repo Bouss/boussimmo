@@ -43,22 +43,12 @@ main {
 }
 
 footer {
-  flex-shrink: 0;
+  display: grid;
+  row-gap: 1rem;
+  text-align: center;
   padding: 2rem;
   background-color: $primary-color;
   color: #fff;
-
-  .footer-content {
-    display: grid;
-    row-gap: 1rem;
-    text-align: center;
-
-    & > div {
-      & > * {
-        display: inline-block;
-      }
-    }
-  }
 
   a {
     color: #fff;
@@ -110,6 +100,15 @@ input, select, button {
 
 .underline {
   text-decoration: underline;
+}
+
+.illustrated-text {
+  display: flex;
+  align-items: center;
+
+  > p {
+    margin-left: 1rem;
+  }
 }
 
 @media screen and (max-width: 576px) {
