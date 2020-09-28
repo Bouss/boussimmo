@@ -8,10 +8,12 @@ use App\Service\GoogleOAuthService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Google_Client;
+use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Log\LoggerInterface;
 use Symfony\Bridge\PhpUnit\ClockMock;
 
 class GoogleOAuthServiceTest extends TestCase
@@ -22,6 +24,8 @@ class GoogleOAuthServiceTest extends TestCase
     private $googleClient;
     /** @var ObjectProphecy|EntityManagerInterface */
     private $em;
+    /** @var ObjectProphecy|LoggerInterface */
+    private $logger;
 
     private GoogleOAuthService $googleOAuthService;
 
@@ -29,8 +33,13 @@ class GoogleOAuthServiceTest extends TestCase
     {
         $this->googleClient = $this->prophesize(Google_Client::class);
         $this->em = $this->prophesize(EntityManagerInterface::class);
+        $this->logger = $this->prophesize(LoggerInterface::class);
 
-        $this->googleOAuthService = new GoogleOAuthService($this->googleClient->reveal(), $this->em->reveal());
+        $this->googleOAuthService = new GoogleOAuthService(
+            $this->googleClient->reveal(),
+            $this->em->reveal(),
+            $this->logger->reveal()
+        );
     }
 
     public function testRefreshAccessTokenIfExpiredRefreshesTheAccessTokenWhenExpired(): void
@@ -107,10 +116,12 @@ class GoogleOAuthServiceTest extends TestCase
         $user->getAccessToken()->willReturn('123456789');
         $user->getRefreshToken()->willReturn('987654321');
         $this->googleClient->revokeToken('123456789')->willReturn(true);
-        $this->googleClient->revokeToken('987654321')->willReturn(false);
+        $this->googleClient->revokeToken('987654321')->willThrow(ClientException::class);
 
         // Then
-        $this->expectException(GoogleApiException::class);
+        $this->logger->warning(Argument::any())->shouldBeCalled();
+        $user->setRevoked(true)->shouldBeCalled();
+        $this->em->flush()->shouldBeCalled();
 
         // When
         $this->googleOAuthService->revoke($user->reveal());

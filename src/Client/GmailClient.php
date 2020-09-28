@@ -3,8 +3,10 @@
 namespace App\Client;
 
 use App\Enum\PropertyAdFilter;
+use App\Exception\GoogleTokenRevokedException;
 use App\Repository\EmailTemplateRepository;
 use Exception;
+use Google_Service_Exception;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Label;
 use Google_Service_Gmail_Message;
@@ -84,12 +86,18 @@ class GmailClient
      * @param string $userId
      *
      * @return Google_Service_Gmail_Label[]
+     *
+     * @throws GoogleTokenRevokedException
      */
     public function getLabels(string $accessToken, string $userId = 'me'): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
-        return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();
+        try {
+            return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();
+        } catch (Google_Service_Exception $e) {
+            throw new GoogleTokenRevokedException('Could not get the labels: ' . $e->getMessage());
+        }
     }
 
     /**
