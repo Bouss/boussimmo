@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Client\GmailClient;
 use App\Entity\User;
 use App\Enum\PropertyAdFilter;
+use App\Exception\GoogleTokenRevokedException;
 use App\Exception\ParserNotFoundException;
 use App\Repository\PropertyAdRepository;
 use App\Service\GoogleOAuthService;
 use App\Service\PropertyAdSortResolver;
 use Google_Service_Gmail_Label;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,20 +22,39 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PropertyAdController extends AbstractController
 {
-    /**
-     * @param GmailClient        $gmailClient
-     * @param GoogleOAuthService $oAuthService
-     *
-     * @return Response
-     */
-    public function index(GmailClient $gmailClient, GoogleOAuthService $oAuthService): Response
+    private GmailClient $gmailClient;
+    private GoogleOAuthService $oAuthService;
+    private PropertyAdRepository $propertyAdRepository;
+    private PropertyAdSortResolver $sortResolver;
+    private LoggerInterface $logger;
+
+    public function __construct(
+        GmailClient $gmailClient,
+        GoogleOAuthService $oAuthService,
+        PropertyAdRepository $propertyAdRepository,
+        PropertyAdSortResolver $sortResolver,
+        LoggerInterface $logger
+    ) {
+        $this->gmailClient = $gmailClient;
+        $this->oAuthService = $oAuthService;
+        $this->propertyAdRepository = $propertyAdRepository;
+        $this->sortResolver = $sortResolver;
+        $this->logger = $logger;
+    }
+
+    public function index(): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        $oAuthService->refreshAccessTokenIfExpired($user);
+        try {
+            $this->oAuthService->refreshAccessTokenIfExpired($user);
+            $labels = $this->gmailClient->getLabels($user->getAccessToken());
+        } catch (GoogleTokenRevokedException $e) {
+            $this->logger->error($e->getMessage());
 
-        $labels = $gmailClient->getLabels($user->getAccessToken());
+            return $this->redirectToRoute('app_logout');
+        }
 
         $settings = $user->getPropertyAdSearchSettings();
 
@@ -49,28 +70,16 @@ class PropertyAdController extends AbstractController
 
     /**
      * @Route("/list", methods={"GET"}, options={"expose"=true}, name="property_ads_list")
-     *
-     * @param Request                $request
-     * @param PropertyAdRepository   $propertyAdRepository
-     * @param PropertyAdSortResolver $sortResolver
-     * @param GoogleOAuthService     $oAuthService
-     *
-     * @return Response
-     *
+
      * @throws ParserNotFoundException
      */
-    public function list(
-        Request $request,
-        PropertyAdRepository $propertyAdRepository,
-        PropertyAdSortResolver $sortResolver,
-        GoogleOAuthService $oAuthService
-    ): Response
+    public function list(Request $request): Response
     {
         parse_str($request->query->get('filters'), $filters);
         $sort = $request->query->get('sort');
 
         if (isset($filters[PropertyAdFilter::NEW_BUILD])) {
-            $filters[PropertyAdFilter::NEW_BUILD] = (bool) $filters[PropertyAdFilter::NEW_BUILD];
+            $filters[PropertyAdFilter::NEW_BUILD] = true;
         }
 
         /** @var User $user */
@@ -78,13 +87,17 @@ class PropertyAdController extends AbstractController
         $user->setPropertyAdSearchSettings(array_merge($filters, ['sort' => $sort]));
         $this->getDoctrine()->getManager()->flush();
 
-        $oAuthService->refreshAccessTokenIfExpired($user);
+        try {
+            $this->oAuthService->refreshAccessTokenIfExpired($user);
+        } catch (GoogleTokenRevokedException $e) {
+            return $this->redirectToRoute('app_logout');
+        }
 
-        $propertyAds = $propertyAdRepository->find($user->getAccessToken(), $filters);
+        $propertyAds = $this->propertyAdRepository->find($user->getAccessToken(), $filters);
 
         return $this->render('property_ad/_list.html.twig', [
             'property_ads' => $propertyAds,
-            'sort' => $sortResolver->resolve($sort)
+            'sort' => $this->sortResolver->resolve($sort)
         ]);
     }
 
