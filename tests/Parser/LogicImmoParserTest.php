@@ -4,8 +4,6 @@ namespace App\Tests\Parser;
 
 use App\DTO\Provider;
 use App\Formatter\DecimalFormatter;
-use App\Parser\BienIciParser;
-use App\Parser\LeBonCoinParser;
 use App\Parser\LogicImmoParser;
 use App\Repository\ProviderRepository;
 use DateTime;

@@ -2,6 +2,8 @@ import '../../scss/pages/homepage/index.scss';
 import '../../scss/pages/homepage/btn_signin.scss';
 import '../../scss/pages/homepage/generate_urls_form.scss';
 
+import '../components/form/field';
+
 let $form = $('#generate-urls-form');
 let $resultContainer = $('#result-container');
 
@@ -9,9 +11,13 @@ $form.on('submit', function (e) {
     e.preventDefault();
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: Routing.generate('provider_result_urls'),
-        data: $form.serialize(),
+        data: $form
+            .find(':input').filter(function () {
+                return '' !== $(this).val()
+            })
+            .serialize(),
         success: function (urls) {
             if (!$resultContainer.length) {
                 $form.parent().after('<div id="result-container"></div>');

@@ -72,6 +72,7 @@ class PropertyAdTest extends TestCase
     {
         yield [(new PropertyAd)->setName('High Gardens')->setNewBuild(true)->setProvider('p1'), true, true];
         yield [(new PropertyAd)->setName('High Gardens')->setNewBuild(true)->setProvider('p2'), true, false];
+        yield [(new PropertyAd)->setName('High Gardens')->setNewBuild(true)->setProvider('p2')->setPrice(300000), true, false];
         yield [(new PropertyAd)->setName('High Gardens')->setNewBuild(false)->setProvider('p2'), false, false];
         yield [(new PropertyAd)->setName('Sea and Sun')->setNewBuild(true)->setProvider('p2'), false, false];
         yield [(new PropertyAd)->setName(null)->setNewBuild(true)->setProvider('p2'), false, false];

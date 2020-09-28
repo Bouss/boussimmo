@@ -1,7 +1,7 @@
 # Boussimmo
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Bouss/boussimmo/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Bouss/boussimmo/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Bouss/boussimmo/build-status/master) [![Code Intelligence Status](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
-
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Bouss/boussimmo/?branch=develop) [![Code Coverage](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Bouss/boussimmo/?branch=develop) [![Build Status](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Bouss/boussimmo/build-status/develop) [![Code Intelligence Status](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/code-intelligence.svg?b=develop)](https://scrutinizer-ci.com/code-intelligence)   
+   
 [http://www.boussimmo.com](http://www.boussimmo.com)
 
 Technologies

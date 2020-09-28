@@ -19,14 +19,26 @@
 }
 
 .introduction {
-  margin: 3em 0;
+  margin-top: 3rem;
   padding: $content-padding;
   text-align: center;
   font-size: 1.4rem;
 }
 
+.overview {
+  $width: 30rem;
+  display: block;
+  width: $width;
+  margin: 0 auto;
+
+  img {
+    display: block;
+    width: $width;
+  }
+}
+
 .section-container {
-  > *:not(:first-child) {
+  > * {
     margin-top: 3rem;
   }
 }
@@ -64,6 +76,21 @@ section {
 
   li {
     list-style-type: none;
+  }
+}
+
+#principle, #instructions {
+  .illustrated-text {
+    > i {
+      width: 30px; // Based on the largest icon ("fa-gears")
+      text-align: center;
+      font-size: 1.5rem;
+      color: $secondary-color;
+    }
+
+    > p {
+      flex-shrink: 100;
+    }
   }
 }
 
@@ -149,6 +176,15 @@ section {
 }
 
 @media screen and (max-width: 960px) {
+  .overview {
+    $width: 20rem;
+    width: $width;
+
+    img {
+      width: $width;
+    }
+  }
+
   .provider-container {
     grid-auto-flow: row;
   }
