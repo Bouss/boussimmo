@@ -54,30 +54,23 @@ abstract class AbstractParser implements ParserInterface
      */
     public function parse(string $html, array $filters = [], array $params = []): array
     {
+        $ads = [];
+
         // Iterate over all DOM elements wrapping a property ad
-        /** @var PropertyAd[] $ads */
-        $ads[] = ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $node) use ($params) {
+        ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $node) use (&$ads, $params) {
             try {
-                return $this->createPropertyAd($node, $params['date']);
+                $ads[] = $this->parseOne($node, $params['date']);
             } catch (Exception $e) {
                 $this->logger->warning('Error while parsing a property ad: ' . $e->getMessage(), $params);
-
-                return null;
             }
         });
-
-        // Flatten the property ads
-        $ads = array_merge(...$ads);
 
         if (empty($ads)) {
             throw new ParseException('No property ads parsed');
         }
 
-        // Clean (exclude null values) and filter the property ads
-        $ads = array_filter($ads, fn(?PropertyAd $ad) =>
-            null !== $ad &&
-            (isset($filters[PropertyAdFilter::NEW_BUILD]) && true === $filters[PropertyAdFilter::NEW_BUILD] ? $ad->isNewBuild() : true)
-        );
+        // Filter the property ads
+        $ads = array_filter($ads, static fn(PropertyAd $ad) => isset($filters[PropertyAdFilter::NEW_BUILD]) ? $ad->isNewBuild() : true);
 
         return $ads;
     }
@@ -298,7 +291,7 @@ abstract class AbstractParser implements ParserInterface
      * @throws ParseException
      * @throws Exception
      */
-    private function createPropertyAd(Crawler $crawler, DateTime $publishedAt): PropertyAd
+    private function parseOne(Crawler $crawler, DateTime $publishedAt): PropertyAd
     {
         $propertyAd = (new PropertyAd)
             ->setProvider(static::PROVIDER)
