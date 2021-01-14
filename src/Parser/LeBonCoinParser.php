@@ -12,9 +12,6 @@ class LeBonCoinParser extends AbstractParser
     protected const SELECTOR_AD_WRAPPER  = '.lbc-classified';
     protected const SELECTOR_TITLE       = '.classified-title';
     protected const SELECTOR_LOCATION    = '.classified-location';
-    protected const SELECTOR_PRICE       = '.classified-price';
-    protected const SELECTOR_AREA        = '.classified-title';
-    protected const SELECTOR_ROOMS_COUNT = '.classified-title';
 
     /**
      * {@inheritDoc}

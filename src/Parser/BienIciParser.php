@@ -11,9 +11,6 @@ class BienIciParser extends AbstractParser
 
     protected const SELECTOR_AD_WRAPPER  = '.realEstateAd';
     protected const SELECTOR_LOCATION    = '.realEstateAdAddress a';
-    protected const SELECTOR_PRICE       = '.realEstateAdPrice strong';
-    protected const SELECTOR_AREA        = '.realEstateAdTitle strong';
-    protected const SELECTOR_ROOMS_COUNT = '.realEstateAdTitle strong';
     protected const SELECTOR_NEW_BUILD   = 'span[style*="background: #ffb82f"]';
 
     /**

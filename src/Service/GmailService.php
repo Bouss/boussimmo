@@ -8,6 +8,7 @@ use DateTimeZone;
 use Google_Service_Gmail_Message;
 use Google_Service_Gmail_MessagePart;
 use Google_Service_Gmail_MessagePartHeader;
+use function Symfony\Component\String\u;
 
 class GmailService
 {
@@ -62,6 +63,6 @@ class GmailService
             }
         }
 
-        return $html;
+        return u($html)->collapseWhitespace();
     }
 }

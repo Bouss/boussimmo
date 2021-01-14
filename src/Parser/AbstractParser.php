@@ -12,7 +12,6 @@ use Exception;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use function array_filter;
-use function array_merge;
 use function Symfony\Component\String\u;
 
 abstract class AbstractParser implements ParserInterface
@@ -20,18 +19,17 @@ abstract class AbstractParser implements ParserInterface
     // Redefined in the child classes
     protected const PROVIDER = null;
 
-    protected const SELECTOR_AD_WRAPPER   = null;
-    protected const SELECTOR_NAME         = null;
-    protected const SELECTOR_TITLE        = null;
-    protected const SELECTOR_DESCRIPTION  = null;
-    protected const SELECTOR_LOCATION     = null;
-    protected const SELECTOR_PUBLISHED_AT = null;
-    protected const SELECTOR_PRICE        = null;
-    protected const SELECTOR_AREA         = null;
-    protected const SELECTOR_ROOMS_COUNT  = null;
-    protected const SELECTOR_NEW_BUILD    = null;
-    protected const SELECTOR_URL          = 'a:first-child';
-    protected const SELECTOR_PHOTO        = 'img:first-child';
+    protected const SELECTOR_AD_WRAPPER  = null;
+    protected const SELECTOR_PRICE       = null;
+    protected const SELECTOR_AREA        = null;
+    protected const SELECTOR_ROOMS_COUNT = null;
+    protected const SELECTOR_NAME        = null;
+    protected const SELECTOR_TITLE       = null;
+    protected const SELECTOR_DESCRIPTION = null;
+    protected const SELECTOR_LOCATION    = null;
+    protected const SELECTOR_NEW_BUILD   = null;
+    protected const SELECTOR_PHOTO       = 'img:first-child';
+    protected const SELECTOR_URL         = 'a:first-child';
 
     private ProviderRepository $providerRepository;
     private LoggerInterface $logger;
@@ -90,22 +88,6 @@ abstract class AbstractParser implements ParserInterface
     /**
      * @param Crawler $crawler
      *
-     * @return string
-     *
-     * @throws ParseException
-     */
-    protected function parseUrl(Crawler $crawler): string
-    {
-        try {
-            return $crawler->filter(static::SELECTOR_URL)->attr('href');
-        } catch (Exception $e) {
-            throw new ParseException('Error while parsing the URL: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * @param Crawler $crawler
-     *
      * @return float|null
      *
      * @throws ParseException
@@ -113,7 +95,7 @@ abstract class AbstractParser implements ParserInterface
     protected function parsePrice(Crawler $crawler): ?float
     {
         if (null === static::SELECTOR_PRICE) {
-            return null;
+            return $this->formatter->parsePrice($crawler->html());
         }
 
         try {
@@ -135,7 +117,7 @@ abstract class AbstractParser implements ParserInterface
     protected function parseArea(Crawler $crawler): ?float
     {
         if (null === static::SELECTOR_AREA) {
-            return null;
+            return $this->formatter->parseArea($crawler->html());
         }
 
         try {
@@ -157,7 +139,7 @@ abstract class AbstractParser implements ParserInterface
     protected function parseRoomsCount(Crawler $crawler): ?int
     {
         if (null === static::SELECTOR_ROOMS_COUNT) {
-            return null;
+            return $this->formatter->parseRoomsCount($crawler->html());
         }
 
         try {
@@ -244,18 +226,32 @@ abstract class AbstractParser implements ParserInterface
     /**
      * @param Crawler $crawler
      *
-     * @return string|null
+     * @return string
+     *
+     * @throws ParseException
      */
     protected function parsePhoto(Crawler $crawler): ?string
     {
-        if (null === static::SELECTOR_PHOTO) {
-            return null;
-        }
-
         try {
             return $crawler->filter(static::SELECTOR_PHOTO)->attr('src');
         } catch (Exception $e) {
-            return null;
+            throw new ParseException('Error while parsing the photo: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * @param Crawler $crawler
+     *
+     * @return string
+     *
+     * @throws ParseException
+     */
+    protected function parseUrl(Crawler $crawler): string
+    {
+        try {
+            return $crawler->filter(static::SELECTOR_URL)->attr('href');
+        } catch (Exception $e) {
+            throw new ParseException('Error while parsing the URL: ' . $e->getMessage());
         }
     }
 
@@ -295,8 +291,6 @@ abstract class AbstractParser implements ParserInterface
     {
         $propertyAd = (new PropertyAd)
             ->setProvider(static::PROVIDER)
-            ->setPublishedAt($publishedAt)
-            ->setUrl($this->parseUrl($crawler))
             ->setPrice($this->parsePrice($crawler))
             ->setArea($this->parseArea($crawler))
             ->setRoomsCount($this->parseRoomsCount($crawler))
@@ -304,7 +298,9 @@ abstract class AbstractParser implements ParserInterface
             ->setName($this->parseName($crawler))
             ->setTitle($this->parseTitle($crawler))
             ->setDescription($this->parseDescription($crawler))
-            ->setPhoto($this->parsePhoto($crawler));
+            ->setPhoto($this->parsePhoto($crawler))
+            ->setUrl($this->parseUrl($crawler))
+            ->setPublishedAt($publishedAt);
 
         if ((null !== $provider = $this->providerRepository->find(static::PROVIDER)) && $provider->isNewBuildOnly()) {
             $propertyAd->setNewBuild(true);

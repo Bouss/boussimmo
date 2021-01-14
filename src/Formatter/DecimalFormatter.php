@@ -11,7 +11,8 @@ class DecimalFormatter
     private const REGEX_FLOAT = '([0-9]+(?:\s?[0-9]{3})*(?:,[0-9]+)?)+';
     private const REGEX_PRICE = self::REGEX_FLOAT . '\s?(?:€|euro)';
     private const REGEX_AREA = self::REGEX_FLOAT . '\s?(?:m²|m2)';
-    private const REGEX_ROOMS_COUNT = self::REGEX_INT . '(?:\spi[e\p{L}]ce|\s?p(?:\.|\s))|(?:T(?:YPE\s)?|F)' . self::REGEX_INT;
+    private const REGEX_ROOMS_COUNT = self::REGEX_INT . '(?:\spi[e\p{L}]ce|\s?p(?:\.|\s|$))';
+    private const REGEX_ROOMS_COUNT_2 = '(?:T(?:YPE|ype\s)?|F)' . self::REGEX_INT . '(?:\s|$)';
 
     private NumberFormatter $formatter;
 
@@ -65,15 +66,14 @@ class DecimalFormatter
      */
     public function parseRoomsCount(string $value): ?int
     {
-        preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT), $value, $matches);
-
-        if (!empty($matches[1])) {
+        if (1 === preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT), $value, $matches)) {
             return $this->formatter->parse($matches[1]);
         }
-        if (isset($matches[2])) {
-            return $this->formatter->parse($matches[2]);
-        }
 
-        return null;
+       if (1 === preg_match(sprintf('/%s/u', self::REGEX_ROOMS_COUNT_2), $value, $matches)) {
+           return $this->formatter->parse($matches[1]);
+       }
+
+       return null;
     }
 }
