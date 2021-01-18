@@ -2,7 +2,7 @@
 
 namespace App\Parser;
 
-use App\DTO\PropertyAd;
+use App\DTO\Property;
 use App\Exception\ParseException;
 
 interface ParserInterface
@@ -12,7 +12,7 @@ interface ParserInterface
      * @param array  $filters
      * @param array  $params
      *
-     * @return PropertyAd[]
+     * @return Property[]
      *
      * @throws ParseException
      */

@@ -2,48 +2,38 @@
 
 namespace App\Client;
 
-use App\Enum\PropertyAdFilter;
-use App\Exception\GoogleTokenRevokedException;
-use App\Repository\EmailTemplateRepository;
+use App\DataProvider\EmailTemplateProvider;
+use App\Enum\PropertyFilter;
+use App\Exception\GmailException;
 use Exception;
-use Google_Service_Exception;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Label;
 use Google_Service_Gmail_Message;
-use Psr\Log\LoggerInterface;
 
 class GmailClient
 {
     private Google_Service_Gmail $gmailService;
-    private EmailTemplateRepository $emailTemplateRepository;
-    private LoggerInterface $logger;
+    private EmailTemplateProvider $emailTemplateProvider;
 
-    /**
-     * @param Google_Service_Gmail    $gmailService
-     * @param EmailTemplateRepository $emailTemplateRepository
-     * @param LoggerInterface         $logger
-     */
-    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateRepository $emailTemplateRepository, LoggerInterface $logger)
+    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateProvider $emailTemplateProvider)
     {
         $this->gmailService = $gmailService;
-        $this->emailTemplateRepository = $emailTemplateRepository;
-        $this->logger = $logger;
+        $this->emailTemplateProvider = $emailTemplateProvider;
     }
 
     /**
-     * @param string $accessToken
-     * @param array  $criteria
-     *
      * @return int[]
+     *
+     * @throws GmailException
      */
     public function getMessageIds(string $accessToken, array $criteria): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
         $messages = [];
-        $labelId = $criteria[PropertyAdFilter::GMAIL_LABEL] ?? null;
-        $provider = $criteria[PropertyAdFilter::PROVIDER] ?? null;
-        $newerThan = $criteria[PropertyAdFilter::NEWER_THAN];
+        $labelId = $criteria[PropertyFilter::GMAIL_LABEL] ?? null;
+        $provider = $criteria[PropertyFilter::PROVIDER] ?? null;
+        $newerThan = $criteria[PropertyFilter::NEWER_THAN];
 
         // Prepare the Gmail messages query
         $params = ['q' => $this->buildMessagesQuery($provider, $newerThan)];
@@ -58,8 +48,7 @@ class GmailClient
             try {
                 $response = $this->gmailService->users_messages->listUsersMessages('me', $params);
             } catch (Exception $e) {
-                $this->logger->error('Error while retrieving messages: ' . $e->getMessage(), $params);
-                break;
+                throw new GmailException($e->getMessage());
             }
 
             $messages[] = $response->getMessages();
@@ -69,25 +58,21 @@ class GmailClient
     }
 
     /**
-     * @param string $messageId
-     * @param string $userId
-     *
-     * @return Google_Service_Gmail_Message
-     *
-     * @throws Exception
+     * @throws GmailException
      */
     public function getMessage(string $messageId, string $userId = 'me'): Google_Service_Gmail_Message
     {
-        return $this->gmailService->users_messages->get($userId, $messageId);
+        try {
+            return $this->gmailService->users_messages->get($userId, $messageId);
+        } catch (Exception $e) {
+            throw new GmailException($e->getMessage());
+        }
     }
 
     /**
-     * @param string $accessToken
-     * @param string $userId
-     *
      * @return Google_Service_Gmail_Label[]
      *
-     * @throws GoogleTokenRevokedException
+     * @throws GmailException
      */
     public function getLabels(string $accessToken, string $userId = 'me'): array
     {
@@ -95,22 +80,16 @@ class GmailClient
 
         try {
             return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();
-        } catch (Google_Service_Exception $e) {
-            throw new GoogleTokenRevokedException('Could not get the labels: ' . $e->getMessage());
+        } catch (Exception $e) {
+            throw new GmailException($e->getMessage());
         }
     }
 
-    /**
-     * @param string|null $provider
-     * @param int|null    $newerThan
-     *
-     * @return string
-     */
     private function buildMessagesQuery(string $provider = null, int $newerThan = null): string
     {
         $addresses = null !== $provider ?
-            $this->emailTemplateRepository->getAddressesByMainProvider($provider) :
-            $this->emailTemplateRepository->getAllAddresses();
+            $this->emailTemplateProvider->getAddressesByMainProvider($provider) :
+            $this->emailTemplateProvider->getAllAddresses();
 
         $fromFilter = sprintf('from:(%s)', implode(' | ', $addresses));
         $dateFilter = sprintf('newer_than:%dd', $newerThan);

@@ -4,6 +4,6 @@ namespace App\Exception;
 
 use Exception;
 
-class GoogleTokenRevokedException extends Exception
+class GmailException extends Exception
 {
 }

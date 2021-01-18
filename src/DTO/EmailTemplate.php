@@ -4,63 +4,41 @@ namespace App\DTO;
 
 class EmailTemplate
 {
-    private string $id;
-    private string $providerId;
+    private string $name;
+    private string $providerName;
     private string $address;
     private string $from;
     private ?string $subjectKeyword;
 
-    /**
-     * @param string      $id
-     * @param string      $providerId
-     * @param string      $name
-     * @param string      $address
-     * @param string|null $subjectKeyword
-     */
-    public function __construct(string $id, string $providerId, string $name, string $address, string $subjectKeyword = null)
+    public function __construct(string $name, string $providerName, string $username, string $address, string $subjectKeyword = null)
     {
-        $this->id = $id;
-        $this->providerId = $providerId;
+        $this->name = $name;
+        $this->providerName = $providerName;
         $this->address = $address;
-        $this->from = sprintf('%s <%s>', $name, $address);
+        $this->from = sprintf('%s <%s>', $username, $address);
         $this->subjectKeyword = $subjectKeyword;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getName(): string
     {
-        return $this->id;
+        return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getProviderId(): string
+    public function getProviderName(): string
     {
-        return $this->providerId;
+        return $this->providerName;
     }
 
-    /**
-     * @return string
-     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
     public function getFrom(): string
     {
         return $this->from;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSubjectKeyword(): ?string
     {
         return $this->subjectKeyword;

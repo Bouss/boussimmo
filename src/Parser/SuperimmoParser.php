@@ -3,7 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Exception\ParseException;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**

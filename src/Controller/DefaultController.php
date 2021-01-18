@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
     public function index(): Response
     {
         return null !== $this->getUser() ?
-            $this->forward('App\Controller\PropertyAdController::index') :
+            $this->forward('App\Controller\PropertyController::index') :
             $this->render('homepage/index.html.twig');
     }
 }

@@ -3,12 +3,12 @@
 namespace App\Service;
 
 use App\Entity\User;
-use App\Exception\GoogleTokenRevokedException;
+use App\Exception\GoogleException;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Google_Client;
-use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
 
 class GoogleOAuthService
@@ -17,10 +17,6 @@ class GoogleOAuthService
     private EntityManagerInterface $em;
     private LoggerInterface $logger;
 
-    /**
-     * @param Google_Client          $googleClient
-     * @param EntityManagerInterface $em
-     */
     public function __construct(Google_Client $googleClient, EntityManagerInterface $em, LoggerInterface $logger)
     {
         $this->googleClient = $googleClient;
@@ -29,9 +25,7 @@ class GoogleOAuthService
     }
 
     /**
-     * @param User $user
-     *
-     * @throws GoogleTokenRevokedException
+     * @throws GoogleException
      */
     public function refreshAccessTokenIfExpired(User $user): void
     {
@@ -41,8 +35,8 @@ class GoogleOAuthService
 
         try {
             $data = $this->googleClient->refreshToken($user->getRefreshToken());
-        } catch (ClientException $e) {
-            throw new GoogleTokenRevokedException('Could not refresh the token: ' . $e->getMessage());
+        } catch (RequestException $e) {
+            throw new GoogleException('Could not refresh the token: ' . $e->getMessage());
         }
 
         $user
@@ -55,15 +49,12 @@ class GoogleOAuthService
         $this->em->flush();
     }
 
-    /**
-     * @param User $user
-     */
     public function revoke(User $user): void
     {
         try {
             $this->googleClient->revokeToken($user->getAccessToken());
             $this->googleClient->revokeToken($user->getRefreshToken());
-        } catch (ClientException $e) {
+        } catch (RequestException $e) {
             $this->logger->warning('Could not revoke at least one token: ' . $e->getMessage());
         }
 

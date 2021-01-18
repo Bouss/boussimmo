@@ -3,7 +3,7 @@
 namespace App\EventListener;
 
 use App\Entity\User;
-use App\Exception\GoogleApiException;
+use App\Exception\GoogleException;
 use App\Service\GoogleOAuthService;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
@@ -23,7 +23,7 @@ class LogoutListener
     /**
      * @param LogoutEvent $event
      *
-     * @throws GoogleApiException
+     * @throws GoogleException
      */
     public function onLogout(LogoutEvent $event): void
     {

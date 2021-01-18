@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-class PropertyAdSort extends AbstractEnum
+class PropertySort extends AbstractEnum
 {
     public const PUBLISHED_AT_ASC = 'published_at_asc';
     public const PUBLISHED_AT_DESC = 'published_at_desc';

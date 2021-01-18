@@ -1,0 +1,5 @@
+{% for property in properties|sort_by(sort[0], sort[1]) %}
+    {{ include('property/_property.html.twig') }}
+{% else %}
+    <div>Aucun bien trouvé</div>
+{% endfor %}

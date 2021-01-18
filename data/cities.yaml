@@ -8,7 +8,7 @@ parameters:
             insee_code: 75056
             logic_immo_code: 424
             pap_code: 439
-            seloger_neuf_code: 38920
+            se_loger_neuf_code: 38920
         !php/const App\Enum\City::MARSEILLE:
             name: marseille
             department_code: '13'
@@ -17,7 +17,7 @@ parameters:
             insee_code: 13055
             logic_immo_code: 421
             pap_code: 12024
-            seloger_neuf_code: 38922
+            se_loger_neuf_code: 38922
         !php/const App\Enum\City::LYON:
             name: lyon
             department_code: '69'
@@ -26,7 +26,7 @@ parameters:
             insee_code: 69123
             logic_immo_code: 422
             pap_code: 43590
-            seloger_neuf_code: 38921
+            se_loger_neuf_code: 38921
         !php/const App\Enum\City::TOULOUSE:
             name: toulouse
             department_code: '31'
@@ -35,7 +35,7 @@ parameters:
             insee_code: 69123
             logic_immo_code: 393
             pap_code: 43612
-            seloger_neuf_code: 13379
+            se_loger_neuf_code: 13379
         !php/const App\Enum\City::NICE:
             name: nice
             department_code: '06'
@@ -44,7 +44,7 @@ parameters:
             insee_code: 31555
             logic_immo_code: 244
             pap_code: 8979
-            seloger_neuf_code: 2474
+            se_loger_neuf_code: 2474
         !php/const App\Enum\City::NANTES:
             name: nantes
             department_code: '44'
@@ -53,7 +53,7 @@ parameters:
             insee_code: 44109
             logic_immo_code: 240
             pap_code: 43619
-            seloger_neuf_code: 18168
+            se_loger_neuf_code: 18168
         !php/const App\Enum\City::MONTPELLIER:
             name: montpellier
             department_code: '34'
@@ -62,7 +62,7 @@ parameters:
             insee_code: 34172
             logic_immo_code: 232
             pap_code: 43621
-            seloger_neuf_code: 14627
+            se_loger_neuf_code: 14627
         !php/const App\Enum\City::STRASBOURG:
             name: strasbourg
             department_code: '67'
@@ -71,7 +71,7 @@ parameters:
             insee_code: 67482
             logic_immo_code: 382
             pap_code: 43623
-            seloger_neuf_code: 29562
+            se_loger_neuf_code: 29562
         !php/const App\Enum\City::BORDEAUX:
             name: bordeaux
             department_code: '33'
@@ -80,7 +80,7 @@ parameters:
             insee_code: 33063
             logic_immo_code: 49
             pap_code: 43588
-            seloger_neuf_code: 13950
+            se_loger_neuf_code: 13950
         !php/const App\Enum\City::LILLE:
             name: lille
             department_code: '59'
@@ -89,7 +89,7 @@ parameters:
             insee_code: 59350
             logic_immo_code: 193
             pap_code: 43627
-            seloger_neuf_code: 24869
+            se_loger_neuf_code: 24869
         !php/const App\Enum\City::RENNES:
             name: rennes
             department_code: '35'
@@ -98,4 +98,4 @@ parameters:
             insee_code: 35238
             logic_immo_code: 294
             pap_code: 43618
-            seloger_neuf_code: 15039
+            se_loger_neuf_code: 15039

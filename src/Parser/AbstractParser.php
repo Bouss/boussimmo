@@ -2,11 +2,12 @@
 
 namespace App\Parser;
 
+use App\DataProvider\ProviderProvider;
+use App\DTO\Property;
 use App\DTO\PropertyAd;
-use App\Enum\PropertyAdFilter;
+use App\Enum\PropertyFilter;
 use App\Exception\ParseException;
 use App\Formatter\DecimalFormatter;
-use App\Repository\ProviderRepository;
 use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -27,22 +28,18 @@ abstract class AbstractParser implements ParserInterface
     protected const SELECTOR_TITLE       = null;
     protected const SELECTOR_DESCRIPTION = null;
     protected const SELECTOR_LOCATION    = null;
-    protected const SELECTOR_NEW_BUILD   = null;
     protected const SELECTOR_PHOTO       = 'img:first-child';
     protected const SELECTOR_URL         = 'a:first-child';
 
-    private ProviderRepository $providerRepository;
+    private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
+
+    private ProviderProvider $providerProvider;
     private LoggerInterface $logger;
     protected DecimalFormatter $formatter;
 
-    /**
-     * @param ProviderRepository $providerRepository
-     * @param DecimalFormatter   $formatter
-     * @param LoggerInterface    $logger
-     */
-    public function __construct(ProviderRepository $providerRepository, DecimalFormatter $formatter, LoggerInterface $logger)
+    public function __construct(ProviderProvider $providerProvider, DecimalFormatter $formatter, LoggerInterface $logger)
     {
-        $this->providerRepository = $providerRepository;
+        $this->providerProvider = $providerProvider;
         $this->formatter = $formatter;
         $this->logger = $logger;
     }
@@ -52,25 +49,25 @@ abstract class AbstractParser implements ParserInterface
      */
     public function parse(string $html, array $filters = [], array $params = []): array
     {
-        $ads = [];
+        $properties = [];
 
         // Iterate over all DOM elements wrapping a property ad
-        ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $node) use (&$ads, $params) {
+        ($this->createCrawler($html))->filter(static::SELECTOR_AD_WRAPPER)->each(function (Crawler $node) use (&$properties, $params) {
             try {
-                $ads[] = $this->parseOne($node, $params['date']);
+                $properties[] = $this->parseOne($node, $params['date']);
             } catch (Exception $e) {
-                $this->logger->warning('Error while parsing a property ad: ' . $e->getMessage(), $params);
+                $this->logger->warning('Error while parsing a property: ' . $e->getMessage(), $params);
             }
         });
 
-        if (empty($ads)) {
-            throw new ParseException('No property ads parsed');
+        if (empty($properties)) {
+            throw new ParseException('No property parsed');
         }
 
-        // Filter the property ads
-        $ads = array_filter($ads, static fn(PropertyAd $ad) => isset($filters[PropertyAdFilter::NEW_BUILD]) ? $ad->isNewBuild() : true);
+        // Filter the properties
+        $properties = array_filter($properties, static fn(Property $ad) => isset($filters[PropertyFilter::NEW_BUILD]) ? $ad->isNewBuild() : true);
 
-        return $ads;
+        return $properties;
     }
 
     /**
@@ -86,10 +83,6 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler $crawler
-     *
-     * @return float|null
-     *
      * @throws ParseException
      */
     protected function parsePrice(Crawler $crawler): ?float
@@ -108,10 +101,6 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler $crawler
-     *
-     * @return float|null
-     *
      * @throws ParseException
      */
     protected function parseArea(Crawler $crawler): ?float
@@ -130,10 +119,6 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler $crawler
-     *
-     * @return int|null
-     *
      * @throws ParseException
      */
     protected function parseRoomsCount(Crawler $crawler): ?int
@@ -151,11 +136,6 @@ abstract class AbstractParser implements ParserInterface
         return $this->formatter->parseRoomsCount($roomsCountStr);
     }
 
-    /**
-     * @param Crawler $crawler
-     *
-     * @return string|null
-     */
     protected function parseLocation(Crawler $crawler): ?string
     {
         if (null === static::SELECTOR_LOCATION) {
@@ -169,12 +149,7 @@ abstract class AbstractParser implements ParserInterface
         }
     }
 
-    /**
-     * @param Crawler $crawler
-     *
-     * @return string|null
-     */
-    protected function parseName(Crawler $crawler): ?string
+    protected function parseBuildingName(Crawler $crawler): ?string
     {
         if (null === static::SELECTOR_NAME) {
             return null;
@@ -187,11 +162,6 @@ abstract class AbstractParser implements ParserInterface
         }
     }
 
-    /**
-     * @param Crawler $crawler
-     *
-     * @return string|null
-     */
     protected function parseTitle(Crawler $crawler): ?string
     {
         if (null === static::SELECTOR_TITLE) {
@@ -205,11 +175,6 @@ abstract class AbstractParser implements ParserInterface
         }
     }
 
-    /**
-     * @param Crawler $crawler
-     *
-     * @return string|null
-     */
     protected function parseDescription(Crawler $crawler): ?string
     {
         if (null === static::SELECTOR_DESCRIPTION) {
@@ -224,10 +189,6 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler $crawler
-     *
-     * @return string
-     *
      * @throws ParseException
      */
     protected function parsePhoto(Crawler $crawler): ?string
@@ -240,10 +201,6 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler $crawler
-     *
-     * @return string
-     *
      * @throws ParseException
      */
     protected function parseUrl(Crawler $crawler): string
@@ -256,60 +213,32 @@ abstract class AbstractParser implements ParserInterface
     }
 
     /**
-     * @param Crawler    $crawler
-     * @param bool       $nodeExistenceOnly
-     *
-     * @return bool
-     */
-    protected function parseNewBuild(Crawler $crawler, bool $nodeExistenceOnly = true): bool
-    {
-        if (null === static::SELECTOR_NEW_BUILD) {
-            return false;
-        }
-
-        try {
-            if ($nodeExistenceOnly) {
-                return 1 === $crawler->filter(static::SELECTOR_NEW_BUILD)->count();
-            }
-
-            return u($crawler->filter(static::SELECTOR_NEW_BUILD)->text())->containsAny(PropertyAd::NEW_BUILD_WORDS);
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    /**
-     * @param Crawler   $crawler
-     * @param DateTime  $publishedAt
-     *
-     * @return PropertyAd
-     *
      * @throws ParseException
-     * @throws Exception
      */
-    private function parseOne(Crawler $crawler, DateTime $publishedAt): PropertyAd
+    private function parseOne(Crawler $crawler, DateTime $publishedAt): Property
     {
         $propertyAd = (new PropertyAd)
             ->setProvider(static::PROVIDER)
-            ->setPrice($this->parsePrice($crawler))
-            ->setArea($this->parseArea($crawler))
-            ->setRoomsCount($this->parseRoomsCount($crawler))
-            ->setLocation($this->parseLocation($crawler))
-            ->setName($this->parseName($crawler))
             ->setTitle($this->parseTitle($crawler))
             ->setDescription($this->parseDescription($crawler))
             ->setPhoto($this->parsePhoto($crawler))
             ->setUrl($this->parseUrl($crawler))
             ->setPublishedAt($publishedAt);
 
-        if ((null !== $provider = $this->providerRepository->find(static::PROVIDER)) && $provider->isNewBuildOnly()) {
-            $propertyAd->setNewBuild(true);
-        } elseif (null !== static::SELECTOR_NEW_BUILD) {
-            $propertyAd->setNewBuild($this->parseNewBuild($crawler));
+        $property = (new Property)
+            ->setPrice($this->parsePrice($crawler))
+            ->setArea($this->parseArea($crawler))
+            ->setRoomsCount($this->parseRoomsCount($crawler))
+            ->setLocation($this->parseLocation($crawler))
+            ->setBuildingName($this->parseBuildingName($crawler))
+            ->setAd($propertyAd);
+
+        if ((null !== $provider = $this->providerProvider->find(static::PROVIDER)) && $provider->isNewBuildOnly()) {
+            $property->setNewBuild(true);
         } else {
-            $propertyAd->guessNewBuild();
+            $property->setNewBuild(u($propertyAd->getTitle() . $propertyAd->getDescription())->containsAny(self::NEW_BUILD_WORDS));
         }
 
-        return $propertyAd;
+        return $property;
     }
 }

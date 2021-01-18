@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\DataProvider;
 
 use App\DTO\EmailTemplate;
 use App\DTO\Provider;
@@ -11,29 +11,18 @@ use function array_unique;
 use function in_array;
 use function stripos;
 
-class EmailTemplateRepository
+class EmailTemplateProvider
 {
     /** @var EmailTemplate[] */
     private array $emailTemplates;
-    private ProviderRepository $providerRepository;
+    private ProviderProvider $providerProvider;
 
-    /**
-     * @param array               $emailTemplates
-     * @param SerializerInterface $serializer
-     * @param ProviderRepository  $providerRepository
-     */
-    public function __construct(array $emailTemplates, SerializerInterface $serializer, ProviderRepository $providerRepository)
+    public function __construct(array $emailTemplates, SerializerInterface $serializer, ProviderProvider $providerProvider)
     {
         $this->emailTemplates = $serializer->denormalize($emailTemplates, EmailTemplate::class . '[]');
-        $this->providerRepository = $providerRepository;
+        $this->providerProvider = $providerProvider;
     }
 
-    /**
-     * @param string $from
-     * @param string $subject
-     *
-     * @return EmailTemplate|null
-     */
     public function find(string $from, string $subject): ?EmailTemplate
     {
         foreach ($this->emailTemplates as $template) {
@@ -59,26 +48,24 @@ class EmailTemplateRepository
      */
     public function getAllAddresses(): array
     {
-        $addresses = array_map(fn(EmailTemplate $template) => $template->getAddress(), $this->emailTemplates);
+        $addresses = array_map(static fn(EmailTemplate $template) => $template->getAddress(), $this->emailTemplates);
 
         return array_unique($addresses);
     }
 
     /**
-     * @param string $mainProviderId
-     *
      * @return string[]
      */
-    public function getAddressesByMainProvider(string $mainProviderId): array
+    public function getAddressesByMainProvider(string $mainProviderName): array
     {
-        $providers = $this->providerRepository->getProvidersByMainProvider($mainProviderId);
-        $providerIds = array_map(fn(Provider $provider) => $provider->getId(), $providers);
+        $providers = $this->providerProvider->getProvidersByMainProvider($mainProviderName);
+        $providerNames = array_map(static fn(Provider $provider) => $provider->getName(), $providers);
 
-        $templates = array_filter($this->emailTemplates, fn(EmailTemplate $template) =>
-            in_array($template->getProviderId(), $providerIds, true)
+        $templates = array_filter($this->emailTemplates, static fn(EmailTemplate $template) =>
+            in_array($template->getProviderName(), $providerNames, true)
         );
 
-        $addresses = array_map(fn(EmailTemplate $template) => $template->getAddress(), $templates);
+        $addresses = array_map(static fn(EmailTemplate $template) => $template->getAddress(), $templates);
 
         return array_unique($addresses);
     }

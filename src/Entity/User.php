@@ -75,7 +75,7 @@ class User implements UserInterface
      *
      * @ORM\Column(type="json")
      */
-    private array $propertyAdSearchSettings = [];
+    private array $propertySearchSettings = [];
 
     /**
      * @var array
@@ -84,27 +84,16 @@ class User implements UserInterface
      */
     private array $roles = [];
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     *
-     * @return $this
-     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -112,19 +101,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getGoogleId(): string
     {
         return $this->googleId;
     }
 
-    /**
-     * @param string $googleId
-     *
-     * @return User
-     */
     public function setGoogleId(string $googleId): User
     {
         $this->googleId = $googleId;
@@ -132,19 +113,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getRefreshToken(): string
     {
         return $this->refreshToken;
     }
 
-    /**
-     * @param string $refreshToken
-     *
-     * @return User
-     */
     public function setRefreshToken(string $refreshToken): User
     {
         $this->refreshToken = $refreshToken;
@@ -152,19 +125,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getAccessToken(): string
     {
         return $this->accessToken;
     }
 
-    /**
-     * @param string $accessToken
-     *
-     * @return User
-     */
     public function setAccessToken(string $accessToken): User
     {
         $this->accessToken = $accessToken;
@@ -172,19 +137,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return DateTime
-     */
     public function getAccessTokenExpiresAt(): DateTime
     {
         return $this->accessTokenExpiresAt;
     }
 
-    /**
-     * @param DateTime $accessTokenExpiresAt
-     *
-     * @return User
-     */
     public function setAccessTokenExpiresAt(DateTime $accessTokenExpiresAt): User
     {
         $this->accessTokenExpiresAt = $accessTokenExpiresAt;
@@ -192,19 +149,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isRevoked(): bool
     {
         return $this->revoked;
     }
 
-    /**
-     * @param bool $revoked
-     *
-     * @return User
-     */
     public function setRevoked(bool $revoked): User
     {
         $this->revoked = $revoked;
@@ -212,19 +161,11 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    /**
-     * @param string|null $avatar
-     *
-     * @return User
-     */
     public function setAvatar(?string $avatar): User
     {
         $this->avatar = $avatar;
@@ -232,22 +173,14 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getPropertyAdSearchSettings(): array
+    public function getPropertySearchSettings(): array
     {
-        return $this->propertyAdSearchSettings;
+        return $this->propertySearchSettings;
     }
 
-    /**
-     * @param array $propertyAdSearchSettings
-     *
-     * @return User
-     */
-    public function setPropertyAdSearchSettings(array $propertyAdSearchSettings): User
+    public function setPropertySearchSettings(array $propertySearchSettings): User
     {
-        $this->propertyAdSearchSettings = $propertyAdSearchSettings;
+        $this->propertySearchSettings = $propertySearchSettings;
 
         return $this;
     }
@@ -274,8 +207,6 @@ class User implements UserInterface
 
     /**
      * @param string[] $roles
-     *
-     * @return $this
      */
     public function setRoles(array $roles): self
     {
@@ -305,9 +236,6 @@ class User implements UserInterface
     {
     }
 
-    /**
-     * @return bool
-     */
     public function hasAccessTokenExpired(): bool
     {
         return $this->accessTokenExpiresAt <= new DateTime();

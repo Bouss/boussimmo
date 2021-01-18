@@ -4,53 +4,41 @@ namespace App\DTO;
 
 class Provider
 {
-    private string $id;
+    private string $name;
     private string $logo;
-    private ?string $parentProvider;
+    private ?string $parent;
     private bool $newBuildOnly;
 
-    /**
-     * @param string      $id
-     * @param string      $logo
-     * @param string|null $parentProvider
-     */
-    public function __construct(string $id, string $logo, string $parentProvider = null)
+    public function __construct(string $name, string $logo, string $parent = null)
     {
-        $this->id = $id;
+        $this->name = $name;
         $this->logo = $logo;
-        $this->parentProvider = $parentProvider;
-        $this->newBuildOnly = null !== $parentProvider;
+        $this->parent = $parent;
+        $this->newBuildOnly = null !== $parent;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getName(): string
     {
-        return $this->id;
+        return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getLogo(): string
     {
         return $this->logo;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getParentProvider(): ?string
+    public function getParent(): ?string
     {
-        return $this->parentProvider;
+        return $this->parent;
     }
 
-    /**
-     * @return bool
-     */
     public function isNewBuildOnly(): bool
     {
         return $this->newBuildOnly;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

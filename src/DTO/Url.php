@@ -15,25 +15,16 @@ class Url
         $this->value = $value;
     }
 
-    /**
-     * @return string
-     */
     public function getWebsite(): string
     {
         return $this->website;
     }
 
-    /**
-     * @return string
-     */
     public function getLogo(): string
     {
         return $this->logo;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;

@@ -3,8 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Exception\ParseException;
-use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 use function preg_match;
 
@@ -12,9 +10,9 @@ class PapNeufParser extends AbstractParser
 {
     protected const PROVIDER = Provider::PAP_NEUF;
 
-    protected const SELECTOR_AD_WRAPPER  = 'table:nth-child(2) tr:nth-child(2n+4):not(:nth-last-child(-n+5))';
-    protected const SELECTOR_LOCATION    = 'td:nth-child(4) b:first-child';
-    protected const SELECTOR_NAME        = 'td:nth-child(4)';
+    protected const SELECTOR_AD_WRAPPER  = '#email-body tr:nth-child(n+2):not(:nth-last-child(-n+2))';
+    protected const SELECTOR_LOCATION    = '.box-text-content';
+    protected const SELECTOR_NAME        = '.box-text-content';
 
     /**
      * {@inheritDoc}
@@ -27,10 +25,22 @@ class PapNeufParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function parseName(Crawler $crawler): ?string
+    protected function parseLocation(Crawler $crawler): ?string
     {
-        if (1 === preg_match('/\)(.+)Adresse/', parent::parseName($crawler), $matches)) {
-            return trim($matches[1]);
+        if (1 === preg_match('/Adresse : (.+) A partir/', parent::parseBuildingName($crawler), $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function parseBuildingName(Crawler $crawler): ?string
+    {
+        if (1 === preg_match('/\) (.+) Adresse/', parent::parseBuildingName($crawler), $matches)) {
+            return $matches[1];
         }
 
         return null;

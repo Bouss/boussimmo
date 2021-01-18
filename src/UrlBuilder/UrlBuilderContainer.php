@@ -1,22 +1,9 @@
 <?php
 
-namespace App;
+namespace App\UrlBuilder;
 
 use App\Enum\Provider;
 use App\Exception\UrlBuilderNotFoundException;
-use App\UrlBuilder\BienIciUrlBuilder;
-use App\UrlBuilder\LeBonCoinUrlBuilder;
-use App\UrlBuilder\LogicImmoNeufUrlBuilder;
-use App\UrlBuilder\LogicImmoUrlBuilder;
-use App\UrlBuilder\OuestFranceImmoNeufUrlBuilder;
-use App\UrlBuilder\OuestFranceImmoUrlBuilder;
-use App\UrlBuilder\PapNeufUrlBuilder;
-use App\UrlBuilder\PapUrlBuilder;
-use App\UrlBuilder\SeLogerNeufUrlBuilder;
-use App\UrlBuilder\SeLogerUrlBuilder;
-use App\UrlBuilder\SuperimmoNeufUrlBuilder;
-use App\UrlBuilder\SuperimmoUrlBuilder;
-use App\UrlBuilder\UrlBuilderInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
@@ -24,9 +11,6 @@ class UrlBuilderContainer implements ServiceSubscriberInterface
 {
     private ContainerInterface $locator;
 
-    /**
-     * @param ContainerInterface $locator
-     */
     public function __construct(ContainerInterface $locator)
     {
         $this->locator = $locator;
@@ -54,18 +38,14 @@ class UrlBuilderContainer implements ServiceSubscriberInterface
     }
 
     /**
-     * @param string $id
-     *
-     * @return UrlBuilderInterface
-     *
      * @throws UrlBuilderNotFoundException
      */
-    public function get(string $id): UrlBuilderInterface
+    public function get(string $name): UrlBuilderInterface
     {
-        if (!$this->locator->has($id)) {
-            throw new UrlBuilderNotFoundException('No URL builder found with the id: ' . $id);
+        if (!$this->locator->has($name)) {
+            throw new UrlBuilderNotFoundException('No URL builder found with the name: ' . $name);
         }
 
-        return $this->locator->get($id);
+        return $this->locator->get($name);
     }
 }

@@ -43,14 +43,14 @@ services:
         tags:
             - { name: kernel.event_listener, event: Symfony\Component\Security\Http\Event\LogoutEvent, dispatcher: security.event_dispatcher.main, method: onLogout }
 
-    App\Repository\ProviderRepository:
+    App\DataProvider\ProviderProvider:
         arguments:
             $providers: '%providers%'
 
-    App\Repository\EmailTemplateRepository:
+    App\DataProvider\EmailTemplateProvider:
         arguments:
             $emailTemplates: '%email_templates%'
 
-    App\Repository\LocationRepository:
+    App\DataProvider\LocationProvider:
         arguments:
             $cities: '%cities%'

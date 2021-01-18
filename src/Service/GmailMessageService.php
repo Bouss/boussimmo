@@ -10,11 +10,9 @@ use Google_Service_Gmail_MessagePart;
 use Google_Service_Gmail_MessagePartHeader;
 use function Symfony\Component\String\u;
 
-class GmailService
+class GmailMessageService
 {
     /**
-     * @param Google_Service_Gmail_Message $message
-     *
      * @return array ['from', 'date', 'subject']
      */
     public function getHeaders(Google_Service_Gmail_Message $message): array
@@ -43,11 +41,6 @@ class GmailService
         return $headers;
     }
 
-    /**
-     * @param Google_Service_Gmail_Message $message
-     *
-     * @return string
-     */
     public function getHtml(Google_Service_Gmail_Message $message): string
     {
         $html = '';

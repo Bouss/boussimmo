@@ -68,6 +68,8 @@ class DecimalFormatterTest extends TestCase
 
     public function priceDataset(): Generator
     {
+        yield ['420000€', 420000.0];
+        yield ['<foo>420000€</foo>', 420000.0];
         yield ['foo 420000€ bar', 420000.0];
         yield ['foo 420 000€ bar', 420000.0];
         yield ['foo 420 000 € bar', 420000.0];
@@ -79,6 +81,8 @@ class DecimalFormatterTest extends TestCase
 
     public function areaDataset(): Generator
     {
+        yield ['42m²', 42.0];
+        yield ['<foo>42m²</foo>', 42.0];
         yield ['foo 42m² bar', 42.0];
         yield ['foo 42 m² bar', 42.0];
         yield ['foo 42,3 m² bar', 42.3];
@@ -89,6 +93,11 @@ class DecimalFormatterTest extends TestCase
 
     public function roomsCountDataset(): Generator
     {
+        yield ['4p', 4];
+        yield ['T4', 4];
+        yield ['F4', 4];
+        yield ['<foo>4p</foo>', 4];
+        yield ['Type 4', 4];
         yield ['foo 4p bar', 4];
         yield ['foo 4 p bar', 4];
         yield ['foo 4 p. bar', 4];

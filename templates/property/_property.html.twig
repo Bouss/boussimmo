@@ -1,0 +1,51 @@
+<article class="property{% if 'now'|date('Y-m-d') == property.ad.publishedAt|date('Y-m-d') %} property--new{% endif %}">
+    <a class="link" target="_blank" rel="noopener noreferrer" href="{{ property.ad.url }}">
+        <div class="photo-wrapper">
+            <img class="photo" src="{% if property.ad.photo is not empty %}{{ property.ad.photo }}{% else %}{{ asset('build/images/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+            {% if property.newBuild %}
+                <div class="new-build-tag">NEUF</div>
+            {% endif %}
+        </div>
+        <div class="main-section">
+            <header>
+                <h3 class="price">
+                    {{ property.price is not null ? property.price|number_format|trim('0', 'right')|trim(',', 'right') : 'N/A' }} &euro;
+                </h3>
+            </header>
+            <p>
+                <span class="area{% if property.area is null %} unknown{% endif %}">
+                    {{ property.area is not null ? property.area|number_format|trim('0', 'right')|trim(',', 'right') : 'N/A' }}&nbsp;m&sup2;
+                </span>
+                &nbsp;•&nbsp;
+                <span class="rooms-count{% if property.roomsCount is null %} unknown{% endif %}">{{ property.roomsCount|default('N/A') }}&nbsp;pièces</span>
+            </p>
+            <p class="location">
+                <i class="fas fa-map-marker-alt fa-fw"></i>
+                {% if property.buildingName is not null %}<span class="name">{{ property.buildingName|upper }}</span>,&nbsp;{% endif %}
+                {{ property.location }}
+            </p>
+            <img class="provider-logo" src="{{ asset('build/images/providers/' ~ property.ad|provider_logo) }}" alt="{{ property.ad.provider }}">
+        </div>
+        <div class="publication-date">
+            <i class="far fa-clock fa-fw"></i>
+            <time datetime="{{ property.ad.publishedAt|date('Y-m-d H:i') }}" data-toggle="tooltip" data-placement="top" title="{{ property.ad.publishedAt|format_datetime('medium') }}">
+                {{ property.ad.publishedAt|days_ago }}
+            </time>
+        </div>
+    </a>
+    {% if property.ads|length > 1 %}
+        <div class="ad-container">
+            {% for ad in property.ads|slice(1, 5) %}
+                <article class="ad">
+                    <a class="link" target="_blank" rel="noopener noreferrer" href="{{ ad.url }}">
+                        <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/images/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
+                        <span class="label">
+                            Aussi présent sur&nbsp;
+                            <img class="provider-logo" src="{{ asset('build/images/providers/' ~ ad|provider_logo) }}" alt="{{ ad.provider }}">
+                        </span>
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
+    {% endif %}
+</article>

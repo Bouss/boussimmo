@@ -12,18 +12,8 @@ class City
     private int $inseeCode;
     private int $logicImmoCode;
     private int $papCode;
-    private int $selogerNeufCode;
+    private int $seLogerNeufCode;
 
-    /**
-     * @param string $name
-     * @param string $departmentCode
-     * @param string $department
-     * @param string $region
-     * @param int    $inseeCode
-     * @param int    $logicImmoCode
-     * @param int    $papCode
-     * @param int    $selogerNeufCode
-     */
     public function __construct(
         string $name,
         string $departmentCode,
@@ -32,7 +22,7 @@ class City
         int $inseeCode,
         int $logicImmoCode,
         int $papCode,
-        int $selogerNeufCode
+        int $seLogerNeufCode
     ) {
         $this->name = $name;
         $this->zipCode = $departmentCode . '000';
@@ -42,78 +32,51 @@ class City
         $this->inseeCode = $inseeCode;
         $this->logicImmoCode = $logicImmoCode;
         $this->papCode = $papCode;
-        $this->selogerNeufCode = $selogerNeufCode;
+        $this->seLogerNeufCode = $seLogerNeufCode;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getZipCode(): string
     {
         return $this->zipCode;
     }
 
-    /**
-     * @return string
-     */
     public function getDepartmentCode(): string
     {
         return $this->departmentCode;
     }
 
-    /**
-     * @return string
-     */
     public function getDepartment(): string
     {
         return $this->department;
     }
 
-    /**
-     * @return string
-     */
     public function getRegion(): string
     {
         return $this->region;
     }
 
-    /**
-     * @return int
-     */
     public function getInseeCode(): int
     {
         return $this->inseeCode;
     }
 
-    /**
-     * @return int
-     */
     public function getLogicImmoCode(): int
     {
         return $this->logicImmoCode;
     }
 
-    /**
-     * @return int
-     */
     public function getPapCode(): int
     {
         return $this->papCode;
     }
 
-    /**
-     * @return int
-     */
-    public function getSelogerNeufCode(): int
+    public function getSeLogerNeufCode(): int
     {
-        return $this->selogerNeufCode;
+        return $this->seLogerNeufCode;
     }
 }

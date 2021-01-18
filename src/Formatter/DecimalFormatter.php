@@ -7,12 +7,14 @@ use function preg_match;
 
 class DecimalFormatter
 {
-    private const REGEX_INT = '([0-9])+';
-    private const REGEX_FLOAT = '([0-9]+(?:\s?[0-9]{3})*(?:,[0-9]+)?)+';
-    private const REGEX_PRICE = self::REGEX_FLOAT . '\s?(?:€|euro)';
-    private const REGEX_AREA = self::REGEX_FLOAT . '\s?(?:m²|m2)';
-    private const REGEX_ROOMS_COUNT = self::REGEX_INT . '(?:\spi[e\p{L}]ce|\s?p(?:\.|\s|$))';
-    private const REGEX_ROOMS_COUNT_2 = '(?:T(?:YPE|ype\s)?|F)' . self::REGEX_INT . '(?:\s|$)';
+    private const REGEX_START         = '(?:^|\s|>)';
+    private const REGEX_END           = '(?:$|\s|\.|<)';
+    private const REGEX_INT           = '([0-9])+';
+    private const REGEX_FLOAT         = '([0-9]+(?:\s?[0-9]{3})*(?:,[0-9]+)?)+';
+    private const REGEX_PRICE         = self::REGEX_START . self::REGEX_FLOAT . '\s?(?:€|euros?)' . self::REGEX_END;
+    private const REGEX_AREA          = self::REGEX_START . self::REGEX_FLOAT . '\s?(?:m²|m2)' . self::REGEX_END;
+    private const REGEX_ROOMS_COUNT   = self::REGEX_START . self::REGEX_INT . '\s?(?:pi[e\p{L}]ces?|p)' . self::REGEX_END;
+    private const REGEX_ROOMS_COUNT_2 = self::REGEX_START . '(?:T|F|type\s?)' . self::REGEX_INT . self::REGEX_END;
 
     private NumberFormatter $formatter;
 
@@ -70,7 +72,7 @@ class DecimalFormatter
             return $this->formatter->parse($matches[1]);
         }
 
-       if (1 === preg_match(sprintf('/%s/u', self::REGEX_ROOMS_COUNT_2), $value, $matches)) {
+       if (1 === preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT_2), $value, $matches)) {
            return $this->formatter->parse($matches[1]);
        }
 

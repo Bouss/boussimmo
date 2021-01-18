@@ -3,8 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Exception\ParseException;
-use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class PapParser extends AbstractParser
@@ -39,9 +37,9 @@ class PapParser extends AbstractParser
     /**
      * {@inheritDoc}
      */
-    protected function parseName(Crawler $crawler): ?string
+    protected function parseBuildingName(Crawler $crawler): ?string
     {
-        if (1 === preg_match('/\)(.+) -/', parent::parseName($crawler), $matches)) {
+        if (1 === preg_match('/\)(.+) -/', parent::parseBuildingName($crawler), $matches)) {
             return trim($matches[1]);
         }
 

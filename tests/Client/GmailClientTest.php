@@ -3,7 +3,7 @@
 namespace App\Tests\Client;
 
 use App\Client\GmailClient;
-use App\Repository\EmailTemplateRepository;
+use App\DataProvider\EmailTemplateProvider;
 use Generator;
 use Google_Client;
 use Google_Service_Gmail;
@@ -21,8 +21,8 @@ class GmailClientTest extends TestCase
 
     /** @var ObjectProphecy|Google_Service_Gmail */
     private $gmailService;
-    /** @var ObjectProphecy|EmailTemplateRepository */
-    private $emailTemplateRepository;
+    /** @var ObjectProphecy|EmailTemplateProvider */
+    private $emailTemplateProvider;
     /** @var ObjectProphecy|LoggerInterface */
     private $logger;
 
@@ -31,12 +31,12 @@ class GmailClientTest extends TestCase
     public function setUp(): void
     {
         $this->gmailService = $this->prophesize(Google_Service_Gmail::class);
-        $this->emailTemplateRepository = $this->prophesize(EmailTemplateRepository::class);
+        $this->emailTemplateProvider = $this->prophesize(EmailTemplateProvider::class);
         $this->logger = $this->prophesize(LoggerInterface::class);
 
         $this->gmailClient = new GmailClient(
             $this->gmailService->reveal(),
-            $this->emailTemplateRepository->reveal(),
+            $this->emailTemplateProvider->reveal(),
             $this->logger->reveal()
         );
     }
@@ -58,9 +58,9 @@ class GmailClientTest extends TestCase
 
         // private function buildMessagesQuery()
         if (isset($criteria['provider'])) {
-            $this->emailTemplateRepository->getAddressesByMainProvider(Argument::any())->willReturn(['foo@mail.com']);
+            $this->emailTemplateProvider->getAddressesByMainProvider(Argument::any())->willReturn(['foo@mail.com']);
         } else {
-            $this->emailTemplateRepository->getAllAddresses()->willReturn(['foo@mail.com', 'bar@mail.com', 'qux@mail.com']);
+            $this->emailTemplateProvider->getAllAddresses()->willReturn(['foo@mail.com', 'bar@mail.com', 'qux@mail.com']);
         }
 
         $this->gmailService->users_messages = $usersMessages->reveal();

@@ -9,7 +9,7 @@
     <coverage>
         <include>
             <directory>src</directory>
-            <file>src/DTO/PropertyAd.php</file>
+            <file>src/DTO/Property.php</file>
         </include>
         <exclude>
             <directory>src/DTO</directory>
