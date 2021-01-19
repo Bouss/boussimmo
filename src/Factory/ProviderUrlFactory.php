@@ -5,19 +5,19 @@ namespace App\Factory;
 use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
 use App\DTO\Url;
+use App\Exception\UrlBuilderNotFoundException;
 use App\UrlBuilder\UrlBuilderContainer;
 
 class ProviderUrlFactory
 {
-    private ProviderProvider $providerProvider;
-    private UrlBuilderContainer $urlBuilderContainer;
+    public function __construct(
+        private ProviderProvider $providerProvider,
+        private UrlBuilderContainer $urlBuilderContainer
+    ) {}
 
-    public function __construct(ProviderProvider $providerProvider, UrlBuilderContainer $urlBuilderContainer)
-    {
-        $this->providerProvider = $providerProvider;
-        $this->urlBuilderContainer = $urlBuilderContainer;
-    }
-
+    /**
+     * @throws UrlBuilderNotFoundException
+     */
     public function create(
         string $providerName,
         string $city,
@@ -27,8 +27,7 @@ class ProviderUrlFactory
         ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
-    ): Url
-    {
+    ): Url {
         /** @var Provider $provider */
         $provider = $this->providerProvider->find($providerName);
 

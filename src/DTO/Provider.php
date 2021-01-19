@@ -2,20 +2,15 @@
 
 namespace App\DTO;
 
-class Provider
-{
-    private string $name;
-    private string $logo;
-    private ?string $parent;
-    private bool $newBuildOnly;
+use Stringable;
 
-    public function __construct(string $name, string $logo, string $parent = null)
-    {
-        $this->name = $name;
-        $this->logo = $logo;
-        $this->parent = $parent;
-        $this->newBuildOnly = null !== $parent;
-    }
+class Provider implements Stringable
+{
+    public function __construct(
+        private string $name,
+        private string $logo,
+        private ?string $parent = null
+    ) {}
 
     public function getName(): string
     {
@@ -34,9 +29,12 @@ class Provider
 
     public function isNewBuildOnly(): bool
     {
-        return $this->newBuildOnly;
+        return null !== $this->parent;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function __toString(): string
     {
         return $this->name;

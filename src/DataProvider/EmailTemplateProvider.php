@@ -9,7 +9,7 @@ use function array_filter;
 use function array_map;
 use function array_unique;
 use function in_array;
-use function stripos;
+use function str_contains;
 
 class EmailTemplateProvider
 {
@@ -29,7 +29,7 @@ class EmailTemplateProvider
             if ($from === $template->getFrom()) {
                 // First, try to match an email template containing a particular subject keyword
                 if (null !== $template->getSubjectKeyword()) {
-                    if (false !== stripos($subject, $template->getSubjectKeyword())) {
+                    if (str_contains($subject, $template->getSubjectKeyword())) {
                         return $template;
                     }
 

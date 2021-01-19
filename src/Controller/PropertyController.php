@@ -7,37 +7,25 @@ use App\Entity\User;
 use App\Enum\PropertyFilter;
 use App\Exception\GmailException;
 use App\Exception\GoogleException;
-use App\Exception\ParserNotFoundException;
 use App\Service\GoogleOAuthService;
 use App\Service\PropertyService;
 use App\Service\PropertySortResolver;
+use Exception;
 use Google_Service_Gmail_Label;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/property")
- */
+#[Route("/property")]
 class PropertyController extends AbstractController
 {
-    private GmailClient $gmailClient;
-    private GoogleOAuthService $googleOAuthService;
-    private PropertyService $propertyService;
-    private PropertySortResolver $sortResolver;
-
     public function __construct(
-        GmailClient $gmailClient,
-        GoogleOAuthService $googleOAuthService,
-        PropertyService $propertyService,
-        PropertySortResolver $sortResolver
-    ) {
-        $this->gmailClient = $gmailClient;
-        $this->googleOAuthService = $googleOAuthService;
-        $this->propertyService = $propertyService;
-        $this->sortResolver = $sortResolver;
-    }
+        private GmailClient $gmailClient,
+        private GoogleOAuthService $googleOAuthService,
+        private PropertyService $propertyService,
+        private PropertySortResolver $sortResolver
+    ) {}
 
     /**
      * @throws GmailException|GoogleException
@@ -61,11 +49,7 @@ class PropertyController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/list", methods={"GET"}, options={"expose"=true}, name="property_list")
-
-     * @throws GmailException|GoogleException|ParserNotFoundException
-     */
+    #[Route("/list", name: "property_list", options: ["expose" => true], methods: ["GET"])]
     public function list(Request $request): Response
     {
         parse_str($request->query->get('filters'), $filters);
@@ -80,7 +64,11 @@ class PropertyController extends AbstractController
         $user->setPropertySearchSettings(array_merge($filters, ['sort' => $sort]));
         $this->getDoctrine()->getManager()->flush();
 
-        $properties = $this->propertyService->find($user, $filters);
+        try {
+            $properties = $this->propertyService->find($user, $filters);
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Erreur lors de la récupération des biens immobiliers: ' . $e->getMessage());
+        }
 
         return $this->render('property/_list.html.twig', [
             'properties' => $properties,

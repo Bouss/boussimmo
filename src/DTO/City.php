@@ -2,47 +2,24 @@
 
 namespace App\DTO;
 
-class City
-{
-    private string $name;
-    private string $zipCode;
-    private string $departmentCode;
-    private string $department;
-    private string $region;
-    private int $inseeCode;
-    private int $logicImmoCode;
-    private int $papCode;
-    private int $seLogerNeufCode;
+use Stringable;
 
+class City implements Stringable
+{
     public function __construct(
-        string $name,
-        string $departmentCode,
-        string $department,
-        string $region,
-        int $inseeCode,
-        int $logicImmoCode,
-        int $papCode,
-        int $seLogerNeufCode
-    ) {
-        $this->name = $name;
-        $this->zipCode = $departmentCode . '000';
-        $this->departmentCode = $departmentCode;
-        $this->department = $department;
-        $this->region = $region;
-        $this->inseeCode = $inseeCode;
-        $this->logicImmoCode = $logicImmoCode;
-        $this->papCode = $papCode;
-        $this->seLogerNeufCode = $seLogerNeufCode;
-    }
+        private string $name,
+        private string $departmentCode,
+        private string $department,
+        private string $region,
+        private int $inseeCode,
+        private int $logicImmoCode,
+        private int $papCode,
+        private int $seLogerNeufCode
+    ) {}
 
     public function getName(): string
     {
         return $this->name;
-    }
-
-    public function getZipCode(): string
-    {
-        return $this->zipCode;
     }
 
     public function getDepartmentCode(): string
@@ -78,5 +55,18 @@ class City
     public function getSeLogerNeufCode(): int
     {
         return $this->seLogerNeufCode;
+    }
+
+    public function getZipCode(): string
+    {
+        return $this->departmentCode . '000';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

@@ -12,9 +12,6 @@ use function Symfony\Component\String\u;
 
 class GmailMessageService
 {
-    /**
-     * @return array ['from', 'date', 'subject']
-     */
     public function getHeaders(Google_Service_Gmail_Message $message): array
     {
         $headers = [];

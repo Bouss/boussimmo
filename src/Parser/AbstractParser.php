@@ -33,16 +33,11 @@ abstract class AbstractParser implements ParserInterface
 
     private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
 
-    private ProviderProvider $providerProvider;
-    private LoggerInterface $logger;
-    protected DecimalFormatter $formatter;
-
-    public function __construct(ProviderProvider $providerProvider, DecimalFormatter $formatter, LoggerInterface $logger)
-    {
-        $this->providerProvider = $providerProvider;
-        $this->formatter = $formatter;
-        $this->logger = $logger;
-    }
+    public function __construct(
+        private ProviderProvider $providerProvider,
+        protected DecimalFormatter $formatter,
+        protected LoggerInterface $logger
+    ) {}
 
     /**
      * {@inheritDoc}
@@ -82,9 +77,6 @@ abstract class AbstractParser implements ParserInterface
         return new Crawler($html);
     }
 
-    /**
-     * @throws ParseException
-     */
     protected function parsePrice(Crawler $crawler): ?float
     {
         if (null === static::SELECTOR_PRICE) {
@@ -93,16 +85,13 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             $priceStr = trim($crawler->filter(static::SELECTOR_PRICE)->text());
-        } catch (Exception $e) {
-            throw new ParseException('Error while parsing the price: ' . $e->getMessage());
+        } catch (Exception) {
+            return null;
         }
 
         return $this->formatter->parsePrice($priceStr);
     }
 
-    /**
-     * @throws ParseException
-     */
     protected function parseArea(Crawler $crawler): ?float
     {
         if (null === static::SELECTOR_AREA) {
@@ -111,16 +100,13 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             $areaStr = trim($crawler->filter(static::SELECTOR_AREA)->text());
-        } catch (Exception $e) {
-            throw new ParseException('Error while parsing the area: ' . $e->getMessage());
+        } catch (Exception) {
+            return null;
         }
 
         return $this->formatter->parseArea($areaStr);
     }
 
-    /**
-     * @throws ParseException
-     */
     protected function parseRoomsCount(Crawler $crawler): ?int
     {
         if (null === static::SELECTOR_ROOMS_COUNT) {
@@ -129,8 +115,8 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             $roomsCountStr = trim($crawler->filter(static::SELECTOR_ROOMS_COUNT)->text());
-        } catch (Exception $e) {
-            throw new ParseException('Error while parsing the number of rooms: ' . $e->getMessage());
+        } catch (Exception) {
+            return null;
         }
 
         return $this->formatter->parseRoomsCount($roomsCountStr);
@@ -144,7 +130,7 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             return trim($crawler->filter(static::SELECTOR_LOCATION)->text());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -157,7 +143,7 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             return trim($crawler->filter(static::SELECTOR_NAME)->text());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -170,7 +156,7 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             return trim($crawler->filter(static::SELECTOR_TITLE)->text());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -183,7 +169,7 @@ abstract class AbstractParser implements ParserInterface
 
         try {
             return trim($crawler->filter(static::SELECTOR_DESCRIPTION)->text());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

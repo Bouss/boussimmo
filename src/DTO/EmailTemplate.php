@@ -2,22 +2,17 @@
 
 namespace App\DTO;
 
-class EmailTemplate
-{
-    private string $name;
-    private string $providerName;
-    private string $address;
-    private string $from;
-    private ?string $subjectKeyword;
+use Stringable;
 
-    public function __construct(string $name, string $providerName, string $username, string $address, string $subjectKeyword = null)
-    {
-        $this->name = $name;
-        $this->providerName = $providerName;
-        $this->address = $address;
-        $this->from = sprintf('%s <%s>', $username, $address);
-        $this->subjectKeyword = $subjectKeyword;
-    }
+class EmailTemplate implements Stringable
+{
+    public function __construct(
+        private string $name,
+        private string $providerName,
+        private string $username,
+        private string $address,
+        private ?string $subjectKeyword = null
+    ) {}
 
     public function getName(): string
     {
@@ -34,13 +29,21 @@ class EmailTemplate
         return $this->address;
     }
 
-    public function getFrom(): string
-    {
-        return $this->from;
-    }
-
     public function getSubjectKeyword(): ?string
     {
         return $this->subjectKeyword;
+    }
+
+    public function getFrom(): string
+    {
+        return sprintf('%s <%s>', $this->username, $this->address);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

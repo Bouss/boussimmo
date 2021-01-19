@@ -7,12 +7,9 @@ use App\DTO\City;
 
 abstract class AbstractUrlBuilder implements UrlBuilderInterface
 {
-    protected LocationProvider $locationProvider;
-
-    public function __construct(LocationProvider $locationProvider)
-    {
-        $this->locationProvider = $locationProvider;
-    }
+    public function __construct(
+        protected LocationProvider $locationProvider
+    ) {}
 
     /**
      * @param string[] $propertyTypes
@@ -25,8 +22,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
         ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
-    ): string
-    {
+    ): string {
         $city = $this->locationProvider->find($cityName);
 
         $criteria = [$city, $propertyTypes, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount];

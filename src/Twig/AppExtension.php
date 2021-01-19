@@ -14,12 +14,9 @@ class AppExtension extends AbstractExtension
 {
     private const ORDER_ASC = 1;
 
-    private ProviderProvider $providerProvider;
-
-    public function __construct(ProviderProvider $providerProvider)
-    {
-        $this->providerProvider = $providerProvider;
-    }
+    public function __construct(
+        private ProviderProvider $providerProvider
+    ) {}
 
     /**
      * {@inheritDoc}
@@ -71,7 +68,7 @@ class AppExtension extends AbstractExtension
             ->days;
 
         if (0 === $daysDiff) {
-            return 'Aujourd\'hui';
+            return ($date->format('H:i:s'));
         }
         if (1 === $daysDiff) {
             return 'Hier';

@@ -13,16 +13,11 @@ use Psr\Log\LoggerInterface;
 
 class GoogleOAuthService
 {
-    private Google_Client $googleClient;
-    private EntityManagerInterface $em;
-    private LoggerInterface $logger;
-
-    public function __construct(Google_Client $googleClient, EntityManagerInterface $em, LoggerInterface $logger)
-    {
-        $this->googleClient = $googleClient;
-        $this->em = $em;
-        $this->logger = $logger;
-    }
+    public function __construct(
+        private Google_Client $googleClient,
+        private EntityManagerInterface $em,
+        private LoggerInterface $logger
+    ) {}
 
     /**
      * @throws GoogleException

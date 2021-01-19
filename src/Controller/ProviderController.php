@@ -12,14 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/provider")
- */
+#[Route("/provider")]
 class ProviderController extends AbstractController
 {
-    /**
-     * @Route("/result-urls", methods={"GET"}, options={"expose"=true}, name="provider_result_urls")
-     */
+    #[Route("/result-urls", name: "provider_result_urls", options: ["expose" => true], methods: ["GET"])]
     public function getResultUrls(
         Request $request,
         SerializerInterface $serializer,

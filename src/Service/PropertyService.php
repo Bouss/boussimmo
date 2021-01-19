@@ -16,28 +16,14 @@ use function array_merge;
 
 class PropertyService
 {
-    private GmailClient $gmailClient;
-    private GmailMessageService $gmailMessageService;
-    private GoogleOAuthService $googleOAuthService;
-    private ParserContainer $parserContainer;
-    private EmailTemplateProvider $emailTemplateProvider;
-    private LoggerInterface $logger;
-
     public function __construct(
-        GmailClient $gmailClient,
-        GmailMessageService $gmailMessageService,
-        GoogleOAuthService $googleOAuthService,
-        ParserContainer $parserContainer,
-        EmailTemplateProvider $emailTemplateProvider,
-        LoggerInterface $logger
-    ) {
-        $this->gmailClient = $gmailClient;
-        $this->gmailMessageService = $gmailMessageService;
-        $this->googleOAuthService = $googleOAuthService;
-        $this->parserContainer = $parserContainer;
-        $this->emailTemplateProvider = $emailTemplateProvider;
-        $this->logger = $logger;
-    }
+        private GmailClient $gmailClient,
+        private GmailMessageService $gmailMessageService,
+        private GoogleOAuthService $googleOAuthService,
+        private ParserContainer $parserContainer,
+        private EmailTemplateProvider $emailTemplateProvider,
+        private LoggerInterface $logger
+    ) {}
 
     /**
      * @return Property[]
@@ -52,7 +38,7 @@ class PropertyService
         $this->googleOAuthService->refreshAccessTokenIfExpired($user);
 
         // Fetch the Gmail messages IDs matching the user criteria
-        $messageIds = $this->gmailClient->getMessageIds($user->getAccessToken(), $criteria);
+        $messageIds = $this->gmailClient->getMessageIds($criteria, $user->getAccessToken());
 
         foreach ($messageIds as $id) {
             try {
