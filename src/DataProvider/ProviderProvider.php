@@ -27,7 +27,7 @@ class ProviderProvider
     public function getProvidersByMainProvider(string $name): array
     {
         return array_filter($this->providers, static fn(Provider $provider) =>
-            $name === $provider->getName() || $name === $provider->getParent()
+            in_array($name, [$provider->getName(), $provider->getParent()], true)
         );
     }
 }

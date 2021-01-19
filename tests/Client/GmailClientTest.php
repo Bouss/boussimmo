@@ -69,7 +69,7 @@ class GmailClientTest extends TestCase
         $response->getNextPageToken()->willReturn(null);
 
         // When
-        $this->gmailClient->getMessageIds('123456789', $criteria);
+        $this->gmailClient->getMessageIds($criteria, '123456789');
 
         // Then
         $usersMessages->listUsersMessages('me', $expectedParams)->shouldBeCalled();

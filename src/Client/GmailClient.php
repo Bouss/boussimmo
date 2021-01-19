@@ -12,21 +12,17 @@ use Google_Service_Gmail_Message;
 
 class GmailClient
 {
-    private Google_Service_Gmail $gmailService;
-    private EmailTemplateProvider $emailTemplateProvider;
-
-    public function __construct(Google_Service_Gmail $gmailService, EmailTemplateProvider $emailTemplateProvider)
-    {
-        $this->gmailService = $gmailService;
-        $this->emailTemplateProvider = $emailTemplateProvider;
-    }
+    public function __construct(
+        private Google_Service_Gmail $gmailService,
+        private EmailTemplateProvider $emailTemplateProvider
+    ) {}
 
     /**
      * @return int[]
      *
      * @throws GmailException
      */
-    public function getMessageIds(string $accessToken, array $criteria): array
+    public function getMessageIds(array $criteria, string $accessToken, string $userId = 'me'): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
@@ -46,7 +42,7 @@ class GmailClient
             $params['pageToken'] = $pageToken;
 
             try {
-                $response = $this->gmailService->users_messages->listUsersMessages('me', $params);
+                $response = $this->gmailService->users_messages->listUsersMessages($userId, $params);
             } catch (Exception $e) {
                 throw new GmailException($e->getMessage());
             }

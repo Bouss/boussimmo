@@ -4,16 +4,11 @@ namespace App\DTO;
 
 class Url
 {
-    private string $website;
-    private string $logo;
-    private string $value;
-
-    public function __construct(string $website, string $logo, string $value)
-    {
-        $this->website = $website;
-        $this->logo = $logo;
-        $this->value = $value;
-    }
+    public function __construct(
+        private string $website,
+        private string $logo,
+        private string $value
+    ) {}
 
     public function getWebsite(): string
     {

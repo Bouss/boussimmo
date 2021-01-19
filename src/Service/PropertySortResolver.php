@@ -6,27 +6,15 @@ use App\Enum\PropertySort;
 
 class PropertySortResolver
 {
-    /**
-     * @param string $sort
-     *
-     * @return array
-     */
     public function resolve(string $sort): array
     {
-        switch ($sort) {
-            case PropertySort::PUBLISHED_AT_ASC:
-                return ['publishedAt', 1];
-            case PropertySort::PRICE_ASC:
-                return ['price', 1];
-            case PropertySort::PRICE_DESC:
-                return ['price', -1];
-            case PropertySort::AREA_ASC:
-                return ['area', 1];
-            case PropertySort::AREA_DESC:
-                return ['area', -1];
-            case PropertySort::PUBLISHED_AT_DESC:
-            default:
-                return ['publishedAt', -1];
-        }
+        return match ($sort) {
+            PropertySort::PUBLISHED_AT_ASC => ['publishedAt', 1],
+            PropertySort::PRICE_ASC => ['price', 1],
+            PropertySort::PRICE_DESC => ['price', -1],
+            PropertySort::AREA_ASC => ['area', 1],
+            PropertySort::AREA_DESC => ['area', -1],
+            default => ['publishedAt', -1],
+        };
     }
 }
