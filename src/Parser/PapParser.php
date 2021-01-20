@@ -3,8 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Exception\ParseException;
-use Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 class PapParser extends AbstractParser
@@ -15,9 +13,6 @@ class PapParser extends AbstractParser
     protected const SELECTOR_DESCRIPTION = 'td:nth-child(2)';
     protected const SELECTOR_NAME        = 'td:nth-child(2)';
     protected const SELECTOR_LOCATION    = 'td:nth-child(2) b';
-    protected const SELECTOR_PRICE       = 'td:nth-child(2)';
-    protected const SELECTOR_AREA        = 'td:nth-child(2)';
-    protected const SELECTOR_ROOMS_COUNT = 'td:nth-child(2)';
 
     /**
      * {@inheritDoc}
@@ -36,21 +31,15 @@ class PapParser extends AbstractParser
      */
     protected function parsePrice(Crawler $crawler): ?float
     {
-        try {
-            $priceStr = trim($crawler->filter(static::SELECTOR_PRICE)->text());
-        } catch (Exception $e) {
-            throw new ParseException('Error while parsing the price: ' . $e->getMessage());
-        }
-
-        return $this->formatter->parsePrice(str_replace('.', '', $priceStr));
+        return $this->formatter->parsePrice(str_replace('.', '', $crawler->html()));
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function parseName(Crawler $crawler): ?string
+    protected function parseBuildingName(Crawler $crawler): ?string
     {
-        if (1 === preg_match('/\)(.+) -/', parent::parseName($crawler), $matches)) {
+        if (1 === preg_match('/\)(.+) -/', parent::parseBuildingName($crawler), $matches)) {
             return trim($matches[1]);
         }
 

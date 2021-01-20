@@ -1,5 +1,0 @@
-{% for ad in property_ads|sort_by(sort[0], sort[1]) %}
-    {{ include('property_ad/_property_ad.html.twig') }}
-{% else %}
-    <div>Aucune annonce trouvée</div>
-{% endfor %}

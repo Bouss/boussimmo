@@ -10,7 +10,7 @@ $duplicate-spacing: 2px;
 $photo-width: 300px;
 $photo-max-height-factor: 3/4;
 
-.property-ad {
+.property {
   position: relative;
   background-color: white;
   box-shadow: 0 0 12px 0 rgba(38, 38, 38, 0.2);
@@ -95,7 +95,7 @@ $photo-max-height-factor: 3/4;
     }
   }
 
-  .duplicate-container {
+  .ad-container {
     display: grid;
     row-gap: $duplicate-spacing;
     position: absolute;
@@ -107,7 +107,7 @@ $photo-max-height-factor: 3/4;
   }
 }
 
-.duplicate {
+.ad {
   &:first-child {
     .photo {
       border-top-left-radius: $border-radius;
@@ -144,15 +144,15 @@ $photo-max-height-factor: 3/4;
 }
 
 @media screen and (max-width: 768px) {
-  .property-ad {
-    .duplicate-container {
+  .property {
+    .ad-container {
       display: none;
     }
   }
 }
 
 @media screen and (max-width: 576px) {
-  .property-ad {
+  .property {
     .photo-wrapper {
       width: 2/3*$photo-width;
       height: (2/3*$photo-width)*$photo-max-height-factor;
@@ -165,7 +165,7 @@ $photo-max-height-factor: 3/4;
 }
 
 @media screen and (max-width: 460px) {
-  .property-ad {
+  .property {
     font-size: 0.8rem;
 
     .photo-wrapper {

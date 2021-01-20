@@ -1,22 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% set sort_choices = {
-    'Date décroissante': constant('App\\Enum\\PropertyAdSort::PUBLISHED_AT_DESC'),
-    'Date croissante': constant('App\\Enum\\PropertyAdSort::PUBLISHED_AT_ASC'),
-    'Prix décroissant': constant('App\\Enum\\PropertyAdSort::PRICE_DESC'),
-    'Prix croissant': constant('App\\Enum\\PropertyAdSort::PRICE_ASC'),
-    'Surface décroissante': constant('App\\Enum\\PropertyAdSort::AREA_DESC'),
-    'Surface croissante': constant('App\\Enum\\PropertyAdSort::AREA_ASC')
+    'Date décroissante': constant('App\\Enum\\PropertySort::PUBLISHED_AT_DESC'),
+    'Date croissante': constant('App\\Enum\\PropertySort::PUBLISHED_AT_ASC'),
+    'Prix décroissant': constant('App\\Enum\\PropertySort::PRICE_DESC'),
+    'Prix croissant': constant('App\\Enum\\PropertySort::PRICE_ASC'),
+    'Surface décroissante': constant('App\\Enum\\PropertySort::AREA_DESC'),
+    'Surface croissante': constant('App\\Enum\\PropertySort::AREA_ASC')
 } %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('property_ads') }}
+    {{ encore_entry_link_tags('properties') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('property_ads') }}
+    {{ encore_entry_script_tags('properties') }}
 {% endblock %}
 
 {% block header %}
@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block sub_header %}
-    {{ include('property_ad/_filter_form.twig') }}
+    {{ include('property/_filter_form.twig') }}
 {% endblock %}
 
 {% block body %}

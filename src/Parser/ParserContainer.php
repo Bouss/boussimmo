@@ -1,25 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Parser;
 
 use App\Enum\EmailTemplate;
 use App\Exception\ParserNotFoundException;
-use App\Parser\BienIciParser;
-use App\Parser\LeBonCoinParser;
-use App\Parser\LogicImmoNeufParser;
-use App\Parser\LogicImmoParser;
-use App\Parser\LogicImmoPartnerParser;
-use App\Parser\OuestFranceImmo2Parser;
-use App\Parser\OuestFranceImmoNeufParser;
-use App\Parser\OuestFranceImmoParser;
-use App\Parser\PapNeufParser;
-use App\Parser\PapParser;
-use App\Parser\ParserInterface;
-use App\Parser\SeLogerNeufParser;
-use App\Parser\SeLogerParser;
-use App\Parser\SeLogerPartnerParser;
-use App\Parser\SuperimmoNeufParser;
-use App\Parser\SuperimmoParser;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
@@ -27,9 +11,6 @@ class ParserContainer implements ServiceSubscriberInterface
 {
     private ContainerInterface $locator;
 
-    /**
-     * @param ContainerInterface $locator
-     */
     public function __construct(ContainerInterface $locator)
     {
         $this->locator = $locator;
@@ -60,18 +41,14 @@ class ParserContainer implements ServiceSubscriberInterface
     }
 
     /**
-     * @param string $id
-     *
-     * @return ParserInterface
-     *
      * @throws ParserNotFoundException
      */
-    public function get(string $id): ParserInterface
+    public function get(string $name): ParserInterface
     {
-        if (!$this->locator->has($id)) {
-            throw new ParserNotFoundException('No parser found with the id: ' . $id);
+        if (!$this->locator->has($name)) {
+            throw new ParserNotFoundException('No parser found with the name: ' . $name);
         }
 
-        return $this->locator->get($id);
+        return $this->locator->get($name);
     }
 }

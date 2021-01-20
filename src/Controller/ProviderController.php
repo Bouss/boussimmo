@@ -12,28 +12,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/provider")
- */
+#[Route("/provider")]
 class ProviderController extends AbstractController
 {
-    /**
-     * @Route("/result-urls", methods={"GET"}, options={"expose"=true}, name="provider_result_urls")
-     *
-     * @param Request             $request
-     * @param SerializerInterface $serializer
-     * @param ProviderUrlFactory  $urlFactory
-     * @param DecimalFormatter    $formatter
-     *
-     * @return JsonResponse
-     */
+    #[Route("/result-urls", name: "provider_result_urls", options: ["expose" => true], methods: ["GET"])]
     public function getResultUrls(
         Request $request,
         SerializerInterface $serializer,
         ProviderUrlFactory $urlFactory,
         DecimalFormatter $formatter
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $params = $request->query->all();
 
         $city = $params['city'];
@@ -45,9 +33,9 @@ class ProviderController extends AbstractController
         $minRoomsCount = $params['min_rooms_count'];
         $urls = [];
 
-        foreach (Provider::getAvailableValues() as $providerId) {
+        foreach (Provider::getAvailableValues() as $providerName) {
             $urls[] = $serializer->normalize($urlFactory->create(
-                $providerId,
+                $providerName,
                 $city,
                 $types,
                 $minPrice,

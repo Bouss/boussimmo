@@ -86,7 +86,7 @@ class GoogleAuthenticatorTest extends TestCase
                 $user->getRefreshToken() === '987654321' &&
                 $user->isRevoked() === false &&
                 $user->getRoles() === ['ROLE_USER'] &&
-                $user->getPropertyAdSearchSettings() === [];
+                $user->getPropertySearchSettings() === [];
         }))
             ->shouldBeCalled();
 

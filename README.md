@@ -7,8 +7,8 @@
 Technologies
 ------------
 
-- PHP 7.4
-- Symfony 5.1
-- jQuery 3.4
+- PHP 8.0
+- Symfony 5.2
+- jQuery 3.5
 - Gmail API
 - Google OAuth 2.0

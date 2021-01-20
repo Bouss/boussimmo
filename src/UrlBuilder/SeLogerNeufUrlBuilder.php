@@ -57,7 +57,7 @@ class SeLogerNeufUrlBuilder extends AbstractUrlBuilder
      */
     private function buildLocationParam(City $city): array
     {
-        return ['localities' => $city->getSelogerNeufCode()];
+        return ['localities' => $city->getSeLogerNeufCode()];
     }
 
     /**

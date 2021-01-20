@@ -2,55 +2,41 @@
 
 namespace App\DTO;
 
-class Provider
+use Stringable;
+
+class Provider implements Stringable
 {
-    private string $id;
-    private string $logo;
-    private ?string $parentProvider;
-    private bool $newBuildOnly;
+    public function __construct(
+        private string $name,
+        private string $logo,
+        private ?string $parent = null
+    ) {}
 
-    /**
-     * @param string      $id
-     * @param string      $logo
-     * @param string|null $parentProvider
-     */
-    public function __construct(string $id, string $logo, string $parentProvider = null)
+    public function getName(): string
     {
-        $this->id = $id;
-        $this->logo = $logo;
-        $this->parentProvider = $parentProvider;
-        $this->newBuildOnly = null !== $parentProvider;
+        return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
     public function getLogo(): string
     {
         return $this->logo;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getParentProvider(): ?string
+    public function getParent(): ?string
     {
-        return $this->parentProvider;
+        return $this->parent;
+    }
+
+    public function isNewBuildOnly(): bool
+    {
+        return null !== $this->parent;
     }
 
     /**
-     * @return bool
+     * {@inheritDoc}
      */
-    public function isNewBuildOnly(): bool
+    public function __toString(): string
     {
-        return $this->newBuildOnly;
+        return $this->name;
     }
 }

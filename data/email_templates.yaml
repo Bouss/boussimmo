@@ -2,81 +2,81 @@ parameters:
     email_templates:
         # Provider email templates having a particular keyword in the subject
         !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF:
-            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF
-            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
-            name: "\"Ouestfrance-immo.com\""
+            name: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_NEUF
+            provider_name: !php/const App\Enum\Provider::OUESTFRANCE_IMMO_NEUF
+            username: "\"Ouestfrance-immo.com\""
             address: contact_alerte@news.ouestfrance-immo.com
             subject_keyword: neuf
         !php/const App\Enum\EmailTemplate::SELOGER_PARTNER:
-            id: !php/const App\Enum\EmailTemplate::SELOGER_PARTNER
-            provider_id: !php/const App\Enum\Provider::SELOGER
-            name: SeLoger
+            name: !php/const App\Enum\EmailTemplate::SELOGER_PARTNER
+            provider_name: !php/const App\Enum\Provider::SELOGER
+            username: SeLoger
             address: seloger@al.alerteimmo.com
-            subject_keyword: exclusivités
+            subject_keyword: exclusi
 
         # Provider email templates without a particular subject
         !php/const App\Enum\EmailTemplate::BIENICI:
-            id: !php/const App\Enum\EmailTemplate::BIENICI
-            provider_id: !php/const App\Enum\Provider::BIENICI
-            name: "\"Bien'ici\""
+            name: !php/const App\Enum\EmailTemplate::BIENICI
+            provider_name: !php/const App\Enum\Provider::BIENICI
+            username: "\"Bien'ici\""
             address: no_reply@bienici.com
         !php/const App\Enum\EmailTemplate::LEBONCOIN:
-            id: !php/const App\Enum\EmailTemplate::LEBONCOIN
-            provider_id: !php/const App\Enum\Provider::LEBONCOIN
-            name: leboncoin
+            name: !php/const App\Enum\EmailTemplate::LEBONCOIN
+            provider_name: !php/const App\Enum\Provider::LEBONCOIN
+            username: leboncoin
             address: no.reply@leboncoin.fr
         !php/const App\Enum\EmailTemplate::LOGIC_IMMO:
-            id: !php/const App\Enum\EmailTemplate::LOGIC_IMMO
-            provider_id: !php/const App\Enum\Provider::LOGIC_IMMO
-            name: "\"Logic-immo.com\""
+            name: !php/const App\Enum\EmailTemplate::LOGIC_IMMO
+            provider_name: !php/const App\Enum\Provider::LOGIC_IMMO
+            username: "\"Logic-immo.com\""
             address: news@logicimmo.nmp1.com
         !php/const App\Enum\EmailTemplate::LOGIC_IMMO_PARTNER:
-            id: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_PARTNER
-            provider_id: !php/const App\Enum\Provider::LOGIC_IMMO
-            name: "\"Logic-Immo.com\""
+            name: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_PARTNER
+            provider_name: !php/const App\Enum\Provider::LOGIC_IMMO
+            username: "\"Logic-Immo.com\""
             address: news@logicimmo.nmp1.com
         !php/const App\Enum\EmailTemplate::LOGIC_IMMO_NEUF:
-            id: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_NEUF
-            provider_id: !php/const App\Enum\Provider::LOGIC_IMMO_NEUF
-            name: "\"Logic-ImmoNeuf.com\""
+            name: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_NEUF
+            provider_name: !php/const App\Enum\Provider::LOGIC_IMMO_NEUF
+            username: "\"Logic-ImmoNeuf.com\""
             address: news@logicimmo.nmp1.com
         !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO:
-            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO
-            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
-            name: "\"Ouestfrance-immo.com\""
+            name: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO
+            provider_name: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
+            username: "\"Ouestfrance-immo.com\""
             address: contact_alerte@news.ouestfrance-immo.com
         !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2:
-            id: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2
-            provider_id: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
-            name: "\"Ouestfrance-immo.com\""
+            name: !php/const App\Enum\EmailTemplate::OUESTFRANCE_IMMO_2
+            provider_name: !php/const App\Enum\Provider::OUESTFRANCE_IMMO
+            username: "\"Ouestfrance-immo.com\""
             address: alerte@news.ouestfrance-immo.com
         !php/const App\Enum\EmailTemplate::PAP:
-            id: !php/const App\Enum\EmailTemplate::PAP
-            provider_id: !php/const App\Enum\Provider::PAP
-            name: "\"PAP.fr\""
+            name: !php/const App\Enum\EmailTemplate::PAP
+            provider_name: !php/const App\Enum\Provider::PAP
+            username: "\"PAP.fr\""
             address: users-alertes@pap.fr
         !php/const App\Enum\EmailTemplate::PAP_NEUF:
-            id: !php/const App\Enum\EmailTemplate::PAP_NEUF
-            provider_id: !php/const App\Enum\Provider::PAP_NEUF
-            name: Immoneuf
+            name: !php/const App\Enum\EmailTemplate::PAP_NEUF
+            provider_name: !php/const App\Enum\Provider::PAP_NEUF
+            username: Immoneuf
             address: users-alertes@pap.fr
         !php/const App\Enum\EmailTemplate::SELOGER:
-            id: !php/const App\Enum\EmailTemplate::SELOGER
-            provider_id: !php/const App\Enum\Provider::SELOGER
-            name: SeLoger
+            name: !php/const App\Enum\EmailTemplate::SELOGER
+            provider_name: !php/const App\Enum\Provider::SELOGER
+            username: SeLoger
             address: seloger@al.alerteimmo.com
         !php/const App\Enum\EmailTemplate::SELOGER_NEUF:
-            id: !php/const App\Enum\EmailTemplate::SELOGER_NEUF
-            provider_id: !php/const App\Enum\Provider::SELOGER_NEUF
-            name: SeLoger Neuf
+            name: !php/const App\Enum\EmailTemplate::SELOGER_NEUF
+            provider_name: !php/const App\Enum\Provider::SELOGER_NEUF
+            username: SeLoger Neuf
             address: selogerneuf@al.alerteimmo.com
         !php/const App\Enum\EmailTemplate::SUPERIMMO:
-            id: !php/const App\Enum\EmailTemplate::SUPERIMMO
-            provider_id: !php/const App\Enum\Provider::SUPERIMMO
-            name: "\"Superimmo.com\""
+            name: !php/const App\Enum\EmailTemplate::SUPERIMMO
+            provider_name: !php/const App\Enum\Provider::SUPERIMMO
+            username: "\"Superimmo.com\""
             address: notifications@m.superimmo.com
         !php/const App\Enum\EmailTemplate::SUPERIMMO_NEUF:
-            id: !php/const App\Enum\EmailTemplate::SUPERIMMO_NEUF
-            provider_id: !php/const App\Enum\Provider::SUPERIMMO_NEUF
-            name: SuperimmoNeuf
+            name: !php/const App\Enum\EmailTemplate::SUPERIMMO_NEUF
+            provider_name: !php/const App\Enum\Provider::SUPERIMMO_NEUF
+            username: SuperimmoNeuf
             address: superimmoneuf@mail.superemailing.com

@@ -3,7 +3,7 @@
 namespace App\Tests\Service;
 
 use App\Entity\User;
-use App\Exception\GoogleApiException;
+use App\Exception\GoogleException;
 use App\Service\GoogleOAuthService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;

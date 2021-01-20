@@ -1,7 +1,7 @@
 import 'bootstrap/js/dist/tooltip';
-import '../../scss/pages/property_ads/index.scss';
-import '../../scss/pages/property_ads/property_ad.scss';
-import '../../scss/pages/property_ads/filter_form.scss';
+import '../../scss/pages/properties/index.scss';
+import '../../scss/pages/properties/property.scss';
+import '../../scss/pages/properties/filter_form.scss';
 
 let $body = $('body');
 let $filterForm = $('#filter-form');
@@ -12,19 +12,19 @@ let xhrCount = 0;
 $filterForm.on('submit', function (e) {
     e.preventDefault();
 
-    loadPropertyAds();
+    loadProperties();
 });
 
 $sortSelect.on('change', function () {
-    loadPropertyAds();
+    loadProperties();
 });
 
-function loadPropertyAds() {
+const loadProperties = () => {
     let xhrId = ++xhrCount;
 
     $.ajax({
         type: 'GET',
-        url: Routing.generate('property_ads_list'),
+        url: Routing.generate('property_list'),
         data: {
             filters: $filterForm
                 .find(':input').filter(function () {
@@ -59,11 +59,11 @@ function loadPropertyAds() {
     });
 }
 
-function initTooltips() {
+const initTooltips = () => {
     $('[data-toggle="tooltip"]').tooltip({animation: true});
 }
 
 $(function() {
     initTooltips();
-    loadPropertyAds();
+    loadProperties();
 });

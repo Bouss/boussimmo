@@ -3,7 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use App\Exception\ParseException;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -17,21 +16,6 @@ class SuperimmoParser extends AbstractParser
     protected const SELECTOR_TITLE       = 'table:nth-child(2) tr:nth-child(1) span';
     protected const SELECTOR_DESCRIPTION = 'span[style="font-size: 14px;color:#282828;"]'; // Not a structuring property because of a possible "à partir de" row before
     protected const SELECTOR_LOCATION    = 'table:nth-child(2) tr:nth-child(2) span';
-    protected const SELECTOR_PRICE       = 'span[style*="color:#f90362"]'; // Not a structuring property because of a possible "à partir de" row before
-    protected const SELECTOR_AREA        = 'table:nth-child(2) tr:nth-child(1) span';
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function parsePrice(Crawler $crawler): ?float
-    {
-        // Some property ads don't have a price
-        try {
-            return parent::parsePrice($crawler);
-        } catch (ParseException $e) {
-            return null;
-        }
-    }
 
     /**
      * {@inheritDoc}
@@ -39,7 +23,6 @@ class SuperimmoParser extends AbstractParser
     protected function parsePhoto(Crawler $crawler): ?string
     {
         $photo = parent::parsePhoto($crawler);
-
         $photo = substr($photo, strpos($photo, '#'));
 
         return str_replace('wide', 'biggest', $photo);

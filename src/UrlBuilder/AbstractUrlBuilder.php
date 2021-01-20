@@ -2,43 +2,28 @@
 
 namespace App\UrlBuilder;
 
+use App\DataProvider\LocationProvider;
 use App\DTO\City;
-use App\Repository\LocationRepository;
 
 abstract class AbstractUrlBuilder implements UrlBuilderInterface
 {
-    protected LocationRepository $locationRepository;
+    public function __construct(
+        protected LocationProvider $locationProvider
+    ) {}
 
     /**
-     * @param LocationRepository $locationRepository
-     */
-    public function __construct(LocationRepository $locationRepository)
-    {
-        $this->locationRepository = $locationRepository;
-    }
-
-    /**
-     * @param string   $cityId
      * @param string[] $propertyTypes
-     * @param int|null $minPrice
-     * @param int      $maxPrice
-     * @param int|null $minArea
-     * @param int|null $maxArea
-     * @param int      $minRoomsCount
-     *
-     * @return string
      */
     public function build(
-        string $cityId,
+        string $cityName,
         array $propertyTypes,
         ?int $minPrice,
         int $maxPrice,
         ?int $minArea,
         ?int $maxArea,
         int $minRoomsCount
-    ): string
-    {
-        $city = $this->locationRepository->find($cityId);
+    ): string {
+        $city = $this->locationProvider->find($cityName);
 
         $criteria = [$city, $propertyTypes, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount];
 
@@ -52,15 +37,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
     }
 
     /**
-     * @param City     $city
-     * @param array    $types
-     * @param int|null $minPrice
-     * @param int      $maxPrice
-     * @param int|null $minArea
-     * @param int|null $maxArea
-     * @param int      $minRoomsCount
-     *
-     * @return string
+     * @param string[] $types
      */
     abstract protected function buildPath(
         City $city,
@@ -73,15 +50,7 @@ abstract class AbstractUrlBuilder implements UrlBuilderInterface
     ): string;
 
     /**
-     * @param City     $city
      * @param string[] $types
-     * @param int|null $minPrice
-     * @param int      $maxPrice
-     * @param int|null $minArea
-     * @param int|null $maxArea
-     * @param int      $minRoomsCount
-     *
-     * @return array
      */
     abstract protected function buildQueryParameters(
         City $city,

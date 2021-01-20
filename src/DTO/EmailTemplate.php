@@ -2,67 +2,48 @@
 
 namespace App\DTO;
 
-class EmailTemplate
+use Stringable;
+
+class EmailTemplate implements Stringable
 {
-    private string $id;
-    private string $providerId;
-    private string $address;
-    private string $from;
-    private ?string $subjectKeyword;
+    public function __construct(
+        private string $name,
+        private string $providerName,
+        private string $username,
+        private string $address,
+        private ?string $subjectKeyword = null
+    ) {}
 
-    /**
-     * @param string      $id
-     * @param string      $providerId
-     * @param string      $name
-     * @param string      $address
-     * @param string|null $subjectKeyword
-     */
-    public function __construct(string $id, string $providerId, string $name, string $address, string $subjectKeyword = null)
+    public function getName(): string
     {
-        $this->id = $id;
-        $this->providerId = $providerId;
-        $this->address = $address;
-        $this->from = sprintf('%s <%s>', $name, $address);
-        $this->subjectKeyword = $subjectKeyword;
+        return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getProviderName(): string
     {
-        return $this->id;
+        return $this->providerName;
     }
 
-    /**
-     * @return string
-     */
-    public function getProviderId(): string
-    {
-        return $this->providerId;
-    }
-
-    /**
-     * @return string
-     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
-    public function getFrom(): string
-    {
-        return $this->from;
-    }
-
-    /**
-     * @return string|null
-     */
     public function getSubjectKeyword(): ?string
     {
         return $this->subjectKeyword;
+    }
+
+    public function getFrom(): string
+    {
+        return sprintf('%s <%s>', $this->username, $this->address);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

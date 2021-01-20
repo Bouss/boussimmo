@@ -2,8 +2,9 @@
 
 namespace App\Twig;
 
+use App\DataProvider\ProviderProvider;
+use App\DTO\Property;
 use App\DTO\PropertyAd;
-use App\Repository\ProviderRepository;
 use DateTime;
 use DateTimeZone;
 use Twig\Extension\AbstractExtension;
@@ -13,15 +14,9 @@ class AppExtension extends AbstractExtension
 {
     private const ORDER_ASC = 1;
 
-    private ProviderRepository $providerRepository;
-
-    /**
-     * @param ProviderRepository $ProviderRepository
-     */
-    public function __construct(ProviderRepository $ProviderRepository)
-    {
-        $this->providerRepository = $ProviderRepository;
-    }
+    public function __construct(
+        private ProviderProvider $providerProvider
+    ) {}
 
     /**
      * {@inheritDoc}
@@ -35,47 +30,35 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param PropertyAd $propertyAd
-     *
-     * @return string|null
-     */
     public function getProviderLogo(PropertyAd $propertyAd): ?string
     {
-        $provider = $this->providerRepository->find($propertyAd->getProvider());
+        $provider = $this->providerProvider->find($propertyAd->getProvider());
 
         return null !== $provider ? $provider->getLogo() : null;
     }
 
     /**
-     * @param PropertyAd[] $propertyAds
-     * @param string       $field
-     * @param int          $order
+     * @param Property[] $properties
      *
-     * @return PropertyAd[]
+     * @return Property[]
      */
-    public function sortBy(array $propertyAds, string $field, int $order = self::ORDER_ASC): array
+    public function sortBy(array $properties, string $field, int $order = self::ORDER_ASC): array
     {
         $getter = 'get' . ucfirst($field);
 
         if (!method_exists(PropertyAd::class, $getter)) {
-            return $propertyAds;
+            return $properties;
         }
 
-        usort($propertyAds, static function (PropertyAd $a1, PropertyAd $a2) use ($getter, $order) {
-            $comparison = $a1->{$getter}() <=> $a2->{$getter}();
+        usort($properties, static function (Property $p1, Property $p2) use ($getter, $order) {
+            $comparison = $p1->{$getter}() <=> $p2->{$getter}();
 
             return self::ORDER_ASC === $order ? $comparison : -$comparison;
         });
 
-        return $propertyAds;
+        return $properties;
     }
 
-    /**
-     * @param DateTime $date
-     *
-     * @return string
-     */
     public function getDaysAgo(DateTime $date): string
     {
         $timezone = new DateTimeZone('Europe/Paris');
@@ -85,7 +68,7 @@ class AppExtension extends AbstractExtension
             ->days;
 
         if (0 === $daysDiff) {
-            return 'Aujourd\'hui';
+            return ($date->format('H:i:s'));
         }
         if (1 === $daysDiff) {
             return 'Hier';

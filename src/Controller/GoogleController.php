@@ -10,21 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GoogleController extends AbstractController
 {
-    /**
-     * @Route("/connect/google", name="connect_google_start")
-     *
-     * @param ClientRegistry $clientRegistry
-     *
-     * @return RedirectResponse
-     */
+    #[Route("/connect/google", name: "connect_google_start")]
     public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
     {
         return $clientRegistry->getClient('google')->redirect([Google_Service_Gmail::GMAIL_READONLY], []);
     }
 
-    /**
-     * @Route("/connect/google/check", name="connect_google_check")
-     */
+    #[Route("/connect/google/check", name: "connect_google_check")]
     public function connectCheckAction(): void
     {
     }

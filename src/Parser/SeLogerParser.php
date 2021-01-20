@@ -11,9 +11,6 @@ class SeLogerParser extends AbstractParser
 
     protected const SELECTOR_AD_WRAPPER  = '.two-column > a[_category="Bloc annonce"]'; // Ignore "Recommendation" ads
     protected const SELECTOR_LOCATION    = '.contents tr:nth-child(2) a';
-    protected const SELECTOR_PRICE       = '.contents tr:nth-child(1) a';
-    protected const SELECTOR_AREA        = '.contents tr:nth-child(2) a';
-    protected const SELECTOR_ROOMS_COUNT = '.contents tr:nth-child(2) a';
 
     /**
      * {@inheritDoc}
@@ -21,7 +18,6 @@ class SeLogerParser extends AbstractParser
     protected function parseLocation(Crawler $crawler): ?string
     {
         $description = parent::parseLocation($crawler);
-
         $location = explode('m²', $description)[1];
 
         return trim($location);
