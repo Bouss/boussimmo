@@ -19,17 +19,21 @@ final class Version20210114172412 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
-        $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
-
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql("ALTER TABLE $user CHANGE property_ad_search_settings property_search_settings JSON NOT NULL");
+        if ('postgresql' === $this->connection->getDatabasePlatform()->getName()) {
+            $this->addSql('ALTER TABLE "user" RENAME property_ad_search_settings TO property_search_settings');
+        } else {
+            $this->addSql('ALTER TABLE `user` CHANGE property_ad_search_settings property_search_settings JSON NOT NULL');
+        }
     }
 
     public function down(Schema $schema) : void
     {
-        $user = $this->connection->getDatabasePlatform()->getName() === 'postgresql' ? '"user"' : '`user`';
-
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql("ALTER TABLE $user CHANGE property_search_settings property_ad_search_settings JSON NOT NULL");
+        // this up() migration is auto-generated, please modify it to your needs
+        if ('postgresql' === $this->connection->getDatabasePlatform()->getName()) {
+            $this->addSql('ALTER TABLE "user" RENAME property_search_settings TO property_ad_search_settings');
+        } else {
+            $this->addSql('ALTER TABLE `user` CHANGE property_search_settings property_ad_search_settings JSON NOT NULL');
+        }
     }
 }
