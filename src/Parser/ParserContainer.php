@@ -9,12 +9,9 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
 class ParserContainer implements ServiceSubscriberInterface
 {
-    private ContainerInterface $locator;
-
-    public function __construct(ContainerInterface $locator)
-    {
-        $this->locator = $locator;
-    }
+    public function __construct(
+        private ContainerInterface $locator
+    ) {}
 
     /**
      * {@inheritDoc}
@@ -43,12 +40,12 @@ class ParserContainer implements ServiceSubscriberInterface
     /**
      * @throws ParserNotFoundException
      */
-    public function get(string $name): ParserInterface
+    public function get(string $provider): ParserInterface
     {
-        if (!$this->locator->has($name)) {
-            throw new ParserNotFoundException('No parser found with the name: ' . $name);
+        if (!$this->locator->has($provider)) {
+            throw new ParserNotFoundException('No parser found for the provider: ' . $provider);
         }
 
-        return $this->locator->get($name);
+        return $this->locator->get($provider);
     }
 }

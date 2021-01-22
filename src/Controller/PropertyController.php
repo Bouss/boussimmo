@@ -30,13 +30,13 @@ class PropertyController extends AbstractController
     /**
      * @throws GmailException|GoogleException
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         /** @var User $user */
         $user = $this->getUser();
 
-        $this->googleOAuthService->refreshAccessTokenIfExpired($user);
-        $labels = $this->gmailClient->getLabels($user->getAccessToken());
+        $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user);
+        $labels = $this->gmailClient->getLabels($accessToken);
         $settings = $user->getPropertySearchSettings();
 
         return $this->render('property/index.html.twig', [

@@ -49,7 +49,7 @@ class EmailTemplateProviderTest extends KernelTestCase
 
         $this->emailTemplateProvider = new EmailTemplateProvider(
             $emailTemplates,
-            self::$kernel->getContainer()->get('serializer'),
+            self::$container->get('serializer'),
             $this->providerProvider->reveal()
         );
     }

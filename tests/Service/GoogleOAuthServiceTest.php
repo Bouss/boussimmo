@@ -49,23 +49,36 @@ class GoogleOAuthServiceTest extends TestCase
         $user = $this->prophesize(User::class);
 
         // Given
-        $user->hasAccessTokenExpired()->willReturn(true);
-        $user->getRefreshToken()->willReturn('123456789');
+        $user->getAccessToken()->willReturn('123456789');
+        $user->getAccessTokenCreatedAt()->willReturn(new DateTime('2021-01-01 9:00:00'));
+        $user->getAccessTokenExpiresAt()->willReturn(new DateTime('2021-01-01 10:00:00'));
+        $user->getRefreshToken()->willReturn('192837465');
 
-        $this->googleClient->refreshToken(Argument::any())->willReturn([
+        $this->googleClient->isAccessTokenExpired()->willReturn(true);
+        $this->googleClient->fetchAccessTokenWithRefreshToken(Argument::any())->willReturn([
             'access_token' => '987654321',
-            'expires_in' => 3600
+            'expires_in' => 3600,
+            'created' => 1609498800 // 2021-01-01 11:00:00
         ]);
 
         $user->setAccessToken(Argument::any())->willReturn($user->reveal());
+        $user->setAccessTokenCreatedAt(Argument::any())->willReturn($user->reveal());
         $user->setAccessTokenExpiresAt(Argument::any())->willReturn($user->reveal());
 
         // When
-        $this->googleOAuthService->refreshAccessTokenIfExpired($user->reveal());
+        $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user->reveal());
 
         // Then
-        $this->googleClient->refreshToken('123456789')->shouldBeCalled();
+        self::assertEquals('987654321', $accessToken);
+        $this->googleClient->setAccessToken([
+            'access_token' => '123456789',
+            'expires_in' => 1609495200  /* 2021-01-01 10:00:00 */ - time(),
+            'created' => 1609491600 // 2021-01-01 9:00:00
+        ])
+            ->shouldBeCalled();
+        $this->googleClient->fetchAccessTokenWithRefreshToken('192837465')->shouldBeCalled();
         $user->setAccessToken('987654321')->shouldBeCalled();
+        $user->setAccessTokenCreatedAt(new DateTime('2021-01-01 11:00:00'))->shouldBeCalled();
         $user->setAccessTokenExpiresAt(DateTime::createFromFormat('U', time() + 3600))->shouldBeCalled();
         $this->em->flush()->shouldBeCalled();
 
@@ -77,13 +90,23 @@ class GoogleOAuthServiceTest extends TestCase
         $user = $this->prophesize(User::class);
 
         // Given
-        $user->hasAccessTokenExpired()->willReturn(false);
+        $user->getAccessToken()->willReturn('123456789');
+        $user->getAccessTokenCreatedAt()->willReturn(new DateTime('2021-01-01 9:00:00'));
+        $user->getAccessTokenExpiresAt()->willReturn(new DateTime('2021-01-01 10:00:00'));
+        $this->googleClient->isAccessTokenExpired()->willReturn(false);
 
         // When
-        $this->googleOAuthService->refreshAccessTokenIfExpired($user->reveal());
+        $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user->reveal());
 
         // Then
-        $this->googleClient->refreshToken(Argument::any())->shouldNotBeCalled();
+        self::assertEquals('123456789', $accessToken);
+        $this->googleClient->setAccessToken([
+            'access_token' => '123456789',
+            'expires_in' => 1609495200  /* 2021-01-01 10:00:00 */ - time(),
+            'created' => 1609491600 // 2021-01-01 9:00:00
+        ])
+            ->shouldBeCalled();
+        $this->googleClient->fetchAccessTokenWithRefreshToken(Argument::any())->shouldNotBeCalled();
     }
 
     public function testRevokeRevokesTheUserToken(): void
@@ -94,7 +117,7 @@ class GoogleOAuthServiceTest extends TestCase
         $user->getAccessToken()->willReturn('123456789');
         $user->getRefreshToken()->willReturn('987654321');
         $this->googleClient->revokeToken(Argument::any())->willReturn(true);
-        $user->setRevoked(Argument::any())->willReturn($user->reveal());
+        $user->setRevokedAt(Argument::any())->willReturn($user->reveal());
 
         // When
         $this->googleOAuthService->revoke($user->reveal());
@@ -104,7 +127,7 @@ class GoogleOAuthServiceTest extends TestCase
             return $token === '123456789' || $token === '987654321';
         }))
             ->shouldBeCalledTimes(2);
-        $user->setRevoked(true)->shouldBeCalled();
+        $user->setRevokedAt(Argument::type(DateTime::class))->shouldBeCalled();
         $this->em->flush()->shouldBeCalled();
     }
 
@@ -120,7 +143,7 @@ class GoogleOAuthServiceTest extends TestCase
 
         // Then
         $this->logger->warning(Argument::any())->shouldBeCalled();
-        $user->setRevoked(true)->shouldBeCalled();
+        $user->setRevokedAt(Argument::type(DateTime::class))->shouldBeCalled();
         $this->em->flush()->shouldBeCalled();
 
         // When

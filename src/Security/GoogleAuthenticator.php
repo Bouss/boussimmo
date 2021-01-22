@@ -5,7 +5,6 @@ namespace App\Security;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use DateTime;
-use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
@@ -48,7 +47,7 @@ class GoogleAuthenticator extends SocialAuthenticator
     /**
      * {@inheritDoc}
      */
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): User
     {
         /** @var AccessToken $accessToken */
         $accessToken = $credentials;
@@ -63,16 +62,17 @@ class GoogleAuthenticator extends SocialAuthenticator
                 ->setAvatar($googleUser->getAvatar())
                 ->setRefreshToken($accessToken->getRefreshToken());
             $this->em->persist($user);
-        } elseif (null !== $refreshToken = $accessToken->getRefreshToken()) {
-            $user->setRefreshToken($refreshToken);
+        } else {
+            $user->setRevokedAt(null);
+            if (null !== $refreshToken = $accessToken->getRefreshToken()) {
+                $user->setRefreshToken($refreshToken);
+            }
         }
 
         $user
-            ->setRevoked(false)
             ->setAccessToken($accessToken)
-            ->setAccessTokenExpiresAt(
-                (new DateTime('@' . $accessToken->getExpires()))->setTimezone(new DateTimeZone('UTC'))
-            );
+            ->setAccessTokenCreatedAt(new DateTime('@' . time()))
+            ->setAccessTokenExpiresAt(new DateTime('@' . $accessToken->getExpires()));
 
         $this->em->flush();
 

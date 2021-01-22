@@ -34,11 +34,11 @@ class PropertyService
     {
         $properties = [];
 
-        // Refresh the access token if expired
-        $this->googleOAuthService->refreshAccessTokenIfExpired($user);
+        // Refresh the access token if expired. Otherwise, get the current access token
+        $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user);
 
         // Fetch the Gmail messages IDs matching the user criteria
-        $messageIds = $this->gmailClient->getMessageIds($criteria, $user->getAccessToken());
+        $messageIds = $this->gmailClient->getMessageIds($criteria, $accessToken);
 
         foreach ($messageIds as $id) {
             try {

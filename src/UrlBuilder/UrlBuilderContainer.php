@@ -9,12 +9,9 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
 class UrlBuilderContainer implements ServiceSubscriberInterface
 {
-    private ContainerInterface $locator;
-
-    public function __construct(ContainerInterface $locator)
-    {
-        $this->locator = $locator;
-    }
+    public function __construct(
+        private ContainerInterface $locator
+    ) {}
 
     /**
      * {@inheritDoc}
@@ -40,12 +37,12 @@ class UrlBuilderContainer implements ServiceSubscriberInterface
     /**
      * @throws UrlBuilderNotFoundException
      */
-    public function get(string $name): UrlBuilderInterface
+    public function get(string $provider): UrlBuilderInterface
     {
-        if (!$this->locator->has($name)) {
-            throw new UrlBuilderNotFoundException('No URL builder found with the name: ' . $name);
+        if (!$this->locator->has($provider)) {
+            throw new UrlBuilderNotFoundException('No URL builder found for the provider: ' . $provider);
         }
 
-        return $this->locator->get($name);
+        return $this->locator->get($provider);
     }
 }
