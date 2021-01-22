@@ -84,7 +84,6 @@ class GoogleAuthenticatorTest extends TestCase
                 $user->getEmail() === 'dave.loper@mail.com' &&
                 $user->getAvatar() === 'avatar.jpg' &&
                 $user->getRefreshToken() === '987654321' &&
-                $user->isRevoked() === false &&
                 $user->getRoles() === ['ROLE_USER'] &&
                 $user->getPropertySearchSettings() === [];
         }))
@@ -116,9 +115,10 @@ class GoogleAuthenticatorTest extends TestCase
         $oAuth2Client->fetchUserFromToken($accessToken->reveal())->willReturn($googleUser->reveal());
         $this->userRepository->findOneBy(['googleId' => 42])->willReturn($userMock->reveal());
 
-        $userMock->setRevoked(false)->willReturn($userMock->reveal());
         $userMock->setAccessToken('12346789')->willReturn($userMock->reveal());
+        $userMock->setAccessTokenCreatedAt(Argument::type(DateTime::class))->willReturn($userMock->reveal());
         $userMock->setAccessTokenExpiresAt(Argument::type(DateTime::class))->willReturn($userMock->reveal());
+        $userMock->setRevokedAt(Argument::any())->willReturn($userMock->reveal());
 
         // When
         $user = $this->googleAuthenticator->getUser(
@@ -127,6 +127,7 @@ class GoogleAuthenticatorTest extends TestCase
         );
 
         // Then
+        $userMock->setRevokedAt(null)->shouldBeCalled();
         $userMock->setRefreshToken(Argument::any())->shouldNotBeCalled();
         self::assertEquals('987654321', $user->getRefreshToken());
     }

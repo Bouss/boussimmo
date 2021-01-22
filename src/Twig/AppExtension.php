@@ -12,6 +12,7 @@ use Twig\TwigFilter;
 
 class AppExtension extends AbstractExtension
 {
+    private const DEFAULT_TIMEZONE = 'Europe/Paris';
     private const ORDER_ASC = 1;
 
     public function __construct(
@@ -61,14 +62,14 @@ class AppExtension extends AbstractExtension
 
     public function getDaysAgo(DateTime $date): string
     {
-        $timezone = new DateTimeZone('Europe/Paris');
+        $timezone = new DateTimeZone(self::DEFAULT_TIMEZONE);
 
         $daysDiff = (new DateTime('now', $timezone))->setTime(0, 0)
             ->diff((clone $date)->setTimezone($timezone)->setTime(0, 0))
             ->days;
 
         if (0 === $daysDiff) {
-            return ($date->format('H:i:s'));
+            return (clone $date)->setTimezone($timezone)->format('H:i:s');
         }
         if (1 === $daysDiff) {
             return 'Hier';

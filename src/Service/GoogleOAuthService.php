@@ -5,10 +5,9 @@ namespace App\Service;
 use App\Entity\User;
 use App\Exception\GoogleException;
 use DateTime;
-use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Google_Client;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
 
 class GoogleOAuthService
@@ -22,26 +21,35 @@ class GoogleOAuthService
     /**
      * @throws GoogleException
      */
-    public function refreshAccessTokenIfExpired(User $user): void
+    public function refreshAccessTokenIfExpired(User $user): string
     {
-        if (!$user->hasAccessTokenExpired()) {
-            return;
+        $this->googleClient->setAccessToken([
+            'access_token' => $user->getAccessToken(),
+            'expires_in' => $user->getAccessTokenExpiresAt()->getTimestamp() - time(),
+            'created' => $user->getAccessTokenCreatedAt()->getTimestamp()
+        ]);
+
+        if (!$this->googleClient->isAccessTokenExpired()) {
+            return $user->getAccessToken();
         }
 
         try {
-            $data = $this->googleClient->refreshToken($user->getRefreshToken());
-        } catch (RequestException $e) {
+            $data = $this->googleClient->fetchAccessTokenWithRefreshToken($user->getRefreshToken());
+        } catch (Exception $e) {
             throw new GoogleException('Could not refresh the token: ' . $e->getMessage());
         }
 
         $user
             ->setAccessToken($data['access_token'])
+            ->setAccessTokenCreatedAt(new DateTime('@' . $data['created']))
             // ->setAccessTokenExpiresAt(new DateTime(sprintf('+%d seconds', $data['expires_in'])));
-            // Driven by the unit tests: time() function is mockable, new DateTime instances are not
+            // Driven by the unit tests: time() function is mockable, new DateTime objects are not
             ->setAccessTokenExpiresAt(DateTime::createFromFormat('U', time() + $data['expires_in'])
-                ->setTimezone(new DateTimeZone('UTC'))
             );
+
         $this->em->flush();
+
+        return $data['access_token'];
     }
 
     public function revoke(User $user): void
@@ -49,11 +57,11 @@ class GoogleOAuthService
         try {
             $this->googleClient->revokeToken($user->getAccessToken());
             $this->googleClient->revokeToken($user->getRefreshToken());
-        } catch (RequestException $e) {
+        } catch (Exception $e) {
             $this->logger->warning('Could not revoke at least one token: ' . $e->getMessage());
         }
 
-        $user->setRevoked(true);
+        $user->setRevokedAt(new DateTime());
         $this->em->flush();
     }
 }

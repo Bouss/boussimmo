@@ -9,8 +9,8 @@ class DecimalFormatter
 {
     private const REGEX_START         = '(?:^|\s|>)';
     private const REGEX_END           = '(?:$|\s|\.|<)';
-    private const REGEX_INT           = '([0-9])+';
-    private const REGEX_FLOAT         = '([0-9]+(?:\s?[0-9]{3})*(?:,[0-9]+)?)+';
+    private const REGEX_INT           = '((?:(?:\d{1,3}\s)+\d{3})|\d+)';
+    private const REGEX_FLOAT         = '((?:(?:(?:\d{1,3}\s)+\d{3})|\d+)(?:(?:\.|,)\d+)?)';
     private const REGEX_PRICE         = self::REGEX_START . self::REGEX_FLOAT . '\s?(?:€|euros?)' . self::REGEX_END;
     private const REGEX_AREA          = self::REGEX_START . self::REGEX_FLOAT . '\s?(?:m²|m2)' . self::REGEX_END;
     private const REGEX_ROOMS_COUNT   = self::REGEX_START . self::REGEX_INT . '\s?(?:pi[e\p{L}]ces?|p)' . self::REGEX_END;

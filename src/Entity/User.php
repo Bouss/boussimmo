@@ -13,8 +13,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     /**
-     * @var int
-     *
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -22,64 +20,56 @@ class User implements UserInterface
     private int $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private string $email;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string", unique=true)
      */
     private string $googleId;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string")
      */
     private string $refreshToken;
 
     /**
-     * @var string
-     *
      * @ORM\Column(type="string")
      */
     private string $accessToken;
 
     /**
-     * @var DateTime
-     *
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $accessTokenCreatedAt;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private DateTime $accessTokenExpiresAt;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(type="boolean", options={"default": 0})
-     */
-    private bool $revoked = false;
-
-    /**
-     * @var string|null
-     *
      * @ORM\Column(type="string", nullable=true)
      */
     private ?string $avatar;
 
     /**
-     * @var array
-     *
      * @ORM\Column(type="json")
      */
     private array $propertySearchSettings = [];
 
     /**
-     * @var array
-     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTime $revokedAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTime $createdAt;
+
+    /**
      * @ORM\Column(type="json")
      */
     private array $roles = [];
@@ -137,6 +127,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getAccessTokenCreatedAt(): DateTime
+    {
+        return $this->accessTokenCreatedAt;
+    }
+
+    public function setAccessTokenCreatedAt(DateTime $accessTokenCreatedAt): User
+    {
+        $this->accessTokenCreatedAt = $accessTokenCreatedAt;
+
+        return $this;
+    }
+
     public function getAccessTokenExpiresAt(): DateTime
     {
         return $this->accessTokenExpiresAt;
@@ -145,18 +147,6 @@ class User implements UserInterface
     public function setAccessTokenExpiresAt(DateTime $accessTokenExpiresAt): User
     {
         $this->accessTokenExpiresAt = $accessTokenExpiresAt;
-
-        return $this;
-    }
-
-    public function isRevoked(): bool
-    {
-        return $this->revoked;
-    }
-
-    public function setRevoked(bool $revoked): User
-    {
-        $this->revoked = $revoked;
 
         return $this;
     }
@@ -183,6 +173,35 @@ class User implements UserInterface
         $this->propertySearchSettings = $propertySearchSettings;
 
         return $this;
+    }
+
+    public function getRevokedAt(): ?DateTime
+    {
+        return $this->revokedAt;
+    }
+
+    public function setRevokedAt(?DateTime $revokedAt): User
+    {
+        $this->revokedAt = $revokedAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTime $createdAt): User
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function isRevoked(): bool
+    {
+        return null !== $this->revokedAt;
     }
 
     /**
@@ -234,10 +253,5 @@ class User implements UserInterface
      */
     public function eraseCredentials(): void
     {
-    }
-
-    public function hasAccessTokenExpired(): bool
-    {
-        return $this->accessTokenExpiresAt <= new DateTime();
     }
 }
