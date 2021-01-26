@@ -10,9 +10,9 @@ class PapNeufParser extends AbstractParser
 {
     protected const PROVIDER = Provider::PAP_NEUF;
 
-    protected const SELECTOR_AD_WRAPPER  = '#email-body tr:nth-child(n+2):not(:nth-last-child(-n+2))';
-    protected const SELECTOR_LOCATION    = '.box-text-content';
-    protected const SELECTOR_NAME        = '.box-text-content';
+    protected const SELECTOR_AD_WRAPPER    = '#email-body tr:nth-child(n+2):not(:nth-last-child(-n+2))';
+    protected const SELECTOR_LOCATION      = '.box-text-content';
+    protected const SELECTOR_BUILDING_NAME = '.box-text-content';
 
     /**
      * {@inheritDoc}
@@ -27,7 +27,7 @@ class PapNeufParser extends AbstractParser
      */
     protected function parseLocation(Crawler $crawler): ?string
     {
-        if (1 === preg_match('/Adresse : (.+) A partir/', parent::parseBuildingName($crawler), $matches)) {
+        if (1 === preg_match('/Adresse : (.+) (?:A partir de|Voir le programme)/U', parent::parseLocation($crawler), $matches)) {
             return $matches[1];
         }
 

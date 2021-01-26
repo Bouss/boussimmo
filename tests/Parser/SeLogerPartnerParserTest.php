@@ -45,7 +45,7 @@ class SeLogerPartnerParserTest extends KernelTestCase
         // Given
         $provider->isNewBuildOnly()->willReturn(false);
         $this->providerProvider->find(Argument::any())->willReturn($provider->reveal());
-        $html = u(file_get_contents($this->projectDir . '/tests/data/seloger_partner.html','r'))->collapseWhitespace();
+        $html = file_get_contents($this->projectDir . '/tests/data/seloger_partner.html','r');
 
         // When
         $properties = $this->parser->parse($html, [], ['date' => new DateTime('2020-01-01 12:00:00')]);
@@ -53,9 +53,9 @@ class SeLogerPartnerParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals(190000, $p->getPrice());
+        self::assertEquals(195545, $p->getPrice());
         self::assertEquals(3, $p->getRoomsCount());
-        self::assertEquals(63, $p->getArea());
+        self::assertEquals(56, $p->getArea());
         self::assertEquals('seloger', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getDescription());

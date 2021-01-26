@@ -34,22 +34,22 @@ class GoogleOAuthService
         }
 
         try {
-            $data = $this->googleClient->fetchAccessTokenWithRefreshToken($user->getRefreshToken());
+            $creds = $this->googleClient->fetchAccessTokenWithRefreshToken($user->getRefreshToken());
         } catch (Exception $e) {
             throw new GoogleException('Could not refresh the token: ' . $e->getMessage());
         }
 
         $user
-            ->setAccessToken($data['access_token'])
-            ->setAccessTokenCreatedAt(new DateTime('@' . $data['created']))
+            ->setAccessToken($creds['access_token'])
+            ->setAccessTokenCreatedAt(new DateTime('@' . $creds['created']))
             // ->setAccessTokenExpiresAt(new DateTime(sprintf('+%d seconds', $data['expires_in'])));
             // Driven by the unit tests: time() function is mockable, new DateTime objects are not
-            ->setAccessTokenExpiresAt(DateTime::createFromFormat('U', time() + $data['expires_in'])
+            ->setAccessTokenExpiresAt(DateTime::createFromFormat('U', time() + $creds['expires_in'])
             );
 
         $this->em->flush();
 
-        return $data['access_token'];
+        return $creds['access_token'];
     }
 
     public function revoke(User $user): void

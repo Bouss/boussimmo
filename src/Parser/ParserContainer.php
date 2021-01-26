@@ -40,12 +40,12 @@ class ParserContainer implements ServiceSubscriberInterface
     /**
      * @throws ParserNotFoundException
      */
-    public function get(string $provider): ParserInterface
+    public function get(string $emailTemplate): ParserInterface
     {
-        if (!$this->locator->has($provider)) {
-            throw new ParserNotFoundException('No parser found for the provider: ' . $provider);
+        if (!$this->locator->has($emailTemplate)) {
+            throw new ParserNotFoundException('No parser found for the email template: ' . $emailTemplate);
         }
 
-        return $this->locator->get($provider);
+        return $this->locator->get($emailTemplate);
     }
 }

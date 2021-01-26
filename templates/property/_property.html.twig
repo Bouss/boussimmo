@@ -36,7 +36,7 @@
     {% if property.ads|length > 1 %}
         <div class="ad-container">
             {% for ad in property.ads|slice(1, 5) %}
-                <article class="ad">
+                <article class="ad" data-toggle="tooltip" data-placement="right" title="{{ ad.publishedAt|format_datetime('medium') }}">
                     <a class="link" target="_blank" rel="noopener noreferrer" href="{{ ad.url }}">
                         <img class="photo" src="{% if ad.photo is not empty %}{{ ad.photo }}{% else %}{{ asset('build/images/home-solid.svg') }}{% endif %}" alt="Photo du bien immobilier">
                         <span class="label">

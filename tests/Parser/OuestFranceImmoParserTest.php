@@ -45,7 +45,7 @@ class OuestFranceImmoParserTest extends KernelTestCase
         // Given
         $provider->isNewBuildOnly()->willReturn(false);
         $this->providerProvider->find(Argument::any())->willReturn($provider->reveal());
-        $html = u(file_get_contents($this->projectDir . '/tests/data/ouestfrance_immo.html','r'))->collapseWhitespace();
+        $html = file_get_contents($this->projectDir . '/tests/data/ouestfrance_immo.html','r');
 
         // When
         $properties = $this->parser->parse($html, [], ['date' => new DateTime('2020-01-01 12:00:00')]);
@@ -53,10 +53,10 @@ class OuestFranceImmoParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals(179350, $p->getPrice());
-        self::assertEquals(2, $p->getRoomsCount());
+        self::assertEquals(149200, $p->getPrice());
+        self::assertEquals(4, $p->getRoomsCount());
         self::assertEquals('Nantes (44)', $p->getLocation());
-        self::assertEquals(53, $p->getArea());
+        self::assertEquals(77, $p->getArea());
         self::assertEquals('ouestfrance_immo', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getUrl());

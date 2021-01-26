@@ -20,16 +20,16 @@ abstract class AbstractParser implements ParserInterface
     // Redefined in the child classes
     protected const PROVIDER = null;
 
-    protected const SELECTOR_AD_WRAPPER  = null;
-    protected const SELECTOR_PRICE       = null;
-    protected const SELECTOR_AREA        = null;
-    protected const SELECTOR_ROOMS_COUNT = null;
-    protected const SELECTOR_NAME        = null;
-    protected const SELECTOR_TITLE       = null;
-    protected const SELECTOR_DESCRIPTION = null;
-    protected const SELECTOR_LOCATION    = null;
-    protected const SELECTOR_PHOTO       = 'img:first-child';
-    protected const SELECTOR_URL         = 'a:first-child';
+    protected const SELECTOR_AD_WRAPPER    = null;
+    protected const SELECTOR_PRICE         = null;
+    protected const SELECTOR_AREA          = null;
+    protected const SELECTOR_ROOMS_COUNT   = null;
+    protected const SELECTOR_LOCATION      = null;
+    protected const SELECTOR_BUILDING_NAME = null;
+    protected const SELECTOR_TITLE         = null;
+    protected const SELECTOR_DESCRIPTION   = null;
+    protected const SELECTOR_PHOTO         = 'img:first-child';
+    protected const SELECTOR_URL           = 'a:first-child';
 
     private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
 
@@ -137,12 +137,12 @@ abstract class AbstractParser implements ParserInterface
 
     protected function parseBuildingName(Crawler $crawler): ?string
     {
-        if (null === static::SELECTOR_NAME) {
+        if (null === static::SELECTOR_BUILDING_NAME) {
             return null;
         }
 
         try {
-            return trim($crawler->filter(static::SELECTOR_NAME)->text());
+            return trim($crawler->filter(static::SELECTOR_BUILDING_NAME)->text());
         } catch (Exception) {
             return null;
         }

@@ -40,14 +40,15 @@ class GmailMessageService
     public function getHtml(Google_Service_Gmail_Message $message): string
     {
         $html = '';
+        $payload = $message->getPayload();
 
-        if (null !== $body = $message->getPayload()->getBody()->data) {
+        if ('text/html' === $payload->getMimeType() && null !== $body = $payload->getBody()->getData()) {
             $html .= StringUtil::base64UrlDecode($body);
         }
 
         /** @var Google_Service_Gmail_MessagePart $part */
         foreach ($message->getPayload()->getParts() as $part) {
-            if (null !== $body = $part->getBody()->data) {
+            if ('text/html' === $part->getMimeType() && null !== $body = $part->getBody()->getData()) {
                 $html .= StringUtil::base64UrlDecode($body);
             }
         }
