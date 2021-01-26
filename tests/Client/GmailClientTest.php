@@ -69,7 +69,7 @@ class GmailClientTest extends TestCase
         $response->getNextPageToken()->willReturn(null);
 
         // When
-        $this->gmailClient->getMessageIds($criteria, '123456789');
+        $this->gmailClient->getMessages($criteria, '123456789');
 
         // Then
         $usersMessages->listUsersMessages('me', $expectedParams)->shouldBeCalled();
@@ -79,11 +79,11 @@ class GmailClientTest extends TestCase
     {
         yield [
             ['newer_than' => 42],
-            ['q' => 'from:(foo@mail.com | bar@mail.com | qux@mail.com) newer_than:42d', 'pageToken' => null]
+            ['q' => 'from:(foo@mail.com | bar@mail.com | qux@mail.com) newer_than:42d']
         ];
         yield [
             ['gmail_label' => 'work', 'provider' => 'foo', 'newer_than' => 42],
-            ['q' => 'from:(foo@mail.com) newer_than:42d', 'labelIds' => ['work'], 'pageToken' => null]
+            ['q' => 'from:(foo@mail.com) newer_than:42d', 'labelIds' => ['work']]
         ];
     }
 }

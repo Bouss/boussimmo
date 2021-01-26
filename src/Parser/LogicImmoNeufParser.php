@@ -9,9 +9,9 @@ class LogicImmoNeufParser extends AbstractParser
 {
     protected const PROVIDER = Provider::LOGIC_IMMO_NEUF;
 
-    protected const SELECTOR_AD_WRAPPER = '.contentads1';
-    protected const SELECTOR_NAME       = '.adscustom3 span:first-child';
-    protected const SELECTOR_LOCATION   = '.adscustom3';
+    protected const SELECTOR_AD_WRAPPER    = '.contentads1';
+    protected const SELECTOR_LOCATION      = '.adscustom3';
+    protected const SELECTOR_BUILDING_NAME = '.adscustom3 span:first-child';
 
     /**
      * {@inheritDoc}

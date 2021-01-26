@@ -18,11 +18,11 @@ class GmailClient
     ) {}
 
     /**
-     * @return int[]
+     * @return array
      *
      * @throws GmailException
      */
-    public function getMessageIds(array $criteria, string $accessToken, string $userId = 'me'): array
+    public function getMessages(array $criteria, string $accessToken, string $userId = 'me'): array
     {
         $this->gmailService->getClient()->setAccessToken($accessToken);
 
@@ -31,16 +31,13 @@ class GmailClient
         $provider = $criteria[PropertyFilter::PROVIDER] ?? null;
         $newerThan = $criteria[PropertyFilter::NEWER_THAN];
 
-        // Prepare the Gmail messages query
+        // Prepare the Gmail query
         $params = ['q' => $this->buildMessagesQuery($provider, $newerThan)];
         if (!empty($labelId)) {
             $params['labelIds'] = [$labelId];
         }
 
-        $pageToken = null;
         do {
-            $params['pageToken'] = $pageToken;
-
             try {
                 $response = $this->gmailService->users_messages->listUsersMessages($userId, $params);
             } catch (Exception $e) {
@@ -48,9 +45,10 @@ class GmailClient
             }
 
             $messages[] = $response->getMessages();
-        } while (null !== $pageToken = $response->getNextPageToken());
+        } while (null !== $params['pageToken'] = $response->getNextPageToken());
 
-        return array_column(array_merge(...$messages), 'id');
+        // Flatten the array
+        return array_merge(...$messages);
     }
 
     /**

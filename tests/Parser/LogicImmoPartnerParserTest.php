@@ -45,7 +45,7 @@ class LogicImmoPartnerParserTest extends KernelTestCase
         // Given
         $provider->isNewBuildOnly()->willReturn(false);
         $this->providerProvider->find(Argument::any())->willReturn($provider->reveal());
-        $html = u(file_get_contents($this->projectDir . '/tests/data/logic_immo_partner.html','r'))->collapseWhitespace();
+        $html = file_get_contents($this->projectDir . '/tests/data/logic_immo_partner.html','r');
 
         // When
         $properties = $this->parser->parse($html, [], ['date' => new DateTime('2020-01-01 12:00:00')]);

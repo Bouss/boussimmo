@@ -45,7 +45,7 @@ class BienIciParserTest extends KernelTestCase
         // Given
         $provider->isNewBuildOnly()->willReturn(false);
         $this->providerProvider->find(Argument::any())->willReturn($provider->reveal());
-        $html = u(file_get_contents($this->projectDir . '/tests/data/bienici.html','r'))->collapseWhitespace();
+        $html = file_get_contents($this->projectDir . '/tests/data/bienici.html','r');
 
         // When
         $properties = $this->parser->parse($html, [], ['date' => new DateTime('2020-01-01 12:00:00')]);
@@ -53,10 +53,10 @@ class BienIciParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals(3, $p->getRoomsCount());
-        self::assertEquals(64, $p->getArea());
-        self::assertEquals('Nantes 44300', $p->getLocation());
-        self::assertEquals(181450, $p->getPrice());
+        self::assertEquals(4, $p->getRoomsCount());
+        self::assertEquals(72, $p->getArea());
+        self::assertEquals('Nantes 44200', $p->getLocation());
+        self::assertEquals(155000, $p->getPrice());
         self::assertEquals('bienici', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getUrl());

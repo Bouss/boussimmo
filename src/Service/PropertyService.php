@@ -38,13 +38,13 @@ class PropertyService
         $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user);
 
         // Fetch the Gmail messages IDs matching the user criteria
-        $messageIds = $this->gmailClient->getMessageIds($criteria, $accessToken);
+        $messages = $this->gmailClient->getMessages($criteria, $accessToken);
 
-        foreach ($messageIds as $id) {
+        foreach ($messages as $message) {
             try {
-                $message = $this->gmailClient->getMessage($id);
+                $message = $this->gmailClient->getMessage($message['id']);
             } catch (GmailException $e) {
-                $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), ['id' => $id]);
+                $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), ['message_id' => $message['id']]);
 
                 continue;
             }
