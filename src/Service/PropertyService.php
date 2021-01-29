@@ -8,6 +8,7 @@ use App\DTO\Property;
 use App\Entity\User;
 use App\Exception\GmailException;
 use App\Exception\GoogleException;
+use App\Exception\GoogleRefreshTokenException;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
 use App\Parser\ParserContainer;
@@ -28,7 +29,7 @@ class PropertyService
     /**
      * @return Property[]
      *
-     * @throws GmailException|GoogleException|ParserNotFoundException
+     * @throws GmailException|GoogleException|GoogleRefreshTokenException|ParserNotFoundException
      */
     public function find(User $user, array $criteria): array
     {

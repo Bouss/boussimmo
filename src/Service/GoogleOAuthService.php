@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Exception\GoogleRefreshTokenException;
 use App\Exception\GoogleException;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +20,7 @@ class GoogleOAuthService
     ) {}
 
     /**
-     * @throws GoogleException
+     * @throws GoogleException|GoogleRefreshTokenException
      */
     public function refreshAccessTokenIfExpired(User $user): string
     {
@@ -37,6 +38,10 @@ class GoogleOAuthService
             $creds = $this->googleClient->fetchAccessTokenWithRefreshToken($user->getRefreshToken());
         } catch (Exception $e) {
             throw new GoogleException('Could not refresh the token: ' . $e->getMessage());
+        }
+
+        if (isset($creds['error'])) {
+            throw new GoogleRefreshTokenException($creds['error_description']);
         }
 
         $user
