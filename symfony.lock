@@ -159,6 +159,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "paragonie/constant_time_encoding": {
+        "version": "v2.4.0"
+    },
     "phar-io/manifest": {
         "version": "2.0.1"
     },
@@ -412,9 +415,6 @@
             "src/Kernel.php"
         ]
     },
-    "symfony/http-client": {
-        "version": "v4.3.2"
-    },
     "symfony/http-client-contracts": {
         "version": "v1.1.5"
     },
@@ -534,9 +534,6 @@
     "symfony/serializer": {
         "version": "v4.3.2"
     },
-    "symfony/serializer-pack": {
-        "version": "v1.0.2"
-    },
     "symfony/service-contracts": {
         "version": "v1.1.5"
     },
@@ -577,19 +574,6 @@
             "config/packages/twig.yaml",
             "config/routes/dev/twig.yaml",
             "templates/base.html.twig"
-        ]
-    },
-    "symfony/validator": {
-        "version": "4.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.3",
-            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
-        },
-        "files": [
-            "config/packages/test/validator.yaml",
-            "config/packages/validator.yaml"
         ]
     },
     "symfony/var-dumper": {

@@ -7,11 +7,13 @@ use App\Entity\User;
 use App\Enum\PropertyFilter;
 use App\Exception\GmailException;
 use App\Exception\GoogleException;
+use App\Exception\GoogleRefreshTokenException;
 use App\Service\GoogleOAuthService;
 use App\Service\PropertyService;
 use App\Service\PropertySortResolver;
 use Exception;
 use Google_Service_Gmail_Label;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +26,8 @@ class PropertyController extends AbstractController
         private GmailClient $gmailClient,
         private GoogleOAuthService $googleOAuthService,
         private PropertyService $propertyService,
-        private PropertySortResolver $sortResolver
+        private PropertySortResolver $sortResolver,
+        private LoggerInterface $logger
     ) {}
 
     /**
@@ -35,7 +38,15 @@ class PropertyController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user);
+        // Get a valid access token
+        try {
+            $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user);
+        } catch (GoogleRefreshTokenException $e) {
+            $this->logger->error('Failed to refresh the access token: ' . $e->getMessage());
+
+            return $this->redirectToRoute('app_logout');
+        }
+
         $labels = $this->gmailClient->getLabels($accessToken);
         $settings = $user->getPropertySearchSettings();
 
@@ -66,12 +77,16 @@ class PropertyController extends AbstractController
 
         try {
             $properties = $this->propertyService->find($user, $filters);
+        } catch (GoogleRefreshTokenException $e) {
+            $this->logger->error('Failed to refresh the access token: ' . $e->getMessage());
+
+            return $this->redirectToRoute('app_logout');
         } catch (Exception $e) {
             $this->addFlash('error', 'Erreur lors de la récupération des biens immobiliers: ' . $e->getMessage());
         }
 
         return $this->render('property/_list.html.twig', [
-            'properties' => $properties,
+            'properties' => $properties ?? [],
             'sort' => $this->sortResolver->resolve($sort)
         ]);
     }
