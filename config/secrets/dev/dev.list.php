@@ -1,8 +1,0 @@
-<?php
-
-return array (
-  'DATABASE_URL' => NULL,
-  'GOOGLE_API_KEY' => NULL,
-  'GOOGLE_OAUTH_CLIENT_ID' => NULL,
-  'GOOGLE_OAUTH_CLIENT_SECRET' => NULL,
-);
