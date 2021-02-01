@@ -32,4 +32,14 @@ final class Version20200727205807 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql("ALTER TABLE $user ADD firstname VARCHAR(255), ADD lastname VARCHAR(255)");
     }
+
+    /**
+     * Workaround (@see https://github.com/doctrine/migrations/issues/1104)
+     *
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

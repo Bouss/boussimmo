@@ -34,4 +34,14 @@ final class Version20200305181727 extends AbstractMigration
         $this->addSql("ALTER TABLE $user DROP firstname, DROP lastname, DROP avatar");
         $this->addSql("ALTER TABLE $user RENAME COLUMN avatar TO profile_image");
     }
+
+    /**
+     * Workaround (@see https://github.com/doctrine/migrations/issues/1104)
+     *
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

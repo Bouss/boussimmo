@@ -35,4 +35,14 @@ final class Version20210120141848 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql("ALTER TABLE $user DROP access_token_created_at, DROP revoked_at, DROP created_at, ADD revoked TINYINT(1) DEFAULT '0' NOT NULL");
     }
+
+    /**
+     * Workaround (@see https://github.com/doctrine/migrations/issues/1104)
+     *
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

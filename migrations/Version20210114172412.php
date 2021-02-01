@@ -36,4 +36,14 @@ final class Version20210114172412 extends AbstractMigration
             $this->addSql('ALTER TABLE `user` CHANGE property_search_settings property_ad_search_settings JSON NOT NULL');
         }
     }
+
+    /**
+     * Workaround (@see https://github.com/doctrine/migrations/issues/1104)
+     *
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
