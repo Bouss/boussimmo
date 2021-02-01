@@ -34,4 +34,14 @@ final class Version20200126003702 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql("DROP TABLE $user");
     }
+
+    /**
+     * Workaround (@see https://github.com/doctrine/migrations/issues/1104)
+     *
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

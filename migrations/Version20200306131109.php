@@ -32,4 +32,14 @@ final class Version20200306131109 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql("ALTER TABLE $user DROP revoked");
     }
+
+    /**
+     * Workaround (@see https://github.com/doctrine/migrations/issues/1104)
+     *
+     * @return bool
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
