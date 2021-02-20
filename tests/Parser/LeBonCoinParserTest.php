@@ -56,8 +56,8 @@ class LeBonCoinParserTest extends KernelTestCase
         self::assertEquals('Appartement 3 pièces 58 m²', $p->getAd()->getTitle());
         self::assertEquals(3, $p->getRoomsCount());
         self::assertEquals(58, $p->getArea());
-        self::assertEquals('Nantes 44200', $p->getLocation());
-        self::assertEquals(179760, $p->getPrice());
+        self::assertEquals('Bouguenais 44340', $p->getLocation());
+        self::assertEquals(221550, $p->getPrice());
         self::assertEquals('leboncoin', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getUrl());
