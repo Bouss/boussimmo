@@ -47,7 +47,7 @@ class AppExtension extends AbstractExtension
     {
         $getter = 'get' . ucfirst($field);
 
-        if (!method_exists(PropertyAd::class, $getter)) {
+        if (!method_exists(Property::class, $getter)) {
             return $properties;
         }
 

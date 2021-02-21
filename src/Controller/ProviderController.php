@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route("/provider")]
 class ProviderController extends AbstractController
@@ -18,12 +17,10 @@ class ProviderController extends AbstractController
     #[Route("/result-urls", name: "provider_result_urls", options: ["expose" => true], methods: ["GET"])]
     public function getResultUrls(
         Request $request,
-        SerializerInterface $serializer,
         ProviderUrlFactory $urlFactory,
         DecimalFormatter $formatter
     ): JsonResponse {
         $params = $request->query->all();
-
         $city = $params['city'];
         $types = isset($params['types']) ? array_keys($params['types']) : PropertyType::getAvailableValues();
         $minPrice = isset($params['min_price']) ? $formatter->parse($params['min_price']) : null;
@@ -34,16 +31,7 @@ class ProviderController extends AbstractController
         $urls = [];
 
         foreach (Provider::getAvailableValues() as $providerName) {
-            $urls[] = $serializer->normalize($urlFactory->create(
-                $providerName,
-                $city,
-                $types,
-                $minPrice,
-                $maxPrice,
-                $minArea,
-                $maxArea,
-                $minRoomsCount
-            ));
+            $urls[] = $urlFactory->create($providerName, $city, $types, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount);
         }
 
         return $this->json($urls);
