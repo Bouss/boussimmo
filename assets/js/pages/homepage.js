@@ -15,7 +15,7 @@ $form.on('submit', function (e) {
         url: Routing.generate('provider_result_urls'),
         data: $form
             .find(':input').filter(function () {
-                return '' !== $(this).val()
+                return '' !== $(this).val();
             })
             .serialize(),
         success: function (urls) {
