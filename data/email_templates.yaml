@@ -60,6 +60,11 @@ parameters:
             provider_name: !php/const App\Enum\Provider::PAP_NEUF
             username: Immoneuf
             address: users-alertes@pap.fr
+        !php/const App\Enum\EmailTemplate::PARUVENDU:
+            name: !php/const App\Enum\EmailTemplate::PARUVENDU
+            provider_name: !php/const App\Enum\Provider::PARUVENDU
+            username: "\"ParuVendu.fr\""
+            address: info@paruvendu.fr
         !php/const App\Enum\EmailTemplate::SELOGER:
             name: !php/const App\Enum\EmailTemplate::SELOGER
             provider_name: !php/const App\Enum\Provider::SELOGER
