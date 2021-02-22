@@ -53,9 +53,9 @@ class SeLogerPartnerParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals(195545, $p->getPrice());
+        self::assertEquals(224100, $p->getPrice());
         self::assertEquals(3, $p->getRoomsCount());
-        self::assertEquals(56, $p->getArea());
+        self::assertEquals(72, $p->getArea());
         self::assertEquals('seloger', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getDescription());

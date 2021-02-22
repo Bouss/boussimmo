@@ -12,7 +12,7 @@ parameters:
             provider_name: !php/const App\Enum\Provider::SELOGER
             username: SeLoger
             address: seloger@al.alerteimmo.com
-            subject_keyword: exclusi
+            subject_keyword: vous adresse
 
         # Provider email templates without a particular subject
         !php/const App\Enum\EmailTemplate::BIENICI:
