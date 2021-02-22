@@ -2,9 +2,9 @@
 
 namespace App\Tests\DataProvider;
 
-use App\DTO\Provider;
 use App\DataProvider\EmailTemplateProvider;
 use App\DataProvider\ProviderProvider;
+use App\DTO\Provider;
 use Generator;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;

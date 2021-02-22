@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Enum\PropertyType;
 use App\Enum\Provider;
+use App\Exception\UrlBuilderNotFoundException;
 use App\Factory\ProviderUrlFactory;
 use App\Formatter\DecimalFormatter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,12 @@ class ProviderController extends AbstractController
         $urls = [];
 
         foreach (Provider::getAvailableValues() as $providerName) {
-            $urls[] = $urlFactory->create($providerName, $city, $types, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount);
+            try {
+                $urls[] = $urlFactory->create($providerName, $city, $types, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount);
+            // TODO: process ParuVendu
+            } catch (UrlBuilderNotFoundException) {
+                continue;
+            }
         }
 
         return $this->json($urls);

@@ -3,7 +3,6 @@
 namespace App\Tests\DTO;
 
 use App\DTO\Property;
-use App\DTO\PropertyAd;
 use Generator;
 use PHPUnit\Framework\TestCase;
 

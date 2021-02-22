@@ -2,17 +2,16 @@
 
 namespace App\Tests\Parser;
 
+use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
 use App\Formatter\DecimalFormatter;
 use App\Parser\SeLogerPartnerParser;
-use App\DataProvider\ProviderProvider;
 use DateTime;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use function Symfony\Component\String\u;
 
 class SeLogerPartnerParserTest extends KernelTestCase
 {
@@ -53,9 +52,9 @@ class SeLogerPartnerParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals(195545, $p->getPrice());
+        self::assertEquals(224100, $p->getPrice());
         self::assertEquals(3, $p->getRoomsCount());
-        self::assertEquals(56, $p->getArea());
+        self::assertEquals(72, $p->getArea());
         self::assertEquals('seloger', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getDescription());

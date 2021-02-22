@@ -5,7 +5,7 @@ namespace App\Tests\Parser;
 use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
 use App\Formatter\DecimalFormatter;
-use App\Parser\PapNeufParser;
+use App\Parser\ParuVenduParser;
 use DateTime;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -13,7 +13,7 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class PapNeufParserTest extends KernelTestCase
+class ParuVenduParserTest extends KernelTestCase
 {
     use ProphecyTrait;
 
@@ -24,7 +24,7 @@ class PapNeufParserTest extends KernelTestCase
     private $logger;
 
     private string $projectDir;
-    private PapNeufParser $parser;
+    private ParuVenduParser $parser;
 
     public function setUp(): void
     {
@@ -34,7 +34,7 @@ class PapNeufParserTest extends KernelTestCase
         $this->providerProvider = $this->prophesize(ProviderProvider::class);
         $this->logger = $this->prophesize(LoggerInterface::class);
 
-        $this->parser = new PapNeufParser(
+        $this->parser = new ParuVenduParser(
             $this->providerProvider->reveal(),
             new DecimalFormatter(),
             $this->logger->reveal()
@@ -46,9 +46,9 @@ class PapNeufParserTest extends KernelTestCase
         $provider = $this->prophesize(Provider::class);
 
         // Given
-        $provider->isNewBuildOnly()->willReturn(true);
+        $provider->isNewBuildOnly()->willReturn(false);
         $this->providerProvider->find(Argument::any())->willReturn($provider->reveal());
-        $html = file_get_contents($this->projectDir . '/tests/data/pap_neuf.html','r');
+        $html = file_get_contents($this->projectDir . '/tests/data/paruvendu.html','r');
 
         // When
         $properties = $this->parser->parse($html, [], ['date' => new DateTime('2020-01-01 12:00:00')]);
@@ -56,15 +56,13 @@ class PapNeufParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals('89-95 Rue de la Contrie 44100 Nantes', $p->getLocation());
-        self::assertEquals('COSY GARDEN', $p->getBuildingName());
-        self::assertEquals(170000, $p->getPrice());
-        self::assertEquals('pap_neuf', $p->getAd()->getProvider());
-        self::assertTrue($p->isNewBuild());
+        self::assertEquals(7, $p->getRoomsCount());
+        self::assertEquals(125, $p->getArea());
+        self::assertEquals('LA MONTAGNE (44620)', $p->getLocation());
+        self::assertEquals(219500, $p->getPrice());
         self::assertNotNull($p->getAd()->getUrl());
         self::assertNotNull($p->getAd()->getPhoto());
-        self::assertNull($p->getRoomsCount());
-        self::assertNull($p->getArea());
+        self::assertFalse($p->isNewBuild());
         self::assertNull($p->getAd()->getTitle());
         self::assertNull($p->getAd()->getDescription());
     }

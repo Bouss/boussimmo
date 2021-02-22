@@ -2,17 +2,16 @@
 
 namespace App\Tests\Parser;
 
+use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
 use App\Formatter\DecimalFormatter;
 use App\Parser\SuperimmoParser;
-use App\DataProvider\ProviderProvider;
 use DateTime;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use function Symfony\Component\String\u;
 
 class SuperimmoParserTest extends KernelTestCase
 {

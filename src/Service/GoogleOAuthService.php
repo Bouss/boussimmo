@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Entity\User;
-use App\Exception\GoogleRefreshTokenException;
 use App\Exception\GoogleException;
+use App\Exception\GoogleRefreshTokenException;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

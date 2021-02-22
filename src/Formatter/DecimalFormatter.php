@@ -13,7 +13,7 @@ class DecimalFormatter
     private const REGEX_FLOAT         = '((?:(?:(?:\d{1,3}\s)+\d{3})|\d+)(?:(?:\.|,)\d+)?)';
     private const REGEX_PRICE         = self::REGEX_START . self::REGEX_FLOAT . '\s?(?:€|euros?)' . self::REGEX_END;
     private const REGEX_AREA          = self::REGEX_START . self::REGEX_FLOAT . '\s?(?:m²|m2)' . self::REGEX_END;
-    private const REGEX_ROOMS_COUNT   = self::REGEX_START . self::REGEX_INT . '\s?(?:pi[e\p{L}]ces?|p)' . self::REGEX_END;
+    private const REGEX_ROOMS_COUNT   = self::REGEX_START . self::REGEX_INT . '\s?(?:pi[e\p{L}]ce(?:s|\(s\))?|p)' . self::REGEX_END;
     private const REGEX_ROOMS_COUNT_2 = self::REGEX_START . '(?:T|F|type\s?)' . self::REGEX_INT . self::REGEX_END;
 
     private NumberFormatter $formatter;

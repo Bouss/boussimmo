@@ -29,6 +29,7 @@ class ParserContainer implements ServiceSubscriberInterface
             EmailTemplate::OUESTFRANCE_IMMO_NEUF => OuestFranceImmoNeufParser::class,
             EmailTemplate::PAP                   => PapParser::class,
             EmailTemplate::PAP_NEUF              => PapNeufParser::class,
+            EmailTemplate::PARUVENDU             => ParuVenduParser::class,
             EmailTemplate::SELOGER               => SeLogerParser::class,
             EmailTemplate::SELOGER_PARTNER       => SeLogerPartnerParser::class,
             EmailTemplate::SELOGER_NEUF          => SeLogerNeufParser::class,
