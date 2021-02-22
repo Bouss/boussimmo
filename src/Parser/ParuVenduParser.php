@@ -19,7 +19,7 @@ class ParuVenduParser extends AbstractParser
     protected function createCrawler(string $html): Crawler
     {
         // Fixes the page encoding
-        $html = str_replace('iso-8859-1', 'charset=UTF-8', $html);
+        $html = str_replace('iso-8859-1', 'UTF-8', $html);
 
         return new Crawler($html);
     }
