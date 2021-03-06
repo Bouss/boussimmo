@@ -18,8 +18,11 @@ class SeLogerParser extends AbstractParser
     protected function parseLocation(Crawler $crawler): ?string
     {
         $description = parent::parseLocation($crawler);
-        $location = explode('m²', $description)[1];
 
-        return trim($location);
+        if (1 === preg_match('/\s([-\w]+\s\(\d+\))/u', $description,$matches)) {
+            return trim($matches[1]);
+        }
+
+        return null;
     }
 }
