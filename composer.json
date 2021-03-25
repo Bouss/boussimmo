@@ -16,7 +16,6 @@
         "knpuniversity/oauth2-client-bundle": "^2.7",
         "league/oauth2-google": "^3.0",
         "sensio/framework-extra-bundle": "^5.6",
-        "symfony/apache-pack": "^1.0",
         "symfony/asset": "^5.2",
         "symfony/console": "^5.2",
         "symfony/css-selector": "^5.2",
