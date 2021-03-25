@@ -13,6 +13,12 @@ parameters:
             username: SeLoger
             address: seloger@al.alerteimmo.com
             subject_keyword: vous adresse
+        !php/const App\Enum\EmailTemplate::LOGIC_IMMO_NEUF_PARTNER:
+            name: !php/const App\Enum\EmailTemplate::LOGIC_IMMO_NEUF_PARTNER
+            provider_name: !php/const App\Enum\Provider::LOGIC_IMMO_NEUF
+            username: "\"Logic-ImmoNeuf.com\""
+            address: news@logicimmo.nmp1.com
+            subject_keyword: vous propose
 
         # Provider email templates without a particular subject
         !php/const App\Enum\EmailTemplate::BIENICI:

@@ -132,8 +132,8 @@ class Property
     public function equals(Property $property): bool
     {
         // If the properties are new-build, they are the same ones if the name of their apartment building are equal
-        if ($this->newBuild && $property->isNewBuild()) {
-            return (null !== $this->buildingName && $this->buildingName === $property->getBuildingName());
+        if ($this->newBuild && null !== $this->buildingName && $property->isNewBuild()) {
+            return $this->buildingName === $property->getBuildingName();
         }
 
         $sameArea = null !== $this->area && abs($this->area - $property->getArea()) <= 1;

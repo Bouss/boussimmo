@@ -10,8 +10,8 @@ class ParuVenduParser extends AbstractParser
 {
     protected const PROVIDER = Provider::PARUVENDU;
 
-    protected const SELECTOR_AD_WRAPPER    = 'table[style*="border:1px solid #d9d8d4"]';
-    protected const SELECTOR_LOCATION      = 'tr:nth-child(3) td:nth-child(2) span:first-of-type';
+    protected const SELECTOR_AD_WRAPPER = 'table[style*="border:1px solid #d9d8d4"]';
+    protected const SELECTOR_LOCATION   = 'tr:nth-child(3) td:nth-child(2) span:first-of-type';
 
     /**
      * {@inheritDoc}
@@ -36,7 +36,7 @@ class ParuVenduParser extends AbstractParser
         }
 
         // E.g.: "- Saint-Herblain (44800)"
-        if (1 === preg_match('/- ([-\s\w]+ \(\d+\))(?:$| -)/', $description, $matches)) {
+        if (1 === preg_match('/- ((?:\w+(?:(?:-|\s)\w+)?)+ \(\d+\))(?:$| -)/u', $description, $matches)) {
             return $matches[1];
         }
 
