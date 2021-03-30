@@ -1,5 +1,5 @@
-{% for property in properties|sort_by(sort[0], sort[1]) %}
-    {{ include('property/_property.html.twig', {property: property}, with_context = false) }}
+{% for property in properties %}
+    {{ include('property/_property.html.twig', { property: property }, with_context = false) }}
 {% else %}
     <div>Aucun bien trouvé</div>
 {% endfor %}

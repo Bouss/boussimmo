@@ -13,7 +13,6 @@ use Twig\TwigFilter;
 class AppExtension extends AbstractExtension
 {
     private const DEFAULT_TIMEZONE = 'Europe/Paris';
-    private const ORDER_ASC = 1;
 
     public function __construct(
         private ProviderProvider $providerProvider
@@ -36,28 +35,6 @@ class AppExtension extends AbstractExtension
         $provider = $this->providerProvider->find($propertyAd->getProvider());
 
         return null !== $provider ? $provider->getLogo() : null;
-    }
-
-    /**
-     * @param Property[] $properties
-     *
-     * @return Property[]
-     */
-    public function sortBy(array $properties, string $field, int $order = self::ORDER_ASC): array
-    {
-        $getter = 'get' . ucfirst($field);
-
-        if (!method_exists(Property::class, $getter)) {
-            return $properties;
-        }
-
-        usort($properties, static function (Property $p1, Property $p2) use ($getter, $order) {
-            $comparison = $p1->{$getter}() <=> $p2->{$getter}();
-
-            return self::ORDER_ASC === $order ? $comparison : -$comparison;
-        });
-
-        return $properties;
     }
 
     public function getDaysAgo(DateTime $date): string
