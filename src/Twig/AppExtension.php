@@ -3,7 +3,6 @@
 namespace App\Twig;
 
 use App\DataProvider\ProviderProvider;
-use App\DTO\Property;
 use App\DTO\PropertyAd;
 use DateTime;
 use DateTimeZone;
@@ -25,7 +24,6 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('provider_logo', [$this, 'getProviderLogo']),
-            new TwigFilter('sort_by', [$this, 'sortBy']),
             new TwigFilter('days_ago', [$this, 'getDaysAgo'])
         ];
     }

@@ -119,7 +119,7 @@ class Property
 
     public function addAd(PropertyAd $ad): Property
     {
-        array_unshift($this->ads, $ad);
+        $this->ads[] = $ad;
 
         return $this;
     }
