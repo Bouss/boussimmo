@@ -21,7 +21,7 @@
 
 <form id="filter-form">
     <div class="dropdown-wrapper no-border">
-        <label for="newer-than-select">Annonces datant de</label>
+        <label for="newer-than-select">Emails datant de</label>
         <select id="newer-than-select" name="{{ constant('App\\Enum\\PropertyFilter::NEWER_THAN') }}" class="dropdown">
             {% for label, value in newer_than_choices %}
                 <option value="{{ value }}"{% if value == newer_than %} selected{% endif %}>{{ label }}</option>

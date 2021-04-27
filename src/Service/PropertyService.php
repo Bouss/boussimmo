@@ -92,12 +92,12 @@ class PropertyService
      */
     private function removeDuplicates(array &$properties): void
     {
-        foreach ($properties as &$comparedProperty) {
-            foreach ($properties as $i => $property) {
+        foreach ($properties as $i => $newestProperty) {
+            foreach ($properties as $oldestProperty) {
                 if (
-                    $comparedProperty !== $property &&
-                    $comparedProperty->getAd()->getProvider() === $property->getAd()->getProvider() &&
-                    $comparedProperty->equals($property)
+                    $oldestProperty !== $newestProperty &&
+                    $oldestProperty->getAd()->getProvider() === $newestProperty->getAd()->getProvider() &&
+                    $oldestProperty->equals($newestProperty)
                 ) {
                     unset($properties[$i]);
                 }
@@ -110,10 +110,10 @@ class PropertyService
      */
     private function groupPropertyAds(array &$properties): void
     {
-        foreach ($properties as &$comparedProperty) {
-            foreach ($properties as $i => $property) {
-                if ($comparedProperty !== $property && $comparedProperty->equals($property)) {
-                    $comparedProperty->addAd($property->getAd());
+        foreach ($properties as $i => $newestProperty) {
+            foreach ($properties as $oldestProperty) {
+                if ($oldestProperty !== $newestProperty && $oldestProperty->equals($newestProperty)) {
+                    $oldestProperty->addAd($newestProperty->getAd());
                     unset($properties[$i]);
                 }
             }
