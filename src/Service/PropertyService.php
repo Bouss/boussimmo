@@ -17,6 +17,8 @@ use function array_merge;
 
 class PropertyService
 {
+    private const ORDER_ASC = 1;
+
     public function __construct(
         private GmailClient $gmailClient,
         private GmailMessageService $gmailMessageService,
@@ -31,7 +33,7 @@ class PropertyService
      *
      * @throws GmailException|GoogleException|GoogleRefreshTokenException|ParserNotFoundException
      */
-    public function find(User $user, array $criteria): array
+    public function find(User $user, array $criteria, array $sort): array
     {
         $properties = [];
 
@@ -84,6 +86,9 @@ class PropertyService
         // Group property ads by property
         $this->groupPropertyAds($properties);
 
+        // Sort properties
+        $this->sort($properties, $sort[0], $sort[1]);
+
         return $properties;
     }
 
@@ -118,5 +123,23 @@ class PropertyService
                 }
             }
         }
+    }
+
+    /**
+     * @param Property[] $properties
+     */
+    private function sort(array &$properties, string $field, int $order = self::ORDER_ASC): void
+    {
+        $getter = 'get' . ucfirst($field);
+
+        if (!method_exists(Property::class, $getter)) {
+            return;
+        }
+
+        usort($properties, static function (Property $p1, Property $p2) use ($getter, $order) {
+            $comparison = $p1->{$getter}() <=> $p2->{$getter}();
+
+            return self::ORDER_ASC === $order ? $comparison : -$comparison;
+        });
     }
 }

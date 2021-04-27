@@ -76,7 +76,7 @@ class PropertyController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         try {
-            $properties = $this->propertyService->find($user, $filters);
+            $properties = $this->propertyService->find($user, $filters, $this->sortResolver->resolve($sort));
         } catch (GoogleRefreshTokenException $e) {
             $this->logger->error('Failed to refresh the access token: ' . $e->getMessage());
 
@@ -87,7 +87,6 @@ class PropertyController extends AbstractController
 
         return $this->render('property/_list.html.twig', [
             'properties' => $properties ?? [],
-            'sort' => $this->sortResolver->resolve($sort)
         ]);
     }
 
