@@ -3,14 +3,10 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Bouss/boussimmo/?branch=develop) [![Code Coverage](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Bouss/boussimmo/?branch=develop) [![Build Status](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Bouss/boussimmo/build-status/develop) [![Code Intelligence Status](https://scrutinizer-ci.com/g/Bouss/boussimmo/badges/code-intelligence.svg?b=develop)](https://scrutinizer-ci.com/code-intelligence)   
  
- [https://www.boussimmo.com](https://www.boussimmo.com)
-
 Searching your property through the **email alerts** and using your **Gmail address**? Tired of wasting time opening and reading **a lot of emails** all the day? Fed up of seeing the **same properties** on different websites? Try [BoussImmo](https://www.boussimmo.com)!
 
-x-special/nautilus-clipboard
-copy
-file:///home/florian/Pictures/Screenshot%20from%202021-04-28%2011-41-53.png
-
+![Screenshot from 2021-04-28 11-40-50](https://user-images.githubusercontent.com/14886236/116391574-a2941b80-a81f-11eb-9636-df1e916bea2c.png)
+ [https://www.boussimmo.com](https://www.boussimmo.com)
 
 ## Stack
 
