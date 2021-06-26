@@ -6,13 +6,13 @@ use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
 use App\DTO\Url;
 use App\Exception\UrlBuilderNotFoundException;
-use App\UrlBuilder\UrlBuilderContainer;
+use App\UrlBuilder\UrlBuilderLocator;
 
 class ProviderUrlFactory
 {
     public function __construct(
         private ProviderProvider $providerProvider,
-        private UrlBuilderContainer $urlBuilderContainer
+        private UrlBuilderLocator $urlBuilderLocator
     ) {}
 
     /**
@@ -31,7 +31,7 @@ class ProviderUrlFactory
         /** @var Provider $provider */
         $provider = $this->providerProvider->find($providerName);
 
-        $urlBuilder = $this->urlBuilderContainer->get($provider->getName());
+        $urlBuilder = $this->urlBuilderLocator->get($provider->getName());
         $url = $urlBuilder->build($city, $propertyTypes, $minPrice, $maxPrice, $minArea, $maxArea, $minRoomsCount);
 
         return new Url($provider->getName(), $provider->getLogo(), $url);

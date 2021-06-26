@@ -17,12 +17,7 @@ class PapNeufParserTest extends KernelTestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|ProviderProvider */
-    private $providerProvider;
-
-    /** @var ObjectProphecy|LoggerInterface */
-    private $logger;
-
+    private ObjectProphecy|ProviderProvider $providerProvider;
     private string $projectDir;
     private PapNeufParser $parser;
 
@@ -32,16 +27,16 @@ class PapNeufParserTest extends KernelTestCase
         $this->projectDir = self::$kernel->getProjectDir();
 
         $this->providerProvider = $this->prophesize(ProviderProvider::class);
-        $this->logger = $this->prophesize(LoggerInterface::class);
+        $logger = $this->prophesize(LoggerInterface::class);
 
         $this->parser = new PapNeufParser(
             $this->providerProvider->reveal(),
             new DecimalFormatter(),
-            $this->logger->reveal()
+            $logger->reveal()
         );
     }
 
-    public function testParseCreatesAPropertyFromAnEmail(): void
+    public function test_parse_creates_a_property_from_an_email(): void
     {
         $provider = $this->prophesize(Provider::class);
 

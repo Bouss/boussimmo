@@ -23,21 +23,11 @@ class DecimalFormatter
         $this->formatter = new NumberFormatter('fr_FR', NumberFormatter::DECIMAL);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return float
-     */
     public function parse(string $value): float
     {
         return $this->formatter->parse($value);
     }
 
-    /**
-     * @param string $value
-     *
-     * @return float|null
-     */
     public function parsePrice(string $value): ?float
     {
         if (1 === preg_match(sprintf('/%s/ui', self::REGEX_PRICE), $value, $matches)) {
@@ -47,11 +37,6 @@ class DecimalFormatter
         return null;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return float|null
-     */
     public function parseArea(string $value): ?float
     {
         if (1 === preg_match(sprintf('/%s/ui', self::REGEX_AREA), $value, $matches)) {
@@ -61,11 +46,6 @@ class DecimalFormatter
         return null;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return int|null
-     */
     public function parseRoomsCount(string $value): ?int
     {
         if (1 === preg_match(sprintf('/%s/ui', self::REGEX_ROOMS_COUNT), $value, $matches)) {

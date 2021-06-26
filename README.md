@@ -11,7 +11,7 @@ Searching your property through the **email alerts** and using your **Gmail addr
 ## Stack
 
 - PHP 8.0
-- Symfony 5.2
+- Symfony 5.3
 - jQuery 3.5
 - Gmail API
 - Google OAuth 2.0

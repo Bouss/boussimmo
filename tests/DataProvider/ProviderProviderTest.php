@@ -35,7 +35,7 @@ class ProviderProviderTest extends KernelTestCase
         $this->providerProvider = new ProviderProvider($providers, self::$container->get('serializer'));
     }
 
-    public function testGetProvidersByMainProviderReturnMasterAndChildProviders(): void
+    public function test_get_providers_by_main_provider_return_master_and_child_providers(): void
     {
         $providers = array_values($this->providerProvider->getProvidersByMainProvider('p1'));
 

@@ -23,36 +23,27 @@ class GoogleAuthenticatorTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|ClientRegistry */
-    private $clientRegistry;
-
-    /** @var ObjectProphecy|EntityManagerInterface */
-    private $em;
-
-    /** @var ObjectProphecy|RouterInterface */
-    private $router;
-
-    /** @var ObjectProphecy|UserRepository */
-    private $userRepository;
-
+    private ObjectProphecy|ClientRegistry $clientRegistry;
+    private ObjectProphecy|EntityManagerInterface $em;
+    private ObjectProphecy|UserRepository $userRepository;
     private GoogleAuthenticator $googleAuthenticator;
 
     public function setUp(): void
     {
         $this->clientRegistry = $this->prophesize(ClientRegistry::class);
         $this->em = $this->prophesize(EntityManagerInterface::class);
-        $this->router = $this->prophesize(RouterInterface::class);
+        $router = $this->prophesize(RouterInterface::class);
         $this->userRepository = $this->prophesize(UserRepository::class);
 
         $this->googleAuthenticator = new GoogleAuthenticator(
             $this->clientRegistry->reveal(),
             $this->em->reveal(),
-            $this->router->reveal(),
+            $router->reveal(),
             $this->userRepository->reveal()
         );
     }
 
-    public function testGetUserCreatesAUser(): void
+    public function test_get_user_creates_a_user(): void
     {
         $accessToken = $this->prophesize(AccessToken::class);
         $googleUser = $this->prophesize(GoogleUser::class);
@@ -92,10 +83,13 @@ class GoogleAuthenticatorTest extends TestCase
         $this->em->flush()->shouldBeCalled();
 
         self::assertEquals('12346789', $user->getAccessToken());
-        self::assertEquals(new DateTime('1992-09-06 18:00:00', new DateTimeZone('Europe/Paris')), $user->getAccessTokenExpiresAt());
+        self::assertEquals(
+            new DateTime('1992-09-06 18:00:00', new DateTimeZone('Europe/Paris')),
+            $user->getAccessTokenExpiresAt()
+        );
     }
 
-    public function testGetUserUpdatesAUserButDoesNotEraseTheCurrentRefreshTokenWhenNoNewOneIsProvided(): void
+    public function test_get_user_updates_a_user_but_does_not_erase_the_current_refresh_token_when_no_new_one_is_provided(): void
     {
         $userMock = $this->prophesize(User::class);
         $accessToken = $this->prophesize(AccessToken::class);

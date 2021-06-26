@@ -3,6 +3,8 @@
 namespace App\Tests\Service;
 
 use App\Entity\User;
+use App\Exception\GoogleException;
+use App\Exception\GoogleRefreshTokenException;
 use App\Service\GoogleOAuthService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,12 +21,9 @@ class GoogleOAuthServiceTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|Google_Client  */
-    private $googleClient;
-    /** @var ObjectProphecy|EntityManagerInterface */
-    private $em;
-    /** @var ObjectProphecy|LoggerInterface */
-    private $logger;
+    private ObjectProphecy|Google_Client $googleClient;
+    private ObjectProphecy|EntityManagerInterface $em;
+    private ObjectProphecy|LoggerInterface $logger;
 
     private GoogleOAuthService $googleOAuthService;
 
@@ -41,7 +40,11 @@ class GoogleOAuthServiceTest extends TestCase
         );
     }
 
-    public function testRefreshAccessTokenIfExpiredRefreshesTheAccessTokenWhenExpired(): void
+    /**
+     * @throws GoogleRefreshTokenException
+     * @throws GoogleException
+     */
+    public function test_refresh_access_token_if_expired_refreshes_the_access_token_when_expired(): void
     {
         ClockMock::withClockMock(true);
 
@@ -84,7 +87,11 @@ class GoogleOAuthServiceTest extends TestCase
         ClockMock::withClockMock(false);
     }
 
-    public function testRefreshAccessTokenIfExpiredDoesNothingWhenNotExpired(): void
+    /**
+     * @throws GoogleRefreshTokenException
+     * @throws GoogleException
+     */
+    public function test_refresh_access_token_if_expired_does_nothing_when_not_expired(): void
     {
         $user = $this->prophesize(User::class);
 
@@ -108,7 +115,7 @@ class GoogleOAuthServiceTest extends TestCase
         $this->googleClient->fetchAccessTokenWithRefreshToken(Argument::any())->shouldNotBeCalled();
     }
 
-    public function testRevokeRevokesTheUserToken(): void
+    public function test_revoke_revokes_the_user_token(): void
     {
         $user = $this->prophesize(User::class);
 
@@ -130,7 +137,7 @@ class GoogleOAuthServiceTest extends TestCase
         $this->em->flush()->shouldBeCalled();
     }
 
-    public function testRevokeThrowAnExceptionWhenGoogleApiCallFails(): void
+    public function test_revoke_throw_an_exception_when_google_api_call_fails(): void
     {
         $user = $this->prophesize(User::class);
 

@@ -4,13 +4,14 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="`user`")
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -242,8 +243,9 @@ class User implements UserInterface
     /**
      * {@inheritDoc}
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
+        return null;
     }
 
     /**
@@ -258,5 +260,13 @@ class User implements UserInterface
      */
     public function eraseCredentials(): void
     {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

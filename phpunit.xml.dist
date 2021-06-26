@@ -5,6 +5,7 @@
          backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
+         testdox="true"
 >
     <php>
         <ini name="error_reporting" value="-1" />

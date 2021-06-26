@@ -3,6 +3,7 @@
 namespace App\DataProvider;
 
 use App\DTO\Provider;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use function array_filter;
 
@@ -11,6 +12,9 @@ class ProviderProvider
     /** @var Provider[] */
     private array $providers;
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function __construct(array $providers, SerializerInterface $serializer)
     {
         $this->providers = $serializer->denormalize($providers, Provider::class . '[]');

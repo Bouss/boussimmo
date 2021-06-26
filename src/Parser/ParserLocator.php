@@ -7,7 +7,7 @@ use App\Exception\ParserNotFoundException;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
-class ParserContainer implements ServiceSubscriberInterface
+class ParserLocator implements ServiceSubscriberInterface
 {
     public function __construct(
         private ContainerInterface $locator
