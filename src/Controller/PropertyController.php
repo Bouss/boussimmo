@@ -33,7 +33,7 @@ class PropertyController extends AbstractController
     /**
      * @throws GmailException|GoogleException
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
         /** @var User $user */
         $user = $this->getUser();

@@ -4,6 +4,7 @@ namespace App\DataProvider;
 
 use App\DTO\EmailTemplate;
 use App\DTO\Provider;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use function array_filter;
 use function array_map;
@@ -17,6 +18,9 @@ class EmailTemplateProvider
     private array $emailTemplates;
     private ProviderProvider $providerProvider;
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function __construct(array $emailTemplates, SerializerInterface $serializer, ProviderProvider $providerProvider)
     {
         $this->emailTemplates = $serializer->denormalize($emailTemplates, EmailTemplate::class . '[]');

@@ -3,7 +3,6 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
-use Symfony\Component\DomCrawler\Crawler;
 
 class LogicImmoNeufPartnerParser extends AbstractParser
 {

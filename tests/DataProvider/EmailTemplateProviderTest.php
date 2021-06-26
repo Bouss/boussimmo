@@ -14,9 +14,7 @@ class EmailTemplateProviderTest extends KernelTestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|ProviderProvider */
-    private $providerProvider;
-
+    private ObjectProphecy|ProviderProvider $providerProvider;
     private EmailTemplateProvider $emailTemplateProvider;
 
     public function setUp(): void
@@ -57,23 +55,23 @@ class EmailTemplateProviderTest extends KernelTestCase
     /**
      * @dataProvider findDataset
      */
-    public function testFindReturnsTheGoodEmailTemplate(string $from, string $subject, ?string $expectedEmailTemplateId): void
+    public function test_find_returns_the_good_email_template(array $input, array $expected): void
     {
-        $emailTemplate = $this->emailTemplateProvider->find($from, $subject);
+        $emailTemplate = $this->emailTemplateProvider->find($input['from'], $input['subject']);
 
-        if (null !== $expectedEmailTemplateId) {
-            self::assertEquals($expectedEmailTemplateId, $emailTemplate->getName());
+        if (null !== $expectedEmailTemplateName = $expected['email_template_name']) {
+            self::assertEquals($expectedEmailTemplateName, $emailTemplate->getName());
         } else {
             self::assertNull($emailTemplate);
         }
     }
 
-    public function testGetAllAddressesReturnsAllUniqueAddresses(): void
+    public function test_get_all_addresses_returns_all_unique_addresses(): void
     {
         self::assertEquals(['p1@mail.com', 'p2@mail.com'], array_values($this->emailTemplateProvider->getAllAddresses()));
     }
 
-    public function testGetAddressesByMainProviderReturnsOneUniqueAddress(): void
+    public function test_get_addresses_by_main_provider_returns_one_unique_address(): void
     {
         $p1 = $this->prophesize(Provider::class);
         $p2 = $this->prophesize(Provider::class);
@@ -88,8 +86,32 @@ class EmailTemplateProviderTest extends KernelTestCase
 
     public function findDataset(): Generator
     {
-        yield ['P1 <p1@mail.com>', 'Une annonce', 'e1'];
-        yield ['P1 <p1@mail.com>', 'Attention exclusivité !', 'e1_neuf'];
-        yield ['Unknown', 'Une annonce', null];
+        yield 'no particular keywords' => [
+            'input' => [
+                'from' => 'P1 <p1@mail.com>',
+                'subject' => 'Une annonce',
+            ],
+            'expected' => [
+                'email_template_name' => 'e1'
+            ]
+        ];
+        yield 'particular keywords' => [
+            'input' => [
+                'from' => 'P1 <p1@mail.com>',
+                'subject' => 'Attention exclusivité !',
+            ],
+            'expected' => [
+                'email_template_name' => 'e1_neuf'
+            ]
+        ];
+        yield 'unknown provider' => [
+            'input' => [
+                'from' => 'Unknown',
+                'subject' => 'Une annonce',
+            ],
+            'expected' => [
+                'email_template_name' => null
+            ]
+        ];
     }
 }

@@ -17,46 +17,34 @@ class DecimalFormatterTest extends TestCase
 
     /**
      * @dataProvider numericDataset
-     *
-     * @param string    $input
-     * @param int|float $numeric
      */
-    public function testParseParsesNumericValuesFromDifferentInputsPatterns(string $input, $numeric): void
+    public function test_parse_parses_numeric_values_from_different_inputs_patterns(string $input, float|int $expected): void
     {
-        self::assertEquals($numeric, $this->formatter->parse($input));
+        self::assertEquals($expected, $this->formatter->parse($input));
     }
 
     /**
      * @dataProvider priceDataset
-     *
-     * @param string     $input
-     * @param float|null $price
      */
-    public function testParsePriceParsesAPriceFromDifferentInputPatterns(string $input, ?float $price): void
+    public function test_parse_price_parses_a_price_from_different_input_patterns(string $input, ?float $expected): void
     {
-        self::assertEquals($price, $this->formatter->parsePrice($input));
+        self::assertEquals($expected, $this->formatter->parsePrice($input));
     }
 
     /**
      * @dataProvider areaDataset
-     *
-     * @param string     $input
-     * @param float|null $area
      */
-    public function testParseAreaParsesAnAreaFromDifferentInputPatterns(string $input, ?float $area): void
+    public function test_parse_area_parses_an_area_from_different_input_patterns(string $input, ?float $expected): void
     {
-        self::assertEquals($area, $this->formatter->parseArea($input));
+        self::assertEquals($expected, $this->formatter->parseArea($input));
     }
 
     /**
      * @dataProvider roomsCountDataset
-     *
-     * @param string   $input
-     * @param int|null $roomsCount
      */
-    public function testParseRoomsCountParsesAnRoomsCountFromDifferentInputPatterns(string $input, ?int $roomsCount): void
+    public function test_parse_rooms_count_parses_a_room_count_from_different_input_patterns(string $input, ?int $expected): void
     {
-        self::assertEquals($roomsCount, $this->formatter->parseRoomsCount($input));
+        self::assertEquals($expected, $this->formatter->parseRoomsCount($input));
     }
 
     public function numericDataset(): Generator

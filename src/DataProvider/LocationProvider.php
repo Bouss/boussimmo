@@ -3,6 +3,7 @@
 namespace App\DataProvider;
 
 use App\DTO\City;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class LocationProvider
@@ -10,6 +11,9 @@ class LocationProvider
     /** @var City[] */
     private array $cities;
 
+    /**
+     * @throws ExceptionInterface
+     */
     public function __construct(array $cities, SerializerInterface $serializer)
     {
         $this->cities = $serializer->denormalize($cities, City::class . '[]');

@@ -25,24 +25,29 @@ class PropertyTest extends TestCase
     /**
      * @dataProvider propertyDataProvider
      */
-    public function testPropertyAdEqualsOrNotAnOtherOne(?float $price, ?float $area, bool $expected): void
+    public function test_property_ad_equals_or_not_another_one(array $input, array $expected): void
     {
-        $p = (new Property)->setPrice($price)->setArea($area);
+        $p = (new Property)
+            ->setPrice($input['price'])
+            ->setArea($input['area']);
 
-        self::assertEquals($expected, $this->property->equals($p));
+        self::assertEquals($expected['equals'], $this->property->equals($p));
     }
 
     /**
      * @dataProvider newBuildPropertyDataProvider
      */
-    public function testNewBuildPropertyAdEqualsOrNotAnOtherOne(?String $name, bool $newBuild, ?float $price, bool $expected): void
+    public function test_new_build_property_ad_equals_or_not_another_one(array $input, array $expected): void
     {
-        $p = (new Property)->setBuildingName($name)->setNewBuild($newBuild)->setPrice($price);
+        $p = (new Property)
+            ->setBuildingName($input['name'])
+            ->setNewBuild($input['new_build'])
+            ->setPrice($input['price']);
 
-        self::assertEquals($expected, $this->newBuildProperty->equals($p));
+        self::assertEquals($expected['equals'], $this->newBuildProperty->equals($p));
     }
 
-    public function testEqualReturnsFalseWhenThePriceIsEqualButSoCommon(): void
+    public function test_equals_returns_false_when_the_price_is_equal_but_also_so_common(): void
     {
         $p1 = (new Property)->setPrice(200000)->setArea(null);
         $p2 = (new Property)->setPrice(200000)->setArea(55);
@@ -52,20 +57,113 @@ class PropertyTest extends TestCase
 
     public function propertyDataProvider(): Generator
     {
-        yield [200456, 55, true];
-        yield [200456, 54, true];
-        yield [200000, 55, false];
-        yield [200456, 85, false];
-        yield [null, 55, false];
-        yield [200456, null, true];
+        yield 'same price, same area' => [
+            'input' => [
+                'price' => 200456,
+                'area' => 55
+            ],
+            'expected' => [
+                'equals' => true
+            ]
+        ];
+        yield 'same price, almost same area' => [
+            'input' => [
+                'price' => 200456,
+                'area' => 54
+            ],
+            'expected' => [
+                'equals' => true
+            ]
+        ];
+        yield 'different price, same area' => [
+            'input' => [
+                'price' => 200000,
+                'area' => 55
+            ],
+            'expected' => [
+                'equals' => false
+            ]
+        ];
+        yield 'same price, different area' => [
+            'input' => [
+                'price' => 200456,
+                'area' => 85
+            ],
+            'expected' => [
+                'equals' => false
+            ]
+        ];
+        yield 'no price, same area' => [
+            'input' => [
+                'price' => null,
+                'area' => 55
+            ],
+            'expected' => [
+                'equals' => false
+            ]
+        ];
+        yield 'same price, no area' => [
+            'input' => [
+                'price' => 200456,
+                'area' => null
+            ],
+            'expected' => [
+                'equals' => true
+            ]
+        ];
     }
 
     public function newBuildPropertyDataProvider(): Generator
     {
-        yield ['High Gardens', true, null, true];
-        yield ['High Gardens', true, 300000, true];
-        yield ['High Gardens', false, null, false];
-        yield ['Sea and Sun', true, null, false];
-        yield [null, true, null, false];
+        yield 'same name, new-build, no price' => [
+            'input' => [
+                'name' => 'High Gardens',
+                'new_build' => true,
+                'price' => null
+            ],
+            'expected' => [
+                'equals' => true
+            ]
+        ];
+        yield 'same name, new-build, different price' => [
+            'input' => [
+                'name' => 'High Gardens',
+                'new_build' => true,
+                'price' => 300000
+            ],
+            'expected' => [
+                'equals' => true
+            ]
+        ];
+        yield 'same name, not new-build, no price' => [
+            'input' => [
+                'name' => 'High Gardens',
+                'new_build' => false,
+                'price' => null
+            ],
+            'expected' => [
+                'equals' => false
+            ]
+        ];
+        yield 'different name, new-build, no price' => [
+            'input' => [
+                'name' => 'Sea and Sun',
+                'new_build' => true,
+                'price' => null
+            ],
+            'expected' => [
+                'equals' => false
+            ]
+        ];
+        yield 'no name, new-build, no price' => [
+            'input' => [
+                'name' => null,
+                'new_build' => true,
+                'price' => null
+            ],
+            'expected' => [
+                'equals' => false
+            ]
+        ];
     }
 }

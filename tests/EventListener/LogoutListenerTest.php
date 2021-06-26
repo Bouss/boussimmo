@@ -15,8 +15,7 @@ class LogoutListenerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ObjectProphecy|GoogleOAuthService */
-    private $oAuthService;
+    private ObjectProphecy|GoogleOAuthService $oAuthService;
 
     private LogoutListener $logoutListener;
 
@@ -27,7 +26,7 @@ class LogoutListenerTest extends TestCase
         $this->logoutListener = new LogoutListener($this->oAuthService->reveal());
     }
 
-    public function testOnLogoutRevokesTheUserTokens(): void
+    public function test_on_logout_revokes_the_user_tokens(): void
     {
         $event = $this->prophesize(LogoutEvent::class);
         $token = $this->prophesize(TokenInterface::class);

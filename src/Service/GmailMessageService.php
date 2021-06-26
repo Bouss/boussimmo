@@ -5,8 +5,6 @@ namespace App\Service;
 use App\Util\StringUtil;
 use DateTime;
 use Google_Service_Gmail_Message;
-use Google_Service_Gmail_MessagePart;
-use Google_Service_Gmail_MessagePartHeader;
 use function Symfony\Component\String\u;
 
 class GmailMessageService
@@ -15,7 +13,6 @@ class GmailMessageService
     {
         $headers = [];
 
-        /** @var  Google_Service_Gmail_MessagePartHeader $header */
         foreach ($message->getPayload()->getHeaders() as $header) {
             if ('From' === $header->name) {
                 $headers['from'] = $header->value;
@@ -46,7 +43,6 @@ class GmailMessageService
             $html .= StringUtil::base64UrlDecode($body);
         }
 
-        /** @var Google_Service_Gmail_MessagePart $part */
         foreach ($message->getPayload()->getParts() as $part) {
             if ('text/html' === $part->getMimeType() && null !== $body = $part->getBody()->getData()) {
                 $html .= StringUtil::base64UrlDecode($body);

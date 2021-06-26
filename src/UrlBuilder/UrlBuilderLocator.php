@@ -7,7 +7,7 @@ use App\Exception\UrlBuilderNotFoundException;
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 
-class UrlBuilderContainer implements ServiceSubscriberInterface
+class UrlBuilderLocator implements ServiceSubscriberInterface
 {
     public function __construct(
         private ContainerInterface $locator

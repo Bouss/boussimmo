@@ -11,7 +11,7 @@ use App\Exception\GoogleException;
 use App\Exception\GoogleRefreshTokenException;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
-use App\Parser\ParserContainer;
+use App\Parser\ParserLocator;
 use Psr\Log\LoggerInterface;
 use function array_merge;
 
@@ -23,7 +23,7 @@ class PropertyService
         private GmailClient $gmailClient,
         private GmailMessageService $gmailMessageService,
         private GoogleOAuthService $googleOAuthService,
-        private ParserContainer $parserContainer,
+        private ParserLocator $parserLocator,
         private EmailTemplateProvider $emailTemplateProvider,
         private LoggerInterface $logger
     ) {}
@@ -66,7 +66,7 @@ class PropertyService
 
             // Parse the HTML content to extract properties
             try {
-                $properties[] = $this->parserContainer->get($emailTemplate->getName())->parse($html, $criteria, [
+                $properties[] = $this->parserLocator->get($emailTemplate->getName())->parse($html, $criteria, [
                     'email_template' => $emailTemplate->getName(),
                     'date' => $headers['date']
                 ]);

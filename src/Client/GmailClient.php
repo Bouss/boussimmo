@@ -18,8 +18,6 @@ class GmailClient
     ) {}
 
     /**
-     * @return array
-     *
      * @throws GmailException
      */
     public function getMessages(array $criteria, string $accessToken, string $userId = 'me'): array
