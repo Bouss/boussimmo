@@ -7,7 +7,7 @@ use App\DTO\Property;
 use App\DTO\PropertyAd;
 use App\Enum\PropertyFilter;
 use App\Exception\ParseException;
-use App\Formatter\DecimalFormatter;
+use App\Util\NumericUtil;
 use DateTime;
 use Exception;
 use Psr\Log\LoggerInterface;
@@ -31,11 +31,10 @@ abstract class AbstractParser implements ParserInterface
     protected const SELECTOR_PHOTO         = 'img:first-child';
     protected const SELECTOR_URL           = 'a:first-child';
 
-    private const NEW_BUILD_WORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
+    private const NEW_BUILD_KEYWORDS = ['neuf', 'livraison', 'programme', 'neuve', 'nouveau', 'nouvelle', 'remise'];
 
     public function __construct(
         private ProviderProvider $providerProvider,
-        protected DecimalFormatter $formatter,
         protected LoggerInterface $logger
     ) {}
 
@@ -60,9 +59,7 @@ abstract class AbstractParser implements ParserInterface
         }
 
         // Filter the properties
-        $properties = array_filter($properties, static fn(Property $ad) => isset($filters[PropertyFilter::NEW_BUILD]) ? $ad->isNewBuild() : true);
-
-        return $properties;
+        return array_filter($properties, static fn(Property $ad) => isset($filters[PropertyFilter::NEW_BUILD]) ? $ad->isNewBuild() : true);
     }
 
     /**
@@ -80,7 +77,7 @@ abstract class AbstractParser implements ParserInterface
     protected function parsePrice(Crawler $crawler): ?float
     {
         if (null === static::SELECTOR_PRICE) {
-            return $this->formatter->parsePrice($crawler->html());
+            return NumericUtil::parsePrice($crawler->html());
         }
 
         try {
@@ -89,13 +86,13 @@ abstract class AbstractParser implements ParserInterface
             return null;
         }
 
-        return $this->formatter->parsePrice($priceStr);
+        return NumericUtil::parsePrice($priceStr);
     }
 
     protected function parseArea(Crawler $crawler): ?float
     {
         if (null === static::SELECTOR_AREA) {
-            return $this->formatter->parseArea($crawler->html());
+            return NumericUtil::parseArea($crawler->html());
         }
 
         try {
@@ -104,13 +101,13 @@ abstract class AbstractParser implements ParserInterface
             return null;
         }
 
-        return $this->formatter->parseArea($areaStr);
+        return NumericUtil::parseArea($areaStr);
     }
 
     protected function parseRoomsCount(Crawler $crawler): ?int
     {
         if (null === static::SELECTOR_ROOMS_COUNT) {
-            return $this->formatter->parseRoomsCount($crawler->html());
+            return NumericUtil::parseRoomsCount($crawler->html());
         }
 
         try {
@@ -119,7 +116,7 @@ abstract class AbstractParser implements ParserInterface
             return null;
         }
 
-        return $this->formatter->parseRoomsCount($roomsCountStr);
+        return NumericUtil::parseRoomsCount($roomsCountStr);
     }
 
     protected function parseLocation(Crawler $crawler): ?string
@@ -222,7 +219,7 @@ abstract class AbstractParser implements ParserInterface
         if ((null !== $provider = $this->providerProvider->find(static::PROVIDER)) && $provider->isNewBuildOnly()) {
             $property->setNewBuild(true);
         } else {
-            $property->setNewBuild(u($propertyAd->getTitle() . $propertyAd->getDescription())->containsAny(self::NEW_BUILD_WORDS));
+            $property->setNewBuild(u($propertyAd->getTitle() . $propertyAd->getDescription())->containsAny(self::NEW_BUILD_KEYWORDS));
         }
 
         return $property;

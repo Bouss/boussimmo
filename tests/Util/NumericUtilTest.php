@@ -1,34 +1,19 @@
 <?php
 
-namespace App\Tests\Formatter;
+namespace App\Tests\Util;
 
-use App\Formatter\DecimalFormatter;
+use App\Util\NumericUtil;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-class DecimalFormatterTest extends TestCase
+class NumericUtilTest extends TestCase
 {
-    private DecimalFormatter $formatter;
-
-    public function setUp(): void
-    {
-        $this->formatter = new DecimalFormatter();
-    }
-
-    /**
-     * @dataProvider numericDataset
-     */
-    public function test_parse_parses_numeric_values_from_different_inputs_patterns(string $input, float|int $expected): void
-    {
-        self::assertEquals($expected, $this->formatter->parse($input));
-    }
-
     /**
      * @dataProvider priceDataset
      */
     public function test_parse_price_parses_a_price_from_different_input_patterns(string $input, ?float $expected): void
     {
-        self::assertEquals($expected, $this->formatter->parsePrice($input));
+        self::assertEquals($expected, NumericUtil::parsePrice($input));
     }
 
     /**
@@ -36,7 +21,7 @@ class DecimalFormatterTest extends TestCase
      */
     public function test_parse_area_parses_an_area_from_different_input_patterns(string $input, ?float $expected): void
     {
-        self::assertEquals($expected, $this->formatter->parseArea($input));
+        self::assertEquals($expected, NumericUtil::parseArea($input));
     }
 
     /**
@@ -44,14 +29,7 @@ class DecimalFormatterTest extends TestCase
      */
     public function test_parse_rooms_count_parses_a_room_count_from_different_input_patterns(string $input, ?int $expected): void
     {
-        self::assertEquals($expected, $this->formatter->parseRoomsCount($input));
-    }
-
-    public function numericDataset(): Generator
-    {
-        yield ['420000', 420000];
-        yield ['420 000', 420000];
-        yield ['420 000,3', 420000.3];
+        self::assertEquals($expected, NumericUtil::parseRoomsCount($input));
     }
 
     public function priceDataset(): Generator
@@ -60,6 +38,7 @@ class DecimalFormatterTest extends TestCase
         yield ['<foo>420000€</foo>', 420000.0];
         yield ['foo 420000€ bar', 420000.0];
         yield ['foo 420 000€ bar', 420000.0];
+        yield ['foo 420 000€ bar', 420000.0];
         yield ['foo 420 000 € bar', 420000.0];
         yield ['foo 420 000,3€ bar', 420000.3];
         yield ['foo 420 000 euro bar', 420000.0];
@@ -69,14 +48,15 @@ class DecimalFormatterTest extends TestCase
 
     public function areaDataset(): Generator
     {
-        yield ['42m²', 42.0];
-        yield ['<foo>42m²</foo>', 42.0];
-        yield ['foo 42m² bar', 42.0];
-        yield ['foo 42 m² bar', 42.0];
-        yield ['foo 42,3 m² bar', 42.3];
-        yield ['foo 42 m2 bar', 42.0];
-        yield ['123€ 42 m² 456', 42.0];
-        yield ['foo 42 bar', null];
+        yield ['4200m²', 4200.0];
+        yield ['<foo>4200m²</foo>', 4200.0];
+        yield ['foo 4200m² bar', 4200.0];
+        yield ['foo 4 200 m² bar', 4200.0];
+        yield ['foo 4 200 m² bar', 4200.0];
+        yield ['foo 4 200,3 m² bar', 4200.3];
+        yield ['foo 4 200 m2 bar', 4200.0];
+        yield ['123€ 4 200 m² 456', 4200.0];
+        yield ['foo 4 200 bar', null];
     }
 
     public function roomsCountDataset(): Generator

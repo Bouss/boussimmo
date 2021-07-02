@@ -4,7 +4,6 @@ namespace App\Tests\Parser;
 
 use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
-use App\Formatter\DecimalFormatter;
 use App\Parser\LeBonCoinParser;
 use DateTime;
 use Prophecy\Argument;
@@ -29,7 +28,7 @@ class LeBonCoinParserTest extends KernelTestCase
         $this->providerProvider = $this->prophesize(ProviderProvider::class);
         $logger = $this->prophesize(LoggerInterface::class);
 
-        $this->parser = new LeBonCoinParser($this->providerProvider->reveal(), new DecimalFormatter(), $logger->reveal());
+        $this->parser = new LeBonCoinParser($this->providerProvider->reveal(), $logger->reveal());
     }
 
     public function test_parse_creates_a_property_from_an_email(): void
@@ -47,9 +46,9 @@ class LeBonCoinParserTest extends KernelTestCase
         // Then
         self::assertCount(1, $properties);
         $p = $properties[0];
-        self::assertEquals('Appartement 3 pièces 58 m²', $p->getAd()->getTitle());
-        self::assertEquals(3, $p->getRoomsCount());
-        self::assertEquals(58, $p->getArea());
+        self::assertEquals('Maison - 4 pièces - 73.91m²', $p->getAd()->getTitle());
+        self::assertEquals(4, $p->getRoomsCount());
+        self::assertEquals(73.91, $p->getArea());
         self::assertEquals('Bouguenais 44340', $p->getLocation());
         self::assertEquals(221550, $p->getPrice());
         self::assertEquals('leboncoin', $p->getAd()->getProvider());

@@ -4,7 +4,6 @@ namespace App\Tests\Parser;
 
 use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
-use App\Formatter\DecimalFormatter;
 use App\Parser\SeLogerParser;
 use DateTime;
 use Prophecy\Argument;
@@ -29,7 +28,7 @@ class SeLogerParserTest extends KernelTestCase
         $this->providerProvider = $this->prophesize(ProviderProvider::class);
         $logger = $this->prophesize(LoggerInterface::class);
 
-        $this->parser = new SeLogerParser($this->providerProvider->reveal(), new DecimalFormatter(), $logger->reveal());
+        $this->parser = new SeLogerParser($this->providerProvider->reveal(), $logger->reveal());
     }
 
     public function test_parse_creates_a_property_from_an_email(): void
@@ -50,7 +49,7 @@ class SeLogerParserTest extends KernelTestCase
         self::assertEquals(167715, $p->getPrice());
         self::assertEquals(3, $p->getRoomsCount());
         self::assertEquals(54, $p->getArea());
-        self::assertEquals('Nantes (44300)', $p->getLocation());
+        self::assertEquals('St Sebastien sur Loire (44230)', $p->getLocation());
         self::assertEquals('seloger', $p->getAd()->getProvider());
         self::assertFalse($p->isNewBuild());
         self::assertNotNull($p->getAd()->getUrl());

@@ -10,14 +10,22 @@ let $resultContainer = $('#result-container');
 $form.on('submit', function (e) {
     e.preventDefault();
 
+    // Remove thousand separators before sending
+    let data = $form
+        .find(':input').filter(function () {
+            return '' !== $(this).val();
+        })
+        .serializeArray()
+        .map((input) => {
+            input.value = input.value.replace(/\s+/, '');
+
+            return input;
+        });
+
     $.ajax({
         type: 'GET',
         url: Routing.generate('provider_result_urls'),
-        data: $form
-            .find(':input').filter(function () {
-                return '' !== $(this).val();
-            })
-            .serialize(),
+        data: data,
         success: function (urls) {
             if (!$resultContainer.length) {
                 $form.parent().after('<div id="result-container"></div>');
