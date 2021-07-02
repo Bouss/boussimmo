@@ -3,6 +3,7 @@
 namespace App\Parser;
 
 use App\Enum\Provider;
+use App\Util\NumericUtil;
 use Symfony\Component\DomCrawler\Crawler;
 
 class PapParser extends AbstractParser
@@ -31,7 +32,7 @@ class PapParser extends AbstractParser
      */
     protected function parsePrice(Crawler $crawler): ?float
     {
-        return $this->formatter->parsePrice(str_replace('.', '', $crawler->html()));
+        return NumericUtil::parsePrice(str_replace('.', '', $crawler->html()));
     }
 
     /**

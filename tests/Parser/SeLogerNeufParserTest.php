@@ -4,7 +4,6 @@ namespace App\Tests\Parser;
 
 use App\DataProvider\ProviderProvider;
 use App\DTO\Provider;
-use App\Formatter\DecimalFormatter;
 use App\Parser\SeLogerNeufParser;
 use DateTime;
 use Prophecy\Argument;
@@ -29,7 +28,7 @@ class SeLogerNeufParserTest extends KernelTestCase
         $this->providerProvider = $this->prophesize(ProviderProvider::class);
         $logger = $this->prophesize(LoggerInterface::class);
 
-        $this->parser = new SeLogerNeufParser($this->providerProvider->reveal(), new DecimalFormatter(), $logger->reveal());
+        $this->parser = new SeLogerNeufParser($this->providerProvider->reveal(), $logger->reveal());
     }
 
     public function test_parse_creates_a_property_from_an_email(): void

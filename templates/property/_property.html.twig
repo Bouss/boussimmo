@@ -21,8 +21,12 @@
             </p>
             <p class="location">
                 <i class="fas fa-map-marker-alt fa-fw"></i>
-                {% if property.buildingName is not null %}<span class="name">{{ property.buildingName|upper }}</span>,&nbsp;{% endif %}
-                {{ property.location }}
+                {% if property.buildingName is null and property.location is null %}
+                    N/A
+                {% else %}
+                    {% if property.buildingName is not null %}<span class="name">{{ property.buildingName|upper }}</span>,&nbsp;{% endif %}
+                    {{ property.location }}
+                {% endif %}
             </p>
             <img class="provider-logo" src="{{ asset('build/images/providers/' ~ property.ad|provider_logo) }}" alt="{{ property.ad.provider }}">
         </div>

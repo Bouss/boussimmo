@@ -19,7 +19,7 @@ class SeLogerParser extends AbstractParser
     {
         $description = parent::parseLocation($crawler);
 
-        if (1 === preg_match('/\s([-\w]+\s\(\d+\))/u', $description,$matches)) {
+        if (1 === preg_match('/m²\s([-\w\s]+\s\(\d+\))/u', $description,$matches)) {
             return trim($matches[1]);
         }
 
