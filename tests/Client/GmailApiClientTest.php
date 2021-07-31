@@ -2,9 +2,9 @@
 
 namespace App\Tests\Client;
 
-use App\Client\GmailClient;
+use App\Client\GmailApiClient;
 use App\DataProvider\EmailTemplateProvider;
-use App\Exception\GmailException;
+use App\Exception\GmailApiException;
 use Generator;
 use Google_Client;
 use Google_Service_Gmail;
@@ -15,26 +15,26 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 
-class GmailClientTest extends TestCase
+class GmailApiClientTest extends TestCase
 {
     use ProphecyTrait;
 
     private ObjectProphecy|Google_Service_Gmail $gmailService;
     private ObjectProphecy|EmailTemplateProvider $emailTemplateProvider;
-    private GmailClient $gmailClient;
+    private GmailApiClient $gmailApiClient;
 
     public function setUp(): void
     {
         $this->gmailService = $this->prophesize(Google_Service_Gmail::class);
         $this->emailTemplateProvider = $this->prophesize(EmailTemplateProvider::class);
 
-        $this->gmailClient = new GmailClient($this->gmailService->reveal(), $this->emailTemplateProvider->reveal());
+        $this->gmailApiClient = new GmailApiClient($this->gmailService->reveal(), $this->emailTemplateProvider->reveal());
     }
 
     /**
      * @dataProvider queryDataset
      *
-     * @throws GmailException
+     * @throws GmailApiException
      */
     public function test_build_messages_query_creates_correct_query_params(array $input, array $expected): void
     {
@@ -58,7 +58,7 @@ class GmailClientTest extends TestCase
         $response->getNextPageToken()->willReturn(null);
 
         // When
-        $this->gmailClient->getMessages($input['criteria'], '123456789');
+        $this->gmailApiClient->getMessages($input['criteria'], '123456789');
 
         // Then
         $usersMessages->listUsersMessages('me', $expected['query_params'])->shouldBeCalled();

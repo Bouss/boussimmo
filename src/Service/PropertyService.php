@@ -2,11 +2,11 @@
 
 namespace App\Service;
 
-use App\Client\GmailClient;
+use App\Client\GmailApiClient;
 use App\DataProvider\EmailTemplateProvider;
 use App\DTO\Property;
 use App\Entity\User;
-use App\Exception\GmailException;
+use App\Exception\GmailApiException;
 use App\Exception\GoogleException;
 use App\Exception\GoogleRefreshTokenException;
 use App\Exception\ParseException;
@@ -20,7 +20,7 @@ class PropertyService
     private const ORDER_ASC = 1;
 
     public function __construct(
-        private GmailClient $gmailClient,
+        private GmailApiClient $gmailApiClient,
         private GmailMessageService $gmailMessageService,
         private GoogleOAuthService $googleOAuthService,
         private ParserLocator $parserLocator,
@@ -31,7 +31,7 @@ class PropertyService
     /**
      * @return Property[]
      *
-     * @throws GmailException|GoogleException|GoogleRefreshTokenException|ParserNotFoundException
+     * @throws GmailApiException|GoogleException|GoogleRefreshTokenException|ParserNotFoundException
      */
     public function find(User $user, array $criteria, array $sort): array
     {
@@ -41,25 +41,32 @@ class PropertyService
         $accessToken = $this->googleOAuthService->refreshAccessTokenIfExpired($user);
 
         // Fetch the Gmail messages IDs matching the user criteria
-        $messages = $this->gmailClient->getMessages($criteria, $accessToken);
+        $messages = $this->gmailApiClient->getMessages($criteria, $accessToken);
 
         foreach ($messages as $message) {
+
             try {
-                $message = $this->gmailClient->getMessage($message['id']);
-            } catch (GmailException $e) {
-                $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), ['message_id' => $message['id']]);
+                $message = $this->gmailApiClient->getMessage($message->id);
+            } catch (GmailApiException $e) {
+                $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), [
+                    'message_id' => $message->id,
+                ]);
 
                 continue;
             }
 
+            $createdAt = $this->gmailMessageService->getCreatedAt($message);
             $headers = $this->gmailMessageService->getHeaders($message);
             $html = $this->gmailMessageService->getHtml($message);
+
+            // For logging needs
+            $context = array_merge($headers, ['created_at' => $createdAt]);
 
             // Find the email template matching the email headers
             $emailTemplate = $this->emailTemplateProvider->find($headers['from'], $headers['subject']);
 
             if (null === $emailTemplate) {
-                $this->logger->error('No email template found', $headers);
+                $this->logger->error('No email template found', $context);
 
                 continue;
             }
@@ -68,10 +75,10 @@ class PropertyService
             try {
                 $properties[] = $this->parserLocator->get($emailTemplate->getName())->parse($html, $criteria, [
                     'email_template' => $emailTemplate->getName(),
-                    'date' => $headers['date']
+                    'date' => $createdAt
                 ]);
             } catch (ParseException $e) {
-                $this->logger->error($e->getMessage(), array_merge($headers, ['email_template' => $emailTemplate->getName()]));
+                $this->logger->error($e->getMessage(), array_merge($context, ['email_template' => $emailTemplate->getName()]));
 
                 continue;
             }

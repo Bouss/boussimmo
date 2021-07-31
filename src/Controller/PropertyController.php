@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use App\Client\GmailClient;
+use App\Client\GmailApiClient;
 use App\Entity\User;
 use App\Enum\PropertyFilter;
-use App\Exception\GmailException;
+use App\Exception\GmailApiException;
 use App\Exception\GoogleException;
 use App\Exception\GoogleRefreshTokenException;
 use App\Service\GoogleOAuthService;
 use App\Service\PropertyService;
 use App\Service\PropertySortResolver;
 use Exception;
-use Google_Service_Gmail_Label;
+use Google\Service\Gmail\Label;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PropertyController extends AbstractController
 {
     public function __construct(
-        private GmailClient $gmailClient,
+        private GmailApiClient $gmailClient,
         private GoogleOAuthService $googleOAuthService,
         private PropertyService $propertyService,
         private PropertySortResolver $sortResolver,
@@ -31,7 +31,7 @@ class PropertyController extends AbstractController
     ) {}
 
     /**
-     * @throws GmailException|GoogleException
+     * @throws GmailApiException|GoogleException
      */
     public function index(): Response
     {
@@ -91,14 +91,14 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * @param Google_Service_Gmail_Label[] $labels
+     * @param Label[] $labels
      */
     private function getGmailLabelChoices(array $labels): array
     {
         $choices = [];
 
         foreach ($labels as $label) {
-            $choices[$label->getName()] = $label->getId();
+            $choices[$label->name] = $label->id;
         }
 
         return $choices;
