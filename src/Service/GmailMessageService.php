@@ -4,12 +4,17 @@ namespace App\Service;
 
 use App\Util\StringUtil;
 use DateTime;
-use Google_Service_Gmail_Message;
+use Google\Service\Gmail\Message;
 use function Symfony\Component\String\u;
 
 class GmailMessageService
 {
-    public function getHeaders(Google_Service_Gmail_Message $message): array
+    public function getCreatedAt(Message $message): DateTime
+    {
+        return new DateTime(sprintf('@%d', $message->internalDate / 1000));
+    }
+
+    public function getHeaders(Message $message): array
     {
         $headers = [];
 
@@ -18,15 +23,11 @@ class GmailMessageService
                 $headers['from'] = $header->value;
             }
 
-            if ('Date' === $header->name) {
-                $headers['date'] = new DateTime($header->value);
-            }
-
             if ('Subject' === $header->name) {
                 $headers['subject'] = $header->value;
             }
 
-            if (3 === count($headers)) {
+            if (2 === count($headers)) {
                 break;
             }
         }
@@ -34,7 +35,7 @@ class GmailMessageService
         return $headers;
     }
 
-    public function getHtml(Google_Service_Gmail_Message $message): string
+    public function getHtml(Message $message): string
     {
         $html = '';
         $payload = $message->getPayload();

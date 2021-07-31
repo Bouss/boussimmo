@@ -4,6 +4,6 @@ namespace App\Exception;
 
 use Exception;
 
-class GmailException extends Exception
+class GmailApiException extends Exception
 {
 }

@@ -4,13 +4,13 @@ namespace App\Client;
 
 use App\DataProvider\EmailTemplateProvider;
 use App\Enum\PropertyFilter;
-use App\Exception\GmailException;
+use App\Exception\GmailApiException;
 use Exception;
+use Google\Service\Gmail\Label;
+use Google\Service\Gmail\Message;
 use Google_Service_Gmail;
-use Google_Service_Gmail_Label;
-use Google_Service_Gmail_Message;
 
-class GmailClient
+class GmailApiClient
 {
     public function __construct(
         private Google_Service_Gmail $gmailService,
@@ -18,7 +18,9 @@ class GmailClient
     ) {}
 
     /**
-     * @throws GmailException
+     * @return Message[]
+     *
+     * @throws GmailApiException
      */
     public function getMessages(array $criteria, string $accessToken, string $userId = 'me'): array
     {
@@ -39,7 +41,7 @@ class GmailClient
             try {
                 $response = $this->gmailService->users_messages->listUsersMessages($userId, $params);
             } catch (Exception $e) {
-                throw new GmailException($e->getMessage());
+                throw new GmailApiException($e->getMessage());
             }
 
             $messages[] = $response->getMessages();
@@ -50,21 +52,21 @@ class GmailClient
     }
 
     /**
-     * @throws GmailException
+     * @throws GmailApiException
      */
-    public function getMessage(string $messageId, string $userId = 'me'): Google_Service_Gmail_Message
+    public function getMessage(string $messageId, string $userId = 'me'): Message
     {
         try {
             return $this->gmailService->users_messages->get($userId, $messageId);
         } catch (Exception $e) {
-            throw new GmailException($e->getMessage());
+            throw new GmailApiException($e->getMessage());
         }
     }
 
     /**
-     * @return Google_Service_Gmail_Label[]
+     * @return Label[]
      *
-     * @throws GmailException
+     * @throws GmailApiException
      */
     public function getLabels(string $accessToken, string $userId = 'me'): array
     {
@@ -73,7 +75,7 @@ class GmailClient
         try {
             return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();
         } catch (Exception $e) {
-            throw new GmailException($e->getMessage());
+            throw new GmailApiException($e->getMessage());
         }
     }
 
