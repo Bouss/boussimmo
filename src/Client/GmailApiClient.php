@@ -5,6 +5,7 @@ namespace App\Client;
 use App\DataProvider\EmailTemplateProvider;
 use App\Enum\PropertyFilter;
 use App\Exception\GmailApiException;
+use App\Exception\GoogleInsufficientPermissionException;
 use Exception;
 use Google\Service\Gmail\Label;
 use Google\Service\Gmail\Message;
@@ -20,7 +21,7 @@ class GmailApiClient
     /**
      * @return Message[]
      *
-     * @throws GmailApiException
+     * @throws GmailApiException|GoogleInsufficientPermissionException
      */
     public function getMessages(array $criteria, string $accessToken, string $userId = 'me'): array
     {
@@ -41,7 +42,13 @@ class GmailApiClient
             try {
                 $response = $this->gmailService->users_messages->listUsersMessages($userId, $params);
             } catch (Exception $e) {
-                throw new GmailApiException($e->getMessage());
+                $error = json_decode($e->getMessage(), true);
+
+                if (403 === $error['error']['code']) {
+                    throw new GoogleInsufficientPermissionException($error['error']['message']);
+                }
+
+                throw new GmailApiException($error['error']['message']);
             }
 
             $messages[] = $response->getMessages();
@@ -52,21 +59,27 @@ class GmailApiClient
     }
 
     /**
-     * @throws GmailApiException
+     * @throws GmailApiException|GoogleInsufficientPermissionException
      */
     public function getMessage(string $messageId, string $userId = 'me'): Message
     {
         try {
             return $this->gmailService->users_messages->get($userId, $messageId);
         } catch (Exception $e) {
-            throw new GmailApiException($e->getMessage());
+            $error = json_decode($e->getMessage(), true);
+
+            if (403 === $error['error']['code']) {
+                throw new GoogleInsufficientPermissionException($error['error']['message']);
+            }
+
+            throw new GmailApiException($error['error']['message']);
         }
     }
 
     /**
      * @return Label[]
      *
-     * @throws GmailApiException
+     * @throws GmailApiException|GoogleInsufficientPermissionException
      */
     public function getLabels(string $accessToken, string $userId = 'me'): array
     {
@@ -75,7 +88,13 @@ class GmailApiClient
         try {
             return $this->gmailService->users_labels->listUsersLabels($userId)->getLabels();
         } catch (Exception $e) {
-            throw new GmailApiException($e->getMessage());
+            $error = json_decode($e->getMessage(), true);
+
+            if (403 === $error['error']['code']) {
+                throw new GoogleInsufficientPermissionException($error['error']['message']);
+            }
+
+            throw new GmailApiException($error['error']['message']);
         }
     }
 
