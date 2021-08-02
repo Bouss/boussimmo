@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Enum\PropertyFilter;
 use App\Exception\GmailApiException;
 use App\Exception\GoogleException;
+use App\Exception\GoogleInsufficientPermissionException;
 use App\Exception\GoogleRefreshTokenException;
 use App\Service\GoogleOAuthService;
 use App\Service\PropertyService;
@@ -47,7 +48,14 @@ class PropertyController extends AbstractController
             return $this->redirectToRoute('app_logout');
         }
 
-        $labels = $this->gmailClient->getLabels($accessToken);
+        try {
+            $labels = $this->gmailClient->getLabels($accessToken);
+        } catch (GoogleInsufficientPermissionException $e) {
+            $this->logger->error('Failed to get the Gmail labels: ' . $e->getMessage());
+
+            return $this->redirectToRoute('app_logout');
+        }
+
         $settings = $user->getPropertySearchSettings();
 
         return $this->render('property/index.html.twig', [
@@ -77,8 +85,8 @@ class PropertyController extends AbstractController
 
         try {
             $properties = $this->propertyService->find($user, $filters, $this->sortResolver->resolve($sort));
-        } catch (GoogleRefreshTokenException $e) {
-            $this->logger->error('Failed to refresh the access token: ' . $e->getMessage());
+        } catch (GoogleRefreshTokenException|GoogleInsufficientPermissionException $e) {
+            $this->logger->error('Failed to get the Gmail messages: ' . $e->getMessage());
 
             return $this->redirectToRoute('app_logout');
         } catch (Exception $e) {

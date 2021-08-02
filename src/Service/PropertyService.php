@@ -8,10 +8,12 @@ use App\DTO\Property;
 use App\Entity\User;
 use App\Exception\GmailApiException;
 use App\Exception\GoogleException;
+use App\Exception\GoogleInsufficientPermissionException;
 use App\Exception\GoogleRefreshTokenException;
 use App\Exception\ParseException;
 use App\Exception\ParserNotFoundException;
 use App\Parser\ParserLocator;
+use Exception;
 use Psr\Log\LoggerInterface;
 use function array_merge;
 
@@ -31,7 +33,7 @@ class PropertyService
     /**
      * @return Property[]
      *
-     * @throws GmailApiException|GoogleException|GoogleRefreshTokenException|ParserNotFoundException
+     * @throws GmailApiException|GoogleException|GoogleRefreshTokenException|GoogleInsufficientPermissionException|ParserNotFoundException
      */
     public function find(User $user, array $criteria, array $sort): array
     {
@@ -47,7 +49,7 @@ class PropertyService
 
             try {
                 $message = $this->gmailApiClient->getMessage($message->id);
-            } catch (GmailApiException $e) {
+            } catch (Exception $e) {
                 $this->logger->error('Error while retrieving a message: ' . $e->getMessage(), [
                     'message_id' => $message->id,
                 ]);
